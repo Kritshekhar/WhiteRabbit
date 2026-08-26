@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>White Rabbit</title>
+<meta name="description" content="White Rabbit — countdown to systems, security, databases and software-engineering conference CFP deadlines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐇</text></svg>">
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">🐇</span>
+      <div>
+        <h1>White Rabbit</h1>
+        <p class="brand-sub">Conference CFP deadlines · <span id="updated">loading…</span></p>
+      </div>
+    </div>
+    <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle colour theme">
+      <span class="theme-icon" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="stats" aria-label="Summary">
+    <article class="tile tile-hero">
+      <p class="tile-label" id="stat-next-label">Next up</p>
+      <p class="tile-value" id="stat-next-venue">—</p>
+      <p class="tile-note" id="stat-next-detail">—</p>
+    </article>
+    <article class="tile">
+      <p class="tile-label">Due within 30 days</p>
+      <p class="tile-value" id="stat-soon">—</p>
+      <p class="tile-note">across all tiers</p>
+    </article>
+    <article class="tile">
+      <p class="tile-label">Due within 90 days</p>
+      <p class="tile-value" id="stat-quarter">—</p>
+      <p class="tile-note">plan the quarter</p>
+    </article>
+    <article class="tile">
+      <p class="tile-label">Venues tracked</p>
+      <p class="tile-value" id="stat-total">—</p>
+      <p class="tile-note" id="stat-breakdown">—</p>
+    </article>
+  </section>
+
+  <section class="controls" aria-label="Filters">
+    <div class="search">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input id="search" type="search" placeholder="Search venue, e.g. OSDI or storage" autocomplete="off" aria-label="Search venues">
+    </div>
+    <div class="chips" id="tier-filter" role="group" aria-label="Filter by tier">
+      <button class="chip is-active" data-tier="all" type="button">All</button>
+      <button class="chip" data-tier="tier1" type="button">Tier-1</button>
+      <button class="chip" data-tier="companion" type="button">Companion</button>
+      <button class="chip" data-tier="workshop" type="button">Workshop / Journal</button>
+    </div>
+    <div class="controls-right">
+      <label class="switch">
+        <input type="checkbox" id="hide-passed" checked>
+        <span>Only upcoming</span>
+      </label>
+      <label class="select">
+        <span class="sr-only">Sort by</span>
+        <select id="sort">
+          <option value="deadline">Sort: soonest first</option>
+          <option value="name">Sort: name</option>
+          <option value="tier">Sort: tier</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <p class="result-count" id="result-count" aria-live="polite"></p>
+  <section class="grid" id="grid"></section>
+  <p class="empty" id="empty" hidden>No venues match those filters.</p>
+</main>
+
+<footer class="wrap site-foot">
+  <p id="verified-note"></p>
+  <p>Dates marked <span class="badge badge-est">est.</span> are extrapolated from previous cycles — always confirm on the venue's CFP page. Run <code>python scripts/check_deadlines.py</code> to compare the config against what each site says.</p>
+  <p>All times are <strong>AoE</strong> (UTC−12) unless the venue says otherwise. Edit <code>conferences.yml</code> to add or correct a venue.</p>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
