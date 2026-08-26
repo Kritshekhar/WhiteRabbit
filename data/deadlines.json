@@ -1,0 +1,880 @@
+{
+  "generated_at": "2026-08-26T20:24:01+00:00",
+  "aoe_label": "AoE",
+  "counts": {
+    "total": 37,
+    "tier1": 18,
+    "companion": 16,
+    "workshop": 3
+  },
+  "venues": [
+    {
+      "id": "fast",
+      "name": "FAST",
+      "full_name": "USENIX Conference on File and Storage Technologies",
+      "tier": "tier1",
+      "url": "https://www.usenix.org/conference/fast27",
+      "url_template": "https://www.usenix.org/conference/fast{yy}",
+      "year": 2027,
+      "month": 2,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-09-15T23:59:00-12:00",
+          "confirmed": true
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "osdi",
+      "name": "OSDI",
+      "full_name": "USENIX Symposium on Operating Systems Design and Implementation",
+      "tier": "tier1",
+      "url": "https://www.usenix.org/conference/osdi27",
+      "url_template": "https://www.usenix.org/conference/osdi{yy}",
+      "year": 2027,
+      "month": 7,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Abstract registration",
+          "date": "2026-12-01T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-12-08T23:59:00-12:00",
+          "confirmed": true
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "atc",
+      "name": "ATC",
+      "full_name": "USENIX Annual Technical Conference",
+      "tier": "tier1",
+      "url": "https://www.usenix.org/conference/atc26",
+      "url_template": "https://www.usenix.org/conference/atc{yy}",
+      "year": 2026,
+      "month": 7,
+      "rolling": false,
+      "notes": "SIGOPS mirror page - https://sigops.org/s/conferences/atc/. Rolls to atc27 once USENIX publishes it.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-01-13T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "eurosys",
+      "name": "EuroSys",
+      "full_name": "European Conference on Computer Systems",
+      "tier": "tier1",
+      "url": "https://2027.eurosys.org/",
+      "url_template": "https://{year}.eurosys.org/",
+      "year": 2027,
+      "month": 4,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Spring abstract",
+          "date": "2026-05-07T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Spring full paper",
+          "date": "2026-05-14T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Fall abstract",
+          "date": "2026-09-17T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Fall full paper",
+          "date": "2026-09-24T23:59:00-12:00",
+          "confirmed": true
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "asplos",
+      "name": "ASPLOS",
+      "full_name": "Architectural Support for Programming Languages and Operating Systems",
+      "tier": "tier1",
+      "url": "https://www.asplos-conference.org/asplos2027/",
+      "url_template": "https://www.asplos-conference.org/asplos{year}/",
+      "year": 2027,
+      "month": 4,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Cycle 1 full paper",
+          "date": "2026-04-15T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Cycle 2 full paper",
+          "date": "2026-09-09T23:59:00-12:00",
+          "confirmed": true
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "sc",
+      "name": "SC",
+      "full_name": "International Conference for High Performance Computing, Networking, Storage and Analysis",
+      "tier": "tier1",
+      "url": "https://sc26.supercomputing.org/",
+      "url_template": "https://sc{yy}.supercomputing.org/",
+      "year": 2026,
+      "month": 11,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-03-23T23:59:00-12:00",
+          "confirmed": false
+        },
+        {
+          "name": "Full paper",
+          "date": "2026-03-30T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "ccs",
+      "name": "CCS",
+      "full_name": "ACM Conference on Computer and Communications Security",
+      "tier": "tier1",
+      "url": "https://www.sigsac.org/ccs/CCS2027/",
+      "url_template": "https://www.sigsac.org/ccs/CCS{year}/",
+      "year": 2027,
+      "month": 10,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Cycle 1",
+          "date": "2027-01-12T23:59:00-12:00",
+          "confirmed": false
+        },
+        {
+          "name": "Cycle 2",
+          "date": "2027-04-13T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "fse",
+      "name": "FSE",
+      "full_name": "ACM International Conference on the Foundations of Software Engineering",
+      "tier": "tier1",
+      "url": "https://conf.researchr.org/home/fse-2027",
+      "url_template": "https://conf.researchr.org/home/fse-{year}",
+      "year": 2027,
+      "month": 6,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Full paper submission",
+          "date": "2026-10-02T23:59:00-12:00",
+          "confirmed": true
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "icse",
+      "name": "ICSE",
+      "full_name": "International Conference on Software Engineering",
+      "tier": "tier1",
+      "url": "https://conf.researchr.org/home/icse-2028",
+      "url_template": "https://conf.researchr.org/home/icse-{year}",
+      "year": 2028,
+      "month": 5,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Mandatory abstract",
+          "date": "2027-06-23T23:59:00-12:00",
+          "confirmed": false
+        },
+        {
+          "name": "Full paper submission",
+          "date": "2027-06-30T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "nsdi",
+      "name": "NSDI",
+      "full_name": "USENIX Symposium on Networked Systems Design and Implementation",
+      "tier": "tier1",
+      "url": "https://www.usenix.org/conference/nsdi27",
+      "url_template": "https://www.usenix.org/conference/nsdi{yy}",
+      "year": 2027,
+      "month": 4,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Spring abstract",
+          "date": "2026-04-16T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Spring full paper",
+          "date": "2026-04-23T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Fall abstract",
+          "date": "2026-09-10T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Fall full paper",
+          "date": "2026-09-17T23:59:00-12:00",
+          "confirmed": true
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "pldi",
+      "name": "PLDI",
+      "full_name": "ACM SIGPLAN Conference on Programming Language Design and Implementation",
+      "tier": "tier1",
+      "url": "https://pldi27.sigplan.org/",
+      "url_template": "https://pldi{yy}.sigplan.org/",
+      "year": 2027,
+      "month": 6,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-11-12T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "s-p",
+      "name": "S&P",
+      "full_name": "IEEE Symposium on Security and Privacy (Oakland)",
+      "tier": "tier1",
+      "url": "https://sp2027.ieee-security.org/",
+      "url_template": "https://sp{year}.ieee-security.org/",
+      "year": 2027,
+      "month": 5,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Cycle 2",
+          "date": "2026-11-05T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "sigcomm",
+      "name": "SIGCOMM",
+      "full_name": "ACM SIGCOMM Conference",
+      "tier": "tier1",
+      "url": "https://conferences.sigcomm.org/sigcomm/2027/",
+      "url_template": "https://conferences.sigcomm.org/sigcomm/{year}/",
+      "year": 2027,
+      "month": 8,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2027-01-29T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "sigmetrics",
+      "name": "SIGMETRICS",
+      "full_name": "ACM SIGMETRICS / IFIP Performance",
+      "tier": "tier1",
+      "url": "https://www.sigmetrics.org/sigmetrics2027/",
+      "url_template": "https://www.sigmetrics.org/sigmetrics{year}/",
+      "year": 2027,
+      "month": 6,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Fall abstract",
+          "date": "2026-10-02T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Fall paper",
+          "date": "2026-10-09T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Winter abstract",
+          "date": "2027-01-04T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Winter paper",
+          "date": "2027-01-11T23:59:00-12:00",
+          "confirmed": true
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "sigmod",
+      "name": "SIGMOD",
+      "full_name": "ACM SIGMOD International Conference on Management of Data",
+      "tier": "tier1",
+      "url": "https://2027.sigmod.org/",
+      "url_template": "https://{year}.sigmod.org/",
+      "year": 2027,
+      "month": 6,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Round 1",
+          "date": "2026-07-15T23:59:00-12:00",
+          "confirmed": false
+        },
+        {
+          "name": "Round 2",
+          "date": "2026-10-15T23:59:00-12:00",
+          "confirmed": false
+        },
+        {
+          "name": "Round 3",
+          "date": "2027-01-15T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "sosp",
+      "name": "SOSP",
+      "full_name": "ACM Symposium on Operating Systems Principles",
+      "tier": "tier1",
+      "url": "https://sigops.org/s/conferences/sosp/2026/",
+      "url_template": "https://sigops.org/s/conferences/sosp/{year}/",
+      "year": 2026,
+      "month": 10,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-04-16T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "usenix-security",
+      "name": "USENIX Security",
+      "full_name": "USENIX Security Symposium",
+      "tier": "tier1",
+      "url": "https://www.usenix.org/conference/usenixsecurity27",
+      "url_template": "https://www.usenix.org/conference/usenixsecurity{yy}",
+      "year": 2027,
+      "month": 8,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Cycle 1 registration",
+          "date": "2026-08-18T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Cycle 1 submission",
+          "date": "2026-08-25T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Cycle 2 registration",
+          "date": "2027-01-19T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Cycle 2 submission",
+          "date": "2027-01-26T23:59:00-12:00",
+          "confirmed": true
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "vldb",
+      "name": "VLDB",
+      "full_name": "International Conference on Very Large Data Bases",
+      "tier": "tier1",
+      "url": "https://vldb.org/2027/",
+      "url_template": "https://vldb.org/{year}/",
+      "year": 2027,
+      "month": 8,
+      "rolling": false,
+      "notes": "Rolling monthly deadlines - PVLDB Vol. 20 submits on the 1st of each month.",
+      "deadlines": [
+        {
+          "name": "Monthly round",
+          "date": "2026-09-01T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "ase",
+      "name": "ASE",
+      "full_name": "IEEE/ACM International Conference on Automated Software Engineering",
+      "tier": "companion",
+      "url": "https://conf.researchr.org/home/ase-2026",
+      "url_template": "https://conf.researchr.org/home/ase-{year}",
+      "year": 2026,
+      "month": 11,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-03-26T23:59:00-12:00",
+          "confirmed": true
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "cais",
+      "name": "CAIS",
+      "full_name": "Conference on AI Safety",
+      "tier": "companion",
+      "url": "https://www.caisconf.org/",
+      "url_template": "",
+      "year": 2027,
+      "month": null,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": null,
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "ches",
+      "name": "CHES",
+      "full_name": "Cryptographic Hardware and Embedded Systems",
+      "tier": "companion",
+      "url": "https://ches.iacr.org/2027/",
+      "url_template": "https://ches.iacr.org/{year}/",
+      "year": 2027,
+      "month": 9,
+      "rolling": false,
+      "notes": "Four submission rounds per year (TCHES volumes).",
+      "deadlines": [
+        {
+          "name": "Round 3",
+          "date": "2027-04-15T23:59:00-12:00",
+          "confirmed": false
+        },
+        {
+          "name": "Round 4",
+          "date": "2027-07-15T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "dsn",
+      "name": "DSN",
+      "full_name": "IEEE/IFIP International Conference on Dependable Systems and Networks",
+      "tier": "companion",
+      "url": "https://dsn2027-berlin.github.io/",
+      "url_template": "",
+      "year": 2027,
+      "month": 6,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Fall round",
+          "date": "2026-09-25T23:59:00-12:00",
+          "confirmed": false
+        },
+        {
+          "name": "Spring round",
+          "date": "2026-12-04T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "icdcs",
+      "name": "ICDCS",
+      "full_name": "IEEE International Conference on Distributed Computing Systems",
+      "tier": "companion",
+      "url": "https://icdcs2027.icdcs.org/",
+      "url_template": "https://icdcs{year}.icdcs.org/",
+      "year": 2027,
+      "month": 7,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-12-10T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "imc",
+      "name": "IMC",
+      "full_name": "ACM Internet Measurement Conference",
+      "tier": "companion",
+      "url": "https://conferences.sigcomm.org/imc/2026/",
+      "url_template": "https://conferences.sigcomm.org/imc/{year}/",
+      "year": 2026,
+      "month": 10,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Cycle 1",
+          "date": "2025-11-20T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Cycle 2",
+          "date": "2026-04-29T23:59:00-12:00",
+          "confirmed": true
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "infocom",
+      "name": "INFOCOM",
+      "full_name": "IEEE International Conference on Computer Communications",
+      "tier": "companion",
+      "url": "https://infocom2027.ieee-infocom.org/",
+      "url_template": "https://infocom{year}.ieee-infocom.org/",
+      "year": 2027,
+      "month": 5,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-07-31T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "ipdps",
+      "name": "IPDPS",
+      "full_name": "IEEE International Parallel and Distributed Processing Symposium",
+      "tier": "companion",
+      "url": "http://www.ipdps.org/ipdps2027/",
+      "url_template": "http://www.ipdps.org/ipdps{year}/",
+      "year": 2027,
+      "month": 5,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-09-24T23:59:00-12:00",
+          "confirmed": false
+        },
+        {
+          "name": "Full paper",
+          "date": "2026-10-01T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "issta",
+      "name": "ISSTA",
+      "full_name": "ACM SIGSOFT International Symposium on Software Testing and Analysis",
+      "tier": "companion",
+      "url": "https://conf.researchr.org/home/issta-2027",
+      "url_template": "https://conf.researchr.org/home/issta-{year}",
+      "year": 2027,
+      "month": 7,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Mandatory abstract",
+          "date": "2027-01-08T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Full paper submission",
+          "date": "2027-01-11T23:59:00-12:00",
+          "confirmed": true
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "kubecon-eu",
+      "name": "KubeCon EU",
+      "full_name": "KubeCon + CloudNativeCon Europe",
+      "tier": "companion",
+      "url": "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2027/",
+      "url_template": "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-{year}/",
+      "year": 2027,
+      "month": 3,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "CFP close",
+          "date": "2026-11-15T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "kubecon-na",
+      "name": "KubeCon NA",
+      "full_name": "KubeCon + CloudNativeCon North America",
+      "tier": "companion",
+      "url": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/",
+      "url_template": "",
+      "year": 2026,
+      "month": 11,
+      "rolling": false,
+      "notes": "Linux Foundation keeps this at a stable URL - no year rollover needed.",
+      "deadlines": [
+        {
+          "name": "CFP close",
+          "date": "2026-06-07T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "mlsys",
+      "name": "MLSys",
+      "full_name": "Conference on Machine Learning and Systems",
+      "tier": "companion",
+      "url": "https://mlsys.org/",
+      "url_template": "",
+      "year": 2027,
+      "month": 5,
+      "rolling": false,
+      "notes": "Landing page redirects to the current edition.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-10-30T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "ndss",
+      "name": "NDSS",
+      "full_name": "Network and Distributed System Security Symposium",
+      "tier": "companion",
+      "url": "https://www.ndss-symposium.org/ndss2027/",
+      "url_template": "https://www.ndss-symposium.org/ndss{year}/",
+      "year": 2027,
+      "month": 2,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Cycle 1",
+          "date": "2026-04-22T23:59:00-12:00",
+          "confirmed": false
+        },
+        {
+          "name": "Cycle 2",
+          "date": "2026-07-22T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "pytorch-conf",
+      "name": "PyTorch Conf",
+      "full_name": "PyTorch Conference (North America)",
+      "tier": "companion",
+      "url": "https://events.linuxfoundation.org/pytorch-conference-north-america/",
+      "url_template": "",
+      "year": 2026,
+      "month": 10,
+      "rolling": false,
+      "notes": "Stable Linux Foundation URL - no year rollover needed.",
+      "deadlines": [
+        {
+          "name": "CFP close",
+          "date": "2026-06-01T23:59:00-12:00",
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "pytorch-eu",
+      "name": "PyTorch EU",
+      "full_name": "PyTorch Conference Europe",
+      "tier": "companion",
+      "url": "https://events.linuxfoundation.org/pytorch-conference-europe/",
+      "url_template": "",
+      "year": 2027,
+      "month": null,
+      "rolling": false,
+      "notes": "No 2027 edition announced yet - link points at the series page.",
+      "deadlines": [
+        {
+          "name": "CFP close",
+          "date": null,
+          "confirmed": false
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "socc",
+      "name": "SoCC",
+      "full_name": "ACM Symposium on Cloud Computing",
+      "tier": "companion",
+      "url": "https://acmsocc.org/2026/",
+      "url_template": "https://acmsocc.org/{year}/",
+      "year": 2026,
+      "month": 11,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Winter abstract",
+          "date": "2026-02-06T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Winter paper",
+          "date": "2026-02-13T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Summer abstract",
+          "date": "2026-07-07T23:59:00-12:00",
+          "confirmed": true
+        },
+        {
+          "name": "Summer paper",
+          "date": "2026-07-14T23:59:00-12:00",
+          "confirmed": true
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "hotstorage",
+      "name": "HotStorage",
+      "full_name": "ACM Workshop on Hot Topics in Storage and File Systems",
+      "tier": "workshop",
+      "url": "https://www.hotstorage.org/2026/",
+      "url_template": "https://www.hotstorage.org/{year}/",
+      "year": 2026,
+      "month": 7,
+      "rolling": false,
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-06-12T23:59:00-12:00",
+          "confirmed": true
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "acm-tos",
+      "name": "ACM TOS",
+      "full_name": "ACM Transactions on Storage",
+      "tier": "workshop",
+      "url": "https://dl.acm.org/journal/tos",
+      "url_template": "",
+      "year": null,
+      "month": null,
+      "rolling": true,
+      "notes": "Journal - continuous submission, no deadline.",
+      "deadlines": [],
+      "link_status": "ok"
+    },
+    {
+      "id": "acm-tocs",
+      "name": "ACM TOCS",
+      "full_name": "ACM Transactions on Computer Systems",
+      "tier": "workshop",
+      "url": "https://dl.acm.org/journal/tocs",
+      "url_template": "",
+      "year": null,
+      "month": null,
+      "rolling": true,
+      "notes": "Journal - continuous submission, no deadline.",
+      "deadlines": [],
+      "link_status": "ok"
+    }
+  ]
+}
