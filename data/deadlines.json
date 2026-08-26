@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T20:24:01+00:00",
+  "generated_at": "2026-08-26T20:46:25+00:00",
   "aoe_label": "AoE",
   "counts": {
     "total": 37,
@@ -860,7 +860,7 @@
       "rolling": true,
       "notes": "Journal - continuous submission, no deadline.",
       "deadlines": [],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "acm-tocs",
@@ -874,7 +874,7 @@
       "rolling": true,
       "notes": "Journal - continuous submission, no deadline.",
       "deadlines": [],
-      "link_status": "ok"
+      "link_status": "unknown"
     }
   ]
 }
