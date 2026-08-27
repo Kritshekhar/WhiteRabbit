@@ -197,6 +197,14 @@ select {
 .badge-ok { text-transform: none; letter-spacing: 0; font-size: .62rem; padding: .1rem .3rem;
   color: var(--good); border-color: color-mix(in srgb, var(--good) 35%, transparent);
   background: color-mix(in srgb, var(--good) 10%, transparent); }
+.tags { display: flex; flex-wrap: wrap; align-items: center; gap: .28rem; }
+.tags-label { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin-right: .15rem; }
+.tag {
+  font-size: .68rem; font-weight: 500; padding: .12rem .4rem; border-radius: .35rem;
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text-secondary);
+}
+.tag-track { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 30%, transparent); background: var(--accent-soft); }
+.link-state { cursor: help; }
 .nowrap { white-space: nowrap; }
 
 .countdown { display: flex; align-items: baseline; gap: .45rem; }
