@@ -1,0 +1,26 @@
+name: Wrong or outdated deadline
+description: A date on the dashboard does not match the venue's CFP
+title: "<venue> deadline is wrong"
+labels: [data]
+body:
+  - type: input
+    id: venue
+    attributes:
+      label: Venue
+      placeholder: EuroSys
+    validations: {required: true}
+  - type: input
+    id: shown
+    attributes:
+      label: What the dashboard shows
+      placeholder: Fall round - Oct 17, 2026
+    validations: {required: true}
+  - type: textarea
+    id: actual
+    attributes:
+      label: What the CFP page says
+      description: Link the page and quote the line.
+      placeholder: |
+        https://2027.eurosys.org/cfp
+        > Paper titles and abstracts due: Thursday, September 17, 2026
+    validations: {required: true}

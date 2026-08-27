@@ -1,0 +1,33 @@
+name: Validate config
+
+on:
+  pull_request:
+    paths:
+      - conferences.yml
+      - scripts/**
+      - .github/workflows/validate.yml
+  push:
+    branches: [main]
+    paths:
+      - conferences.yml
+      - scripts/**
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: Validate conferences.yml
+        run: python scripts/validate_config.py
+
+      - name: Build must succeed offline
+        run: python scripts/update.py --no-network

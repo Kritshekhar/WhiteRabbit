@@ -65,10 +65,17 @@ function countdownMarkup(v) {
 
 function card(v) {
   const statusVar = v.band ? v.band.color : 'var(--border-strong)';
+  // A verified date links to the page it was read off, so anyone can re-check it.
+  const verifiedBadge = (d) => {
+    const when = d.verified_on ? ` on ${d.verified_on}` : '';
+    return d.source
+      ? ` <a class="badge badge-ok" href="${d.source}" target="_blank" rel="noopener" title="Checked against this page${when}">✓ verified</a>`
+      : ' <span class="badge badge-ok">✓ verified</span>';
+  };
   const est = !v.next ? ''
     : v.next.confirmed
-      ? ' <span class="badge badge-ok">✓ verified</span>'
-      : ' <span class="badge badge-est">est.</span>';
+      ? verifiedBadge(v.next)
+      : ' <span class="badge badge-est" title="Extrapolated from previous cycles - not checked against a CFP page">est.</span>';
   const tierClass = v.tier === 'tier1' ? 'badge badge-tier1' : 'badge';
 
   // date + badge share a nowrap span so the line breaks before the date, not

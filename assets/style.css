@@ -204,6 +204,9 @@ select {
   border: 1px solid var(--border); background: var(--surface-2); color: var(--text-secondary);
 }
 .tag-track { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 30%, transparent); background: var(--accent-soft); }
+a.badge { text-decoration: none; }
+a.badge:hover { border-color: var(--good); }
+.badge-est { cursor: help; }
 .link-state { cursor: help; }
 .nowrap { white-space: nowrap; }
 

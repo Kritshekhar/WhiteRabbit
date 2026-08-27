@@ -1,0 +1,42 @@
+name: White Rabbit — deploy to Pages
+
+# Split from the refresh workflow on purpose: the data rebuild must stay green
+# and visible even when publishing is blocked (a private repo on a plan without
+# Pages fails here, and that should not look like a broken build).
+#
+# Requires, one time:
+#   Settings -> Pages -> Source: GitHub Actions
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
