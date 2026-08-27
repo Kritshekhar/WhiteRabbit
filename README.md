@@ -60,9 +60,27 @@ missing URL → the card renders without a link).
 | `url_template` | URL pattern for auto-rollover. `{year}`→2027, `{yy}`→27, `{yyn}`→28. Omit to freeze the link. |
 | `year` | which edition `url` points at |
 | `month` | the month the conference is held (hint only) |
-| `deadlines` | list of `{ name, date, confirmed }`; `date: null` renders as TBA |
+| `formats` | what the venue accepts, e.g. `[Full paper, Short paper, Poster]` — rendered as **Accepts** tags |
+| `tracks` | e.g. `[Research, Industry]` — rendered as **Tracks** tags |
+| `deadlines` | list of `{ name, date, confirmed, track }`; `date: null` renders as TBA |
+| `deadlines[].track` | optional, e.g. `Research` / `Industry` — tagged beside that deadline, for venues whose tracks close on different days |
+| `cycle_years` | years between editions (default 1). `2` for biennial venues like HotOS, so rollover steps 2025 → 2027 |
 | `rolling` | `true` for journals — shows "Rolling submission", never counts down |
 | `notes` | free text shown on the card |
+
+## Link status
+
+Every nightly build issues one HTTP request per venue URL, and the card footer
+reports what came back:
+
+| Badge | Meaning |
+|---|---|
+| **site up** | the URL responded 2xx/3xx — the page is there |
+| **link broken** | 404/410 — the venue moved or removed the page, go find the new one |
+| **not checked** | no answer either way: a timeout, or the host blocked the request. Also what you get after `--no-network` |
+
+It checks that the *page exists*, nothing more. It says nothing about whether
+the dates on that page are current — that is what `check_deadlines.py` is for.
 
 ## Automatic year rollover
 
@@ -71,15 +89,21 @@ When every deadline in a venue's cycle has passed (plus `grace_days`, default
 only moves when **both** hold:
 
 1. the page answers 2xx/3xx, **and**
-2. the page actually mentions the new year.
+2. it looks like a real conference site — mentions the new year, is over 1 KB,
+   and isn't a bare directory listing.
 
-That second check matters — several hosts answer `200` for any year you ask
-for and quietly serve an old edition (`sigops.org/s/conferences/sosp/2099/`
-cheerfully returns the SOSP 2017 page). When the check fails nothing is
-touched and it retries the next night.
+That second check earns its keep. Two ways a 200 lies, both hit in practice:
+
+* **a stale edition served for any year** — `sigops.org/s/conferences/sosp/2099/`
+  cheerfully returns the SOSP 2017 page
+* **an empty autoindex** — `conferences.sigcomm.org/hotnets/2027/` is
+  "Index of /hotnets/2027/", which even contains the year, in the directory path
+
+Both slipped through earlier versions of this check and produced a wrong
+rollover. When the check fails nothing is touched and it retries the next night.
 
 On a successful rollover the script bumps `year`, rewrites `url`, shifts the
-deadlines forward by one year and sets `confirmed: false` — a shifted date is
+deadlines forward by `cycle_years` and sets `confirmed: false` — a shifted date is
 an estimate until someone verifies it against the real CFP, and the dashboard
 labels it `est.` until then.
 

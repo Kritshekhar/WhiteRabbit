@@ -28,7 +28,12 @@ from ruamel.yaml import YAML
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "conferences.yml"
 
-UA = "conference-deadline-dashboard/1.0 (+https://github.com/)"
+# Several conference hosts (systor.org among them) answer 403 to an obvious
+# bot UA, which would show up as a false "not checked" on the dashboard.
+UA = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+)
 TIMEOUT = 25
 WORKERS = 8
 

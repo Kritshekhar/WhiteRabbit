@@ -37,7 +37,12 @@ ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "conferences.yml"
 OUTPUT = ROOT / "data" / "deadlines.json"
 
-UA = "conference-deadline-dashboard/1.0 (+https://github.com/)"
+# Several conference hosts (systor.org among them) answer 403 to an obvious
+# bot UA, which would show up as a false "not checked" on the dashboard.
+UA = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+)
 TIMEOUT = 15
 MAX_PROBE_WORKERS = 8
 VALID_TIERS = {"tier1", "companion", "workshop"}
@@ -108,21 +113,33 @@ def probe(url: str) -> str:
     return "unknown"
 
 
-def page_mentions_year(url: str, year: int) -> bool:
-    """Soft-404 guard for rollover.
+def looks_like_a_real_site(body: str, year: int) -> bool:
+    """Is this an actual conference page, or a 200 that means nothing?
 
-    Several conference hosts answer 200 for any year you ask for and quietly
-    serve an old edition (sigops.org/s/conferences/sosp/2099/ happily returns
-    the SOSP 2017 page). A real next-cycle site always names its own year, so
-    require that before touching the config.
+    Two failure modes seen in the wild, both of which answer 200:
+      * a stale edition served for any year you ask for
+        (sigops.org/s/conferences/sosp/2099/ returns the SOSP 2017 page)
+      * an empty autoindex placeholder
+        (conferences.sigcomm.org/hotnets/2027/ -> "Index of /hotnets/2027/",
+        which even contains the year, in the directory path)
     """
+    title = re.search(r"(?is)<title>(.*?)</title>", body)
+    if title and re.match(r"\s*(index of |directory listing)", title.group(1), re.I):
+        return False
+    if len(body) < 1_000:  # a real conference homepage is never this small
+        return False
+    return str(year) in body
+
+
+def page_mentions_year(url: str, year: int) -> bool:
+    """Soft-404 guard for rollover - see looks_like_a_real_site."""
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
             body = resp.read(400_000).decode("utf-8", "ignore")
     except Exception:
         return False
-    return str(year) in body
+    return looks_like_a_real_site(body, year)
 
 
 # --------------------------------------------------------------------------
@@ -148,6 +165,7 @@ def normalise(raw: dict) -> dict:
                 "name": str(entry.get("name") or "Paper submission"),
                 "date": dt.isoformat() if dt else None,
                 "confirmed": bool(entry.get("confirmed", False)),
+                "track": str(entry.get("track") or "").strip(),
                 "_dt": dt,
             }
         )
@@ -163,6 +181,9 @@ def normalise(raw: dict) -> dict:
         "year": raw.get("year"),
         "month": raw.get("month"),
         "rolling": bool(raw.get("rolling", False)),
+        "cycle_years": max(1, int(raw.get("cycle_years", 1) or 1)),
+        "formats": [str(f).strip() for f in (raw.get("formats") or []) if str(f).strip()],
+        "tracks": [str(t).strip() for t in (raw.get("tracks") or []) if str(t).strip()],
         "notes": str(raw.get("notes") or "").strip(),
         "deadlines": deadlines,
     }
@@ -179,6 +200,7 @@ def roll_over_cycle(raw, venue, now, grace_days, allow_network) -> bool:
     published its site yet simply stays put and is retried tomorrow.
     """
     template, year = venue["url_template"], venue["year"]
+    step = venue["cycle_years"]  # 2 for biennial venues such as HotOS
     if venue["rolling"] or not template or not isinstance(year, int):
         return False
 
@@ -188,7 +210,7 @@ def roll_over_cycle(raw, venue, now, grace_days, allow_network) -> bool:
     if now < max(dated) + timedelta(days=grace_days):
         return False  # cycle still running
 
-    next_year = year + 1
+    next_year = year + step
     next_url = render_template(template, next_year)
     if not allow_network:
         print(f"  - {venue['name']}: cycle over, would probe {next_url}")
@@ -203,7 +225,7 @@ def roll_over_cycle(raw, venue, now, grace_days, allow_network) -> bool:
         dt = parse_date(entry.get("date") if isinstance(entry, dict) else entry)
         if not isinstance(entry, dict) or dt is None:
             continue
-        entry["date"] = shift_year(dt).isoformat()
+        entry["date"] = shift_year(dt, step).isoformat()
         entry["confirmed"] = False  # shifted dates are estimates until verified
     print(f"  * {venue['name']}: rolled over to {next_year} -> {next_url}")
     return True

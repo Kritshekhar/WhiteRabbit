@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-26T20:48:41+00:00",
+  "generated_at": "2026-08-27T02:51:53+00:00",
   "aoe_label": "AoE",
   "counts": {
-    "total": 37,
+    "total": 45,
     "tier1": 18,
-    "companion": 16,
-    "workshop": 3
+    "companion": 19,
+    "workshop": 8
   },
   "venues": [
     {
@@ -18,15 +18,19 @@
       "year": 2027,
       "month": 2,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Paper submission",
           "date": "2026-09-15T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "osdi",
@@ -38,20 +42,25 @@
       "year": 2027,
       "month": 7,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Abstract registration",
           "date": "2026-12-01T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Paper submission",
           "date": "2026-12-08T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "atc",
@@ -63,15 +72,19 @@
       "year": 2026,
       "month": 7,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "SIGOPS mirror page - https://sigops.org/s/conferences/atc/. Rolls to atc27 once USENIX publishes it.",
       "deadlines": [
         {
           "name": "Paper submission",
           "date": "2026-01-13T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "eurosys",
@@ -83,30 +96,37 @@
       "year": 2027,
       "month": 4,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Spring abstract",
           "date": "2026-05-07T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Spring full paper",
           "date": "2026-05-14T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Fall abstract",
           "date": "2026-09-17T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Fall full paper",
           "date": "2026-09-24T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "asplos",
@@ -118,20 +138,25 @@
       "year": 2027,
       "month": 4,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Cycle 1 full paper",
           "date": "2026-04-15T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Cycle 2 full paper",
           "date": "2026-09-09T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "sc",
@@ -143,20 +168,25 @@
       "year": 2026,
       "month": 11,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Abstract",
           "date": "2026-03-23T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         },
         {
           "name": "Full paper",
           "date": "2026-03-30T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "ccs",
@@ -168,20 +198,25 @@
       "year": 2027,
       "month": 10,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Cycle 1",
           "date": "2027-01-12T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         },
         {
           "name": "Cycle 2",
           "date": "2027-04-13T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "fse",
@@ -193,15 +228,28 @@
       "year": 2027,
       "month": 6,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [
+        "Research",
+        "Industry"
+      ],
       "notes": "",
       "deadlines": [
         {
           "name": "Full paper submission",
           "date": "2026-10-02T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": "Research"
+        },
+        {
+          "name": "Submission deadline",
+          "date": "2027-01-23T23:59:00-12:00",
+          "confirmed": true,
+          "track": "Industry"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "icse",
@@ -213,20 +261,25 @@
       "year": 2028,
       "month": 5,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Mandatory abstract",
           "date": "2027-06-23T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         },
         {
           "name": "Full paper submission",
           "date": "2027-06-30T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "nsdi",
@@ -238,30 +291,37 @@
       "year": 2027,
       "month": 4,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Spring abstract",
           "date": "2026-04-16T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Spring full paper",
           "date": "2026-04-23T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Fall abstract",
           "date": "2026-09-10T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Fall full paper",
           "date": "2026-09-17T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "pldi",
@@ -273,15 +333,19 @@
       "year": 2027,
       "month": 6,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Paper submission",
           "date": "2026-11-12T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "s-p",
@@ -293,15 +357,19 @@
       "year": 2027,
       "month": 5,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Cycle 2",
           "date": "2026-11-05T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "sigcomm",
@@ -313,15 +381,19 @@
       "year": 2027,
       "month": 8,
       "rolling": false,
-      "notes": "",
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "notes": "The 2027 site is up but its CFP page still carries the 2026 call, so the date below is extrapolated from the 2026 cycle (abstract Jan 30, paper Feb 6).",
       "deadlines": [
         {
           "name": "Paper submission",
           "date": "2027-01-29T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "sigmetrics",
@@ -333,30 +405,37 @@
       "year": 2027,
       "month": 6,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Fall abstract",
           "date": "2026-10-02T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Fall paper",
           "date": "2026-10-09T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Winter abstract",
           "date": "2027-01-04T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Winter paper",
           "date": "2027-01-11T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "sigmod",
@@ -368,25 +447,31 @@
       "year": 2027,
       "month": 6,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Round 1",
           "date": "2026-07-15T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         },
         {
           "name": "Round 2",
           "date": "2026-10-15T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         },
         {
           "name": "Round 3",
           "date": "2027-01-15T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "sosp",
@@ -398,15 +483,19 @@
       "year": 2026,
       "month": 10,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Paper submission",
           "date": "2026-04-16T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "usenix-security",
@@ -418,30 +507,37 @@
       "year": 2027,
       "month": 8,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Cycle 1 registration",
           "date": "2026-08-18T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Cycle 1 submission",
           "date": "2026-08-25T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Cycle 2 registration",
           "date": "2027-01-19T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Cycle 2 submission",
           "date": "2027-01-26T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "vldb",
@@ -453,15 +549,19 @@
       "year": 2027,
       "month": 8,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "Rolling monthly deadlines - PVLDB Vol. 20 submits on the 1st of each month.",
       "deadlines": [
         {
           "name": "Monthly round",
           "date": "2026-09-01T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "ase",
@@ -473,15 +573,19 @@
       "year": 2026,
       "month": 11,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Paper submission",
           "date": "2026-03-26T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "cais",
@@ -493,15 +597,19 @@
       "year": 2027,
       "month": null,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Paper submission",
           "date": null,
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "ches",
@@ -513,20 +621,25 @@
       "year": 2027,
       "month": 9,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "Four submission rounds per year (TCHES volumes).",
       "deadlines": [
         {
           "name": "Round 3",
           "date": "2027-04-15T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         },
         {
           "name": "Round 4",
           "date": "2027-07-15T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "dsn",
@@ -538,20 +651,53 @@
       "year": 2027,
       "month": 6,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Fall round",
           "date": "2026-09-25T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         },
         {
           "name": "Spring round",
           "date": "2026-12-04T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
+    },
+    {
+      "id": "hot-chips",
+      "name": "Hot Chips",
+      "full_name": "A Symposium on High-Performance Chips",
+      "tier": "companion",
+      "url": "https://hotchips.org",
+      "url_template": "",
+      "year": 2027,
+      "month": 8,
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [
+        "Talk proposal",
+        "Tutorial",
+        "Poster"
+      ],
+      "tracks": [],
+      "notes": "Industry talk symposium, not a paper conference. Stable URL - the site always shows the current edition, so there is no year rollover. Hot Chips 38 ran Aug 23-25, 2026; the HC39 call had not opened as of Aug 2026.",
+      "deadlines": [
+        {
+          "name": "Submission deadline",
+          "date": "2027-04-06T23:59:00-12:00",
+          "confirmed": false,
+          "track": ""
+        }
+      ],
+      "link_status": "unknown"
     },
     {
       "id": "icdcs",
@@ -563,15 +709,19 @@
       "year": 2027,
       "month": 7,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Paper submission",
           "date": "2026-12-10T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "imc",
@@ -583,20 +733,25 @@
       "year": 2026,
       "month": 10,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Cycle 1",
           "date": "2025-11-20T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Cycle 2",
           "date": "2026-04-29T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "infocom",
@@ -608,15 +763,19 @@
       "year": 2027,
       "month": 5,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Paper submission",
           "date": "2026-07-31T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "ipdps",
@@ -628,20 +787,25 @@
       "year": 2027,
       "month": 5,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Abstract",
           "date": "2026-09-24T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         },
         {
           "name": "Full paper",
           "date": "2026-10-01T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "issta",
@@ -653,20 +817,25 @@
       "year": 2027,
       "month": 7,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Mandatory abstract",
           "date": "2027-01-08T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": "Research"
         },
         {
           "name": "Full paper submission",
           "date": "2027-01-11T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": "Research"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "kubecon-eu",
@@ -678,15 +847,19 @@
       "year": 2027,
       "month": 3,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "CFP close",
           "date": "2026-11-15T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "kubecon-na",
@@ -698,15 +871,49 @@
       "year": 2026,
       "month": 11,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "Linux Foundation keeps this at a stable URL - no year rollover needed.",
       "deadlines": [
         {
           "name": "CFP close",
           "date": "2026-06-07T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
+    },
+    {
+      "id": "msst",
+      "name": "MSST",
+      "full_name": "International Conference on Massive Storage Systems and Technology",
+      "tier": "companion",
+      "url": "https://msstconference.org/2026/index.html",
+      "url_template": "https://msstconference.org/{year}/index.html",
+      "year": 2026,
+      "month": 6,
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [
+        "Full paper (14p)",
+        "Short paper (8p)"
+      ],
+      "tracks": [
+        "Research",
+        "Invited/Industry"
+      ],
+      "notes": "Short papers must be complete work, not work-in-progress. Submissions via EasyChair.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-04-14T23:59:00-12:00",
+          "confirmed": true,
+          "track": "Research"
+        }
+      ],
+      "link_status": "unknown"
     },
     {
       "id": "mlsys",
@@ -718,15 +925,19 @@
       "year": 2027,
       "month": 5,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "Landing page redirects to the current edition.",
       "deadlines": [
         {
           "name": "Paper submission",
           "date": "2026-10-30T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "ndss",
@@ -738,20 +949,25 @@
       "year": 2027,
       "month": 2,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Cycle 1",
           "date": "2026-04-22T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         },
         {
           "name": "Cycle 2",
           "date": "2026-07-22T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "pytorch-conf",
@@ -763,15 +979,19 @@
       "year": 2026,
       "month": 10,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "Stable Linux Foundation URL - no year rollover needed.",
       "deadlines": [
         {
           "name": "CFP close",
           "date": "2026-06-01T23:59:00-12:00",
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "pytorch-eu",
@@ -783,15 +1003,52 @@
       "year": 2027,
       "month": null,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "No 2027 edition announced yet - link points at the series page.",
       "deadlines": [
         {
           "name": "CFP close",
           "date": null,
-          "confirmed": false
+          "confirmed": false,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
+    },
+    {
+      "id": "systor",
+      "name": "SYSTOR",
+      "full_name": "ACM International Systems and Storage Conference",
+      "tier": "companion",
+      "url": "https://www.systor.org/2026/",
+      "url_template": "https://www.systor.org/{year}/",
+      "year": 2026,
+      "month": 9,
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [
+        "Research",
+        "Posters"
+      ],
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-05-25T23:59:00-12:00",
+          "confirmed": true,
+          "track": "Research"
+        },
+        {
+          "name": "Poster submission",
+          "date": "2026-07-20T23:59:00-12:00",
+          "confirmed": true,
+          "track": "Posters"
+        }
+      ],
+      "link_status": "unknown"
     },
     {
       "id": "socc",
@@ -803,50 +1060,203 @@
       "year": 2026,
       "month": 11,
       "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "",
       "deadlines": [
         {
           "name": "Winter abstract",
           "date": "2026-02-06T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Winter paper",
           "date": "2026-02-13T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Summer abstract",
           "date": "2026-07-07T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         },
         {
           "name": "Summer paper",
           "date": "2026-07-14T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
+    },
+    {
+      "id": "apsys",
+      "name": "APSys",
+      "full_name": "ACM SIGOPS Asia-Pacific Workshop on Systems",
+      "tier": "workshop",
+      "url": "https://ap-sys.org",
+      "url_template": "",
+      "year": 2026,
+      "month": 9,
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "notes": "Stable URL - the site always shows the current edition, so there is no year rollover.",
+      "deadlines": [
+        {
+          "name": "Abstract registration",
+          "date": "2026-05-13T23:59:00-12:00",
+          "confirmed": true,
+          "track": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-05-20T23:59:00-12:00",
+          "confirmed": true,
+          "track": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "hotcloudperf",
+      "name": "HotCloudPerf",
+      "full_name": "Workshop on Hot Topics in Cloud Computing Performance",
+      "tier": "workshop",
+      "url": "https://hotcloudperf.spec.org",
+      "url_template": "",
+      "year": 2026,
+      "month": 5,
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [
+        "Full paper (5p)",
+        "Short paper (3p)",
+        "Talk only (1-2p)"
+      ],
+      "tracks": [],
+      "notes": "Co-located with ICPE. Talk-only submissions are not included in the proceedings. Stable URL - no year rollover.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-01-19T23:59:00-12:00",
+          "confirmed": true,
+          "track": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-01-30T23:59:00-12:00",
+          "confirmed": true,
+          "track": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "hotinfra",
+      "name": "HotInfra",
+      "full_name": "Workshop on Hot Topics in System Infrastructure",
+      "tier": "workshop",
+      "url": "https://hotinfra.org/2026/",
+      "url_template": "https://hotinfra.org/{year}/",
+      "year": 2026,
+      "month": 6,
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "notes": "hotinfra.org redirects to the latest edition. 2026 ran June 28 in Raleigh, NC.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-05-30T23:59:00-12:00",
+          "confirmed": true,
+          "track": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "hotnets",
+      "name": "HotNets",
+      "full_name": "ACM Workshop on Hot Topics in Networks",
+      "tier": "workshop",
+      "url": "https://conferences.sigcomm.org/hotnets/2026/",
+      "url_template": "https://conferences.sigcomm.org/hotnets/{year}/",
+      "year": 2026,
+      "month": 11,
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "notes": "ACM SIGCOMM-sponsored workshop. 2026 edition runs Nov 16-17.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-07-16T23:59:00-12:00",
+          "confirmed": true,
+          "track": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "hotos",
+      "name": "HotOS",
+      "full_name": "ACM SIGOPS Workshop on Hot Topics in Operating Systems",
+      "tier": "workshop",
+      "url": "https://sigops.org/s/conferences/hotos/2027/",
+      "url_template": "https://sigops.org/s/conferences/hotos/{year}/",
+      "year": 2027,
+      "month": 5,
+      "rolling": false,
+      "cycle_years": 2,
+      "formats": [
+        "Paper",
+        "Panel proposal"
+      ],
+      "tracks": [],
+      "notes": "Biennial (odd years). HotOS XXI dates are still To Be Announced; HotOS XX closed on Jan 15, 2025.",
+      "deadlines": [
+        {
+          "name": "Paper or panel proposal",
+          "date": null,
+          "confirmed": false,
+          "track": ""
+        }
+      ],
+      "link_status": "unknown"
     },
     {
       "id": "hotstorage",
       "name": "HotStorage",
       "full_name": "ACM Workshop on Hot Topics in Storage and File Systems",
       "tier": "workshop",
-      "url": "https://www.hotstorage.org/2026/",
-      "url_template": "https://www.hotstorage.org/{year}/",
+      "url": "https://www.hotstorage.org/2026/cfp.html",
+      "url_template": "https://www.hotstorage.org/{year}/cfp.html",
       "year": 2026,
       "month": 7,
       "rolling": false,
-      "notes": "",
+      "cycle_years": 1,
+      "formats": [
+        "Regular (5p)",
+        "Position (5p)"
+      ],
+      "tracks": [],
+      "notes": "Prefix the title with the paper type, such as 'Position: XYZ'. Co-located with SOSP.",
       "deadlines": [
         {
           "name": "Paper submission",
           "date": "2026-06-12T23:59:00-12:00",
-          "confirmed": true
+          "confirmed": true,
+          "track": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "acm-tos",
@@ -858,6 +1268,9 @@
       "year": null,
       "month": null,
       "rolling": true,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "Journal - continuous submission, no deadline.",
       "deadlines": [],
       "link_status": "unknown"
@@ -872,6 +1285,9 @@
       "year": null,
       "month": null,
       "rolling": true,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
       "notes": "Journal - continuous submission, no deadline.",
       "deadlines": [],
       "link_status": "unknown"

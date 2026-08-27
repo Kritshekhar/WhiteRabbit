@@ -73,8 +73,9 @@ function card(v) {
 
   // date + badge share a nowrap span so the line breaks before the date, not
   // between the date and its "est." marker
+  const track = (d) => (d.track ? `<span class="tag tag-track">${d.track}</span> ` : '');
   const line = v.next
-    ? `<p class="deadline-line"><strong>${v.next.name}</strong> · <span class="nowrap">${fmtDate(v.next.ts, v.next.off)} AoE${est}</span></p>`
+    ? `<p class="deadline-line">${track(v.next)}<strong>${v.next.name}</strong> · <span class="nowrap">${fmtDate(v.next.ts, v.next.off)} AoE${est}</span></p>`
     : '';
 
   // Runway meter: full at 180 days out, empty at the deadline.
@@ -83,14 +84,19 @@ function card(v) {
 
   const others = v.rounds
     .filter((r) => r.ts && r !== v.next)
-    .map((r) => `<div class="${r.ts < Date.now() ? 'past' : ''}"><span>${r.name}</span><span>${fmtDate(r.ts, r.off)}${r.confirmed ? '' : ' · est.'}</span></div>`)
+    .map((r) => `<div class="${r.ts < Date.now() ? 'past' : ''}"><span>${track(r)}${r.name}</span><span>${fmtDate(r.ts, r.off)}${r.confirmed ? '' : ' · est.'}</span></div>`)
     .join('');
 
   const link = v.url
     ? `<a class="card-link" href="${v.url}" target="_blank" rel="noopener">Visit site ↗</a>`
     : '<span class="link-state">No site yet</span>';
   const dot = { ok: 'dot dot-ok', dead: 'dot dot-dead' }[v.link_status] || 'dot';
-  const linkLabel = { ok: 'link ok', dead: 'link broken' }[v.link_status] || 'link unchecked';
+  const LINK_TEXT = {
+    ok:   ['site up', 'The nightly build requested this URL and it responded.'],
+    dead: ['link broken', 'This URL returned 404/410 on the last nightly build - the venue probably moved it.'],
+  };
+  const [linkLabel, linkHelp] = LINK_TEXT[v.link_status]
+    || ['not checked', 'No response either way on the last build (timeout, or the host blocked the request).'];
 
   return `
   <article class="card" style="--status:${statusVar}">
@@ -107,10 +113,12 @@ function card(v) {
     <div>${countdownMarkup(v)}${line}</div>
     ${meter}
     ${others ? `<div class="rounds">${others}</div>` : ''}
+    ${v.formats.length ? `<div class="tags"><span class="tags-label">Accepts</span>${v.formats.map((f) => `<span class="tag">${f}</span>`).join('')}</div>` : ''}
+    ${v.tracks.length ? `<div class="tags"><span class="tags-label">Tracks</span>${v.tracks.map((t) => `<span class="tag tag-track">${t}</span>`).join('')}</div>` : ''}
     ${v.notes ? `<p class="note">${v.notes}</p>` : ''}
     <div class="card-foot">
       ${link}
-      <span class="link-state"><span class="${dot}"></span>${linkLabel}</span>
+      <span class="link-state" title="${linkHelp}"><span class="${dot}"></span>${linkLabel}</span>
     </div>
   </article>`;
 }

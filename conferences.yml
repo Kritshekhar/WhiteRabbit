@@ -17,11 +17,19 @@
 #   year        the edition `url` points at (the "cycle year")
 #   month       typical month the conference is held (1-12), used for sorting
 #               hints only
-#   deadlines   list of { name, date, confirmed }
+#   formats     list of paper formats the venue accepts, e.g.
+#                 [Full paper, Short paper, Poster] - rendered as "Accepts" tags
+#   tracks      list of tracks, e.g. [Research, Industry] - rendered as tags
+#   deadlines   list of { name, date, confirmed, track }
+#                 track      optional, e.g. Research / Industry. Shown as a tag
+#                            beside that deadline, for venues whose tracks
+#                            close on different days.
 #                 date       ISO 8601. Use -12:00 for AoE (anywhere on Earth).
 #                            null / omitted  ->  rendered as "TBA"
 #                 confirmed  true once you have verified it on the CFP page.
 #                            false renders an "est." badge on the dashboard.
+#   cycle_years how many years between editions (default 1). Set 2 for biennial
+#               venues such as HotOS, so rollover steps 2025 -> 2027, not 2026.
 #   rolling     true for journals / continuous submission (no countdown)
 #   notes       free text shown on the card
 #
@@ -149,9 +157,15 @@ venues:
     url_template: https://conf.researchr.org/home/fse-{year}
     year: 2027
     month: 6
+    tracks: [Research, Industry]
     deadlines:
       - name: Full paper submission
+        track: Research
         date: '2026-10-02T23:59:00-12:00'
+        confirmed: true
+      - name: Submission deadline
+        track: Industry
+        date: '2027-01-23T23:59:00-12:00'
         confirmed: true
   - name: ICSE
     full_name: International Conference on Software Engineering
@@ -218,6 +232,7 @@ venues:
     url_template: https://conferences.sigcomm.org/sigcomm/{year}/
     year: 2027
     month: 8
+    notes: The 2027 site is up but its CFP page still carries the 2026 call, so the date below is extrapolated from the 2026 cycle (abstract Jan 30, paper Feb 6).
     deadlines:
       - name: Paper submission
         date: '2027-01-29T23:59:00-12:00'
@@ -358,6 +373,19 @@ venues:
         date: 2026-12-04T23:59:00-12:00
         confirmed: false
 
+  - name: Hot Chips
+    full_name: A Symposium on High-Performance Chips
+    tier: companion
+    url: https://hotchips.org
+    year: 2027
+    month: 8
+    formats: [Talk proposal, Tutorial, Poster]
+    notes: Industry talk symposium, not a paper conference. Stable URL - the site always shows the current edition, so there is no year rollover. Hot Chips 38 ran Aug 23-25, 2026; the HC39 call had not opened as of Aug 2026.
+    deadlines:
+      - name: Submission deadline
+        date: 2027-04-06T23:59:00-12:00
+        confirmed: false
+
   - name: ICDCS
     full_name: IEEE International Conference on Distributed Computing Systems
     tier: companion
@@ -420,9 +448,11 @@ venues:
     month: 7
     deadlines:
       - name: Mandatory abstract
+        track: Research
         date: '2027-01-08T23:59:00-12:00'
         confirmed: true
       - name: Full paper submission
+        track: Research
         date: '2027-01-11T23:59:00-12:00'
         confirmed: true
   - name: KubeCon EU
@@ -448,6 +478,22 @@ venues:
       - name: CFP close
         date: 2026-06-07T23:59:00-12:00
         confirmed: false
+
+  - name: MSST
+    full_name: International Conference on Massive Storage Systems and Technology
+    tier: companion
+    url: https://msstconference.org/2026/index.html
+    url_template: https://msstconference.org/{year}/index.html
+    year: 2026
+    month: 6
+    formats: [Full paper (14p), Short paper (8p)]
+    tracks: [Research, Invited/Industry]
+    notes: Short papers must be complete work, not work-in-progress. Submissions via EasyChair.
+    deadlines:
+      - name: Paper submission
+        track: Research
+        date: 2026-04-14T23:59:00-12:00
+        confirmed: true
 
   - name: MLSys
     full_name: Conference on Machine Learning and Systems
@@ -499,6 +545,24 @@ venues:
         date:
         confirmed: false
 
+  - name: SYSTOR
+    full_name: ACM International Systems and Storage Conference
+    tier: companion
+    url: https://www.systor.org/2026/
+    url_template: https://www.systor.org/{year}/
+    year: 2026
+    month: 9
+    tracks: [Research, Posters]
+    deadlines:
+      - name: Paper submission
+        track: Research
+        date: 2026-05-25T23:59:00-12:00
+        confirmed: true
+      - name: Poster submission
+        track: Posters
+        date: 2026-07-20T23:59:00-12:00
+        confirmed: true
+
   - name: SoCC
     full_name: ACM Symposium on Cloud Computing
     tier: companion
@@ -519,13 +583,89 @@ venues:
       - name: Summer paper
         date: '2026-07-14T23:59:00-12:00'
         confirmed: true
+  - name: APSys
+    full_name: ACM SIGOPS Asia-Pacific Workshop on Systems
+    tier: workshop
+    url: https://ap-sys.org
+    year: 2026
+    month: 9
+    notes: Stable URL - the site always shows the current edition, so there is no year rollover.
+    deadlines:
+      - name: Abstract registration
+        date: 2026-05-13T23:59:00-12:00
+        confirmed: true
+      - name: Paper submission
+        date: 2026-05-20T23:59:00-12:00
+        confirmed: true
+
+  - name: HotCloudPerf
+    full_name: Workshop on Hot Topics in Cloud Computing Performance
+    tier: workshop
+    url: https://hotcloudperf.spec.org
+    year: 2026
+    month: 5
+    formats: [Full paper (5p), Short paper (3p), Talk only (1-2p)]
+    notes: Co-located with ICPE. Talk-only submissions are not included in the proceedings.
+      Stable URL - no year rollover.
+    deadlines:
+      - name: Abstract
+        date: 2026-01-19T23:59:00-12:00
+        confirmed: true
+      - name: Paper submission
+        date: 2026-01-30T23:59:00-12:00
+        confirmed: true
+
+  - name: HotInfra
+    full_name: Workshop on Hot Topics in System Infrastructure
+    tier: workshop
+    url: https://hotinfra.org/2026/
+    url_template: https://hotinfra.org/{year}/
+    year: 2026
+    month: 6
+    notes: hotinfra.org redirects to the latest edition. 2026 ran June 28 in Raleigh, NC.
+    deadlines:
+      - name: Paper submission
+        date: 2026-05-30T23:59:00-12:00
+        confirmed: true
+
+  - name: HotNets
+    full_name: ACM Workshop on Hot Topics in Networks
+    tier: workshop
+    url: https://conferences.sigcomm.org/hotnets/2026/
+    url_template: https://conferences.sigcomm.org/hotnets/{year}/
+    year: 2026
+    month: 11
+    notes: ACM SIGCOMM-sponsored workshop. 2026 edition runs Nov 16-17.
+    deadlines:
+      - name: Paper submission
+        date: '2026-07-16T23:59:00-12:00'
+        confirmed: true
+
+  - name: HotOS
+    full_name: ACM SIGOPS Workshop on Hot Topics in Operating Systems
+    tier: workshop
+    url: https://sigops.org/s/conferences/hotos/2027/
+    url_template: https://sigops.org/s/conferences/hotos/{year}/
+    year: 2027
+    cycle_years: 2
+    month: 5
+    formats: [Paper, Panel proposal]
+    notes: Biennial (odd years). HotOS XXI dates are still To Be Announced; HotOS XX
+      closed on Jan 15, 2025.
+    deadlines:
+      - name: Paper or panel proposal
+        date: null
+        confirmed: false
+
   - name: HotStorage
     full_name: ACM Workshop on Hot Topics in Storage and File Systems
     tier: workshop
-    url: https://www.hotstorage.org/2026/
-    url_template: https://www.hotstorage.org/{year}/
+    url: https://www.hotstorage.org/2026/cfp.html
+    url_template: https://www.hotstorage.org/{year}/cfp.html
     year: 2026
     month: 7
+    formats: [Regular (5p), Position (5p)]
+    notes: "Prefix the title with the paper type, such as 'Position: XYZ'. Co-located with SOSP."
     deadlines:
       - name: Paper submission
         date: '2026-06-12T23:59:00-12:00'
