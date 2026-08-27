@@ -2,8 +2,11 @@ name: White Rabbit — refresh deadlines
 
 on:
   schedule:
-    # 07:00 UTC = midnight Arizona (UTC-7, no DST) - i.e. end of each day.
+    # Nightly: 07:00 UTC = midnight Arizona (UTC-7, no DST) - i.e. end of each
+    # day. Probes only venues that plausibly moved (see --scope auto).
     - cron: "0 7 * * *"
+    # Monthly: re-probe every venue on the 1st, so nothing drifts unnoticed.
+    - cron: "0 6 1 * *"
   push:
     branches: [main]
     paths:
@@ -11,6 +14,12 @@ on:
       - scripts/**
       - .github/workflows/update-deadlines.yml
   workflow_dispatch:
+    inputs:
+      scope:
+        description: "auto = only venues that plausibly moved; all = re-probe everything"
+        type: choice
+        default: auto
+        options: [auto, all]
 
 permissions:
   contents: write   # commit the regenerated data file / year rollovers
@@ -34,7 +43,13 @@ jobs:
         run: python scripts/validate_config.py
 
       - name: Rebuild dashboard data
-        run: python scripts/update.py
+        run: |
+          # The monthly cron forces a full sweep; the nightly one does not.
+          SCOPE=auto
+          if [ "${{ github.event.schedule }}" = "0 6 1 * *" ]; then SCOPE=all; fi
+          if [ "${{ inputs.scope }}" = "all" ]; then SCOPE=all; fi
+          echo "probe scope: $SCOPE"
+          python scripts/update.py --scope "$SCOPE"
 
       - name: Commit changes
         run: |

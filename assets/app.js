@@ -99,11 +99,16 @@ function card(v) {
     : '<span class="link-state">No site yet</span>';
   const dot = { ok: 'dot dot-ok', dead: 'dot dot-dead' }[v.link_status] || 'dot';
   const LINK_TEXT = {
-    ok:   ['site up', 'The nightly build requested this URL and it responded.'],
-    dead: ['link broken', 'This URL returned 404/410 on the last nightly build - the venue probably moved it.'],
+    ok:   ['site up', 'This URL responded when it was last checked.'],
+    dead: ['link broken', 'This URL returned 404/410 when last checked - the venue probably moved it.'],
   };
-  const [linkLabel, linkHelp] = LINK_TEXT[v.link_status]
-    || ['not checked', 'No response either way on the last build (timeout, or the host blocked the request).'];
+  const [linkLabel, baseHelp] = LINK_TEXT[v.link_status]
+    || ['not checked', 'No response either way (timeout, or the host blocked the request).'];
+  // Links are not re-probed every night - most never move. Say when this one was.
+  const checkedOn = v.link_checked_on
+    ? ` Last checked ${new Date(v.link_checked_on).toLocaleDateString(undefined, { dateStyle: 'medium' })}.`
+    : '';
+  const linkHelp = baseHelp + checkedOn;
 
   return `
   <article class="card" style="--status:${statusVar}">
@@ -172,7 +177,7 @@ function renderStats(meta) {
   const verified = upcoming.filter((v) => v.next.confirmed).length;
   $('verified-note').textContent =
     `${verified} of ${upcoming.length} upcoming deadlines have been checked against the venue's own CFP page; the rest are extrapolated from previous cycles.`;
-  $('updated').textContent = `updated ${new Date(meta.generated_at).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}`;
+  $('updated').textContent = `data rebuilt ${new Date(meta.generated_at).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}`;
 }
 
 /* -------------------------------- theme --------------------------------- */
