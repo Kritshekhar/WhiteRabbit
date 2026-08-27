@@ -64,6 +64,8 @@ missing URL → the card renders without a link).
 | `tracks` | e.g. `[Research, Industry]` — rendered as **Tracks** tags |
 | `deadlines` | list of `{ name, date, confirmed, track }`; `date: null` renders as TBA |
 | `deadlines[].track` | optional, e.g. `Research` / `Industry` — tagged beside that deadline, for venues whose tracks close on different days |
+| `deadlines[].source` | the page the date was read off. **Required when `confirmed: true`** — the ✓ verified badge links to it |
+| `deadlines[].verified_on` | when it was last checked against that page |
 | `cycle_years` | years between editions (default 1). `2` for biennial venues like HotOS, so rollover steps 2025 → 2027 |
 | `rolling` | `true` for journals — shows "Rolling submission", never counts down |
 | `notes` | free text shown on the card |
@@ -106,6 +108,31 @@ On a successful rollover the script bumps `year`, rewrites `url`, shifts the
 deadlines forward by `cycle_years` and sets `confirmed: false` — a shifted date is
 an estimate until someone verifies it against the real CFP, and the dashboard
 labels it `est.` until then.
+
+## Contributing
+
+See **[CONTRIBUTING.md](CONTRIBUTING.md)**. Short version: edit
+`conferences.yml`, nothing else. A date is either verified — `confirmed: true`
+with a `source:` URL a reader can click — or it is estimated and wears an
+**est.** badge. There is no third state, and CI enforces that a confirmed date
+carries its source.
+
+```bash
+python scripts/validate_config.py      # structural checks, runs on every PR
+python scripts/check_deadlines.py FSE  # what the venue's own page says
+```
+
+## Workflows
+
+| Workflow | Trigger | Does |
+|---|---|---|
+| `validate.yml` | every PR | validates `conferences.yml`, proves an offline build works |
+| `update-deadlines.yml` | nightly 07:00 UTC, push, manual | rebuilds the data, rolls venues over, commits back |
+| `deploy-pages.yml` | push to `main`, manual | publishes to GitHub Pages |
+
+Deploy is deliberately a separate workflow: publishing can be blocked by
+account plan or Pages settings, and that must not make a healthy data refresh
+look like a broken build.
 
 ## Publishing
 

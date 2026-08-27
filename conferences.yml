@@ -59,6 +59,8 @@ venues:
       - name: Paper submission
         date: '2026-09-15T23:59:00-12:00'
         confirmed: true
+        source: https://www.usenix.org/conference/fast27
+        verified_on: '2026-08-26'
   - name: OSDI
     full_name: USENIX Symposium on Operating Systems Design and Implementation
     tier: tier1
@@ -70,9 +72,13 @@ venues:
       - name: Abstract registration
         date: '2026-12-01T23:59:00-12:00'
         confirmed: true
+        source: https://www.usenix.org/conference/osdi27
+        verified_on: '2026-08-26'
       - name: Paper submission
         date: '2026-12-08T23:59:00-12:00'
         confirmed: true
+        source: https://www.usenix.org/conference/osdi27
+        verified_on: '2026-08-26'
   - name: ATC
     full_name: USENIX Annual Technical Conference
     tier: tier1
@@ -97,15 +103,23 @@ venues:
       - name: Spring abstract
         date: '2026-05-07T23:59:00-12:00'
         confirmed: true
+        source: https://2027.eurosys.org/cfp
+        verified_on: '2026-08-26'
       - name: Spring full paper
         date: '2026-05-14T23:59:00-12:00'
         confirmed: true
+        source: https://2027.eurosys.org/cfp
+        verified_on: '2026-08-26'
       - name: Fall abstract
         date: '2026-09-17T23:59:00-12:00'
         confirmed: true
+        source: https://2027.eurosys.org/cfp
+        verified_on: '2026-08-26'
       - name: Fall full paper
         date: '2026-09-24T23:59:00-12:00'
         confirmed: true
+        source: https://2027.eurosys.org/cfp
+        verified_on: '2026-08-26'
   - name: ASPLOS
     full_name: Architectural Support for Programming Languages and Operating Systems
     tier: tier1
@@ -117,9 +131,13 @@ venues:
       - name: Cycle 1 full paper
         date: '2026-04-15T23:59:00-12:00'
         confirmed: true
+        source: https://www.asplos-conference.org/asplos2027/cfp
+        verified_on: '2026-08-26'
       - name: Cycle 2 full paper
         date: '2026-09-09T23:59:00-12:00'
         confirmed: true
+        source: https://www.asplos-conference.org/asplos2027/cfp
+        verified_on: '2026-08-26'
   - name: SC
     full_name: International Conference for High Performance Computing, Networking, Storage and Analysis
     tier: tier1
@@ -163,10 +181,14 @@ venues:
         track: Research
         date: '2026-10-02T23:59:00-12:00'
         confirmed: true
+        source: https://conf.researchr.org/dates/fse-2027
+        verified_on: '2026-08-26'
       - name: Submission deadline
         track: Industry
         date: '2027-01-23T23:59:00-12:00'
         confirmed: true
+        source: https://conf.researchr.org/dates/fse-2027
+        verified_on: '2026-08-26'
   - name: ICSE
     full_name: International Conference on Software Engineering
     tier: tier1
@@ -192,15 +214,23 @@ venues:
       - name: Spring abstract
         date: '2026-04-16T23:59:00-12:00'
         confirmed: true
+        source: https://www.usenix.org/conference/nsdi27
+        verified_on: '2026-08-26'
       - name: Spring full paper
         date: '2026-04-23T23:59:00-12:00'
         confirmed: true
+        source: https://www.usenix.org/conference/nsdi27
+        verified_on: '2026-08-26'
       - name: Fall abstract
         date: '2026-09-10T23:59:00-12:00'
         confirmed: true
+        source: https://www.usenix.org/conference/nsdi27
+        verified_on: '2026-08-26'
       - name: Fall full paper
         date: '2026-09-17T23:59:00-12:00'
         confirmed: true
+        source: https://www.usenix.org/conference/nsdi27
+        verified_on: '2026-08-26'
   - name: PLDI
     full_name: ACM SIGPLAN Conference on Programming Language Design and Implementation
     tier: tier1
@@ -249,15 +279,23 @@ venues:
       - name: Fall abstract
         date: '2026-10-02T23:59:00-12:00'
         confirmed: true
+        source: https://www.sigmetrics.org/sigmetrics2027
+        verified_on: '2026-08-26'
       - name: Fall paper
         date: '2026-10-09T23:59:00-12:00'
         confirmed: true
+        source: https://www.sigmetrics.org/sigmetrics2027
+        verified_on: '2026-08-26'
       - name: Winter abstract
         date: '2027-01-04T23:59:00-12:00'
         confirmed: true
+        source: https://www.sigmetrics.org/sigmetrics2027
+        verified_on: '2026-08-26'
       - name: Winter paper
         date: '2027-01-11T23:59:00-12:00'
         confirmed: true
+        source: https://www.sigmetrics.org/sigmetrics2027
+        verified_on: '2026-08-26'
   - name: SIGMOD
     full_name: ACM SIGMOD International Conference on Management of Data
     tier: tier1
@@ -299,15 +337,23 @@ venues:
       - name: Cycle 1 registration
         date: '2026-08-18T23:59:00-12:00'
         confirmed: true
+        source: https://www.usenix.org/conference/usenixsecurity27
+        verified_on: '2026-08-26'
       - name: Cycle 1 submission
         date: '2026-08-25T23:59:00-12:00'
         confirmed: true
+        source: https://www.usenix.org/conference/usenixsecurity27
+        verified_on: '2026-08-26'
       - name: Cycle 2 registration
         date: '2027-01-19T23:59:00-12:00'
         confirmed: true
+        source: https://www.usenix.org/conference/usenixsecurity27
+        verified_on: '2026-08-26'
       - name: Cycle 2 submission
         date: '2027-01-26T23:59:00-12:00'
         confirmed: true
+        source: https://www.usenix.org/conference/usenixsecurity27
+        verified_on: '2026-08-26'
   - name: VLDB
     full_name: International Conference on Very Large Data Bases
     tier: tier1
@@ -333,6 +379,8 @@ venues:
       - name: Paper submission
         date: '2026-03-26T23:59:00-12:00'
         confirmed: true
+        source: https://conf.researchr.org/dates/ase-2026
+        verified_on: '2026-08-26'
   - name: CAIS
     full_name: Conference on AI Safety
     tier: companion
@@ -409,9 +457,13 @@ venues:
       - name: Cycle 1
         date: '2025-11-20T23:59:00-12:00'
         confirmed: true
+        source: https://conferences.sigcomm.org/imc/2026
+        verified_on: '2026-08-26'
       - name: Cycle 2
         date: '2026-04-29T23:59:00-12:00'
         confirmed: true
+        source: https://conferences.sigcomm.org/imc/2026
+        verified_on: '2026-08-26'
   - name: INFOCOM
     full_name: IEEE International Conference on Computer Communications
     tier: companion
@@ -451,10 +503,14 @@ venues:
         track: Research
         date: '2027-01-08T23:59:00-12:00'
         confirmed: true
+        source: https://conf.researchr.org/dates/issta-2027
+        verified_on: '2026-08-26'
       - name: Full paper submission
         track: Research
         date: '2027-01-11T23:59:00-12:00'
         confirmed: true
+        source: https://conf.researchr.org/dates/issta-2027
+        verified_on: '2026-08-26'
   - name: KubeCon EU
     full_name: KubeCon + CloudNativeCon Europe
     tier: companion
@@ -495,6 +551,8 @@ venues:
         date: 2026-04-14T23:59:00-12:00
         confirmed: true
 
+        source: https://msstconference.org/2026/research-cfp.html
+        verified_on: '2026-08-26'
   - name: MLSys
     full_name: Conference on Machine Learning and Systems
     tier: companion
@@ -558,11 +616,15 @@ venues:
         track: Research
         date: 2026-05-25T23:59:00-12:00
         confirmed: true
+        source: https://www.systor.org/2026/
+        verified_on: '2026-08-26'
       - name: Poster submission
         track: Posters
         date: 2026-07-20T23:59:00-12:00
         confirmed: true
 
+        source: https://www.systor.org/2026/
+        verified_on: '2026-08-26'
   - name: SoCC
     full_name: ACM Symposium on Cloud Computing
     tier: companion
@@ -574,15 +636,23 @@ venues:
       - name: Winter abstract
         date: '2026-02-06T23:59:00-12:00'
         confirmed: true
+        source: https://acmsocc.org/2026/papers
+        verified_on: '2026-08-26'
       - name: Winter paper
         date: '2026-02-13T23:59:00-12:00'
         confirmed: true
+        source: https://acmsocc.org/2026/papers
+        verified_on: '2026-08-26'
       - name: Summer abstract
         date: '2026-07-07T23:59:00-12:00'
         confirmed: true
+        source: https://acmsocc.org/2026/papers
+        verified_on: '2026-08-26'
       - name: Summer paper
         date: '2026-07-14T23:59:00-12:00'
         confirmed: true
+        source: https://acmsocc.org/2026/papers
+        verified_on: '2026-08-26'
   - name: APSys
     full_name: ACM SIGOPS Asia-Pacific Workshop on Systems
     tier: workshop
@@ -594,10 +664,14 @@ venues:
       - name: Abstract registration
         date: 2026-05-13T23:59:00-12:00
         confirmed: true
+        source: https://ap-sys.org
+        verified_on: '2026-08-26'
       - name: Paper submission
         date: 2026-05-20T23:59:00-12:00
         confirmed: true
 
+        source: https://ap-sys.org
+        verified_on: '2026-08-26'
   - name: HotCloudPerf
     full_name: Workshop on Hot Topics in Cloud Computing Performance
     tier: workshop
@@ -605,16 +679,19 @@ venues:
     year: 2026
     month: 5
     formats: [Full paper (5p), Short paper (3p), Talk only (1-2p)]
-    notes: Co-located with ICPE. Talk-only submissions are not included in the proceedings.
-      Stable URL - no year rollover.
+    notes: Co-located with ICPE. Talk-only submissions are not included in the proceedings. Stable URL - no year rollover.
     deadlines:
       - name: Abstract
         date: 2026-01-19T23:59:00-12:00
         confirmed: true
+        source: https://hotcloudperf.spec.org
+        verified_on: '2026-08-26'
       - name: Paper submission
         date: 2026-01-30T23:59:00-12:00
         confirmed: true
 
+        source: https://hotcloudperf.spec.org
+        verified_on: '2026-08-26'
   - name: HotInfra
     full_name: Workshop on Hot Topics in System Infrastructure
     tier: workshop
@@ -628,6 +705,8 @@ venues:
         date: 2026-05-30T23:59:00-12:00
         confirmed: true
 
+        source: https://hotinfra.org/2026/
+        verified_on: '2026-08-26'
   - name: HotNets
     full_name: ACM Workshop on Hot Topics in Networks
     tier: workshop
@@ -641,6 +720,8 @@ venues:
         date: '2026-07-16T23:59:00-12:00'
         confirmed: true
 
+        source: https://conferences.sigcomm.org/hotnets/2026/
+        verified_on: '2026-08-26'
   - name: HotOS
     full_name: ACM SIGOPS Workshop on Hot Topics in Operating Systems
     tier: workshop
@@ -650,11 +731,10 @@ venues:
     cycle_years: 2
     month: 5
     formats: [Paper, Panel proposal]
-    notes: Biennial (odd years). HotOS XXI dates are still To Be Announced; HotOS XX
-      closed on Jan 15, 2025.
+    notes: Biennial (odd years). HotOS XXI dates are still To Be Announced; HotOS XX closed on Jan 15, 2025.
     deadlines:
       - name: Paper or panel proposal
-        date: null
+        date:
         confirmed: false
 
   - name: HotStorage
@@ -670,6 +750,8 @@ venues:
       - name: Paper submission
         date: '2026-06-12T23:59:00-12:00'
         confirmed: true
+        source: https://www.hotstorage.org/2026/cfp.html
+        verified_on: '2026-08-26'
   - name: ACM TOS
     full_name: ACM Transactions on Storage
     tier: workshop

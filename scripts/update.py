@@ -166,6 +166,8 @@ def normalise(raw: dict) -> dict:
                 "date": dt.isoformat() if dt else None,
                 "confirmed": bool(entry.get("confirmed", False)),
                 "track": str(entry.get("track") or "").strip(),
+                "source": str(entry.get("source") or "").strip(),
+                "verified_on": str(entry.get("verified_on") or "").strip(),
                 "_dt": dt,
             }
         )

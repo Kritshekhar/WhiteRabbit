@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T02:53:25+00:00",
+  "generated_at": "2026-08-27T05:18:44+00:00",
   "aoe_label": "AoE",
   "counts": {
     "total": 45,
@@ -27,10 +27,12 @@
           "name": "Paper submission",
           "date": "2026-09-15T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.usenix.org/conference/fast27",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "osdi",
@@ -51,16 +53,20 @@
           "name": "Abstract registration",
           "date": "2026-12-01T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.usenix.org/conference/osdi27",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Paper submission",
           "date": "2026-12-08T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.usenix.org/conference/osdi27",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "atc",
@@ -81,10 +87,12 @@
           "name": "Paper submission",
           "date": "2026-01-13T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "eurosys",
@@ -105,28 +113,36 @@
           "name": "Spring abstract",
           "date": "2026-05-07T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://2027.eurosys.org/cfp",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Spring full paper",
           "date": "2026-05-14T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://2027.eurosys.org/cfp",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Fall abstract",
           "date": "2026-09-17T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://2027.eurosys.org/cfp",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Fall full paper",
           "date": "2026-09-24T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://2027.eurosys.org/cfp",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "asplos",
@@ -147,16 +163,20 @@
           "name": "Cycle 1 full paper",
           "date": "2026-04-15T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.asplos-conference.org/asplos2027/cfp",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Cycle 2 full paper",
           "date": "2026-09-09T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.asplos-conference.org/asplos2027/cfp",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "sc",
@@ -177,16 +197,20 @@
           "name": "Abstract",
           "date": "2026-03-23T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         },
         {
           "name": "Full paper",
           "date": "2026-03-30T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "ccs",
@@ -207,16 +231,20 @@
           "name": "Cycle 1",
           "date": "2027-01-12T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         },
         {
           "name": "Cycle 2",
           "date": "2027-04-13T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "fse",
@@ -240,16 +268,20 @@
           "name": "Full paper submission",
           "date": "2026-10-02T23:59:00-12:00",
           "confirmed": true,
-          "track": "Research"
+          "track": "Research",
+          "source": "https://conf.researchr.org/dates/fse-2027",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Submission deadline",
           "date": "2027-01-23T23:59:00-12:00",
           "confirmed": true,
-          "track": "Industry"
+          "track": "Industry",
+          "source": "https://conf.researchr.org/dates/fse-2027",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "icse",
@@ -270,16 +302,20 @@
           "name": "Mandatory abstract",
           "date": "2027-06-23T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         },
         {
           "name": "Full paper submission",
           "date": "2027-06-30T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "nsdi",
@@ -300,28 +336,36 @@
           "name": "Spring abstract",
           "date": "2026-04-16T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.usenix.org/conference/nsdi27",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Spring full paper",
           "date": "2026-04-23T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.usenix.org/conference/nsdi27",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Fall abstract",
           "date": "2026-09-10T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.usenix.org/conference/nsdi27",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Fall full paper",
           "date": "2026-09-17T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.usenix.org/conference/nsdi27",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "pldi",
@@ -342,10 +386,12 @@
           "name": "Paper submission",
           "date": "2026-11-12T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "s-p",
@@ -366,10 +412,12 @@
           "name": "Cycle 2",
           "date": "2026-11-05T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "sigcomm",
@@ -390,10 +438,12 @@
           "name": "Paper submission",
           "date": "2027-01-29T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "sigmetrics",
@@ -414,28 +464,36 @@
           "name": "Fall abstract",
           "date": "2026-10-02T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.sigmetrics.org/sigmetrics2027",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Fall paper",
           "date": "2026-10-09T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.sigmetrics.org/sigmetrics2027",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Winter abstract",
           "date": "2027-01-04T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.sigmetrics.org/sigmetrics2027",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Winter paper",
           "date": "2027-01-11T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.sigmetrics.org/sigmetrics2027",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "sigmod",
@@ -456,22 +514,28 @@
           "name": "Round 1",
           "date": "2026-07-15T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         },
         {
           "name": "Round 2",
           "date": "2026-10-15T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         },
         {
           "name": "Round 3",
           "date": "2027-01-15T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "sosp",
@@ -492,10 +556,12 @@
           "name": "Paper submission",
           "date": "2026-04-16T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "usenix-security",
@@ -516,28 +582,36 @@
           "name": "Cycle 1 registration",
           "date": "2026-08-18T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.usenix.org/conference/usenixsecurity27",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Cycle 1 submission",
           "date": "2026-08-25T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.usenix.org/conference/usenixsecurity27",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Cycle 2 registration",
           "date": "2027-01-19T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.usenix.org/conference/usenixsecurity27",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Cycle 2 submission",
           "date": "2027-01-26T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.usenix.org/conference/usenixsecurity27",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "vldb",
@@ -558,10 +632,12 @@
           "name": "Monthly round",
           "date": "2026-09-01T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "ase",
@@ -582,10 +658,12 @@
           "name": "Paper submission",
           "date": "2026-03-26T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://conf.researchr.org/dates/ase-2026",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "cais",
@@ -606,10 +684,12 @@
           "name": "Paper submission",
           "date": null,
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "ches",
@@ -630,16 +710,20 @@
           "name": "Round 3",
           "date": "2027-04-15T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         },
         {
           "name": "Round 4",
           "date": "2027-07-15T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "dsn",
@@ -660,16 +744,20 @@
           "name": "Fall round",
           "date": "2026-09-25T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         },
         {
           "name": "Spring round",
           "date": "2026-12-04T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "hot-chips",
@@ -694,10 +782,12 @@
           "name": "Submission deadline",
           "date": "2027-04-06T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "icdcs",
@@ -718,10 +808,12 @@
           "name": "Paper submission",
           "date": "2026-12-10T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "imc",
@@ -742,16 +834,20 @@
           "name": "Cycle 1",
           "date": "2025-11-20T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://conferences.sigcomm.org/imc/2026",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Cycle 2",
           "date": "2026-04-29T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://conferences.sigcomm.org/imc/2026",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "infocom",
@@ -772,10 +868,12 @@
           "name": "Paper submission",
           "date": "2026-07-31T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "ipdps",
@@ -796,16 +894,20 @@
           "name": "Abstract",
           "date": "2026-09-24T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         },
         {
           "name": "Full paper",
           "date": "2026-10-01T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "issta",
@@ -826,16 +928,20 @@
           "name": "Mandatory abstract",
           "date": "2027-01-08T23:59:00-12:00",
           "confirmed": true,
-          "track": "Research"
+          "track": "Research",
+          "source": "https://conf.researchr.org/dates/issta-2027",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Full paper submission",
           "date": "2027-01-11T23:59:00-12:00",
           "confirmed": true,
-          "track": "Research"
+          "track": "Research",
+          "source": "https://conf.researchr.org/dates/issta-2027",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "kubecon-eu",
@@ -856,10 +962,12 @@
           "name": "CFP close",
           "date": "2026-11-15T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "kubecon-na",
@@ -880,10 +988,12 @@
           "name": "CFP close",
           "date": "2026-06-07T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "msst",
@@ -910,10 +1020,12 @@
           "name": "Paper submission",
           "date": "2026-04-14T23:59:00-12:00",
           "confirmed": true,
-          "track": "Research"
+          "track": "Research",
+          "source": "https://msstconference.org/2026/research-cfp.html",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "mlsys",
@@ -934,10 +1046,12 @@
           "name": "Paper submission",
           "date": "2026-10-30T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "ndss",
@@ -958,16 +1072,20 @@
           "name": "Cycle 1",
           "date": "2026-04-22T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         },
         {
           "name": "Cycle 2",
           "date": "2026-07-22T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "pytorch-conf",
@@ -988,10 +1106,12 @@
           "name": "CFP close",
           "date": "2026-06-01T23:59:00-12:00",
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "pytorch-eu",
@@ -1012,10 +1132,12 @@
           "name": "CFP close",
           "date": null,
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "systor",
@@ -1039,16 +1161,20 @@
           "name": "Paper submission",
           "date": "2026-05-25T23:59:00-12:00",
           "confirmed": true,
-          "track": "Research"
+          "track": "Research",
+          "source": "https://www.systor.org/2026/",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Poster submission",
           "date": "2026-07-20T23:59:00-12:00",
           "confirmed": true,
-          "track": "Posters"
+          "track": "Posters",
+          "source": "https://www.systor.org/2026/",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "socc",
@@ -1069,28 +1195,36 @@
           "name": "Winter abstract",
           "date": "2026-02-06T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://acmsocc.org/2026/papers",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Winter paper",
           "date": "2026-02-13T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://acmsocc.org/2026/papers",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Summer abstract",
           "date": "2026-07-07T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://acmsocc.org/2026/papers",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Summer paper",
           "date": "2026-07-14T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://acmsocc.org/2026/papers",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "apsys",
@@ -1111,16 +1245,20 @@
           "name": "Abstract registration",
           "date": "2026-05-13T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://ap-sys.org",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Paper submission",
           "date": "2026-05-20T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://ap-sys.org",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "hotcloudperf",
@@ -1145,16 +1283,20 @@
           "name": "Abstract",
           "date": "2026-01-19T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://hotcloudperf.spec.org",
+          "verified_on": "2026-08-26"
         },
         {
           "name": "Paper submission",
           "date": "2026-01-30T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://hotcloudperf.spec.org",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "hotinfra",
@@ -1175,10 +1317,12 @@
           "name": "Paper submission",
           "date": "2026-05-30T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://hotinfra.org/2026/",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "hotnets",
@@ -1199,10 +1343,12 @@
           "name": "Paper submission",
           "date": "2026-07-16T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://conferences.sigcomm.org/hotnets/2026/",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "hotos",
@@ -1226,10 +1372,12 @@
           "name": "Paper or panel proposal",
           "date": null,
           "confirmed": false,
-          "track": ""
+          "track": "",
+          "source": "",
+          "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "hotstorage",
@@ -1253,10 +1401,12 @@
           "name": "Paper submission",
           "date": "2026-06-12T23:59:00-12:00",
           "confirmed": true,
-          "track": ""
+          "track": "",
+          "source": "https://www.hotstorage.org/2026/cfp.html",
+          "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "acm-tos",

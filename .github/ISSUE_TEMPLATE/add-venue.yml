@@ -1,0 +1,37 @@
+name: Add a venue
+description: Suggest a conference or workshop to track
+title: "Add <venue>"
+labels: [venue]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Venue
+      placeholder: SOSP
+    validations: {required: true}
+  - type: input
+    id: url
+    attributes:
+      label: Homepage for the current edition
+      placeholder: https://sigops.org/s/conferences/sosp/2026/
+    validations: {required: true}
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Tier
+      options: [tier1, companion, workshop]
+    validations: {required: true}
+  - type: textarea
+    id: deadlines
+    attributes:
+      label: Deadlines
+      description: Paste the dates and link the page you read them on. Leave blank if the CFP is not out yet.
+      placeholder: |
+        https://sigops.org/s/conferences/sosp/2026/cfp.html
+        > Paper submission: April 16, 2026 AoE
+  - type: input
+    id: pattern
+    attributes:
+      label: URL pattern for future editions
+      description: How the link changes year to year, so it can roll over automatically.
+      placeholder: https://sigops.org/s/conferences/sosp/{year}/
