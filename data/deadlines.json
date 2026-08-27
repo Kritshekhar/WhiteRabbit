@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T05:18:44+00:00",
+  "generated_at": "2026-08-27T05:18:52+00:00",
   "aoe_label": "AoE",
   "counts": {
     "total": 45,
@@ -32,7 +32,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "osdi",
@@ -66,7 +66,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "atc",
@@ -92,7 +92,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "eurosys",
@@ -142,7 +142,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "asplos",
@@ -176,7 +176,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "sc",
@@ -210,7 +210,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "ccs",
@@ -244,7 +244,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "fse",
@@ -281,7 +281,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "icse",
@@ -315,7 +315,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "nsdi",
@@ -365,7 +365,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "pldi",
@@ -391,7 +391,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "s-p",
@@ -417,7 +417,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "sigcomm",
@@ -443,7 +443,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "sigmetrics",
@@ -493,7 +493,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "sigmod",
@@ -535,7 +535,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "sosp",
@@ -561,7 +561,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "usenix-security",
@@ -611,7 +611,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "vldb",
@@ -637,7 +637,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "ase",
@@ -663,7 +663,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "cais",
@@ -689,7 +689,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "ches",
@@ -723,7 +723,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "dsn",
@@ -757,7 +757,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "hot-chips",
@@ -787,7 +787,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "icdcs",
@@ -847,7 +847,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "infocom",
@@ -873,7 +873,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "ipdps",
@@ -907,7 +907,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "issta",
@@ -941,7 +941,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "kubecon-eu",
@@ -967,7 +967,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "kubecon-na",
@@ -993,7 +993,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "msst",
@@ -1025,7 +1025,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "mlsys",
@@ -1051,7 +1051,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "ndss",
@@ -1085,7 +1085,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "pytorch-conf",
@@ -1111,7 +1111,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "pytorch-eu",
@@ -1137,7 +1137,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "systor",
@@ -1174,7 +1174,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "socc",
@@ -1224,7 +1224,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "apsys",
@@ -1258,7 +1258,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "hotcloudperf",
@@ -1296,7 +1296,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "hotinfra",
@@ -1322,7 +1322,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "hotnets",
@@ -1348,7 +1348,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "hotos",
@@ -1377,7 +1377,7 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "hotstorage",
@@ -1406,7 +1406,7 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "acm-tos",
@@ -1423,7 +1423,7 @@
       "tracks": [],
       "notes": "Journal - continuous submission, no deadline.",
       "deadlines": [],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "acm-tocs",
@@ -1440,7 +1440,7 @@
       "tracks": [],
       "notes": "Journal - continuous submission, no deadline.",
       "deadlines": [],
-      "link_status": "unknown"
+      "link_status": "ok"
     }
   ]
 }
