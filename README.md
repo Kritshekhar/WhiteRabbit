@@ -233,6 +233,17 @@ line it can pull off the venue's site (landing page, then the usual
     site:   Full paper submissions due: Thursday, September 24, 2026
 ```
 
+### Formats and tracks
+
+```bash
+python scripts/check_deadlines.py --formats          # every venue
+python scripts/check_deadlines.py --formats ccs sc   # just these
+```
+
+Same idea as the date checker, aimed at page limits and track names instead.
+It searches the CFP subpages first, since a landing page tends to mention
+"Posters Co-Chairs" without saying anything about what you can submit.
+
 ### Firecrawl (optional)
 
 Add `--firecrawl` and pages that plain fetching cannot read — JS-rendered
