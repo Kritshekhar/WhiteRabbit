@@ -61,6 +61,9 @@ venues:
         confirmed: true
         source: https://www.usenix.org/conference/fast27
         verified_on: '2026-08-26'
+    tracks:
+      - Research
+      - Work-in-Progress/Posters
   - name: OSDI
     full_name: USENIX Symposium on Operating Systems Design and Implementation
     tier: tier1
@@ -120,6 +123,8 @@ venues:
         confirmed: true
         source: https://2027.eurosys.org/cfp
         verified_on: '2026-08-26'
+    formats:
+      - Full paper
   - name: ASPLOS
     full_name: Architectural Support for Programming Languages and Operating Systems
     tier: tier1
@@ -138,6 +143,11 @@ venues:
         confirmed: true
         source: https://www.asplos-conference.org/asplos2027/cfp
         verified_on: '2026-08-26'
+    formats:
+      - Full paper (11p)
+    tracks:
+      - Research
+    notes: A rapid review round assesses the first two pages only. The program may also include poster and lightning sessions.
   - name: SC
     full_name: International Conference for High Performance Computing, Networking, Storage and Analysis
     tier: tier1
@@ -153,6 +163,8 @@ venues:
         date: 2026-03-30T23:59:00-12:00
         confirmed: false
 
+    formats:
+      - Full paper (10p)
   - name: CCS
     full_name: ACM Conference on Computer and Communications Security
     tier: tier1
@@ -168,6 +180,9 @@ venues:
         date: 2027-04-13T23:59:00-12:00
         confirmed: false
 
+    formats:
+      - Full paper (12p)
+    notes: CCS does not accept SoK or survey papers.
   - name: FSE
     full_name: ACM International Conference on the Foundations of Software Engineering
     tier: tier1
@@ -231,6 +246,12 @@ venues:
         confirmed: true
         source: https://www.usenix.org/conference/nsdi27
         verified_on: '2026-08-26'
+    formats:
+      - Full paper
+    tracks:
+      - Traditional Research
+      - Frontiers
+      - Operational Systems
   - name: PLDI
     full_name: ACM SIGPLAN Conference on Programming Language Design and Implementation
     tier: tier1
@@ -272,6 +293,9 @@ venues:
         date: '2027-01-29T23:59:00-12:00'
         confirmed: false
 
+    tracks:
+      - Research
+      - Experience
   - name: SIGMETRICS
     full_name: ACM SIGMETRICS / IFIP Performance
     tier: tier1
@@ -318,6 +342,10 @@ venues:
         date: 2027-01-15T23:59:00-12:00
         confirmed: false
 
+    tracks:
+      - Research
+      - Industrial
+      - Demo
   - name: SOSP
     full_name: ACM Symposium on Operating Systems Principles
     tier: tier1
@@ -358,6 +386,9 @@ venues:
         confirmed: true
         source: https://www.usenix.org/conference/usenixsecurity27
         verified_on: '2026-08-26'
+    formats:
+      - Full paper (13p body)
+      - Systematization of Knowledge (SoK)
   - name: VLDB
     full_name: International Conference on Very Large Data Bases
     tier: tier1
@@ -468,6 +499,9 @@ venues:
         confirmed: true
         source: https://conferences.sigcomm.org/imc/2026
         verified_on: '2026-08-26'
+    formats:
+      - Full paper (13p)
+      - Poster
   - name: INFOCOM
     full_name: IEEE International Conference on Computer Communications
     tier: companion

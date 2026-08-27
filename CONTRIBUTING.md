@@ -89,6 +89,23 @@ build overwrites it.
 | `url_template` with no `{year}` | it can never roll over; drop it or add the placeholder |
 | a venue added twice | one entry per venue |
 
+## Formats and tracks
+
+`formats` (what a venue accepts) and `tracks` are optional and mostly empty,
+on purpose — they are filled in only where the venue's CFP states them:
+
+```bash
+python scripts/check_deadlines.py --formats ccs asplos
+```
+
+That prints the page limits and track names it can find on each venue's call.
+Copy what the page actually says; leave the field out otherwise. A blank
+`formats` means "not stated yet", which is honest — an invented "accepts
+posters" is the same failure as an invented deadline, just quieter.
+
+Most venues fill these in only once their CFP is published, so expect coverage
+to grow over the cycle rather than arrive all at once.
+
 ## Timezones
 
 Conference deadlines are almost always **AoE** (Anywhere on Earth, UTC−12).

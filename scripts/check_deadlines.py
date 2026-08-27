@@ -42,7 +42,7 @@ WORKERS = 8
 
 # Sub-pages worth trying when the landing page carries no dates.
 SUBPAGES = [
-    "cfp", "cfp.html", "call-for-papers", "callforpapers",
+    "cfp", "cfp.html", "call-for-papers", "callforpapers", "call-for-papers.html",
     "dates", "dates.html", "important-dates", "submission", "papers",
 ]
 KEYWORDS = re.compile(
@@ -177,6 +177,40 @@ def to_text(markup: str) -> str:
     return re.sub(r"[ \t\xa0]+", " ", text)
 
 
+# What a venue accepts is stated in prose too ("no longer than five (5) pages",
+# "Research Track", "Position or Regular"), so --formats greps for that shape.
+FORMAT_PATTERNS = re.compile(
+    r"(?i)\b("
+    r"full paper|short paper|position paper|regular paper|research paper|"
+    r"industry paper|experience paper|tool paper|demo(?:nstration)? paper|"
+    r"work[- ]in[- ]progress|poster|talk proposal|tutorial proposal|"
+    r"systematization of knowledge|SoK|extended abstract|"
+    r"\d{1,2}\s*(?:\(\w+\)\s*)?pages?|(?:two|three|four|five|six|eight|ten|twelve)\s*\(?\d*\)?\s*pages?"
+    r")\b"
+)
+TRACK_PATTERNS = re.compile(
+    r"(?i)\b((?:research|industry|industrial|applied|experience|poster|demo|"
+    r"tool|artifact|short paper|main|technical)\s+track)\b"
+)
+
+
+def format_hits(text: str) -> list[str]:
+    """Lines that say what a venue accepts, or what its tracks are."""
+    found, seen = [], set()
+    for line in text.splitlines():
+        line = re.sub(r"\s+", " ", line.strip(" •-|\t"))
+        if not (12 < len(line) < 240):
+            continue
+        if not (FORMAT_PATTERNS.search(line) or TRACK_PATTERNS.search(line)):
+            continue
+        key = line.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        found.append(line)
+    return found
+
+
 def hits(text: str) -> list[str]:
     found, seen = [], set()
     for line in text.splitlines():
@@ -191,6 +225,25 @@ def hits(text: str) -> list[str]:
         seen.add(key)
         found.append(re.sub(r"\s+", " ", line))
     return found
+
+
+def inspect_formats(venue: dict, use_firecrawl: bool = False) -> tuple[dict, list[str], str]:
+    """Same page hunt as inspect(), but looking for accepted formats/tracks."""
+    url = (venue.get("url") or "").rstrip("/")
+    if not url:
+        return venue, [], ""
+    # Try the CFP pages FIRST here. A landing page often mentions "Posters
+    # Co-Chairs" or similar, which matches but tells you nothing about what the
+    # venue accepts; the call itself is where the page limits live.
+    for candidate in [f"{url}/{suffix}" for suffix in SUBPAGES] + [url]:
+        found = format_hits(to_text(fetch(candidate)))
+        if len(found) >= 2:  # one stray match is usually noise
+            return venue, found, candidate
+    if use_firecrawl:
+        found = format_hits(firecrawl_markdown(url))
+        if found:
+            return venue, found, f"{url}  (via Firecrawl)"
+    return venue, [], url
 
 
 def inspect(venue: dict, use_firecrawl: bool = False) -> tuple[dict, list[str], str]:
@@ -229,6 +282,8 @@ def main() -> int:
     ap.add_argument("names", nargs="*", help="substring filter on venue name")
     ap.add_argument("--unconfirmed", action="store_true", help="only venues with unconfirmed dates")
     ap.add_argument("--limit", type=int, default=14, help="max lines printed per venue")
+    ap.add_argument("--formats", action="store_true",
+                    help="look for accepted paper formats and track names instead of dates")
     ap.add_argument("--firecrawl", action="store_true",
                     help="fall back to Firecrawl for pages plain fetching cannot read "
                          "(works keyless; FIRECRAWL_API_KEY raises limits and enables /map)")
@@ -249,17 +304,23 @@ def main() -> int:
         print(f"Firecrawl fallback enabled - {mode}", file=sys.stderr)
     print(f"Checking {len(venues)} venues\n", file=sys.stderr)
     workers = 3 if args.firecrawl else WORKERS  # be polite to the API
+    probe = inspect_formats if args.formats else inspect
     with concurrent.futures.ThreadPoolExecutor(workers) as pool:
         for venue, found, source in pool.map(
-            lambda v: inspect(v, args.firecrawl), venues
+            lambda v: probe(v, args.firecrawl), venues
         ):
             print(f"### {venue['name']}  ({venue.get('year', '?')})")
             print(f"    source: {source or 'no url'}")
-            for d in venue.get("deadlines") or []:
-                mark = "" if d.get("confirmed") else "  <- unconfirmed"
-                print(f"    config: {d.get('name')}: {d.get('date')}{mark}")
+            if args.formats:
+                print(f"    config: formats={venue.get('formats') or []} "
+                      f"tracks={venue.get('tracks') or []}")
+            else:
+                for d in venue.get("deadlines") or []:
+                    mark = "" if d.get("confirmed") else "  <- unconfirmed"
+                    print(f"    config: {d.get('name')}: {d.get('date')}{mark}")
             if not found:
-                print("    site:   (nothing date-like found - check by hand)")
+                what = "format-like" if args.formats else "date-like"
+                print(f"    site:   (nothing {what} found - check by hand)")
             for line in found[: args.limit]:
                 print(f"    site:   {line}")
             print()

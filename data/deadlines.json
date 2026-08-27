@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T06:28:58+00:00",
+  "generated_at": "2026-08-27T08:00:17+00:00",
   "aoe_label": "AoE",
   "counts": {
     "total": 45,
@@ -20,7 +20,10 @@
       "rolling": false,
       "cycle_years": 1,
       "formats": [],
-      "tracks": [],
+      "tracks": [
+        "Research",
+        "Work-in-Progress/Posters"
+      ],
       "notes": "",
       "deadlines": [
         {
@@ -108,7 +111,9 @@
       "month": 4,
       "rolling": false,
       "cycle_years": 1,
-      "formats": [],
+      "formats": [
+        "Full paper"
+      ],
       "tracks": [],
       "notes": "",
       "deadlines": [
@@ -159,9 +164,13 @@
       "month": 4,
       "rolling": false,
       "cycle_years": 1,
-      "formats": [],
-      "tracks": [],
-      "notes": "",
+      "formats": [
+        "Full paper (11p)"
+      ],
+      "tracks": [
+        "Research"
+      ],
+      "notes": "A rapid review round assesses the first two pages only. The program may also include poster and lightning sessions.",
       "deadlines": [
         {
           "name": "Cycle 1 full paper",
@@ -194,7 +203,9 @@
       "month": 11,
       "rolling": false,
       "cycle_years": 1,
-      "formats": [],
+      "formats": [
+        "Full paper (10p)"
+      ],
       "tracks": [],
       "notes": "",
       "deadlines": [
@@ -229,9 +240,11 @@
       "month": 10,
       "rolling": false,
       "cycle_years": 1,
-      "formats": [],
+      "formats": [
+        "Full paper (12p)"
+      ],
       "tracks": [],
-      "notes": "",
+      "notes": "CCS does not accept SoK or survey papers.",
       "deadlines": [
         {
           "name": "Cycle 1",
@@ -337,8 +350,14 @@
       "month": 4,
       "rolling": false,
       "cycle_years": 1,
-      "formats": [],
-      "tracks": [],
+      "formats": [
+        "Full paper"
+      ],
+      "tracks": [
+        "Traditional Research",
+        "Frontiers",
+        "Operational Systems"
+      ],
       "notes": "",
       "deadlines": [
         {
@@ -445,7 +464,10 @@
       "rolling": false,
       "cycle_years": 1,
       "formats": [],
-      "tracks": [],
+      "tracks": [
+        "Research",
+        "Experience"
+      ],
       "notes": "The 2027 site is up but its CFP page still carries the 2026 call, so the date below is extrapolated from the 2026 cycle (abstract Jan 30, paper Feb 6).",
       "deadlines": [
         {
@@ -523,7 +545,11 @@
       "rolling": false,
       "cycle_years": 1,
       "formats": [],
-      "tracks": [],
+      "tracks": [
+        "Research",
+        "Industrial",
+        "Demo"
+      ],
       "notes": "",
       "deadlines": [
         {
@@ -592,7 +618,10 @@
       "month": 8,
       "rolling": false,
       "cycle_years": 1,
-      "formats": [],
+      "formats": [
+        "Full paper (13p body)",
+        "Systematization of Knowledge (SoK)"
+      ],
       "tracks": [],
       "notes": "",
       "deadlines": [
@@ -852,7 +881,10 @@
       "month": 10,
       "rolling": false,
       "cycle_years": 1,
-      "formats": [],
+      "formats": [
+        "Full paper (13p)",
+        "Poster"
+      ],
       "tracks": [],
       "notes": "",
       "deadlines": [
