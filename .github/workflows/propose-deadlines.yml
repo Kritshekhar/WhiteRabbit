@@ -1,0 +1,93 @@
+name: White Rabbit — propose deadline updates
+
+# Weekly CFP sweep over venues whose dates are still estimated. It opens an
+# issue with what each venue's own page says, next to what the config claims.
+#
+# It never edits conferences.yml. A human reads the report and makes the change,
+# because a rendered page is not a current page: NDSS's 2027 CFP still shows
+# 2024 dates and SIGCOMM's 2027 site still serves the 2026 call. Extraction
+# proposes; a person decides.
+#
+# Budget: ~1 credit per venue, roughly 25 per run against unconfirmed venues
+# only. The Firecrawl free tier is 1,000 credits total, so weekly is
+# sustainable and nightly-over-everything is not. Link probing stays on plain
+# HTTP in update.py - it is free, unlimited and 6x faster.
+#
+# Optional: add FIRECRAWL_API_KEY under Settings -> Secrets -> Actions.
+# Without it the sweep still runs keyless, just slower and without /map.
+
+on:
+  schedule:
+    - cron: "0 8 * * 1"   # Mondays, 08:00 UTC
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "Which venues to sweep"
+        type: choice
+        default: unconfirmed
+        options: [unconfirmed, all]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: propose-deadlines
+  cancel-in-progress: false
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: Sweep CFP pages
+        id: sweep
+        env:
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+        run: |
+          if [ -n "$FIRECRAWL_API_KEY" ]; then
+            echo "Firecrawl: using API key"
+          else
+            echo "Firecrawl: keyless (add FIRECRAWL_API_KEY for higher limits and /map)"
+          fi
+          SCOPE_FLAG="--unconfirmed"
+          if [ "${{ inputs.scope }}" = "all" ]; then SCOPE_FLAG=""; fi
+          python scripts/check_deadlines.py $SCOPE_FLAG --firecrawl --limit 10 \
+            > report.txt 2> sweep.log || true
+          echo "--- log ---"; cat sweep.log
+
+      - name: Open or update the report issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="CFP sweep: proposed deadline updates"
+          # GitHub caps an issue body at 65536 chars
+          {
+            echo "Weekly sweep of venues whose dates are still marked \`est.\`."
+            echo "Each block shows what \`conferences.yml\` claims, then what the venue's own page says."
+            echo
+            echo "**Nothing here has been applied.** Fix a date by editing \`conferences.yml\`,"
+            echo "setting \`confirmed: true\`, and adding \`source:\` + \`verified_on:\`."
+            echo
+            echo '```'
+            head -c 60000 report.txt
+            echo '```'
+            echo
+            echo "_Run: [\`${{ github.run_id }}\`](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})_"
+          } > body.md
+
+          EXISTING=$(gh issue list --state open --search "$TITLE in:title" --json number --jq '.[0].number')
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body-file body.md
+            echo "commented on #$EXISTING"
+          else
+            gh issue create --title "$TITLE" --body-file body.md --label data \
+              || gh issue create --title "$TITLE" --body-file body.md
+            echo "opened a new issue"
+          fi

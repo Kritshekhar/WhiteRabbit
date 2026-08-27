@@ -129,6 +129,22 @@ python scripts/check_deadlines.py FSE  # what the venue's own page says
 | `validate.yml` | every PR | validates `conferences.yml`, proves an offline build works |
 | `update-deadlines.yml` | nightly 07:00 UTC, push, manual | rebuilds the data, rolls venues over, commits back |
 | `deploy-pages.yml` | push to `main`, manual | publishes to GitHub Pages |
+| `propose-deadlines.yml` | Mondays 08:00 UTC, manual | sweeps CFP pages for venues still marked `est.` and opens an issue with what each site says — never edits the config |
+
+### The Firecrawl budget
+
+`propose-deadlines.yml` is the only thing that calls Firecrawl, and only for
+venues whose dates are unconfirmed — roughly 25 credits a run, about 100 a
+month. The free tier is **1,000 credits total**, so weekly is sustainable.
+
+Do **not** point Firecrawl at the nightly link check. That is 45 URLs a night,
+~1,350 credits a month, and it answers "does this URL respond?" — which a plain
+HEAD request already answers correctly, for free, six times faster. Link
+probing stays in `update.py` on plain HTTP by design.
+
+To enable the key: **Settings → Secrets and variables → Actions → New
+repository secret**, named `FIRECRAWL_API_KEY`. Without it the sweep still runs
+keyless, just slower and without `/map`.
 
 Deploy is deliberately a separate workflow: publishing can be blocked by
 account plan or Pages settings, and that must not make a healthy data refresh
