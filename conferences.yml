@@ -8,8 +8,8 @@
 # Fields
 #   name        (required) short label shown on the card, e.g. "OSDI"
 #   full_name   long name, shown under the label
-#   tier        queens-court | tea-party | caucus-race | looking-glass
-#               (default: tea-party). See hierarchy.html for what each means.
+#   tier        royal-flush | full-house | high-card | wild-card
+#               (default: full-house). See hierarchy.html for what each means.
 #   url         current homepage for the cycle below
 #   url_template  homepage pattern used to roll the link over to the next
 #                 cycle automatically. Placeholders:
@@ -48,10 +48,10 @@ settings:
   aoe_label: "AoE"
 
 venues:
-  # --------------------------- Queen's Court --------------------------------
+  # ---------------------------- Royal Flush ---------------------------------
   - name: FAST
     full_name: USENIX Conference on File and Storage Technologies
-    tier: queens-court
+    tier: royal-flush
     url: https://www.usenix.org/conference/fast27
     url_template: https://www.usenix.org/conference/fast{yy}
     year: 2027
@@ -67,7 +67,7 @@ venues:
       - Work-in-Progress/Posters
   - name: OSDI
     full_name: USENIX Symposium on Operating Systems Design and Implementation
-    tier: queens-court
+    tier: royal-flush
     url: https://www.usenix.org/conference/osdi27
     url_template: https://www.usenix.org/conference/osdi{yy}
     year: 2027
@@ -85,7 +85,7 @@ venues:
         verified_on: '2026-08-26'
   - name: ATC
     full_name: USENIX Annual Technical Conference
-    tier: queens-court
+    tier: royal-flush
     url: https://www.usenix.org/conference/atc26
     url_template: https://www.usenix.org/conference/atc{yy}
     year: 2026
@@ -98,7 +98,7 @@ venues:
 
   - name: EuroSys
     full_name: European Conference on Computer Systems
-    tier: queens-court
+    tier: royal-flush
     url: https://2027.eurosys.org/
     url_template: https://{year}.eurosys.org/
     year: 2027
@@ -128,7 +128,7 @@ venues:
       - Full paper
   - name: ASPLOS
     full_name: Architectural Support for Programming Languages and Operating Systems
-    tier: queens-court
+    tier: royal-flush
     url: https://www.asplos-conference.org/asplos2027/
     url_template: https://www.asplos-conference.org/asplos{year}/
     year: 2027
@@ -151,7 +151,7 @@ venues:
     notes: A rapid review round assesses the first two pages only. The program may also include poster and lightning sessions.
   - name: SC
     full_name: International Conference for High Performance Computing, Networking, Storage and Analysis
-    tier: queens-court
+    tier: royal-flush
     url: https://sc26.supercomputing.org/
     url_template: https://sc{yy}.supercomputing.org/
     year: 2026
@@ -168,7 +168,7 @@ venues:
       - Full paper (10p)
   - name: CCS
     full_name: ACM Conference on Computer and Communications Security
-    tier: queens-court
+    tier: royal-flush
     url: https://www.sigsac.org/ccs/CCS2027/
     url_template: https://www.sigsac.org/ccs/CCS{year}/
     year: 2027
@@ -186,7 +186,7 @@ venues:
     notes: CCS does not accept SoK or survey papers.
   - name: FSE
     full_name: ACM International Conference on the Foundations of Software Engineering
-    tier: queens-court
+    tier: royal-flush
     url: https://conf.researchr.org/home/fse-2027
     url_template: https://conf.researchr.org/home/fse-{year}
     year: 2027
@@ -207,7 +207,7 @@ venues:
         verified_on: '2026-08-26'
   - name: ICSE
     full_name: International Conference on Software Engineering
-    tier: queens-court
+    tier: royal-flush
     url: https://conf.researchr.org/home/icse-2028
     url_template: https://conf.researchr.org/home/icse-{year}
     year: 2028
@@ -221,7 +221,7 @@ venues:
         confirmed: false
   - name: NSDI
     full_name: USENIX Symposium on Networked Systems Design and Implementation
-    tier: queens-court
+    tier: royal-flush
     url: https://www.usenix.org/conference/nsdi27
     url_template: https://www.usenix.org/conference/nsdi{yy}
     year: 2027
@@ -255,7 +255,7 @@ venues:
       - Operational Systems
   - name: PLDI
     full_name: ACM SIGPLAN Conference on Programming Language Design and Implementation
-    tier: queens-court
+    tier: royal-flush
     url: https://pldi27.sigplan.org/
     url_template: https://pldi{yy}.sigplan.org/
     year: 2027
@@ -271,7 +271,7 @@ venues:
       - Research Papers
   - name: S&P
     full_name: IEEE Symposium on Security and Privacy (Oakland)
-    tier: queens-court
+    tier: royal-flush
     url: https://sp2027.ieee-security.org/
     url_template: https://sp{year}.ieee-security.org/
     year: 2027
@@ -283,7 +283,7 @@ venues:
 
   - name: SIGCOMM
     full_name: ACM SIGCOMM Conference
-    tier: queens-court
+    tier: royal-flush
     url: https://conferences.sigcomm.org/sigcomm/2027/
     url_template: https://conferences.sigcomm.org/sigcomm/{year}/
     year: 2027
@@ -299,7 +299,7 @@ venues:
       - Experience
   - name: SIGMETRICS
     full_name: ACM SIGMETRICS / IFIP Performance
-    tier: queens-court
+    tier: royal-flush
     url: https://www.sigmetrics.org/sigmetrics2027/
     url_template: https://www.sigmetrics.org/sigmetrics{year}/
     year: 2027
@@ -327,7 +327,7 @@ venues:
         verified_on: '2026-08-26'
   - name: SIGMOD
     full_name: ACM SIGMOD International Conference on Management of Data
-    tier: queens-court
+    tier: royal-flush
     url: https://2027.sigmod.org/
     url_template: https://{year}.sigmod.org/
     year: 2027
@@ -349,7 +349,7 @@ venues:
       - Demo
   - name: SOSP
     full_name: ACM Symposium on Operating Systems Principles
-    tier: queens-court
+    tier: royal-flush
     url: https://sigops.org/s/conferences/sosp/2027/
     url_template: https://sigops.org/s/conferences/sosp/{year}/
     year: 2027
@@ -361,7 +361,7 @@ venues:
 
   - name: USENIX Security
     full_name: USENIX Security Symposium
-    tier: queens-court
+    tier: royal-flush
     url: https://www.usenix.org/conference/usenixsecurity27
     url_template: https://www.usenix.org/conference/usenixsecurity{yy}
     year: 2027
@@ -392,7 +392,7 @@ venues:
       - Systematization of Knowledge (SoK)
   - name: VLDB
     full_name: International Conference on Very Large Data Bases
-    tier: queens-court
+    tier: royal-flush
     url: https://vldb.org/2027/
     url_template: https://vldb.org/{year}/
     year: 2027
@@ -403,10 +403,10 @@ venues:
         date: 2026-09-01T23:59:00-12:00
         confirmed: false
 
-  # --------------------------- Mad Tea Party --------------------------------
+  # ----------------------------- Full House ---------------------------------
   - name: ASE
     full_name: IEEE/ACM International Conference on Automated Software Engineering
-    tier: tea-party
+    tier: full-house
     url: https://conf.researchr.org/home/ase-2026
     url_template: https://conf.researchr.org/home/ase-{year}
     year: 2026
@@ -419,7 +419,7 @@ venues:
         verified_on: '2026-08-26'
   - name: CAIS
     full_name: Conference on AI Safety
-    tier: tea-party
+    tier: full-house
     url: https://www.caisconf.org/
     year: 2027
     deadlines:
@@ -429,7 +429,7 @@ venues:
 
   - name: CHES
     full_name: Cryptographic Hardware and Embedded Systems
-    tier: tea-party
+    tier: full-house
     url: https://ches.iacr.org/2027/
     url_template: https://ches.iacr.org/{year}/
     year: 2027
@@ -445,7 +445,7 @@ venues:
 
   - name: DSN
     full_name: IEEE/IFIP International Conference on Dependable Systems and Networks
-    tier: tea-party
+    tier: full-house
     url: https://dsn2027-berlin.github.io/
     year: 2027
     month: 6
@@ -459,7 +459,7 @@ venues:
 
   - name: Hot Chips
     full_name: A Symposium on High-Performance Chips
-    tier: tea-party
+    tier: full-house
     url: https://hotchips.org
     year: 2027
     month: 8
@@ -472,7 +472,7 @@ venues:
 
   - name: ICDCS
     full_name: IEEE International Conference on Distributed Computing Systems
-    tier: tea-party
+    tier: full-house
     url: https://icdcs2027.icdcs.org/
     url_template: https://icdcs{year}.icdcs.org/
     year: 2027
@@ -484,7 +484,7 @@ venues:
 
   - name: IMC
     full_name: ACM Internet Measurement Conference
-    tier: tea-party
+    tier: full-house
     url: https://conferences.sigcomm.org/imc/2026/
     url_template: https://conferences.sigcomm.org/imc/{year}/
     year: 2026
@@ -505,7 +505,7 @@ venues:
       - Poster
   - name: INFOCOM
     full_name: IEEE International Conference on Computer Communications
-    tier: tea-party
+    tier: full-house
     url: https://infocom2027.ieee-infocom.org/
     url_template: https://infocom{year}.ieee-infocom.org/
     year: 2027
@@ -517,7 +517,7 @@ venues:
 
   - name: IPDPS
     full_name: IEEE International Parallel and Distributed Processing Symposium
-    tier: tea-party
+    tier: full-house
     url: http://www.ipdps.org/ipdps2027/
     url_template: http://www.ipdps.org/ipdps{year}/
     year: 2027
@@ -532,7 +532,7 @@ venues:
 
   - name: ISSTA
     full_name: ACM SIGSOFT International Symposium on Software Testing and Analysis
-    tier: tea-party
+    tier: full-house
     url: https://conf.researchr.org/home/issta-2027
     url_template: https://conf.researchr.org/home/issta-{year}
     year: 2027
@@ -552,7 +552,7 @@ venues:
         verified_on: '2026-08-26'
   - name: KubeCon EU
     full_name: KubeCon + CloudNativeCon Europe
-    tier: tea-party
+    tier: full-house
     url: https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2027/
     url_template: https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-{year}/
     year: 2027
@@ -564,7 +564,7 @@ venues:
 
   - name: KubeCon NA
     full_name: KubeCon + CloudNativeCon North America
-    tier: tea-party
+    tier: full-house
     url: https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/
     year: 2026
     month: 11
@@ -576,7 +576,7 @@ venues:
 
   - name: MSST
     full_name: International Conference on Massive Storage Systems and Technology
-    tier: tea-party
+    tier: full-house
     url: https://msstconference.org/2026/index.html
     url_template: https://msstconference.org/{year}/index.html
     year: 2026
@@ -594,7 +594,7 @@ venues:
         verified_on: '2026-08-26'
   - name: MLSys
     full_name: Conference on Machine Learning and Systems
-    tier: tea-party
+    tier: full-house
     url: https://mlsys.org/
     year: 2027
     month: 5
@@ -606,7 +606,7 @@ venues:
 
   - name: NDSS
     full_name: Network and Distributed System Security Symposium
-    tier: tea-party
+    tier: full-house
     url: https://www.ndss-symposium.org/ndss2027/
     url_template: https://www.ndss-symposium.org/ndss{year}/
     year: 2027
@@ -621,7 +621,7 @@ venues:
 
   - name: PyTorch Conf
     full_name: PyTorch Conference (North America)
-    tier: tea-party
+    tier: full-house
     url: https://events.linuxfoundation.org/pytorch-conference-north-america/
     year: 2026
     month: 10
@@ -633,7 +633,7 @@ venues:
 
   - name: PyTorch EU
     full_name: PyTorch Conference Europe
-    tier: tea-party
+    tier: full-house
     url: https://events.linuxfoundation.org/pytorch-conference-europe/
     year: 2027
     notes: No 2027 edition announced yet - link points at the series page.
@@ -644,7 +644,7 @@ venues:
 
   - name: SYSTOR
     full_name: ACM International Systems and Storage Conference
-    tier: tea-party
+    tier: full-house
     url: https://www.systor.org/2026/
     url_template: https://www.systor.org/{year}/
     year: 2026
@@ -666,7 +666,7 @@ venues:
         verified_on: '2026-08-26'
   - name: SoCC
     full_name: ACM Symposium on Cloud Computing
-    tier: tea-party
+    tier: full-house
     url: https://acmsocc.org/2026/
     url_template: https://acmsocc.org/{year}/
     year: 2026
@@ -694,7 +694,7 @@ venues:
         verified_on: '2026-08-26'
   - name: APSys
     full_name: ACM SIGOPS Asia-Pacific Workshop on Systems
-    tier: caucus-race
+    tier: high-card
     url: https://ap-sys.org
     year: 2026
     month: 9
@@ -713,7 +713,7 @@ venues:
         verified_on: '2026-08-26'
   - name: HotCloudPerf
     full_name: Workshop on Hot Topics in Cloud Computing Performance
-    tier: caucus-race
+    tier: high-card
     url: https://hotcloudperf.spec.org
     year: 2026
     month: 5
@@ -733,7 +733,7 @@ venues:
         verified_on: '2026-08-26'
   - name: HotInfra
     full_name: Workshop on Hot Topics in System Infrastructure
-    tier: caucus-race
+    tier: high-card
     url: https://hotinfra.org/2026/
     url_template: https://hotinfra.org/{year}/
     year: 2026
@@ -748,7 +748,7 @@ venues:
         verified_on: '2026-08-26'
   - name: HotNets
     full_name: ACM Workshop on Hot Topics in Networks
-    tier: caucus-race
+    tier: high-card
     url: https://conferences.sigcomm.org/hotnets/2026/
     url_template: https://conferences.sigcomm.org/hotnets/{year}/
     year: 2026
@@ -762,7 +762,7 @@ venues:
         verified_on: '2026-08-26'
   - name: HotOS
     full_name: ACM SIGOPS Workshop on Hot Topics in Operating Systems
-    tier: caucus-race
+    tier: high-card
     url: https://sigops.org/s/conferences/hotos/2027/
     url_template: https://sigops.org/s/conferences/hotos/{year}/
     year: 2027
@@ -777,7 +777,7 @@ venues:
 
   - name: HotStorage
     full_name: ACM Workshop on Hot Topics in Storage and File Systems
-    tier: caucus-race
+    tier: high-card
     url: https://www.hotstorage.org/2026/cfp.html
     url_template: https://www.hotstorage.org/{year}/cfp.html
     year: 2026
@@ -792,14 +792,14 @@ venues:
         verified_on: '2026-08-26'
   - name: ACM TOS
     full_name: ACM Transactions on Storage
-    tier: looking-glass
+    tier: wild-card
     url: https://dl.acm.org/journal/tos
     rolling: true
     notes: Journal - continuous submission, no deadline.
 
   - name: ACM TOCS
     full_name: ACM Transactions on Computer Systems
-    tier: looking-glass
+    tier: wild-card
     url: https://dl.acm.org/journal/tocs
     rolling: true
     notes: Journal - continuous submission, no deadline.

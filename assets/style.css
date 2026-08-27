@@ -17,9 +17,9 @@
   --text-muted: #7a7973;
   --accent: #2a78d6;
   --accent-soft: #e9f1fc;
-  --rank-court: #2a78d6;
-  --rank-tea: #4a3aa7;
-  --rank-caucus: #1baf7a;
+  --rank-top: #2a78d6;
+  --rank-mid: #4a3aa7;
+  --rank-base: #1baf7a;
   --good: #0ca30c;
   --warning: #fab219;
   --serious: #ec835a;
@@ -31,9 +31,9 @@
 @media (prefers-color-scheme: dark) {
   :root:where(:not([data-theme="light"])) {
     color-scheme: dark;
-    --rank-court: #3987e5;
-    --rank-tea: #9085e9;
-    --rank-caucus: #199e70;
+    --rank-top: #3987e5;
+    --rank-mid: #9085e9;
+    --rank-base: #199e70;
     --surface-0: #1a1a19;
     --surface-1: #232322;
     --surface-2: #2b2b29;
@@ -51,9 +51,9 @@
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --rank-court: #3987e5;
-  --rank-tea: #9085e9;
-  --rank-caucus: #199e70;
+  --rank-top: #3987e5;
+  --rank-mid: #9085e9;
+  --rank-base: #199e70;
   --surface-0: #1a1a19;
   --surface-1: #232322;
   --surface-2: #2b2b29;
@@ -251,10 +251,10 @@ select {
 /* Rank colours are identity, not status - cool hues only, so they are never
    mistaken for the urgency scale (which owns the warm end). */
 .badge-rank { text-transform: none; letter-spacing: .01em; font-weight: 600; }
-.badge-queens-court { color: var(--rank-court); border-color: color-mix(in srgb, var(--rank-court) 35%, transparent); background: color-mix(in srgb, var(--rank-court) 10%, transparent); }
-.badge-tea-party    { color: var(--rank-tea);   border-color: color-mix(in srgb, var(--rank-tea) 35%, transparent);   background: color-mix(in srgb, var(--rank-tea) 10%, transparent); }
-.badge-caucus-race  { color: var(--rank-caucus);border-color: color-mix(in srgb, var(--rank-caucus) 35%, transparent);background: color-mix(in srgb, var(--rank-caucus) 10%, transparent); }
-.badge-looking-glass{ color: var(--text-muted); }
+.rank-top  { color: var(--rank-top);  border-color: color-mix(in srgb, var(--rank-top) 35%, transparent);  background: color-mix(in srgb, var(--rank-top) 10%, transparent); }
+.rank-mid  { color: var(--rank-mid);  border-color: color-mix(in srgb, var(--rank-mid) 35%, transparent);  background: color-mix(in srgb, var(--rank-mid) 10%, transparent); }
+.rank-base { color: var(--rank-base); border-color: color-mix(in srgb, var(--rank-base) 35%, transparent); background: color-mix(in srgb, var(--rank-base) 10%, transparent); }
+.rank-off  { color: var(--text-muted); }
 .badge-year { font-family: "JetBrains Mono", monospace; }
 .badge-est { text-transform: none; letter-spacing: 0; font-size: .62rem; padding: .1rem .3rem; }
 a.badge { text-decoration: none; }

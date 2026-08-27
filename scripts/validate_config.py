@@ -26,8 +26,13 @@ from ruamel.yaml.error import YAMLError
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "conferences.yml"
 
-VALID_TIERS = {"queens-court", "tea-party", "caucus-race", "looking-glass"}
-LEGACY_TIERS = {"tier1": "queens-court", "companion": "tea-party", "workshop": "caucus-race"}
+VALID_TIERS = {"royal-flush", "full-house", "high-card", "wild-card"}
+# Older names still parse so an in-flight branch does not break.
+LEGACY_TIERS = {
+    "tier1": "royal-flush", "companion": "full-house", "workshop": "high-card",
+    "queens-court": "royal-flush", "tea-party": "full-house",
+    "caucus-race": "high-card", "looking-glass": "wild-card",
+}
 PLACEHOLDER = re.compile(r"\{(year|yyyy|yy|yyn)\}")
 KNOWN_VENUE_KEYS = {
     "name", "full_name", "tier", "url", "url_template", "year", "month",
@@ -93,7 +98,7 @@ def check_venue(index: int, venue, seen: dict) -> None:
         err(where, f"duplicate venue - collides with {seen[slug]!r}")
     seen[slug] = name
 
-    tier = str(venue.get("tier") or "tea-party").lower()
+    tier = str(venue.get("tier") or "full-house").lower()
     if tier in LEGACY_TIERS:
         warn(where, f"tier {tier!r} is the old name - use {LEGACY_TIERS[tier]!r}")
     elif tier not in VALID_TIERS:
