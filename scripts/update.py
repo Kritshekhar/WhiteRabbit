@@ -46,11 +46,14 @@ UA = (
 )
 TIMEOUT = 15
 MAX_PROBE_WORKERS = 8
-# Ranks are named after Wonderland, not borrowed from "tier 1/2". See
-# hierarchy.html for what each one means.
-VALID_TIERS = {"queens-court", "tea-party", "caucus-race", "looking-glass"}
-LEGACY_TIERS = {"tier1": "queens-court", "companion": "tea-party",
-                "workshop": "caucus-race"}
+# Ranks are named for poker hands - see hierarchy.html.
+VALID_TIERS = {"royal-flush", "full-house", "high-card", "wild-card"}
+# Older names still parse so an in-flight branch does not break.
+LEGACY_TIERS = {
+    "tier1": "royal-flush", "companion": "full-house", "workshop": "high-card",
+    "queens-court": "royal-flush", "tea-party": "full-house",
+    "caucus-race": "high-card", "looking-glass": "wild-card",
+}
 
 yaml = YAML()
 yaml.preserve_quotes = True
@@ -199,11 +202,11 @@ def normalise(raw: dict) -> dict:
     if not name:
         raise ValueError(f"venue entry is missing `name`: {raw!r}")
 
-    tier = str(raw.get("tier") or "tea-party").strip().lower()
+    tier = str(raw.get("tier") or "full-house").strip().lower()
     tier = LEGACY_TIERS.get(tier, tier)
     if tier not in VALID_TIERS:
-        print(f"  ! {name}: unknown tier {tier!r}, treating as tea-party", file=sys.stderr)
-        tier = "tea-party"
+        print(f"  ! {name}: unknown tier {tier!r}, treating as full-house", file=sys.stderr)
+        tier = "full-house"
 
     deadlines = []
     for entry in raw.get("deadlines") or []:

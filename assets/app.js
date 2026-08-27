@@ -4,15 +4,17 @@
    nightly rebuilds - and any venue added to the config just shows up here. */
 
 const DAY = 86400000;
-/* Ranks are named after Wonderland rather than "tier 1/2" - hierarchy.html
-   explains what each one means. */
+/* Ranks are poker hands rather than "tier 1/2" - hierarchy.html explains why.
+   RANK_SLOT maps a rank to its position so the CSS never has to know the names;
+   renaming a rank then touches this file and the copy, not the stylesheet. */
 const TIERS = {
-  'queens-court': "Queen's Court",
-  'tea-party': 'Mad Tea Party',
-  'caucus-race': 'Caucus Race',
-  'looking-glass': 'Looking Glass',
+  'royal-flush': 'Royal Flush',
+  'full-house': 'Full House',
+  'high-card': 'High Card',
+  'wild-card': 'Wild Card',
 };
-const TIER_ORDER = { 'queens-court': 0, 'tea-party': 1, 'caucus-race': 2, 'looking-glass': 3 };
+const TIER_ORDER = { 'royal-flush': 0, 'full-house': 1, 'high-card': 2, 'wild-card': 3 };
+const RANK_SLOT = { 'royal-flush': 'top', 'full-house': 'mid', 'high-card': 'base', 'wild-card': 'off' };
 
 /* Urgency bands. `color` is a status token; `label` is the text that always
    ships beside it, so the state never depends on colour alone. */
@@ -83,7 +85,7 @@ function card(v) {
     : v.next.confirmed
       ? verifiedBadge(v.next)
       : ' <span class="badge badge-est" title="Extrapolated from previous cycles - not checked against a CFP page">est.</span>';
-  const tierClass = `badge badge-rank badge-${v.tier}`;
+  const tierClass = `badge badge-rank rank-${RANK_SLOT[v.tier] || 'off'}`;
 
   // date + badge share a nowrap span so the line breaks before the date, not
   // between the date and its "est." marker
