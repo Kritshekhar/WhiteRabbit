@@ -58,7 +58,15 @@ the table in the README.
    ```
    It prints the config's claim next to every deadline-looking line on the
    site, and writes nothing.
+   If the site is JS-rendered or the dates are buried in prose, add
+   `--firecrawl` — it renders the page properly and re-scans. Works without an
+   API key; `FIRECRAWL_API_KEY` raises the rate limit and lets it find the
+   venue's CFP page for you.
 2. Correct the `date`, set `confirmed: true`, and add `source` + `verified_on`.
+
+Neither tool writes to the config, on purpose. A page rendering correctly does
+not make its dates current — several venues serve last year's call from this
+year's URL. Read the output yourself before you set `confirmed: true`.
 
 ## Before you open a PR
 

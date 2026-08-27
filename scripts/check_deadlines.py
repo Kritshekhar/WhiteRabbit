@@ -18,10 +18,13 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import html
+import json
+import os
 import re
 import sys
 import urllib.request
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from ruamel.yaml import YAML
 
@@ -56,7 +59,10 @@ DATEISH = re.compile(
 RESEARCHR = re.compile(r"https?://conf\.researchr\.org/[a-z]+/([a-zA-Z0-9._-]+)")
 # The tracks that carry the deadline people actually mean. A researchr instance
 # hosts dozens of co-located workshops whose rows would otherwise drown it out.
-MAIN_TRACK = re.compile(r"(?i)^(research track|research papers|technical papers|technical track|main track)$")
+# The track name is sometimes prefixed with the venue ("PLDI Research Papers").
+MAIN_TRACK = re.compile(
+    r"(?i)^(\S+\s+)?(research track|research papers|technical papers|technical track|main track|papers)$"
+)
 ROW_KEYWORDS = re.compile(r"(?i)\b(submission|deadline|abstract|papers? due)\b")
 
 
@@ -65,9 +71,15 @@ def researchr_dates(url: str) -> tuple[list[str], str]:
     looks empty to a plain fetch. /dates/<slug> is the same data as a plain
     server-rendered table - When | Track | What."""
     match = RESEARCHR.match(url)
-    if not match:
-        return [], ""
-    source = f"https://conf.researchr.org/dates/{match.group(1)}"
+    if match:
+        source = f"https://conf.researchr.org/dates/{match.group(1)}"
+    else:
+        # researchr also powers per-conference hosts (pldi27.sigplan.org,
+        # 2027.msrconf.org, ...), where the same table lives at <host>/dates.
+        parts = urlsplit(url)
+        if not parts.netloc:
+            return [], ""
+        source = f"{parts.scheme}://{parts.netloc}/dates"
     markup = fetch(source)
     if not markup:
         return [], source
@@ -87,8 +99,64 @@ def researchr_dates(url: str) -> tuple[list[str], str]:
             main.append(line)
         elif ROW_KEYWORDS.search(what):
             other.append(line)
+    if not (main or other):
+        return [], ""  # not a researchr site after all
     # Main-track rows first; a handful of others for context.
     return main + other[:6], source
+
+
+# ---------------------------------------------------------------------------
+# Firecrawl (optional)
+#
+# Used ONLY here, in the human-in-the-loop checker - never in update.py. This
+# tool proposes; a person decides. An extractor that wrote straight into the
+# config would eventually write a wrong date with total confidence, which is
+# the one failure this project cannot afford: NDSS's 2027 page still serves
+# 2024 dates, and SIGCOMM's 2027 site still serves the 2026 call.
+#
+# Works without a key at a low rate limit; FIRECRAWL_API_KEY raises the limit
+# and unlocks /map, which finds a venue's CFP page instead of guessing paths.
+# ---------------------------------------------------------------------------
+FIRECRAWL_API = "https://api.firecrawl.dev/v2"
+FIRECRAWL_KEY = os.environ.get("FIRECRAWL_API_KEY", "").strip()
+
+
+def firecrawl(endpoint: str, payload: dict, timeout: int = 90) -> dict:
+    body = json.dumps(payload).encode()
+    headers = {"Content-Type": "application/json", "User-Agent": UA}
+    if FIRECRAWL_KEY:
+        headers["Authorization"] = f"Bearer {FIRECRAWL_KEY}"
+    req = urllib.request.Request(f"{FIRECRAWL_API}/{endpoint}", data=body,
+                                 headers=headers, method="POST")
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return json.loads(resp.read().decode("utf-8", "ignore"))
+    except Exception as exc:
+        return {"success": False, "error": str(exc)}
+
+
+def firecrawl_markdown(url: str) -> str:
+    """Render a page (JS included) and return clean markdown."""
+    result = firecrawl("scrape", {"url": url, "formats": ["markdown"],
+                                  "onlyMainContent": True})
+    if not result.get("success"):
+        return ""
+    return (result.get("data") or {}).get("markdown", "")
+
+
+def firecrawl_find_cfp(url: str) -> list[str]:
+    """Ask for the venue's own CFP-ish URLs. Requires an API key."""
+    if not FIRECRAWL_KEY:
+        return []
+    result = firecrawl("map", {"url": url, "search": "call for papers important dates"})
+    if not result.get("success"):
+        return []
+    out = []
+    for link in result.get("links") or []:
+        target = link.get("url") if isinstance(link, dict) else link
+        if target and re.search(r"(?i)(cfp|call|dates|submission|paper)", target):
+            out.append(target)
+    return out[:4]
 
 
 def fetch(url: str) -> str:
@@ -125,7 +193,7 @@ def hits(text: str) -> list[str]:
     return found
 
 
-def inspect(venue: dict) -> tuple[dict, list[str], str]:
+def inspect(venue: dict, use_firecrawl: bool = False) -> tuple[dict, list[str], str]:
     url = (venue.get("url") or "").rstrip("/")
     if not url:
         return venue, [], ""
@@ -140,6 +208,19 @@ def inspect(venue: dict) -> tuple[dict, list[str], str]:
         found = hits(to_text(fetch(candidate)))
         if found:
             return venue, found, candidate
+
+    if not use_firecrawl:
+        return venue, [], url
+
+    # Everything free has failed: the page is JS-rendered, bot-blocked, or the
+    # dates are in prose the regex above cannot see.
+    found = hits(firecrawl_markdown(url))
+    if found:
+        return venue, found, f"{url}  (via Firecrawl)"
+    for candidate in firecrawl_find_cfp(url):  # key only
+        found = hits(firecrawl_markdown(candidate))
+        if found:
+            return venue, found, f"{candidate}  (via Firecrawl /map)"
     return venue, [], url
 
 
@@ -148,6 +229,9 @@ def main() -> int:
     ap.add_argument("names", nargs="*", help="substring filter on venue name")
     ap.add_argument("--unconfirmed", action="store_true", help="only venues with unconfirmed dates")
     ap.add_argument("--limit", type=int, default=14, help="max lines printed per venue")
+    ap.add_argument("--firecrawl", action="store_true",
+                    help="fall back to Firecrawl for pages plain fetching cannot read "
+                         "(works keyless; FIRECRAWL_API_KEY raises limits and enables /map)")
     args = ap.parse_args()
 
     config = YAML().load(CONFIG.read_text(encoding="utf-8"))
@@ -160,9 +244,15 @@ def main() -> int:
         venues = [v for v in venues
                   if any(not d.get("confirmed") for d in (v.get("deadlines") or []))]
 
+    if args.firecrawl:
+        mode = "with API key" if FIRECRAWL_KEY else "keyless (lower rate limit, no /map)"
+        print(f"Firecrawl fallback enabled - {mode}", file=sys.stderr)
     print(f"Checking {len(venues)} venues\n", file=sys.stderr)
-    with concurrent.futures.ThreadPoolExecutor(WORKERS) as pool:
-        for venue, found, source in pool.map(inspect, venues):
+    workers = 3 if args.firecrawl else WORKERS  # be polite to the API
+    with concurrent.futures.ThreadPoolExecutor(workers) as pool:
+        for venue, found, source in pool.map(
+            lambda v: inspect(v, args.firecrawl), venues
+        ):
             print(f"### {venue['name']}  ({venue.get('year', '?')})")
             print(f"    source: {source or 'no url'}")
             for d in venue.get("deadlines") or []:

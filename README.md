@@ -179,12 +179,34 @@ line it can pull off the venue's site (landing page, then the usual
     site:   Full paper submissions due: Thursday, September 24, 2026
 ```
 
+### Firecrawl (optional)
+
+Add `--firecrawl` and pages that plain fetching cannot read — JS-rendered
+sites, bot-blocked hosts, dates buried in prose — get rendered to clean
+markdown and re-scanned:
+
+```bash
+python scripts/check_deadlines.py --unconfirmed --firecrawl
+```
+
+It works **keyless** at a low rate limit. Set `FIRECRAWL_API_KEY` to raise the
+limit and unlock `/map`, which asks the venue's site for its own CFP URLs
+instead of guessing at `/cfp`, `/dates`, and friends.
+
+It runs last, only after the free paths fail, so most venues never touch the
+API. Firecrawl is used **only in this tool, never in `update.py`** — see below.
+
 It deliberately **does not** write to `conferences.yml`. CFP pages are
 unstructured prose, every venue words things differently, and plenty of them
 still have last year's dates sitting in the HTML — auto-parsing that into the
 config would quietly produce wrong deadlines, which is the one thing a
 deadline tracker must not do. You read the output, fix the config, and set
 `confirmed: true`.
+
+That holds for Firecrawl too, and more so. Better extraction does not make a
+stale page current: NDSS's 2027 CFP still shows 2024 dates and SIGCOMM's 2027
+site still serves the 2026 call, and an extractor will return both as fact.
+The tool proposes; a person decides.
 
 Ten venues were verified this way on 2026-08-26 (FAST, OSDI, EuroSys, ASPLOS,
 NSDI, SIGMETRICS, USENIX Security, IMC, SoCC, HotStorage). The rest are still
