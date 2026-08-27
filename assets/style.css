@@ -17,6 +17,9 @@
   --text-muted: #7a7973;
   --accent: #2a78d6;
   --accent-soft: #e9f1fc;
+  --rank-court: #2a78d6;
+  --rank-tea: #4a3aa7;
+  --rank-caucus: #1baf7a;
   --good: #0ca30c;
   --warning: #fab219;
   --serious: #ec835a;
@@ -28,6 +31,9 @@
 @media (prefers-color-scheme: dark) {
   :root:where(:not([data-theme="light"])) {
     color-scheme: dark;
+    --rank-court: #3987e5;
+    --rank-tea: #9085e9;
+    --rank-caucus: #199e70;
     --surface-0: #1a1a19;
     --surface-1: #232322;
     --surface-2: #2b2b29;
@@ -45,6 +51,9 @@
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
+  --rank-court: #3987e5;
+  --rank-tea: #9085e9;
+  --rank-caucus: #199e70;
   --surface-0: #1a1a19;
   --surface-1: #232322;
   --surface-2: #2b2b29;
@@ -102,6 +111,13 @@ a { color: inherit; }
 }
 .brand h1 { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; }
 .brand-sub { font-size: .8rem; color: var(--text-muted); }
+.top-nav { display: flex; align-items: center; gap: .7rem; }
+.nav-link {
+  font-size: .82rem; font-weight: 600; color: var(--text-secondary);
+  text-decoration: none; padding: .45rem .7rem; border-radius: .7rem;
+  border: 1px solid var(--border); background: var(--surface-1);
+}
+.nav-link:hover { border-color: var(--border-strong); color: var(--text-primary); }
 .icon-btn {
   width: 2.4rem; height: 2.4rem; display: grid; place-items: center; cursor: pointer;
   border-radius: .7rem; border: 1px solid var(--border); background: var(--surface-1);
@@ -232,7 +248,13 @@ select {
   padding: .18rem .45rem; border-radius: .4rem; border: 1px solid var(--border);
   color: var(--text-secondary); background: var(--surface-2); white-space: nowrap;
 }
-.badge-tier1 { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 35%, transparent); background: var(--accent-soft); }
+/* Rank colours are identity, not status - cool hues only, so they are never
+   mistaken for the urgency scale (which owns the warm end). */
+.badge-rank { text-transform: none; letter-spacing: .01em; font-weight: 600; }
+.badge-queens-court { color: var(--rank-court); border-color: color-mix(in srgb, var(--rank-court) 35%, transparent); background: color-mix(in srgb, var(--rank-court) 10%, transparent); }
+.badge-tea-party    { color: var(--rank-tea);   border-color: color-mix(in srgb, var(--rank-tea) 35%, transparent);   background: color-mix(in srgb, var(--rank-tea) 10%, transparent); }
+.badge-caucus-race  { color: var(--rank-caucus);border-color: color-mix(in srgb, var(--rank-caucus) 35%, transparent);background: color-mix(in srgb, var(--rank-caucus) 10%, transparent); }
+.badge-looking-glass{ color: var(--text-muted); }
 .badge-year { font-family: "JetBrains Mono", monospace; }
 .badge-est { text-transform: none; letter-spacing: 0; font-size: .62rem; padding: .1rem .3rem; }
 a.badge { text-decoration: none; }
@@ -295,3 +317,28 @@ a.badge:hover { border-color: var(--good); }
   .flip:focus-visible .face-back,
   .flip.is-flipped .face-back { opacity: 1; pointer-events: auto; }
 }
+
+/* ------------------------------ hierarchy -------------------------------- */
+.prose { position: relative; z-index: 1; padding-block: 2rem 3rem; max-width: 780px; }
+.lede { font-size: 1.02rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
+.pyramid-figure { margin: 0 0 2rem; }
+.pyramid { width: 100%; height: auto; display: block; }
+.pyramid .p-label { font: 700 15px Inter, sans-serif; }
+.pyramid .p-label-sm { font: 600 12px Inter, sans-serif; fill: var(--text-secondary); }
+.pyramid .p-count {
+  font: 500 11px "JetBrains Mono", monospace; fill: var(--text-muted);
+  letter-spacing: .02em;
+}
+.rank {
+  border-top: 1px solid var(--border);
+  padding-top: 1.1rem; margin-top: 1.4rem;
+}
+.rank h2 { margin-bottom: .5rem; font-size: 1rem; }
+.rank h2 .badge { font-size: .78rem; padding: .25rem .6rem; }
+.rank p { color: var(--text-secondary); margin-bottom: .6rem; }
+.rank .examples {
+  font-family: "JetBrains Mono", monospace; font-size: .76rem;
+  color: var(--text-muted); line-height: 1.7;
+}
+.caveat { background: var(--surface-2); border-radius: 1rem; padding: 1.1rem 1.2rem; border-top: 0; }
+.caveat h2 { font-size: .95rem; }

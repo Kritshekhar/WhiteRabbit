@@ -55,7 +55,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/deadlines.json conferences.yml
+          git add data/deadlines.json conferences.yml index.html hierarchy.html
           if git diff --staged --quiet; then
             echo "nothing changed"
           else

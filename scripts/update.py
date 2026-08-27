@@ -21,8 +21,9 @@ Usage
 from __future__ import annotations
 
 import argparse
-import io
 import concurrent.futures
+import hashlib
+import io
 import json
 import re
 import sys
@@ -45,7 +46,11 @@ UA = (
 )
 TIMEOUT = 15
 MAX_PROBE_WORKERS = 8
-VALID_TIERS = {"tier1", "companion", "workshop"}
+# Ranks are named after Wonderland, not borrowed from "tier 1/2". See
+# hierarchy.html for what each one means.
+VALID_TIERS = {"queens-court", "tea-party", "caucus-race", "looking-glass"}
+LEGACY_TIERS = {"tier1": "queens-court", "companion": "tea-party",
+                "workshop": "caucus-race"}
 
 yaml = YAML()
 yaml.preserve_quotes = True
@@ -194,10 +199,11 @@ def normalise(raw: dict) -> dict:
     if not name:
         raise ValueError(f"venue entry is missing `name`: {raw!r}")
 
-    tier = str(raw.get("tier") or "companion").strip().lower()
+    tier = str(raw.get("tier") or "tea-party").strip().lower()
+    tier = LEGACY_TIERS.get(tier, tier)
     if tier not in VALID_TIERS:
-        print(f"  ! {name}: unknown tier {tier!r}, treating as companion", file=sys.stderr)
-        tier = "companion"
+        print(f"  ! {name}: unknown tier {tier!r}, treating as tea-party", file=sys.stderr)
+        tier = "tea-party"
 
     deadlines = []
     for entry in raw.get("deadlines") or []:
@@ -294,6 +300,44 @@ def roll_over_cycle(raw, venue, now, grace_days, allow_network) -> bool:
         entry["confirmed"] = False  # shifted dates are estimates until verified
     print(f"  * {venue['name']}: rolled over to {next_year} -> {next_url}")
     return True
+
+
+# --------------------------------------------------------------------------
+# asset cache-busting
+# --------------------------------------------------------------------------
+PAGES = ("index.html", "hierarchy.html")
+ASSETS = ("assets/style.css", "assets/app.js")
+
+
+def stamp_assets() -> bool:
+    """Rewrite ?v= on each asset link to its content hash.
+
+    Without this a returning visitor keeps the CSS and JS their browser cached
+    and sees the previous design against the new data - which is exactly how a
+    shipped change looks broken to the person who asked for it.
+    """
+    changed = False
+    stamps = {}
+    for asset in ASSETS:
+        path = ROOT / asset
+        if path.exists():
+            stamps[asset] = hashlib.sha1(path.read_bytes()).hexdigest()[:8]
+
+    for page in PAGES:
+        path = ROOT / page
+        if not path.exists():
+            continue
+        text = original = path.read_text(encoding="utf-8")
+        for asset, digest in stamps.items():
+            text = re.sub(
+                rf'({re.escape(asset)})(\?v=[0-9a-f]+)?"',
+                rf'\g<1>?v={digest}"',
+                text,
+            )
+        if text != original:
+            path.write_text(text, encoding="utf-8")
+            changed = True
+    return changed
 
 
 # --------------------------------------------------------------------------
@@ -406,9 +450,7 @@ def main() -> int:
         "aoe_label": aoe_label,
         "counts": {
             "total": len(venues),
-            "tier1": sum(v["tier"] == "tier1" for v in venues),
-            "companion": sum(v["tier"] == "companion" for v in venues),
-            "workshop": sum(v["tier"] == "workshop" for v in venues),
+            **{tier: sum(v["tier"] == tier for v in venues) for tier in sorted(VALID_TIERS)},
         },
         "venues": venues,
     }
@@ -417,6 +459,9 @@ def main() -> int:
         print(json.dumps(payload["counts"], indent=2))
         print(f"(dry run) config_changed={config_changed}")
         return 0
+
+    if stamp_assets():
+        print("Re-stamped asset cache-busting hashes")
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

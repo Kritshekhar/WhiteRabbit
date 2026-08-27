@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Hierarchy · White Rabbit</title>
+<meta name="description" content="How White Rabbit ranks conference venues: Queen's Court, Mad Tea Party, Caucus Race and the Looking Glass.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=675fdcf7">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐇</text></svg>">
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">🐇</span>
+      <div>
+        <h1>The Hierarchy</h1>
+        <p class="brand-sub">How White Rabbit ranks a venue</p>
+      </div>
+    </div>
+    <nav class="top-nav">
+      <a class="nav-link" href="index.html">← Deadlines</a>
+      <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle colour theme">
+        <span class="theme-icon" aria-hidden="true"></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap prose">
+  <p class="lede">
+    Most trackers sort venues into "tier 1" and "tier 2" — borrowed vocabulary that
+    implies a precision nobody actually agrees on. These ranks say the same thing
+    with less false authority, and they come from the book the dashboard is named
+    after.
+  </p>
+
+  <figure class="pyramid-figure">
+    <svg viewBox="0 0 640 380" role="img" aria-labelledby="pyramid-title pyramid-desc" class="pyramid">
+      <title id="pyramid-title">The White Rabbit venue hierarchy</title>
+      <desc id="pyramid-desc">A three-level pyramid: Queen's Court at the apex with 18 venues,
+      Mad Tea Party in the middle with 19, Caucus Race at the base with 6. The Looking Glass
+      sits alongside with 2 journals, outside the pyramid because it has no deadlines.</desc>
+
+      <!-- apex -->
+      <polygon points="320,20 400,140 240,140" fill="var(--rank-court)" opacity=".16"
+               stroke="var(--rank-court)" stroke-width="2"/>
+      <text x="320" y="88" class="p-label" text-anchor="middle" fill="var(--rank-court)">Queen's Court</text>
+      <text x="320" y="110" class="p-count" text-anchor="middle" data-count="queens-court">18 venues</text>
+
+      <!-- middle -->
+      <polygon points="238,148 402,148 452,258 188,258" fill="var(--rank-tea)" opacity=".16"
+               stroke="var(--rank-tea)" stroke-width="2"/>
+      <text x="320" y="200" class="p-label" text-anchor="middle" fill="var(--rank-tea)">Mad Tea Party</text>
+      <text x="320" y="222" class="p-count" text-anchor="middle" data-count="tea-party">19 venues</text>
+
+      <!-- base -->
+      <polygon points="186,266 454,266 504,356 136,356" fill="var(--rank-caucus)" opacity=".16"
+               stroke="var(--rank-caucus)" stroke-width="2"/>
+      <text x="320" y="306" class="p-label" text-anchor="middle" fill="var(--rank-caucus)">Caucus Race</text>
+      <text x="320" y="328" class="p-count" text-anchor="middle" data-count="caucus-race">6 venues</text>
+
+      <!-- outside the pyramid on purpose -->
+      <rect x="528" y="150" width="100" height="86" rx="10"
+            fill="none" stroke="var(--border-strong)" stroke-width="2" stroke-dasharray="5 4"/>
+      <text x="578" y="184" class="p-label-sm" text-anchor="middle">Looking</text>
+      <text x="578" y="200" class="p-label-sm" text-anchor="middle">Glass</text>
+      <text x="578" y="220" class="p-count" text-anchor="middle" data-count="looking-glass">2 journals</text>
+      <line x1="504" y1="193" x2="528" y2="193" stroke="var(--border-strong)" stroke-width="2" stroke-dasharray="4 4"/>
+    </svg>
+  </figure>
+
+  <section class="rank">
+    <h2><span class="badge badge-rank badge-queens-court">Queen's Court</span></h2>
+    <p>
+      The flagship venues. <em>"Off with their heads!"</em> — the Queen's court is where
+      the stakes are highest and the rejection is briskest. Single-digit-to-twenty
+      percent acceptance, the venues a hiring or tenure committee recognises by
+      acronym alone.
+    </p>
+    <p class="examples">OSDI · SOSP · NSDI · FAST · SIGCOMM · SIGMOD · VLDB · CCS · S&amp;P · ICSE</p>
+  </section>
+
+  <section class="rank">
+    <h2><span class="badge badge-rank badge-tea-party">Mad Tea Party</span></h2>
+    <p>
+      Strong, specialised conferences where the interesting arguments happen. The tea
+      party is never not in session — somebody is always mid-cycle — and the guest list
+      is narrower and more opinionated than the court's. Real peer review, real
+      proceedings, a more focused audience.
+    </p>
+    <p class="examples">NDSS · DSN · ICDCS · IMC · INFOCOM · IPDPS · SoCC · MLSys · SYSTOR · MSST</p>
+  </section>
+
+  <section class="rank">
+    <h2><span class="badge badge-rank badge-caucus-race">Caucus Race</span></h2>
+    <p>
+      Workshops. In Wonderland the caucus race has no start line, no finish line, and
+      everybody wins a prize — which is a fair description of a good workshop. Early
+      ideas, position papers, five pages and an argument. Lower stakes by design, and
+      often where the interesting work shows up first.
+    </p>
+    <p class="examples">HotOS · HotStorage · HotNets · HotInfra · HotCloudPerf · APSys</p>
+  </section>
+
+  <section class="rank">
+    <h2><span class="badge badge-rank badge-looking-glass">Looking Glass</span></h2>
+    <p>
+      Journals. Deliberately <strong>outside</strong> the pyramid rather than beneath it —
+      they are not a lesser rank, they run on different physics. No deadline, no cycle,
+      no countdown: you submit when the work is ready and the clock never applies.
+      White Rabbit shows them as <em>rolling submission</em> and never counts down.
+    </p>
+    <p class="examples">ACM TOS · ACM TOCS</p>
+  </section>
+
+  <section class="rank caveat">
+    <h2>What this is not</h2>
+    <p>
+      A ranking of research quality. Placement here tracks how a venue <em>behaves</em> —
+      selectivity, breadth of audience, whether it has cycles at all — not how good any
+      particular paper in it is. Plenty of the best work in systems first appeared at a
+      Caucus Race workshop.
+    </p>
+    <p>
+      It is also one person's judgement call, recorded in one field of
+      <code>conferences.yml</code>. If a venue looks misplaced to you, that is a
+      one-line change and a reasonable pull request.
+    </p>
+  </section>
+</main>
+
+<footer class="wrap site-foot">
+  <p>Ranks live in <code>conferences.yml</code> as <code>tier:</code> —
+     <code>queens-court</code>, <code>tea-party</code>, <code>caucus-race</code>, <code>looking-glass</code>.</p>
+</footer>
+
+<script>
+/* Counts come from the build output - typing them in here guarantees they go
+   stale the next time a venue is added. */
+fetch('data/deadlines.json', { cache: 'no-cache' })
+  .then((r) => r.json())
+  .then((d) => {
+    const noun = { 'looking-glass': 'journals' };
+    document.querySelectorAll('[data-count]').forEach((el) => {
+      const key = el.dataset.count;
+      const n = d.counts[key] || 0;
+      el.textContent = `${n} ${noun[key] || (n === 1 ? 'venue' : 'venues')}`;
+    });
+  })
+  .catch(() => { /* keep the built-in numbers if the fetch fails */ });
+
+/* theme toggle, same behaviour as the dashboard */
+(function () {
+  const saved = localStorage.getItem('cd-theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#theme-toggle')) return;
+    const root = document.documentElement;
+    const dark = root.dataset.theme
+      ? root.dataset.theme === 'dark'
+      : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    localStorage.setItem('cd-theme', root.dataset.theme);
+  });
+})();
+</script>
+</body>
+</html>

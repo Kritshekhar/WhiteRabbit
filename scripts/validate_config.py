@@ -26,7 +26,8 @@ from ruamel.yaml.error import YAMLError
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "conferences.yml"
 
-VALID_TIERS = {"tier1", "companion", "workshop"}
+VALID_TIERS = {"queens-court", "tea-party", "caucus-race", "looking-glass"}
+LEGACY_TIERS = {"tier1": "queens-court", "companion": "tea-party", "workshop": "caucus-race"}
 PLACEHOLDER = re.compile(r"\{(year|yyyy|yy|yyn)\}")
 KNOWN_VENUE_KEYS = {
     "name", "full_name", "tier", "url", "url_template", "year", "month",
@@ -92,8 +93,10 @@ def check_venue(index: int, venue, seen: dict) -> None:
         err(where, f"duplicate venue - collides with {seen[slug]!r}")
     seen[slug] = name
 
-    tier = str(venue.get("tier") or "companion").lower()
-    if tier not in VALID_TIERS:
+    tier = str(venue.get("tier") or "tea-party").lower()
+    if tier in LEGACY_TIERS:
+        warn(where, f"tier {tier!r} is the old name - use {LEGACY_TIERS[tier]!r}")
+    elif tier not in VALID_TIERS:
         err(where, f"tier {tier!r} is not one of {sorted(VALID_TIERS)}")
 
     url = str(venue.get("url") or "")
