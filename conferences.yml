@@ -239,10 +239,14 @@ venues:
     year: 2027
     month: 6
     deadlines:
-      - name: Paper submission
-        date: 2026-11-12T23:59:00-12:00
-        confirmed: false
-
+      - name: Submission deadline
+        track: Research
+        date: '2026-11-12T23:59:00-12:00'
+        confirmed: true
+        source: https://pldi27.sigplan.org/dates
+        verified_on: '2026-08-26'
+    tracks:
+      - Research Papers
   - name: S&P
     full_name: IEEE Symposium on Security and Privacy (Oakland)
     tier: tier1
