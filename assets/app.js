@@ -4,8 +4,15 @@
    nightly rebuilds - and any venue added to the config just shows up here. */
 
 const DAY = 86400000;
-const TIERS = { tier1: 'Tier-1', companion: 'Companion', workshop: 'Workshop' };
-const TIER_ORDER = { tier1: 0, companion: 1, workshop: 2 };
+/* Ranks are named after Wonderland rather than "tier 1/2" - hierarchy.html
+   explains what each one means. */
+const TIERS = {
+  'queens-court': "Queen's Court",
+  'tea-party': 'Mad Tea Party',
+  'caucus-race': 'Caucus Race',
+  'looking-glass': 'Looking Glass',
+};
+const TIER_ORDER = { 'queens-court': 0, 'tea-party': 1, 'caucus-race': 2, 'looking-glass': 3 };
 
 /* Urgency bands. `color` is a status token; `label` is the text that always
    ships beside it, so the state never depends on colour alone. */
@@ -76,7 +83,7 @@ function card(v) {
     : v.next.confirmed
       ? verifiedBadge(v.next)
       : ' <span class="badge badge-est" title="Extrapolated from previous cycles - not checked against a CFP page">est.</span>';
-  const tierClass = v.tier === 'tier1' ? 'badge badge-tier1' : 'badge';
+  const tierClass = `badge badge-rank badge-${v.tier}`;
 
   // date + badge share a nowrap span so the line breaks before the date, not
   // between the date and its "est." marker
@@ -130,11 +137,7 @@ function card(v) {
         </div>
         <div>${countdownMarkup(v)}${line}</div>
         ${meter}
-        <div class="card-foot">
-          ${link}
-          <span class="link-state" title="${linkHelp}"><span class="${dot}"></span>${linkLabel}</span>
-        </div>
-        ${backHasContent ? '<span class="flip-hint" aria-hidden="true">details ↻</span>' : ''}
+        <span class="flip-hint" aria-hidden="true">details ↻</span>
       </div>
 
       <div class="face face-back">
@@ -147,7 +150,10 @@ function card(v) {
         ${v.tracks.length ? `<div class="tags"><span class="tags-label">Tracks</span>${v.tracks.map((t) => `<span class="tag tag-track">${t}</span>`).join('')}</div>` : ''}
         ${v.notes ? `<p class="note">${v.notes}</p>` : ''}
         ${!backHasContent ? '<p class="note">No further details recorded yet.</p>' : ''}
-        <div class="card-foot">${link}</div>
+        <div class="card-foot">
+          ${link}
+          <span class="link-state" title="${linkHelp}"><span class="${dot}"></span>${linkLabel}</span>
+        </div>
       </div>
 
     </div>
@@ -192,7 +198,9 @@ function renderStats(meta) {
   $('stat-soon').textContent = upcoming.filter((v) => v.days <= 30).length;
   $('stat-quarter').textContent = upcoming.filter((v) => v.days <= 90).length;
   $('stat-total').textContent = meta.counts.total;
-  $('stat-breakdown').textContent = `${meta.counts.tier1} tier-1 · ${meta.counts.companion} companion · ${meta.counts.workshop} workshop`;
+  $('stat-breakdown').textContent = Object.entries(TIERS)
+    .map(([key, label]) => `${meta.counts[key] || 0} ${label}`)
+    .join(' · ');
   const verified = upcoming.filter((v) => v.next.confirmed).length;
   $('verified-note').textContent =
     `${verified} of ${upcoming.length} upcoming deadlines have been checked against the venue's own CFP page; the rest are extrapolated from previous cycles.`;

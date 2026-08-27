@@ -31,7 +31,7 @@ Append to `venues:`. Only `name` is required; everything else has a default.
 ```yaml
   - name: SOSP
     full_name: ACM Symposium on Operating Systems Principles
-    tier: tier1                       # tier1 | companion | workshop
+    tier: queens-court                # queens-court | tea-party | caucus-race | looking-glass
     url: https://sigops.org/s/conferences/sosp/2026/
     url_template: https://sigops.org/s/conferences/sosp/{year}/
     year: 2026
@@ -85,9 +85,20 @@ build overwrites it.
 |---|---|
 | `notes: Prefix the title: like this` | quote it — a value containing `": "` breaks YAML |
 | `date: 2026-09-15T23:59:00` | add the offset — `-12:00` is AoE |
-| `tier: tier-1` | it is `tier1` |
+| `tier: tier1` | old name — use `queens-court` (see hierarchy.html) |
 | `url_template` with no `{year}` | it can never roll over; drop it or add the placeholder |
 | a venue added twice | one entry per venue |
+
+## Ranks
+
+Venues are ranked `queens-court`, `tea-party`, `caucus-race` or
+`looking-glass`, not "tier 1/2" — **[hierarchy.html](hierarchy.html)** explains
+what each means. The old names still parse, with a warning, so an existing
+branch will not break.
+
+Placement is a judgement call about how a venue *behaves* (selectivity,
+audience, whether it has cycles), not about research quality. If one looks
+wrong to you, that is a one-line change and a reasonable PR.
 
 ## Formats and tracks
 
