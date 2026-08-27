@@ -323,12 +323,15 @@ a.badge:hover { border-color: var(--good); }
 .lede { font-size: 1.02rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
 .pyramid-figure { margin: 0 0 2rem; }
 .pyramid { width: 100%; height: auto; display: block; }
-.pyramid .p-label { font: 700 15px Inter, sans-serif; }
+.pyramid .p-label { font: 700 14px Inter, sans-serif; }
 .pyramid .p-label-sm { font: 600 12px Inter, sans-serif; fill: var(--text-secondary); }
 .pyramid .p-count {
-  font: 500 11px "JetBrains Mono", monospace; fill: var(--text-muted);
+  font: 700 13px "JetBrains Mono", monospace; fill: var(--text-secondary);
   letter-spacing: .02em;
 }
+.pyramid .p-axis { font: 500 11px Inter, sans-serif; fill: var(--text-muted); }
+/* currentColor drives the axis, leaders and dashed box, so they follow the theme */
+.pyramid { color: var(--text-secondary); }
 .rank {
   border-top: 1px solid var(--border);
   padding-top: 1.1rem; margin-top: 1.4rem;
@@ -342,3 +345,7 @@ a.badge:hover { border-color: var(--good); }
 }
 .caveat { background: var(--surface-2); border-radius: 1rem; padding: 1.1rem 1.2rem; border-top: 0; }
 .caveat h2 { font-size: .95rem; }
+.pyramid-figure figcaption {
+  font-size: .78rem; color: var(--text-muted); text-align: center;
+  max-width: 46ch; margin: .4rem auto 0; line-height: 1.5;
+}
