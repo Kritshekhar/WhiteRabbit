@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T05:18:52+00:00",
+  "generated_at": "2026-08-27T05:20:25+00:00",
   "aoe_label": "AoE",
   "counts": {
     "total": 45,
@@ -542,9 +542,9 @@
       "name": "SOSP",
       "full_name": "ACM Symposium on Operating Systems Principles",
       "tier": "tier1",
-      "url": "https://sigops.org/s/conferences/sosp/2026/",
+      "url": "https://sigops.org/s/conferences/sosp/2027/",
       "url_template": "https://sigops.org/s/conferences/sosp/{year}/",
-      "year": 2026,
+      "year": 2027,
       "month": 10,
       "rolling": false,
       "cycle_years": 1,
@@ -554,7 +554,7 @@
       "deadlines": [
         {
           "name": "Paper submission",
-          "date": "2026-04-16T23:59:00-12:00",
+          "date": "2027-04-16T23:59:00-12:00",
           "confirmed": false,
           "track": "",
           "source": "",
@@ -813,16 +813,16 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "imc",
       "name": "IMC",
       "full_name": "ACM Internet Measurement Conference",
       "tier": "companion",
-      "url": "https://conferences.sigcomm.org/imc/2026/",
+      "url": "https://conferences.sigcomm.org/imc/2027/",
       "url_template": "https://conferences.sigcomm.org/imc/{year}/",
-      "year": 2026,
+      "year": 2027,
       "month": 10,
       "rolling": false,
       "cycle_years": 1,
@@ -832,16 +832,16 @@
       "deadlines": [
         {
           "name": "Cycle 1",
-          "date": "2025-11-20T23:59:00-12:00",
-          "confirmed": true,
+          "date": "2026-11-20T23:59:00-12:00",
+          "confirmed": false,
           "track": "",
           "source": "https://conferences.sigcomm.org/imc/2026",
           "verified_on": "2026-08-26"
         },
         {
           "name": "Cycle 2",
-          "date": "2026-04-29T23:59:00-12:00",
-          "confirmed": true,
+          "date": "2027-04-29T23:59:00-12:00",
+          "confirmed": false,
           "track": "",
           "source": "https://conferences.sigcomm.org/imc/2026",
           "verified_on": "2026-08-26"
@@ -1329,9 +1329,9 @@
       "name": "HotNets",
       "full_name": "ACM Workshop on Hot Topics in Networks",
       "tier": "workshop",
-      "url": "https://conferences.sigcomm.org/hotnets/2026/",
+      "url": "https://conferences.sigcomm.org/hotnets/2027/",
       "url_template": "https://conferences.sigcomm.org/hotnets/{year}/",
-      "year": 2026,
+      "year": 2027,
       "month": 11,
       "rolling": false,
       "cycle_years": 1,
@@ -1341,8 +1341,8 @@
       "deadlines": [
         {
           "name": "Paper submission",
-          "date": "2026-07-16T23:59:00-12:00",
-          "confirmed": true,
+          "date": "2027-07-16T23:59:00-12:00",
+          "confirmed": false,
           "track": "",
           "source": "https://conferences.sigcomm.org/hotnets/2026/",
           "verified_on": "2026-08-26"
@@ -1423,7 +1423,7 @@
       "tracks": [],
       "notes": "Journal - continuous submission, no deadline.",
       "deadlines": [],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "acm-tocs",
@@ -1440,7 +1440,7 @@
       "tracks": [],
       "notes": "Journal - continuous submission, no deadline.",
       "deadlines": [],
-      "link_status": "ok"
+      "link_status": "unknown"
     }
   ]
 }
