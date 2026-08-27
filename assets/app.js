@@ -90,7 +90,7 @@ function card(v) {
     : `<div class="meter" role="img" aria-label="${v.days} days remaining"><span style="width:${Math.max(3, Math.min(100, 100 - (v.days / 180) * 100)).toFixed(0)}%"></span></div>`;
 
   const others = v.rounds
-    .filter((r) => r.ts && r !== v.next)
+    .filter((r) => r.ts)
     .map((r) => `<div class="${r.ts < Date.now() ? 'past' : ''}"><span>${track(r)}${r.name}</span><span>${fmtDate(r.ts, r.off)}${r.confirmed ? '' : ' · est.'}</span></div>`)
     .join('');
 
@@ -110,27 +110,46 @@ function card(v) {
     : '';
   const linkHelp = baseHelp + checkedOn;
 
+  const backHasContent = others || v.formats.length || v.tracks.length || v.notes;
+
   return `
-  <article class="card" style="--status:${statusVar}">
-    <div class="card-head">
-      <div>
-        <h3 class="card-name">${v.name}</h3>
-        ${v.full_name ? `<p class="card-full">${v.full_name}</p>` : ''}
+  <article class="flip" style="--status:${statusVar}" tabindex="0"
+           aria-label="${v.name}${backHasContent ? ' — hover or tap for details' : ''}">
+    <div class="flip-inner">
+
+      <div class="face face-front">
+        <div class="card-head">
+          <div>
+            <h3 class="card-name">${v.name}</h3>
+            ${v.full_name ? `<p class="card-full">${v.full_name}</p>` : ''}
+          </div>
+          <div class="pills">
+            <span class="${tierClass}">${TIERS[v.tier] || v.tier}</span>
+            ${v.year ? `<span class="badge badge-year">${v.year}</span>` : ''}
+          </div>
+        </div>
+        <div>${countdownMarkup(v)}${line}</div>
+        ${meter}
+        <div class="card-foot">
+          ${link}
+          <span class="link-state" title="${linkHelp}"><span class="${dot}"></span>${linkLabel}</span>
+        </div>
+        ${backHasContent ? '<span class="flip-hint" aria-hidden="true">details ↻</span>' : ''}
       </div>
-      <div class="pills">
-        <span class="${tierClass}">${TIERS[v.tier] || v.tier}</span>
-        ${v.year ? `<span class="badge badge-year">${v.year}</span>` : ''}
+
+      <div class="face face-back">
+        <div class="card-head">
+          <h3 class="card-name">${v.name}</h3>
+          ${v.year ? `<span class="badge badge-year">${v.year}</span>` : ''}
+        </div>
+        ${others ? `<div class="back-block"><span class="tags-label">All deadlines</span><div class="rounds">${others}</div></div>` : ''}
+        ${v.formats.length ? `<div class="tags"><span class="tags-label">Accepts</span>${v.formats.map((f) => `<span class="tag">${f}</span>`).join('')}</div>` : ''}
+        ${v.tracks.length ? `<div class="tags"><span class="tags-label">Tracks</span>${v.tracks.map((t) => `<span class="tag tag-track">${t}</span>`).join('')}</div>` : ''}
+        ${v.notes ? `<p class="note">${v.notes}</p>` : ''}
+        ${!backHasContent ? '<p class="note">No further details recorded yet.</p>' : ''}
+        <div class="card-foot">${link}</div>
       </div>
-    </div>
-    <div>${countdownMarkup(v)}${line}</div>
-    ${meter}
-    ${others ? `<div class="rounds">${others}</div>` : ''}
-    ${v.formats.length ? `<div class="tags"><span class="tags-label">Accepts</span>${v.formats.map((f) => `<span class="tag">${f}</span>`).join('')}</div>` : ''}
-    ${v.tracks.length ? `<div class="tags"><span class="tags-label">Tracks</span>${v.tracks.map((t) => `<span class="tag tag-track">${t}</span>`).join('')}</div>` : ''}
-    ${v.notes ? `<p class="note">${v.notes}</p>` : ''}
-    <div class="card-foot">
-      ${link}
-      <span class="link-state" title="${linkHelp}"><span class="${dot}"></span>${linkLabel}</span>
+
     </div>
   </article>`;
 }
@@ -196,6 +215,20 @@ function renderStats(meta) {
 })();
 
 /* --------------------------------- wiring ------------------------------- */
+// Hover handles the mouse; this covers touch and keyboard activation.
+$('grid').addEventListener('click', (e) => {
+  if (e.target.closest('a')) return;          // let "Visit site" through
+  const card = e.target.closest('.flip');
+  if (card) card.classList.toggle('is-flipped');
+});
+$('grid').addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const card = e.target.closest('.flip');
+  if (!card) return;
+  e.preventDefault();
+  card.classList.toggle('is-flipped');
+});
+
 $('search').addEventListener('input', (e) => { state.query = e.target.value; render(); });
 $('hide-passed').addEventListener('change', (e) => { state.onlyUpcoming = e.target.checked; render(); });
 $('sort').addEventListener('change', (e) => { state.sort = e.target.value; render(); });

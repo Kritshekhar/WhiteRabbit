@@ -170,21 +170,62 @@ select {
 .result-count { font-size: .8rem; color: var(--text-muted); margin-bottom: .7rem; }
 
 /* --------------------------------- cards -------------------------------- */
+/* Every card is the same fixed height so the grid stays even, and flips on
+   hover to show the details that do not fit on the front. */
 .grid { display: grid; gap: .9rem; grid-template-columns: repeat(auto-fill, minmax(288px, 1fr)); }
-.card {
-  position: relative; overflow: hidden; display: flex; flex-direction: column; gap: .75rem;
-  background: var(--surface-1); border: 1px solid var(--border); border-radius: 1rem;
-  padding: 1rem 1.1rem 1.05rem; box-shadow: var(--shadow);
-  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+
+.flip {
+  height: 300px;
+  perspective: 1400px;
+  cursor: pointer;
+  border-radius: 1rem;
 }
-.card::before {
+.flip:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.flip-inner {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .6s cubic-bezier(.2, .7, .25, 1);
+}
+.flip:hover .flip-inner,
+.flip:focus-visible .flip-inner,
+.flip.is-flipped .flip-inner { transform: rotateY(180deg); }
+
+.face {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; gap: .7rem;
+  padding: 1rem 1.1rem;
+  background: var(--surface-1);
+  border: 1px solid var(--border); border-radius: 1rem;
+  box-shadow: var(--shadow);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+.face::before {
   content: ""; position: absolute; inset: 0 auto 0 0; width: 3px;
   background: var(--status, var(--border-strong));
 }
-.card:hover { transform: translateY(-2px); border-color: var(--border-strong); }
+.face-back {
+  transform: rotateY(180deg);
+  overflow-y: auto;
+  background: linear-gradient(160deg, var(--surface-1), var(--surface-2));
+}
+.face-back::-webkit-scrollbar { width: 6px; }
+.face-back::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 999px; }
+
+.flip-hint {
+  /* sits just above the footer row, not on top of the link status */
+  position: absolute; right: .9rem; bottom: 2.7rem;
+  font-size: .66rem; letter-spacing: .04em; color: var(--text-muted); opacity: .65;
+}
+.back-block { display: flex; flex-direction: column; gap: .3rem; }
+
 .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: .6rem; }
 .card-name { font-size: 1.02rem; font-weight: 700; letter-spacing: -.01em; }
-.card-full { font-size: .76rem; color: var(--text-muted); margin-top: .12rem; }
+.card-full {
+  font-size: .76rem; color: var(--text-muted); margin-top: .12rem;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
 .pills { display: flex; flex-direction: column; align-items: flex-end; gap: .25rem; flex-shrink: 0; }
 .badge {
   font-size: .66rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
@@ -194,23 +235,17 @@ select {
 .badge-tier1 { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 35%, transparent); background: var(--accent-soft); }
 .badge-year { font-family: "JetBrains Mono", monospace; }
 .badge-est { text-transform: none; letter-spacing: 0; font-size: .62rem; padding: .1rem .3rem; }
-.badge-ok { text-transform: none; letter-spacing: 0; font-size: .62rem; padding: .1rem .3rem;
-  color: var(--good); border-color: color-mix(in srgb, var(--good) 35%, transparent);
-  background: color-mix(in srgb, var(--good) 10%, transparent); }
-.tags { display: flex; flex-wrap: wrap; align-items: center; gap: .28rem; }
-.tags-label { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin-right: .15rem; }
-.tag {
-  font-size: .68rem; font-weight: 500; padding: .12rem .4rem; border-radius: .35rem;
-  border: 1px solid var(--border); background: var(--surface-2); color: var(--text-secondary);
-}
-.tag-track { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 30%, transparent); background: var(--accent-soft); }
 a.badge { text-decoration: none; }
 a.badge:hover { border-color: var(--good); }
+.badge-ok {
+  text-transform: none; letter-spacing: 0; font-size: .62rem; padding: .1rem .3rem;
+  color: var(--good); border-color: color-mix(in srgb, var(--good) 35%, transparent);
+  background: color-mix(in srgb, var(--good) 10%, transparent);
+}
 .badge-est { cursor: help; }
-.link-state { cursor: help; }
 .nowrap { white-space: nowrap; }
 
-.countdown { display: flex; align-items: baseline; gap: .45rem; }
+.countdown { display: flex; align-items: baseline; gap: .45rem; flex-wrap: wrap; }
 .countdown-num {
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 2.1rem; font-weight: 700; line-height: 1; letter-spacing: -.03em;
@@ -221,18 +256,28 @@ a.badge:hover { border-color: var(--good); }
 .deadline-line { font-size: .82rem; color: var(--text-secondary); margin-top: .2rem; }
 .deadline-line strong { color: var(--text-primary); font-weight: 600; }
 
-.meter { height: 4px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+.meter { height: 4px; border-radius: 999px; background: var(--surface-2); overflow: hidden; flex-shrink: 0; }
 .meter > span { display: block; height: 100%; border-radius: 999px; background: var(--status, var(--border-strong)); }
 
 .rounds { display: flex; flex-direction: column; gap: .2rem; font-size: .78rem; color: var(--text-muted); }
-.rounds div { display: flex; justify-content: space-between; gap: .6rem; }
+.rounds div { display: flex; justify-content: space-between; gap: .6rem; align-items: baseline; }
+.rounds div > span:first-child { min-width: 0; }
+.rounds div > span:last-child { white-space: nowrap; flex-shrink: 0; }
 .rounds .past { text-decoration: line-through; opacity: .55; }
 .note { font-size: .75rem; color: var(--text-muted); font-style: italic; }
+
+.tags { display: flex; flex-wrap: wrap; align-items: center; gap: .28rem; }
+.tags-label { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin-right: .15rem; }
+.tag {
+  font-size: .68rem; font-weight: 500; padding: .12rem .4rem; border-radius: .35rem;
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text-secondary);
+}
+.tag-track { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 30%, transparent); background: var(--accent-soft); }
 
 .card-foot { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-top: auto; padding-top: .2rem; }
 .card-link { font-size: .82rem; font-weight: 600; color: var(--accent); text-decoration: none; }
 .card-link:hover { text-decoration: underline; }
-.link-state { font-size: .7rem; color: var(--text-muted); display: inline-flex; align-items: center; gap: .3rem; }
+.link-state { font-size: .7rem; color: var(--text-muted); display: inline-flex; align-items: center; gap: .3rem; cursor: help; }
 .dot { width: .45rem; height: .45rem; border-radius: 50%; background: var(--text-muted); }
 .dot-ok { background: var(--good); }
 .dot-dead { background: var(--critical); }
@@ -243,4 +288,10 @@ a.badge:hover { border-color: var(--good); }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
+  /* No spin - swap the faces outright, so the details are still reachable. */
+  .flip-inner { transform: none !important; }
+  .face-back { transform: none; opacity: 0; pointer-events: none; }
+  .flip:hover .face-back,
+  .flip:focus-visible .face-back,
+  .flip.is-flipped .face-back { opacity: 1; pointer-events: auto; }
 }
