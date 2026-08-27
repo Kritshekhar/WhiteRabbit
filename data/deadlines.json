@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T06:13:51+00:00",
+  "generated_at": "2026-08-27T06:27:09+00:00",
   "aoe_label": "AoE",
   "counts": {
     "total": 45,
@@ -32,7 +32,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:22:27+00:00"
     },
     {
       "id": "osdi",
@@ -66,7 +67,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:22:27+00:00"
     },
     {
       "id": "atc",
@@ -92,7 +94,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "eurosys",
@@ -142,7 +145,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:22:27+00:00"
     },
     {
       "id": "asplos",
@@ -176,7 +180,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:22:27+00:00"
     },
     {
       "id": "sc",
@@ -210,7 +215,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "ccs",
@@ -244,7 +250,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "fse",
@@ -281,7 +288,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:22:27+00:00"
     },
     {
       "id": "icse",
@@ -315,7 +323,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "nsdi",
@@ -365,7 +374,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:22:27+00:00"
     },
     {
       "id": "pldi",
@@ -393,7 +403,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:22:27+00:00"
     },
     {
       "id": "s-p",
@@ -419,7 +430,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "sigcomm",
@@ -445,7 +457,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "sigmetrics",
@@ -495,7 +508,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:22:27+00:00"
     },
     {
       "id": "sigmod",
@@ -537,7 +551,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "sosp",
@@ -563,7 +578,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "usenix-security",
@@ -613,7 +629,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:22:27+00:00"
     },
     {
       "id": "vldb",
@@ -639,7 +656,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "ase",
@@ -665,7 +683,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "cais",
@@ -691,7 +710,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "ches",
@@ -725,7 +745,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "dsn",
@@ -759,7 +780,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "hot-chips",
@@ -789,7 +811,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "icdcs",
@@ -815,16 +838,17 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "imc",
       "name": "IMC",
       "full_name": "ACM Internet Measurement Conference",
       "tier": "companion",
-      "url": "https://conferences.sigcomm.org/imc/2027/",
+      "url": "https://conferences.sigcomm.org/imc/2026/",
       "url_template": "https://conferences.sigcomm.org/imc/{year}/",
-      "year": 2027,
+      "year": 2026,
       "month": 10,
       "rolling": false,
       "cycle_years": 1,
@@ -834,22 +858,23 @@
       "deadlines": [
         {
           "name": "Cycle 1",
-          "date": "2026-11-20T23:59:00-12:00",
-          "confirmed": false,
+          "date": "2025-11-20T23:59:00-12:00",
+          "confirmed": true,
           "track": "",
           "source": "https://conferences.sigcomm.org/imc/2026",
           "verified_on": "2026-08-26"
         },
         {
           "name": "Cycle 2",
-          "date": "2027-04-29T23:59:00-12:00",
-          "confirmed": false,
+          "date": "2026-04-29T23:59:00-12:00",
+          "confirmed": true,
           "track": "",
           "source": "https://conferences.sigcomm.org/imc/2026",
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "dead"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "infocom",
@@ -875,7 +900,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "ipdps",
@@ -909,7 +935,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "issta",
@@ -943,7 +970,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:22:27+00:00"
     },
     {
       "id": "kubecon-eu",
@@ -969,7 +997,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "kubecon-na",
@@ -995,7 +1024,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "msst",
@@ -1027,7 +1057,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "mlsys",
@@ -1053,7 +1084,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "ndss",
@@ -1087,7 +1119,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "pytorch-conf",
@@ -1113,7 +1146,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "pytorch-eu",
@@ -1139,7 +1173,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "systor",
@@ -1176,7 +1211,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "socc",
@@ -1226,7 +1262,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "apsys",
@@ -1260,7 +1297,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:22:27+00:00"
     },
     {
       "id": "hotcloudperf",
@@ -1298,7 +1336,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:22:27+00:00"
     },
     {
       "id": "hotinfra",
@@ -1324,16 +1363,17 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "hotnets",
       "name": "HotNets",
       "full_name": "ACM Workshop on Hot Topics in Networks",
       "tier": "workshop",
-      "url": "https://conferences.sigcomm.org/hotnets/2027/",
+      "url": "https://conferences.sigcomm.org/hotnets/2026/",
       "url_template": "https://conferences.sigcomm.org/hotnets/{year}/",
-      "year": 2027,
+      "year": 2026,
       "month": 11,
       "rolling": false,
       "cycle_years": 1,
@@ -1343,14 +1383,15 @@
       "deadlines": [
         {
           "name": "Paper submission",
-          "date": "2027-07-16T23:59:00-12:00",
-          "confirmed": false,
+          "date": "2026-07-16T23:59:00-12:00",
+          "confirmed": true,
           "track": "",
           "source": "https://conferences.sigcomm.org/hotnets/2026/",
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "hotos",
@@ -1379,7 +1420,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "hotstorage",
@@ -1408,7 +1450,8 @@
           "verified_on": "2026-08-26"
         }
       ],
-      "link_status": "ok"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:27:09+00:00"
     },
     {
       "id": "acm-tos",
@@ -1425,7 +1468,8 @@
       "tracks": [],
       "notes": "Journal - continuous submission, no deadline.",
       "deadlines": [],
-      "link_status": "unknown"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:22:27+00:00"
     },
     {
       "id": "acm-tocs",
@@ -1442,7 +1486,8 @@
       "tracks": [],
       "notes": "Journal - continuous submission, no deadline.",
       "deadlines": [],
-      "link_status": "unknown"
+      "link_status": "ok",
+      "link_checked_on": "2026-08-27T06:22:27+00:00"
     }
   ]
 }

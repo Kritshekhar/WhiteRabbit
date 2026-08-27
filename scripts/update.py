@@ -54,6 +54,50 @@ yaml.indent(mapping=2, sequence=4, offset=2)
 
 
 # --------------------------------------------------------------------------
+# probe policy
+#
+# Link probing is the only slow part of a build, and most links do not change.
+# So a nightly run only re-checks what plausibly moved, and everything else
+# carries its previous result forward. Countdowns are unaffected either way -
+# they are computed in the browser from the ISO dates, not stored here.
+# --------------------------------------------------------------------------
+def load_previous() -> dict:
+    """Last build's results, keyed by venue id, used as a probe cache."""
+    if not OUTPUT.exists():
+        return {}
+    try:
+        return {v["id"]: v for v in json.loads(OUTPUT.read_text(encoding="utf-8"))["venues"]}
+    except Exception:
+        return {}
+
+
+def should_probe(venue: dict, cached: dict, now: datetime, max_age_days: int) -> str:
+    """Return the reason to probe this venue, or '' to reuse the cached result."""
+    if not cached:
+        return "never checked"
+    if cached.get("link_status") != "ok":
+        return f"last result was {cached.get('link_status', 'unknown')}"
+
+    # A venue we have not verified may still be moving its CFP page around.
+    if any(not d.get("confirmed") for d in venue["deadlines"]):
+        return "dates unverified"
+
+    # A finished cycle needs probing so rollover can find next year's site.
+    dated = [d["_dt"] for d in venue["deadlines"] if d["_dt"]]
+    if venue["url_template"] and dated and now > max(dated):
+        return "cycle over, rollover pending"
+
+    # Otherwise re-check on a rota, so every venue is still seen periodically.
+    checked = parse_date(cached.get("link_checked_on"))
+    if not checked:
+        return "no check timestamp"
+    age = (now - checked).days
+    if age >= max_age_days:
+        return f"last checked {age}d ago"
+    return ""
+
+
+# --------------------------------------------------------------------------
 # helpers
 # --------------------------------------------------------------------------
 def slugify(name: str) -> str:
@@ -194,6 +238,25 @@ def normalise(raw: dict) -> dict:
 # --------------------------------------------------------------------------
 # year rollover
 # --------------------------------------------------------------------------
+def snapshot(raw: dict) -> dict:
+    """Enough of a venue to put it back the way it was."""
+    return {
+        "year": raw.get("year"),
+        "url": raw.get("url"),
+        "dates": [e.get("date") for e in (raw.get("deadlines") or []) if isinstance(e, dict)],
+        "confirmed": [e.get("confirmed") for e in (raw.get("deadlines") or []) if isinstance(e, dict)],
+    }
+
+
+def restore(raw: dict, snap: dict) -> None:
+    raw["year"] = snap["year"]
+    raw["url"] = snap["url"]
+    entries = [e for e in (raw.get("deadlines") or []) if isinstance(e, dict)]
+    for entry, date, confirmed in zip(entries, snap["dates"], snap["confirmed"]):
+        entry["date"] = date
+        entry["confirmed"] = confirmed
+
+
 def roll_over_cycle(raw, venue, now, grace_days, allow_network) -> bool:
     """Bump a venue to next year's site once this cycle is over.
 
@@ -240,6 +303,12 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-network", action="store_true", help="skip all HTTP probes")
     ap.add_argument("--dry-run", action="store_true", help="do not write any file")
+    ap.add_argument("--scope", choices=("auto", "all"), default="auto",
+                    help="auto (default): probe only venues that plausibly moved; "
+                         "all: re-probe every venue")
+    ap.add_argument("--max-age-days", type=int, default=30,
+                    help="in auto scope, re-probe a venue this many days after its "
+                         "last check (default 30, so everything is still seen monthly)")
     args = ap.parse_args()
 
     allow_network = not args.no_network
@@ -251,10 +320,12 @@ def main() -> int:
     aoe_label = str(settings.get("aoe_label", "AoE"))
 
     raw_venues = config.get("venues") or []
+    previous = load_previous()
     print(f"Loaded {len(raw_venues)} venues from {CONFIG.name}")
 
     config_changed = False
     venues, seen = [], set()
+    rolled: dict[str, tuple] = {}  # venue id -> (raw entry, pre-rollover snapshot)
 
     for raw in raw_venues:
         venue = normalise(raw)
@@ -263,26 +334,72 @@ def main() -> int:
             continue
         seen.add(venue["id"])
 
+        before = snapshot(raw)
         if roll_over_cycle(raw, venue, now, grace_days, allow_network):
             config_changed = True
+            rolled[slugify(str(raw.get("name")))] = (raw, before)
             venue = normalise(raw)  # re-read the bumped values
 
+        cached = previous.get(venue["id"], {})
+        venue["_reason"] = (
+            "scope=all" if args.scope == "all"
+            else should_probe(venue, cached, now, args.max_age_days)
+        )
+        venue["_cached"] = cached
         for d in venue["deadlines"]:
             d.pop("_dt", None)
         venues.append(venue)
 
-    # Link health for every venue, checked concurrently - 37 sequential probes
-    # with a 15s timeout is a slow way to run a nightly job.
+    # Probe only what needs it, concurrently. Everything else carries its last
+    # result forward, so a nightly run touches a handful of hosts, not all 45.
     if allow_network:
-        with concurrent.futures.ThreadPoolExecutor(MAX_PROBE_WORKERS) as pool:
-            for venue, status in zip(venues, pool.map(probe, (v["url"] for v in venues))):
-                venue["link_status"] = status
+        todo = [v for v in venues if v["_reason"]]
+        skipped = len(venues) - len(todo)
+        print(f"Probing {len(todo)} venue(s), reusing {skipped} cached result(s)")
+        for v in todo:
+            print(f"  ~ {v['name']}: {v['_reason']}")
+
+        stamp = now.replace(microsecond=0).isoformat()
+        if todo:
+            with concurrent.futures.ThreadPoolExecutor(MAX_PROBE_WORKERS) as pool:
+                for venue, status in zip(todo, pool.map(probe, (v["url"] for v in todo))):
+                    venue["link_status"] = status
+                    venue["link_checked_on"] = stamp
+        for v in venues:
+            if not v["_reason"]:
+                v["link_status"] = v["_cached"].get("link_status", "unknown")
+                v["link_checked_on"] = v["_cached"].get("link_checked_on", "")
+        # A rollover is only trusted if the new URL still resolves once we get
+        # here. Hosts have handed us a 200 during the rollover check and a 404
+        # moments later (conferences.sigcomm.org has done both), so verify
+        # rather than assume, and put the venue back if the new link is dead.
+        for venue in venues:
+            entry = rolled.get(venue["id"])
+            if entry and venue["link_status"] != "ok":
+                raw, before = entry
+                restore(raw, before)
+                print(f"  ! {venue['name']}: rollover to {venue['url']} landed on a "
+                      f"{venue['link_status']} link - reverted to {before['url']}",
+                      file=sys.stderr)
+                rolled.pop(venue["id"])
+                fixed = normalise(raw)
+                fixed["link_status"] = "ok"        # the URL we came from
+                fixed["link_checked_on"] = venue.get("link_checked_on", "")
+                for d in fixed["deadlines"]:
+                    d.pop("_dt", None)
+                venues[venues.index(venue)] = fixed
+
         dead = [v["name"] for v in venues if v["link_status"] == "dead"]
         if dead:
             print(f"  ! dead links: {', '.join(dead)}", file=sys.stderr)
     else:
         for venue in venues:
-            venue["link_status"] = "unknown"
+            venue["link_status"] = venue["_cached"].get("link_status", "unknown")
+            venue["link_checked_on"] = venue["_cached"].get("link_checked_on", "")
+
+    for venue in venues:
+        venue.pop("_reason", None)
+        venue.pop("_cached", None)
 
     payload = {
         "generated_at": now.replace(microsecond=0).isoformat(),

@@ -453,19 +453,19 @@ venues:
   - name: IMC
     full_name: ACM Internet Measurement Conference
     tier: companion
-    url: https://conferences.sigcomm.org/imc/2027/
+    url: https://conferences.sigcomm.org/imc/2026/
     url_template: https://conferences.sigcomm.org/imc/{year}/
-    year: 2027
+    year: 2026
     month: 10
     deadlines:
       - name: Cycle 1
-        date: '2026-11-20T23:59:00-12:00'
-        confirmed: false
+        date: '2025-11-20T23:59:00-12:00'
+        confirmed: true
         source: https://conferences.sigcomm.org/imc/2026
         verified_on: '2026-08-26'
       - name: Cycle 2
-        date: '2027-04-29T23:59:00-12:00'
-        confirmed: false
+        date: '2026-04-29T23:59:00-12:00'
+        confirmed: true
         source: https://conferences.sigcomm.org/imc/2026
         verified_on: '2026-08-26'
   - name: INFOCOM
@@ -714,16 +714,15 @@ venues:
   - name: HotNets
     full_name: ACM Workshop on Hot Topics in Networks
     tier: workshop
-    url: https://conferences.sigcomm.org/hotnets/2027/
+    url: https://conferences.sigcomm.org/hotnets/2026/
     url_template: https://conferences.sigcomm.org/hotnets/{year}/
-    year: 2027
+    year: 2026
     month: 11
     notes: ACM SIGCOMM-sponsored workshop. 2026 edition runs Nov 16-17.
     deadlines:
       - name: Paper submission
-        date: '2027-07-16T23:59:00-12:00'
-        confirmed: false
-
+        date: '2026-07-16T23:59:00-12:00'
+        confirmed: true
         source: https://conferences.sigcomm.org/hotnets/2026/
         verified_on: '2026-08-26'
   - name: HotOS

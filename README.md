@@ -70,6 +70,44 @@ missing URL → the card renders without a link).
 | `rolling` | `true` for journals — shows "Rolling submission", never counts down |
 | `notes` | free text shown on the card |
 
+## What gets fetched, and when
+
+Countdowns never depend on a fetch. `data/deadlines.json` stores ISO dates and
+nothing else — no day counts — and `assets/app.js` recomputes days, urgency
+colours and sort order from `Date.now()` on every page load. A venue can go
+un-probed for a month and its number is still right this morning.
+
+So probing is only about *link health and year rollover*, and a nightly run
+re-checks only what plausibly moved:
+
+| Probed nightly | Skipped, result carried forward |
+|---|---|
+| dates still unverified (`est.`) | verified venue, link ok, checked recently |
+| last result wasn't `ok` | |
+| cycle over, rollover pending | |
+| last checked ≥ 30 days ago | |
+
+Everything else reuses its previous `link_status` and `link_checked_on`, shown
+in the card's link tooltip. The 30-day rota means every venue is still re-checked
+monthly on its own schedule, and the 1st-of-month cron forces a full sweep on top.
+
+```bash
+python scripts/update.py                      # auto: only what moved
+python scripts/update.py --scope all          # re-probe everything
+python scripts/update.py --max-age-days 7     # tighter rota
+```
+
+Verifying a date also makes the build cheaper — a confirmed venue drops out of
+the nightly set.
+
+### Rollover is verified after the fact
+
+A host has handed us `200` during the rollover check and `404` moments later —
+`conferences.sigcomm.org` did exactly that from GitHub's runners, rolling IMC
+onto a dead URL. So after probing, any venue that rolled over this run and whose
+new link isn't `ok` is **put back**, loudly. The guard is no longer trusted to be
+right on its own.
+
 ## Link status
 
 Every nightly build issues one HTTP request per venue URL, and the card footer
