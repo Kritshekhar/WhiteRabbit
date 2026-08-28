@@ -2,7 +2,7 @@
 
 <p align="center">
   <em>"Oh dear! Oh dear! I shall be too late!"</em><br>
-  A self-updating deadline tracker for systems, security, databases and software-engineering venues.
+  A self-updating tracker for conference paper deadlines.
 </p>
 
 <p align="center">
@@ -169,7 +169,7 @@ settings, and that should not make a healthy data refresh look like a broken bui
 
 ## Running your own
 
-Fork it, edit `conferences.yml` for your field, then enable
+Fork it, replace `conferences.yml` with the venues for your field, then enable
 **Settings → Pages → Source: GitHub Actions** and
 **Settings → Actions → Workflow permissions: Read and write** (the nightly job
 commits the rebuilt data back).
