@@ -239,8 +239,12 @@ function renderStats(meta) {
 })();
 
 /* --------------------------------- wiring ------------------------------- */
-// Hover handles the mouse; this covers touch and keyboard activation.
+/* Tap-to-flip is for devices with no hover. On a mouse, hover already reveals
+   the back, so a click would latch `is-flipped` on top of it and leave the card
+   stuck reversed once the pointer moved away. */
+const hoverCapable = window.matchMedia('(hover: hover)');
 $('grid').addEventListener('click', (e) => {
+  if (hoverCapable.matches) return;
   if (e.target.closest('a')) return;          // let "Visit site" through
   const card = e.target.closest('.flip');
   if (card) card.classList.toggle('is-flipped');
