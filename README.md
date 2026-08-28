@@ -74,7 +74,7 @@ Open a PR and CI validates it. Full guide in **[CONTRIBUTING.md](CONTRIBUTING.md
 | `tracks` | e.g. `[Research, Industry]` - shown as **Tracks** tags |
 | `notes` | free text shown on the card |
 | `deadlines[]` | `{ name, date, confirmed, track, source, verified_on }` |
-| ↳ `date` | ISO 8601. Use `-12:00` for AoE. `null` renders as **TBA**. |
+| ↳ `date` | ISO 8601. Use `-12:00` for AoE; any other offset works and the dashboard shows the zone. `null` renders as **TBA**. |
 | ↳ `confirmed` | `true` only if you read it on the CFP page - **requires `source`** |
 | ↳ `track` | optional, for venues whose tracks close on different days |
 
