@@ -13,7 +13,6 @@ const TIERS = {
   'full-house': 'Full House',
   'looking-glass': 'Looking Glass',
 };
-const TIER_ORDER = { 'rabbit-hole': 0, 'royal-flush': 1, 'full-house': 2, 'looking-glass': 3 };
 const RANK_SLOT = { 'rabbit-hole': 'base', 'royal-flush': 'top', 'full-house': 'mid', 'looking-glass': 'off' };
 
 /* Urgency bands. `color` is a status token; `label` is the text that always
@@ -25,7 +24,7 @@ const BANDS = [
   { max: Infinity, color: 'var(--good)', label: 'On the horizon' },
 ];
 
-const state = { venues: [], tier: 'all', query: '', onlyUpcoming: true, sort: 'deadline' };
+const state = { venues: [], tier: 'all', topics: new Set(), query: '', onlyUpcoming: true, sort: 'deadline' };
 const $ = (id) => document.getElementById(id);
 
 /* ----------------------------- derivation ------------------------------- */
@@ -66,7 +65,7 @@ const fmtDate = (ts, offMin = 0) =>
 
 function countdownMarkup(v) {
   if (v.status === 'rolling') return '<p class="countdown-flat">Rolling submission</p>';
-  if (v.status === 'passed') return '<p class="countdown-flat">Cycle closed — awaiting next CFP</p>';
+  if (v.status === 'passed') return '<p class="countdown-flat">Cycle closed - awaiting next CFP</p>';
   if (v.status === 'tba') return '<p class="countdown-flat">Deadline TBA</p>';
   const unit = v.days === 1 ? 'day left' : 'days left';
   return `<div class="countdown"><span class="countdown-num">${v.days}</span><span class="countdown-unit">${unit} · ${v.band.label}</span></div>`;
@@ -123,19 +122,18 @@ function card(v) {
 
   return `
   <article class="flip" style="--status:${statusVar}" tabindex="0"
-           aria-label="${v.name}${backHasContent ? ' — hover or tap for details' : ''}">
+           aria-label="${v.name}${backHasContent ? ' - hover or tap for details' : ''}">
     <div class="flip-inner">
 
       <div class="face face-front">
         <div class="card-head">
-          <div>
-            <h3 class="card-name">${v.name}</h3>
-            ${v.full_name ? `<p class="card-full">${v.full_name}</p>` : ''}
-          </div>
-          <div class="pills">
-            <span class="${tierClass}">${TIERS[v.tier] || v.tier}</span>
-            ${v.year ? `<span class="badge badge-year">${v.year}</span>` : ''}
-          </div>
+          <h3 class="card-name">${v.name}</h3>
+        </div>
+        ${v.full_name ? `<p class="card-full">${v.full_name}</p>` : ''}
+        <div class="tags meta-row">
+          ${v.publisher ? `<span class="tag tag-pub">${v.publisher}</span>` : ''}
+          ${v.topics.slice(0, 2).map((t) => `<span class="tag">${t}</span>`).join('')}
+          <span class="${tierClass}">${TIERS[v.tier] || v.tier}</span>
         </div>
         <div>${countdownMarkup(v)}${line}</div>
         ${meter}
@@ -167,18 +165,16 @@ function visible() {
   const q = state.query.trim().toLowerCase();
   return state.venues.filter((v) => {
     if (state.tier !== 'all' && v.tier !== state.tier) return false;
+    if (state.topics.size && !v.topics.some((t) => state.topics.has(t))) return false;
     if (state.onlyUpcoming && (v.status === 'passed')) return false;
     if (!q) return true;
-    return `${v.name} ${v.full_name} ${v.notes}`.toLowerCase().includes(q);
+    return `${v.name} ${v.full_name} ${v.notes} ${v.topics.join(' ')}`.toLowerCase().includes(q);
   });
 }
 
 function sorted(list) {
   const copy = [...list];
   if (state.sort === 'name') return copy.sort((a, b) => a.name.localeCompare(b.name));
-  if (state.sort === 'tier') {
-    return copy.sort((a, b) => (TIER_ORDER[a.tier] - TIER_ORDER[b.tier]) || (a.days ?? Infinity) - (b.days ?? Infinity));
-  }
   return copy.sort((a, b) => (a.days ?? Infinity) - (b.days ?? Infinity) || a.name.localeCompare(b.name));
 }
 
@@ -189,11 +185,29 @@ function render() {
   $('result-count').textContent = `${list.length} of ${state.venues.length} venues`;
 }
 
+function buildTopicFilter() {
+  const counts = new Map();
+  state.venues.forEach((v) => v.topics.forEach((t) => counts.set(t, (counts.get(t) || 0) + 1)));
+  const sorted = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  $('topic-list').innerHTML = sorted.map(([t, n]) => `
+    <label class="dropdown-item">
+      <input type="checkbox" value="${t}"><span>${t}</span><span class="dropdown-count">${n}</span>
+    </label>`).join('');
+}
+
+function syncTopicSummary() {
+  const picked = [...state.topics];
+  $('topic-summary').textContent = picked.length
+    ? `Topics: ${picked.length <= 2 ? picked.join(', ') : `${picked.length} selected`}`
+    : 'Topics: all';
+  $('topic-menu').classList.toggle('is-active', picked.length > 0);
+}
+
 function renderStats(meta) {
   const upcoming = state.venues.filter((v) => v.status === 'upcoming').sort((a, b) => a.days - b.days);
   const head = upcoming[0];
   $('stat-next-label').textContent = head && head.days <= 7 ? "I'm late! I'm late!" : 'Next up';
-  $('stat-next-venue').textContent = head ? `${head.name} · ${head.days}d` : '—';
+  $('stat-next-venue').textContent = head ? `${head.name} · ${head.days}d` : ' - ';
   $('stat-next-detail').textContent = head
     ? `${head.next.name} · ${fmtDate(head.next.ts, head.next.off)} AoE${head.next.confirmed ? '' : ' (est.)'}`
     : 'nothing scheduled';
@@ -242,6 +256,24 @@ $('grid').addEventListener('keydown', (e) => {
 $('search').addEventListener('input', (e) => { state.query = e.target.value; render(); });
 $('hide-passed').addEventListener('change', (e) => { state.onlyUpcoming = e.target.checked; render(); });
 $('sort').addEventListener('change', (e) => { state.sort = e.target.value; render(); });
+$('topic-list').addEventListener('change', (e) => {
+  const box = e.target.closest('input[type=checkbox]');
+  if (!box) return;
+  box.checked ? state.topics.add(box.value) : state.topics.delete(box.value);
+  syncTopicSummary();
+  render();
+});
+$('topic-clear').addEventListener('click', () => {
+  state.topics.clear();
+  document.querySelectorAll('#topic-list input').forEach((b) => { b.checked = false; });
+  syncTopicSummary();
+  render();
+});
+// a <details> popover stays open on an outside click unless told otherwise
+document.addEventListener('click', (e) => {
+  const menu = $('topic-menu');
+  if (menu.open && !e.target.closest('#topic-menu')) menu.open = false;
+});
 $('tier-filter').addEventListener('click', (e) => {
   const chip = e.target.closest('.chip');
   if (!chip) return;
@@ -255,6 +287,7 @@ fetch('data/deadlines.json', { cache: 'no-cache' })
   .then((data) => {
     const now = Date.now();
     state.venues = data.venues.map((v) => decorate(v, now));
+    buildTopicFilter();
     renderStats(data);
     render();
   })

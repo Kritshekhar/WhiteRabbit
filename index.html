@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>White Rabbit</title>
-<meta name="description" content="White Rabbit — A self-updating tracker for conference paper deadlines. Countdowns to every open call, updated nightly.">
+<meta name="description" content="White Rabbit - A self-updating tracker for conference paper deadlines. Countdowns to every open call, updated nightly.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=fd6570fd">
+<link rel="stylesheet" href="assets/style.css?v=1ce66cd1">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐇</text></svg>">
 </head>
 <body>
@@ -49,23 +49,23 @@
   <section class="stats" aria-label="Summary">
     <article class="tile tile-hero">
       <p class="tile-label" id="stat-next-label">Next up</p>
-      <p class="tile-value" id="stat-next-venue">—</p>
-      <p class="tile-note" id="stat-next-detail">—</p>
+      <p class="tile-value" id="stat-next-venue"> - </p>
+      <p class="tile-note" id="stat-next-detail"> - </p>
     </article>
     <article class="tile">
       <p class="tile-label">Due within 30 days</p>
-      <p class="tile-value" id="stat-soon">—</p>
+      <p class="tile-value" id="stat-soon"> - </p>
       <p class="tile-note">across all stages</p>
     </article>
     <article class="tile">
       <p class="tile-label">Due within 90 days</p>
-      <p class="tile-value" id="stat-quarter">—</p>
+      <p class="tile-value" id="stat-quarter"> - </p>
       <p class="tile-note">plan the quarter</p>
     </article>
     <article class="tile">
       <p class="tile-label">Venues tracked</p>
-      <p class="tile-value" id="stat-total">—</p>
-      <p class="tile-note" id="stat-breakdown">—</p>
+      <p class="tile-value" id="stat-total"> - </p>
+      <p class="tile-note" id="stat-breakdown"> - </p>
     </article>
   </section>
 
@@ -86,12 +86,18 @@
         <input type="checkbox" id="hide-passed" checked>
         <span>Only upcoming</span>
       </label>
+      <details class="dropdown" id="topic-menu">
+        <summary id="topic-summary">Topics: all</summary>
+        <div class="dropdown-panel">
+          <button type="button" class="dropdown-clear" id="topic-clear">Clear all</button>
+          <div id="topic-list"></div>
+        </div>
+      </details>
       <label class="select">
         <span class="sr-only">Sort by</span>
         <select id="sort">
           <option value="deadline">Sort: soonest first</option>
           <option value="name">Sort: name</option>
-          <option value="tier">Sort: tier</option>
         </select>
       </label>
     </div>
@@ -104,10 +110,10 @@
 
 <footer class="wrap site-foot">
   <p id="verified-note"></p>
-  <p>Dates marked <span class="badge badge-est">est.</span> are extrapolated from previous cycles — always confirm on the venue's CFP page. Run <code>python scripts/check_deadlines.py</code> to compare the config against what each site says.</p>
+  <p>Dates marked <span class="badge badge-est">est.</span> are extrapolated from previous cycles - always confirm on the venue's CFP page. Run <code>python scripts/check_deadlines.py</code> to compare the config against what each site says.</p>
   <p>All times are <strong>AoE</strong> (UTC−12) unless the venue says otherwise. Edit <code>conferences.yml</code> to add or correct a venue.</p>
 </footer>
 
-<script src="assets/app.js?v=4890155e"></script>
+<script src="assets/app.js?v=ead08930"></script>
 </body>
 </html>
