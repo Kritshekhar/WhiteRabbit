@@ -1032,19 +1032,19 @@ venues:
   - name: AISTATS
     full_name: International Conference on Artificial Intelligence and Statistics
     tier: full-house
-    url: https://virtual.aistats.org/Conferences/2026
+    url: https://virtual.aistats.org/Conferences/2027
     url_template: https://virtual.aistats.org/Conferences/{year}
-    year: 2026
+    year: 2027
     topics:
       - ML
     notes: CORE A · CCF C. Imported from ccf-deadlines.
     deadlines:
       - name: Abstract
-        date: '2025-09-25T23:59:59-12:00'
+        date: '2026-09-25T23:59:59-12:00'
         confirmed: false
         source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aistats.yml
       - name: Paper submission
-        date: '2025-10-02T23:59:59-12:00'
+        date: '2026-10-02T23:59:59-12:00'
         confirmed: false
         source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aistats.yml
     publisher: PMLR
@@ -1147,15 +1147,15 @@ venues:
   - name: COLT
     full_name: Annual Conference on Learning Theory
     tier: royal-flush
-    url: https://learningtheory.org/colt2026/
+    url: https://learningtheory.org/colt2027/
     url_template: https://learningtheory.org/colt{year}/
-    year: 2026
+    year: 2027
     topics:
       - ML
     notes: CORE A* · CCF B. Imported from ccf-deadlines.
     deadlines:
       - name: Paper submission
-        date: '2026-02-04T16:59:59-12:00'
+        date: '2027-02-04T16:59:59-12:00'
         confirmed: false
         source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/colt.yml
     publisher: PMLR
@@ -1361,19 +1361,19 @@ venues:
   - name: GECCO
     full_name: Genetic and Evolutionary Computation Conference
     tier: full-house
-    url: https://gecco-2026.sigevo.org/HomePage
+    url: https://gecco-2027.sigevo.org/HomePage
     url_template: https://gecco-{year}.sigevo.org/HomePage
-    year: 2026
+    year: 2027
     topics:
       - ML
     notes: CORE A · CCF C. Imported from ccf-deadlines.
     deadlines:
       - name: Abstract
-        date: '2026-01-19T23:59:00-12:00'
+        date: '2027-01-19T23:59:00-12:00'
         confirmed: false
         source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/gecco.yml
       - name: Paper submission
-        date: '2026-01-26T23:59:00-12:00'
+        date: '2027-01-26T23:59:00-12:00'
         confirmed: false
         source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/gecco.yml
     publisher: ACM
@@ -1413,15 +1413,15 @@ venues:
   - name: ICCBR
     full_name: International Conference on Case-Based Reasoning
     tier: full-house
-    url: https://2026.iccbr.org/
+    url: https://2027.iccbr.org/
     url_template: https://{year}.iccbr.org/
-    year: 2026
+    year: 2027
     topics:
       - AI
     notes: CORE C · CCF B. Imported from ccf-deadlines.
     deadlines:
       - name: Paper submission
-        date: '2026-03-20T23:59:59-12:00'
+        date: '2027-03-20T23:59:59-12:00'
         confirmed: false
         source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iccbr.yml
     publisher: Springer
@@ -1447,19 +1447,19 @@ venues:
   - name: ICDAR
     full_name: International Conference on Document Analysis and Recognition
     tier: full-house
-    url: https://icdar2026.org/
+    url: https://icdar2027.org/
     url_template: https://icdar{year}.org/
-    year: 2026
+    year: 2027
     topics:
       - CV
     notes: CORE A · CCF C. Imported from ccf-deadlines.
     deadlines:
       - name: Abstract
-        date: '2026-02-13T23:59:59+00:00'
+        date: '2027-02-13T23:59:59+00:00'
         confirmed: false
         source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icdar.yml
       - name: Paper submission
-        date: '2026-02-27T23:59:59+00:00'
+        date: '2027-02-27T23:59:59+00:00'
         confirmed: false
         source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icdar.yml
     publisher: Springer
@@ -1583,15 +1583,15 @@ venues:
   - name: IJCB
     full_name: International Joint Conference on Biometrics
     tier: full-house
-    url: https://ijcb2026.ieee-biometrics.org/
+    url: https://ijcb2027.ieee-biometrics.org/
     url_template: https://ijcb{year}.ieee-biometrics.org/
-    year: 2026
+    year: 2027
     topics:
       - CV
     notes: CORE B · CCF C. Imported from ccf-deadlines.
     deadlines:
       - name: Paper submission
-        date: '2026-04-30T23:59:59-12:00'
+        date: '2027-04-30T23:59:59-12:00'
         confirmed: false
         source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ijcb.yml
     publisher: IEEE

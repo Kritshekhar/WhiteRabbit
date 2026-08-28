@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T05:27:05+00:00",
+  "generated_at": "2026-08-28T05:29:42+00:00",
   "aoe_label": "AoE",
   "counts": {
     "total": 99,
@@ -117,7 +117,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "eurosys",
@@ -265,7 +265,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "ccs",
@@ -308,7 +308,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "fse",
@@ -393,7 +393,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "nsdi",
@@ -524,7 +524,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "sigcomm",
@@ -560,7 +560,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "sigmetrics",
@@ -670,7 +670,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "sosp",
@@ -703,7 +703,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "usenix-security",
@@ -796,7 +796,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "ase",
@@ -829,7 +829,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "cais",
@@ -862,7 +862,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "ches",
@@ -903,7 +903,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "dsn",
@@ -944,7 +944,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "hot-chips",
@@ -981,7 +981,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "icdcs",
@@ -1014,7 +1014,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "imc",
@@ -1058,7 +1058,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "infocom",
@@ -1091,7 +1091,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "ipdps",
@@ -1132,7 +1132,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "issta",
@@ -1206,7 +1206,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "kubecon-na",
@@ -1239,7 +1239,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "msst",
@@ -1278,7 +1278,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "mlsys",
@@ -1312,7 +1312,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "ndss",
@@ -1353,7 +1353,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "pytorch-conf",
@@ -1386,7 +1386,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "pytorch-eu",
@@ -1419,7 +1419,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "systor",
@@ -1464,7 +1464,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "socc",
@@ -1522,7 +1522,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "apsys",
@@ -1643,7 +1643,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "hotnets",
@@ -1676,7 +1676,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "hotos",
@@ -1712,7 +1712,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "hotstorage",
@@ -1748,7 +1748,7 @@
         }
       ],
       "link_status": "ok",
-      "link_checked_on": "2026-08-28T02:48:47+00:00"
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "acm-tos",
@@ -1836,8 +1836,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "aamas",
@@ -1877,8 +1877,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "accv",
@@ -1910,8 +1910,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "acl",
@@ -1943,8 +1943,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "acml",
@@ -1976,17 +1976,17 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "aistats",
       "name": "AISTATS",
       "full_name": "International Conference on Artificial Intelligence and Statistics",
       "tier": "full-house",
-      "url": "https://virtual.aistats.org/Conferences/2026",
+      "url": "https://virtual.aistats.org/Conferences/2027",
       "url_template": "https://virtual.aistats.org/Conferences/{year}",
-      "year": 2026,
+      "year": 2027,
       "month": null,
       "stage": 2,
       "stage_name": "Wonderland",
@@ -2002,7 +2002,7 @@
       "deadlines": [
         {
           "name": "Abstract",
-          "date": "2025-09-25T23:59:59-12:00",
+          "date": "2026-09-25T23:59:59-12:00",
           "confirmed": false,
           "track": "",
           "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aistats.yml",
@@ -2010,15 +2010,15 @@
         },
         {
           "name": "Paper submission",
-          "date": "2025-10-02T23:59:59-12:00",
+          "date": "2026-10-02T23:59:59-12:00",
           "confirmed": false,
           "track": "",
           "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aistats.yml",
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "alt",
@@ -2050,8 +2050,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "bmvc",
@@ -2091,8 +2091,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "ieee-cec",
@@ -2124,8 +2124,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "cicai",
@@ -2157,8 +2157,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "coling",
@@ -2190,8 +2190,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "colm",
@@ -2231,17 +2231,17 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "colt",
       "name": "COLT",
       "full_name": "Annual Conference on Learning Theory",
       "tier": "royal-flush",
-      "url": "https://learningtheory.org/colt2026/",
+      "url": "https://learningtheory.org/colt2027/",
       "url_template": "https://learningtheory.org/colt{year}/",
-      "year": 2026,
+      "year": 2027,
       "month": null,
       "stage": 2,
       "stage_name": "Wonderland",
@@ -2257,15 +2257,15 @@
       "deadlines": [
         {
           "name": "Paper submission",
-          "date": "2026-02-04T16:59:59-12:00",
+          "date": "2027-02-04T16:59:59-12:00",
           "confirmed": false,
           "track": "",
           "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/colt.yml",
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "conll",
@@ -2297,8 +2297,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "corl",
@@ -2338,8 +2338,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "cpal",
@@ -2371,8 +2371,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "cvpr",
@@ -2412,8 +2412,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "dai",
@@ -2453,8 +2453,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "eacl",
@@ -2486,8 +2486,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "ecai",
@@ -2527,8 +2527,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "eccv",
@@ -2568,8 +2568,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "emnlp",
@@ -2601,8 +2601,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "esann",
@@ -2634,8 +2634,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "euvip",
@@ -2667,8 +2667,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "fg",
@@ -2708,17 +2708,17 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "gecco",
       "name": "GECCO",
       "full_name": "Genetic and Evolutionary Computation Conference",
       "tier": "full-house",
-      "url": "https://gecco-2026.sigevo.org/HomePage",
+      "url": "https://gecco-2027.sigevo.org/HomePage",
       "url_template": "https://gecco-{year}.sigevo.org/HomePage",
-      "year": 2026,
+      "year": 2027,
       "month": null,
       "stage": 2,
       "stage_name": "Wonderland",
@@ -2734,7 +2734,7 @@
       "deadlines": [
         {
           "name": "Abstract",
-          "date": "2026-01-19T23:59:00-12:00",
+          "date": "2027-01-19T23:59:00-12:00",
           "confirmed": false,
           "track": "",
           "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/gecco.yml",
@@ -2742,15 +2742,15 @@
         },
         {
           "name": "Paper submission",
-          "date": "2026-01-26T23:59:00-12:00",
+          "date": "2027-01-26T23:59:00-12:00",
           "confirmed": false,
           "track": "",
           "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/gecco.yml",
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "icann",
@@ -2782,8 +2782,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "icaps",
@@ -2823,17 +2823,17 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "iccbr",
       "name": "ICCBR",
       "full_name": "International Conference on Case-Based Reasoning",
       "tier": "full-house",
-      "url": "https://2026.iccbr.org/",
+      "url": "https://2027.iccbr.org/",
       "url_template": "https://{year}.iccbr.org/",
-      "year": 2026,
+      "year": 2027,
       "month": null,
       "stage": 2,
       "stage_name": "Wonderland",
@@ -2849,15 +2849,15 @@
       "deadlines": [
         {
           "name": "Paper submission",
-          "date": "2026-03-20T23:59:59-12:00",
+          "date": "2027-03-20T23:59:59-12:00",
           "confirmed": false,
           "track": "",
           "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iccbr.yml",
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "iccv",
@@ -2897,17 +2897,17 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "icdar",
       "name": "ICDAR",
       "full_name": "International Conference on Document Analysis and Recognition",
       "tier": "full-house",
-      "url": "https://icdar2026.org/",
+      "url": "https://icdar2027.org/",
       "url_template": "https://icdar{year}.org/",
-      "year": 2026,
+      "year": 2027,
       "month": null,
       "stage": 2,
       "stage_name": "Wonderland",
@@ -2923,7 +2923,7 @@
       "deadlines": [
         {
           "name": "Abstract",
-          "date": "2026-02-13T23:59:59+00:00",
+          "date": "2027-02-13T23:59:59+00:00",
           "confirmed": false,
           "track": "",
           "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icdar.yml",
@@ -2931,15 +2931,15 @@
         },
         {
           "name": "Paper submission",
-          "date": "2026-02-27T23:59:59+00:00",
+          "date": "2027-02-27T23:59:59+00:00",
           "confirmed": false,
           "track": "",
           "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icdar.yml",
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "iclr",
@@ -2979,8 +2979,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "icml",
@@ -3020,8 +3020,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "iconip",
@@ -3053,8 +3053,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "icpr",
@@ -3086,8 +3086,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "icra",
@@ -3119,8 +3119,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "ictai",
@@ -3152,8 +3152,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "ijcai",
@@ -3193,17 +3193,17 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "ijcb",
       "name": "IJCB",
       "full_name": "International Joint Conference on Biometrics",
       "tier": "full-house",
-      "url": "https://ijcb2026.ieee-biometrics.org/",
+      "url": "https://ijcb2027.ieee-biometrics.org/",
       "url_template": "https://ijcb{year}.ieee-biometrics.org/",
-      "year": 2026,
+      "year": 2027,
       "month": null,
       "stage": 2,
       "stage_name": "Wonderland",
@@ -3219,15 +3219,15 @@
       "deadlines": [
         {
           "name": "Paper submission",
-          "date": "2026-04-30T23:59:59-12:00",
+          "date": "2027-04-30T23:59:59-12:00",
           "confirmed": false,
           "track": "",
           "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ijcb.yml",
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "ijcnlp",
@@ -3259,8 +3259,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "ijcnn",
@@ -3292,8 +3292,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "iros",
@@ -3325,8 +3325,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "kr",
@@ -3366,8 +3366,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "ksem",
@@ -3399,8 +3399,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "log",
@@ -3440,8 +3440,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "naacl",
@@ -3473,8 +3473,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "neurips",
@@ -3514,8 +3514,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "nlpcc",
@@ -3547,8 +3547,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "ppsn",
@@ -3580,8 +3580,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "pricai",
@@ -3613,8 +3613,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "probml",
@@ -3646,8 +3646,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "rss",
@@ -3687,8 +3687,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "uai",
@@ -3720,8 +3720,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     },
     {
       "id": "wacv",
@@ -3761,8 +3761,8 @@
           "verified_on": ""
         }
       ],
-      "link_status": "unknown",
-      "link_checked_on": ""
+      "link_status": "ok",
+      "link_checked_on": "2026-08-28T05:29:42+00:00"
     }
   ]
 }
