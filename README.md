@@ -35,7 +35,7 @@ Append to `venues:` in `conferences.yml`. The only required field is `name`:
 ```yaml
   - name: HotOS
     full_name: Workshop on Hot Topics in Operating Systems
-    tier: royal-flush                              # see hierarchy.html
+    tier: royal-flush                              # see journey.html
     url: https://sigops.org/s/conferences/hotos/2027/
     url_template: https://sigops.org/s/conferences/hotos/{year}/
     year: 2027
@@ -55,7 +55,7 @@ missing URL → the card renders without a link).
 |---|---|
 | `name` | **required** — the label on the card |
 | `full_name` | spelled-out name, shown underneath |
-| `tier` | `royal-flush` \| `full-house` \| `high-card` \| `wild-card` (default `full-house`) — see [hierarchy.html](hierarchy.html) |
+| `tier` | `rabbit-hole` \| `royal-flush` \| `full-house` \| `looking-glass` (default `full-house`) — stage on a project's path — see [journey.html](journey.html) |
 | `url` | homepage for the current cycle |
 | `url_template` | URL pattern for auto-rollover. `{year}`→2027, `{yy}`→27, `{yyn}`→28. Omit to freeze the link. |
 | `year` | which edition `url` points at |

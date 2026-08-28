@@ -26,12 +26,13 @@ from ruamel.yaml.error import YAMLError
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "conferences.yml"
 
-VALID_TIERS = {"royal-flush", "full-house", "high-card", "wild-card"}
+VALID_TIERS = {"rabbit-hole", "royal-flush", "full-house", "looking-glass"}
 # Older names still parse so an in-flight branch does not break.
 LEGACY_TIERS = {
-    "tier1": "royal-flush", "companion": "full-house", "workshop": "high-card",
+    "tier1": "royal-flush", "companion": "full-house", "workshop": "rabbit-hole",
     "queens-court": "royal-flush", "tea-party": "full-house",
-    "caucus-race": "high-card", "looking-glass": "wild-card",
+    "caucus-race": "rabbit-hole", "high-card": "rabbit-hole",
+    "wild-card": "looking-glass",
 }
 PLACEHOLDER = re.compile(r"\{(year|yyyy|yy|yyn)\}")
 KNOWN_VENUE_KEYS = {
