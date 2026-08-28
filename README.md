@@ -35,7 +35,7 @@ Three things make it different from a spreadsheet of dates:
 
 ## Adding a venue
 
-Edit **`conferences.yml`** — it is the only file you need to touch. The one
+Edit **`conferences.yml`** - it is the only file you need to touch. The one
 required field is `name`; everything else has a sensible default.
 
 ```yaml
@@ -61,21 +61,21 @@ Open a PR and CI validates it. Full guide in **[CONTRIBUTING.md](CONTRIBUTING.md
 
 | Field | Meaning |
 |---|---|
-| `name` | **required** — the label on the card |
+| `name` | **required** - the label on the card |
 | `full_name` | spelled-out name, shown underneath |
-| `tier` | `rabbit-hole` \| `royal-flush` \| `full-house` \| `looking-glass` — stage on [the journey](https://kritshekhar.github.io/WhiteRabbit/journey.html) (default `full-house`) |
+| `tier` | `rabbit-hole` \| `royal-flush` \| `full-house` \| `looking-glass` - stage on [the journey](https://kritshekhar.github.io/WhiteRabbit/journey.html) (default `full-house`) |
 | `url` | homepage for the current cycle |
 | `url_template` | pattern for auto-rollover: `{year}`→2027, `{yy}`→27, `{yyn}`→28. Omit to freeze the link. |
 | `year` | which edition `url` points at |
 | `month` | month the conference is held (sorting hint) |
 | `cycle_years` | years between editions (default 1; `2` for biennial venues) |
-| `rolling` | `true` for journals — shows "Rolling submission", never counts down |
-| `formats` | what it accepts, e.g. `[Full paper, Poster]` — shown as **Accepts** tags |
-| `tracks` | e.g. `[Research, Industry]` — shown as **Tracks** tags |
+| `rolling` | `true` for journals - shows "Rolling submission", never counts down |
+| `formats` | what it accepts, e.g. `[Full paper, Poster]` - shown as **Accepts** tags |
+| `tracks` | e.g. `[Research, Industry]` - shown as **Tracks** tags |
 | `notes` | free text shown on the card |
 | `deadlines[]` | `{ name, date, confirmed, track, source, verified_on }` |
 | ↳ `date` | ISO 8601. Use `-12:00` for AoE. `null` renders as **TBA**. |
-| ↳ `confirmed` | `true` only if you read it on the CFP page — **requires `source`** |
+| ↳ `confirmed` | `true` only if you read it on the CFP page - **requires `source`** |
 | ↳ `track` | optional, for venues whose tracks close on different days |
 
 </details>
@@ -87,7 +87,7 @@ conferences.yml  ──►  scripts/update.py  ──►  data/deadlines.json  �
   you edit this        nightly + on push        build output            the dashboard
 ```
 
-`data/deadlines.json` holds ISO dates and **no day counts** — `assets/app.js`
+`data/deadlines.json` holds ISO dates and **no day counts** - `assets/app.js`
 recomputes days, urgency colours and sort order from `Date.now()` on every page
 load. That is why a venue can go un-probed for weeks and its countdown is still
 correct this morning.
@@ -101,7 +101,7 @@ also makes the build cheaper, since a confirmed venue drops out of the nightly s
 ### Year rollover
 
 When every deadline in a cycle has passed, the updater renders `url_template` for
-the next year and moves only if that page answers 2xx/3xx **and** looks real —
+the next year and moves only if that page answers 2xx/3xx **and** looks real  - 
 mentions the new year, exceeds 1 KB, and is not a bare directory listing. After
 probing, a venue that rolled onto a link that is not `ok` is put back.
 
@@ -111,7 +111,7 @@ contains "2027", and one host answered `200` to GitHub's runners and `404` to us
 minutes later. Each one produced a wrong rollover before the check existed.
 
 On success the script bumps `year`, rewrites `url`, shifts the deadlines forward
-and sets `confirmed: false` — a shifted date is an estimate until a human checks it.
+and sets `confirmed: false` - a shifted date is an estimate until a human checks it.
 
 ## Tools
 
@@ -134,7 +134,7 @@ on the venue's site:
 ```
 
 It **never writes to the config**, and that is deliberate. CFP pages are prose,
-and plenty of them serve last year's dates from this year's URL — NDSS's 2027 page
+and plenty of them serve last year's dates from this year's URL - NDSS's 2027 page
 still shows 2024 dates. Auto-parsing that would quietly produce wrong deadlines,
 which is the one thing a deadline tracker must not do. The tool proposes; a person
 decides.
@@ -152,7 +152,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 python3 -m http.server 8000                       # open localhost:8000
 ```
 
-`index.html` needs a server — opening the file directly will not load the data.
+`index.html` needs a server - opening the file directly will not load the data.
 
 ## Workflows
 
@@ -161,7 +161,7 @@ python3 -m http.server 8000                       # open localhost:8000
 | `validate.yml` | every PR | validates `conferences.yml`, proves an offline build works |
 | `update-deadlines.yml` | nightly 07:00 UTC · monthly full sweep · push | rebuilds data, rolls venues over, commits back |
 | `deploy-pages.yml` | push to `main` | publishes to GitHub Pages |
-| `propose-deadlines.yml` | Mondays 08:00 UTC | sweeps CFP pages for `est.` venues, opens an issue — never edits the config |
+| `propose-deadlines.yml` | Mondays 08:00 UTC | sweeps CFP pages for `est.` venues, opens an issue - never edits the config |
 
 Deploy is a separate workflow on purpose: publishing can be blocked by Pages
 settings, and that should not make a healthy data refresh look like a broken build.
@@ -176,11 +176,11 @@ commits the rebuilt data back).
 ## A note on the dates
 
 Every date here is community-maintained and some are extrapolated. The **est.**
-badge is honest, not decorative — **always confirm on the venue's own CFP page
+badge is honest, not decorative - **always confirm on the venue's own CFP page
 before you plan around it.** If you spot a wrong date,
 [open an issue](https://github.com/Kritshekhar/WhiteRabbit/issues/new/choose);
 it takes one line to fix.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT - see [LICENSE](LICENSE).
