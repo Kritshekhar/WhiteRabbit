@@ -1,229 +1,130 @@
-# White Rabbit 🐇
+<h1 align="center">White Rabbit 🐇</h1>
 
-> *"Oh dear! Oh dear! I shall be too late!"*
+<p align="center">
+  <em>"Oh dear! Oh dear! I shall be too late!"</em><br>
+  A self-updating deadline tracker for systems, security, databases and software-engineering venues.
+</p>
 
-A small, self-updating dashboard that counts down to CFP deadlines across
-systems, security, databases and software engineering. Static site, no backend
-— GitHub Actions rebuilds it every night and publishes to GitHub Pages.
+<p align="center">
+  <a href="https://kritshekhar.github.io/WhiteRabbit/"><b>Live dashboard</b></a> ·
+  <a href="https://kritshekhar.github.io/WhiteRabbit/journey.html">The journey</a> ·
+  <a href="CONTRIBUTING.md">Contributing</a>
+</p>
 
-[![update & deploy](https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/update-deadlines.yml/badge.svg)](https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/update-deadlines.yml)
-![venues](https://img.shields.io/badge/venues-37-blue)
-![updates](https://img.shields.io/badge/updates-nightly-green)
+<p align="center">
+  <a href="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/update-deadlines.yml"><img alt="refresh" src="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/update-deadlines.yml/badge.svg"></a>
+  <a href="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/validate.yml"><img alt="validate" src="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/validate.yml/badge.svg"></a>
+</p>
 
-**Live:** https://kritshekhar.github.io/WhiteRabbit/
+![The White Rabbit dashboard](docs/screenshot.png)
 
 ---
 
-## How it fits together
+A static site with no backend. GitHub Actions rebuilds the data every night and
+publishes to GitHub Pages; the countdowns themselves are computed in your browser,
+so the numbers are right even between builds.
 
-```
-conferences.yml  ──►  scripts/update.py  ──►  data/deadlines.json  ──►  index.html
- (you edit this)      (nightly + on push)      (build output)          (the dashboard)
-```
+Three things make it different from a spreadsheet of dates:
 
-* **`conferences.yml`** is the only file you edit. One entry per venue.
-* **`scripts/update.py`** normalises the config, rolls venues over to next
-  year's site, checks that every link still resolves, and writes the JSON.
-* **`data/deadlines.json`** is a build artifact — never edit it by hand.
-* **`index.html` + `assets/`** render the dashboard. Countdowns are computed in
-  the browser, so the day counts stay correct between nightly rebuilds.
+- **Every date says whether it was checked.** A ✓ **verified** badge links to the
+  CFP page it was read off. An **est.** badge means extrapolated from previous
+  cycles and not yet confirmed. There is no third state.
+- **Links roll over on their own.** Once a cycle closes, the venue moves to next
+  year's site as soon as that site is genuinely live.
+- **It tracks a project's path, not a league table.** Workshop → full paper →
+  journal, with grades only where they matter. See **[the journey](https://kritshekhar.github.io/WhiteRabbit/journey.html)**.
 
 ## Adding a venue
 
-Append to `venues:` in `conferences.yml`. The only required field is `name`:
+Edit **`conferences.yml`** — it is the only file you need to touch. The one
+required field is `name`; everything else has a sensible default.
 
 ```yaml
   - name: HotOS
     full_name: Workshop on Hot Topics in Operating Systems
-    tier: royal-flush                              # see journey.html
+    tier: rabbit-hole                              # stage on the journey
     url: https://sigops.org/s/conferences/hotos/2027/
     url_template: https://sigops.org/s/conferences/hotos/{year}/
     year: 2027
+    cycle_years: 2                                 # biennial
     deadlines:
       - name: Paper submission
-        date: 2027-01-14T23:59:00-12:00            # -12:00 == AoE
-        confirmed: true                            # drops the "est." badge
+        date: 2027-01-14T23:59:00-12:00            # -12:00 is AoE
+        confirmed: true
+        source: https://sigops.org/s/conferences/hotos/2027/cfp.html
+        verified_on: 2026-08-27
 ```
 
-Push it — the workflow rebuilds and the card appears. Anything you leave out
-gets a sensible default (missing tier → `companion`, missing date → **TBA**,
-missing URL → the card renders without a link).
+Open a PR and CI validates it. Full guide in **[CONTRIBUTING.md](CONTRIBUTING.md)**.
 
-### Field reference
+<details>
+<summary><b>Field reference</b></summary>
 
 | Field | Meaning |
 |---|---|
 | `name` | **required** — the label on the card |
 | `full_name` | spelled-out name, shown underneath |
-| `tier` | `rabbit-hole` \| `royal-flush` \| `full-house` \| `looking-glass` (default `full-house`) — stage on a project's path — see [journey.html](journey.html) |
+| `tier` | `rabbit-hole` \| `royal-flush` \| `full-house` \| `looking-glass` — stage on [the journey](https://kritshekhar.github.io/WhiteRabbit/journey.html) (default `full-house`) |
 | `url` | homepage for the current cycle |
-| `url_template` | URL pattern for auto-rollover. `{year}`→2027, `{yy}`→27, `{yyn}`→28. Omit to freeze the link. |
+| `url_template` | pattern for auto-rollover: `{year}`→2027, `{yy}`→27, `{yyn}`→28. Omit to freeze the link. |
 | `year` | which edition `url` points at |
-| `month` | the month the conference is held (hint only) |
-| `formats` | what the venue accepts, e.g. `[Full paper, Short paper, Poster]` — rendered as **Accepts** tags |
-| `tracks` | e.g. `[Research, Industry]` — rendered as **Tracks** tags |
-| `deadlines` | list of `{ name, date, confirmed, track }`; `date: null` renders as TBA |
-| `deadlines[].track` | optional, e.g. `Research` / `Industry` — tagged beside that deadline, for venues whose tracks close on different days |
-| `deadlines[].source` | the page the date was read off. **Required when `confirmed: true`** — the ✓ verified badge links to it |
-| `deadlines[].verified_on` | when it was last checked against that page |
-| `cycle_years` | years between editions (default 1). `2` for biennial venues like HotOS, so rollover steps 2025 → 2027 |
+| `month` | month the conference is held (sorting hint) |
+| `cycle_years` | years between editions (default 1; `2` for biennial venues) |
 | `rolling` | `true` for journals — shows "Rolling submission", never counts down |
+| `formats` | what it accepts, e.g. `[Full paper, Poster]` — shown as **Accepts** tags |
+| `tracks` | e.g. `[Research, Industry]` — shown as **Tracks** tags |
 | `notes` | free text shown on the card |
+| `deadlines[]` | `{ name, date, confirmed, track, source, verified_on }` |
+| ↳ `date` | ISO 8601. Use `-12:00` for AoE. `null` renders as **TBA**. |
+| ↳ `confirmed` | `true` only if you read it on the CFP page — **requires `source`** |
+| ↳ `track` | optional, for venues whose tracks close on different days |
 
-## What gets fetched, and when
+</details>
 
-Countdowns never depend on a fetch. `data/deadlines.json` stores ISO dates and
-nothing else — no day counts — and `assets/app.js` recomputes days, urgency
-colours and sort order from `Date.now()` on every page load. A venue can go
-un-probed for a month and its number is still right this morning.
+## How it works
 
-So probing is only about *link health and year rollover*, and a nightly run
-re-checks only what plausibly moved:
-
-| Probed nightly | Skipped, result carried forward |
-|---|---|
-| dates still unverified (`est.`) | verified venue, link ok, checked recently |
-| last result wasn't `ok` | |
-| cycle over, rollover pending | |
-| last checked ≥ 30 days ago | |
-
-Everything else reuses its previous `link_status` and `link_checked_on`, shown
-in the card's link tooltip. The 30-day rota means every venue is still re-checked
-monthly on its own schedule, and the 1st-of-month cron forces a full sweep on top.
-
-```bash
-python scripts/update.py                      # auto: only what moved
-python scripts/update.py --scope all          # re-probe everything
-python scripts/update.py --max-age-days 7     # tighter rota
+```
+conferences.yml  ──►  scripts/update.py  ──►  data/deadlines.json  ──►  index.html
+  you edit this        nightly + on push        build output            the dashboard
 ```
 
-Verifying a date also makes the build cheaper — a confirmed venue drops out of
-the nightly set.
+`data/deadlines.json` holds ISO dates and **no day counts** — `assets/app.js`
+recomputes days, urgency colours and sort order from `Date.now()` on every page
+load. That is why a venue can go un-probed for weeks and its countdown is still
+correct this morning.
 
-### Rollover is verified after the fact
+Fetching is therefore only about link health and year rollover, so a nightly run
+re-checks only what plausibly moved: venues with unverified dates, venues whose
+last check failed, venues with a rollover pending, and anything last checked over
+30 days ago. Everything else carries its previous result forward. Verifying a date
+also makes the build cheaper, since a confirmed venue drops out of the nightly set.
 
-A host has handed us `200` during the rollover check and `404` moments later —
-`conferences.sigcomm.org` did exactly that from GitHub's runners, rolling IMC
-onto a dead URL. So after probing, any venue that rolled over this run and whose
-new link isn't `ok` is **put back**, loudly. The guard is no longer trusted to be
-right on its own.
+### Year rollover
 
-## Link status
+When every deadline in a cycle has passed, the updater renders `url_template` for
+the next year and moves only if that page answers 2xx/3xx **and** looks real —
+mentions the new year, exceeds 1 KB, and is not a bare directory listing. After
+probing, a venue that rolled onto a link that is not `ok` is put back.
 
-Every nightly build issues one HTTP request per venue URL, and the card footer
-reports what came back:
+Those checks are not paranoia. `sigops.org/…/sosp/2099/` returns the SOSP 2017
+page, `conferences.sigcomm.org/hotnets/2027/` is an empty autoindex whose title
+contains "2027", and one host answered `200` to GitHub's runners and `404` to us
+minutes later. Each one produced a wrong rollover before the check existed.
 
-| Badge | Meaning |
-|---|---|
-| **site up** | the URL responded 2xx/3xx — the page is there |
-| **link broken** | 404/410 — the venue moved or removed the page, go find the new one |
-| **not checked** | no answer either way: a timeout, or the host blocked the request. Also what you get after `--no-network` |
+On success the script bumps `year`, rewrites `url`, shifts the deadlines forward
+and sets `confirmed: false` — a shifted date is an estimate until a human checks it.
 
-It checks that the *page exists*, nothing more. It says nothing about whether
-the dates on that page are current — that is what `check_deadlines.py` is for.
-
-## Automatic year rollover
-
-When every deadline in a venue's cycle has passed (plus `grace_days`, default
-21), the updater renders `url_template` for the next year and probes it. It
-only moves when **both** hold:
-
-1. the page answers 2xx/3xx, **and**
-2. it looks like a real conference site — mentions the new year, is over 1 KB,
-   and isn't a bare directory listing.
-
-That second check earns its keep. Two ways a 200 lies, both hit in practice:
-
-* **a stale edition served for any year** — `sigops.org/s/conferences/sosp/2099/`
-  cheerfully returns the SOSP 2017 page
-* **an empty autoindex** — `conferences.sigcomm.org/hotnets/2027/` is
-  "Index of /hotnets/2027/", which even contains the year, in the directory path
-
-Both slipped through earlier versions of this check and produced a wrong
-rollover. When the check fails nothing is touched and it retries the next night.
-
-On a successful rollover the script bumps `year`, rewrites `url`, shifts the
-deadlines forward by `cycle_years` and sets `confirmed: false` — a shifted date is
-an estimate until someone verifies it against the real CFP, and the dashboard
-labels it `est.` until then.
-
-## Contributing
-
-See **[CONTRIBUTING.md](CONTRIBUTING.md)**. Short version: edit
-`conferences.yml`, nothing else. A date is either verified — `confirmed: true`
-with a `source:` URL a reader can click — or it is estimated and wears an
-**est.** badge. There is no third state, and CI enforces that a confirmed date
-carries its source.
+## Tools
 
 ```bash
-python scripts/validate_config.py      # structural checks, runs on every PR
-python scripts/check_deadlines.py FSE  # what the venue's own page says
+python scripts/validate_config.py            # structural checks; runs on every PR
+python scripts/check_deadlines.py eurosys    # what the venue's own page says
+python scripts/check_deadlines.py --formats  # page limits and track names
+python scripts/update.py --scope all         # rebuild, re-probing everything
 ```
 
-## Workflows
-
-| Workflow | Trigger | Does |
-|---|---|---|
-| `validate.yml` | every PR | validates `conferences.yml`, proves an offline build works |
-| `update-deadlines.yml` | nightly 07:00 UTC, push, manual | rebuilds the data, rolls venues over, commits back |
-| `deploy-pages.yml` | push to `main`, manual | publishes to GitHub Pages |
-| `propose-deadlines.yml` | Mondays 08:00 UTC, manual | sweeps CFP pages for venues still marked `est.` and opens an issue with what each site says — never edits the config |
-
-### The Firecrawl budget
-
-`propose-deadlines.yml` is the only thing that calls Firecrawl, and only for
-venues whose dates are unconfirmed — roughly 25 credits a run, about 100 a
-month. The free tier is **1,000 credits total**, so weekly is sustainable.
-
-Do **not** point Firecrawl at the nightly link check. That is 45 URLs a night,
-~1,350 credits a month, and it answers "does this URL respond?" — which a plain
-HEAD request already answers correctly, for free, six times faster. Link
-probing stays in `update.py` on plain HTTP by design.
-
-To enable the key: **Settings → Secrets and variables → Actions → New
-repository secret**, named `FIRECRAWL_API_KEY`. Without it the sweep still runs
-keyless, just slower and without `/map`.
-
-Deploy is deliberately a separate workflow: publishing can be blocked by
-account plan or Pages settings, and that must not make a healthy data refresh
-look like a broken build.
-
-## Publishing
-
-Two one-time settings on <https://github.com/Kritshekhar/WhiteRabbit>:
-
-1. **Settings → Pages → Source: GitHub Actions**
-2. **Settings → Actions → General → Workflow permissions: Read and write**
-   (the workflow commits the regenerated data file back to the repo)
-
-The site then lands at <https://kritshekhar.github.io/WhiteRabbit/>.
-
-The workflow (`.github/workflows/update-deadlines.yml`) runs at **07:00 UTC**
-daily — midnight Arizona — on every push that touches the config or site, and
-on demand via *Run workflow*.
-
-## Local development
-
-```bash
-git clone git@github.com:Kritshekhar/WhiteRabbit.git && cd WhiteRabbit
-python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-.venv/bin/python scripts/update.py --no-network   # rebuild JSON, skip probes
-python3 -m http.server 8000                       # then open localhost:8000
-```
-
-`--dry-run` prints what would change without writing anything.
-
-## Verifying dates against the real CFP pages
-
-```bash
-.venv/bin/python scripts/check_deadlines.py             # all venues
-.venv/bin/python scripts/check_deadlines.py eurosys sc  # substring filter
-.venv/bin/python scripts/check_deadlines.py --unconfirmed
-```
-
-It prints, per venue, what the config claims next to every deadline-looking
-line it can pull off the venue's site (landing page, then the usual
-`/cfp`, `/dates`, `/important-dates` paths):
+`check_deadlines.py` prints the config's claim next to every deadline-looking line
+on the venue's site:
 
 ```
 ### EuroSys  (2027)
@@ -233,48 +134,50 @@ line it can pull off the venue's site (landing page, then the usual
     site:   Full paper submissions due: Thursday, September 24, 2026
 ```
 
-### Formats and tracks
+It **never writes to the config**, and that is deliberate. CFP pages are prose,
+and plenty of them serve last year's dates from this year's URL — NDSS's 2027 page
+still shows 2024 dates. Auto-parsing that would quietly produce wrong deadlines,
+which is the one thing a deadline tracker must not do. The tool proposes; a person
+decides.
+
+Add `--firecrawl` for pages plain fetching cannot read (JS-rendered, bot-blocked,
+prose-buried). It works without an API key; `FIRECRAWL_API_KEY` raises the rate
+limit and unlocks CFP-page discovery. It runs last, only after the free paths fail.
+
+## Local development
 
 ```bash
-python scripts/check_deadlines.py --formats          # every venue
-python scripts/check_deadlines.py --formats ccs sc   # just these
+git clone https://github.com/Kritshekhar/WhiteRabbit.git && cd WhiteRabbit
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+.venv/bin/python scripts/update.py --no-network   # rebuild without HTTP
+python3 -m http.server 8000                       # open localhost:8000
 ```
 
-Same idea as the date checker, aimed at page limits and track names instead.
-It searches the CFP subpages first, since a landing page tends to mention
-"Posters Co-Chairs" without saying anything about what you can submit.
+`index.html` needs a server — opening the file directly will not load the data.
 
-### Firecrawl (optional)
+## Workflows
 
-Add `--firecrawl` and pages that plain fetching cannot read — JS-rendered
-sites, bot-blocked hosts, dates buried in prose — get rendered to clean
-markdown and re-scanned:
+| Workflow | Trigger | Does |
+|---|---|---|
+| `validate.yml` | every PR | validates `conferences.yml`, proves an offline build works |
+| `update-deadlines.yml` | nightly 07:00 UTC · monthly full sweep · push | rebuilds data, rolls venues over, commits back |
+| `deploy-pages.yml` | push to `main` | publishes to GitHub Pages |
+| `propose-deadlines.yml` | Mondays 08:00 UTC | sweeps CFP pages for `est.` venues, opens an issue — never edits the config |
 
-```bash
-python scripts/check_deadlines.py --unconfirmed --firecrawl
-```
+Deploy is a separate workflow on purpose: publishing can be blocked by Pages
+settings, and that should not make a healthy data refresh look like a broken build.
 
-It works **keyless** at a low rate limit. Set `FIRECRAWL_API_KEY` to raise the
-limit and unlock `/map`, which asks the venue's site for its own CFP URLs
-instead of guessing at `/cfp`, `/dates`, and friends.
+## Running your own
 
-It runs last, only after the free paths fail, so most venues never touch the
-API. Firecrawl is used **only in this tool, never in `update.py`** — see below.
+Fork it, edit `conferences.yml` for your field, then enable
+**Settings → Pages → Source: GitHub Actions** and
+**Settings → Actions → Workflow permissions: Read and write** (the nightly job
+commits the rebuilt data back).
 
-It deliberately **does not** write to `conferences.yml`. CFP pages are
-unstructured prose, every venue words things differently, and plenty of them
-still have last year's dates sitting in the HTML — auto-parsing that into the
-config would quietly produce wrong deadlines, which is the one thing a
-deadline tracker must not do. You read the output, fix the config, and set
-`confirmed: true`.
+## A note on the dates
 
-That holds for Firecrawl too, and more so. Better extraction does not make a
-stale page current: NDSS's 2027 CFP still shows 2024 dates and SIGCOMM's 2027
-site still serves the 2026 call, and an extractor will return both as fact.
-The tool proposes; a person decides.
-
-Ten venues were verified this way on 2026-08-26 (FAST, OSDI, EuroSys, ASPLOS,
-NSDI, SIGMETRICS, USENIX Security, IMC, SoCC, HotStorage). The rest are still
-extrapolated from previous cycles and carry an **est.** badge — a few of those
-sites are JavaScript-rendered (researchr.org) or have no CFP up yet, so they
-need a human look.
+Every date here is community-maintained and some are extrapolated. The **est.**
+badge is honest, not decorative — **always confirm on the venue's own CFP page
+before you plan around it.** If you spot a wrong date,
+[open an issue](https://github.com/Kritshekhar/WhiteRabbit/issues/new/choose);
+it takes one line to fix.
