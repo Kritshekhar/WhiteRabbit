@@ -7,7 +7,6 @@
 
 <p align="center">
   <a href="https://kritshekhar.github.io/WhiteRabbit/"><b>Live dashboard</b></a> ·
-  <a href="https://kritshekhar.github.io/WhiteRabbit/journey.html">The journey</a> ·
   <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
