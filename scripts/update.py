@@ -47,12 +47,22 @@ UA = (
 TIMEOUT = 15
 MAX_PROBE_WORKERS = 8
 # Ranks are named for poker hands - see hierarchy.html.
-VALID_TIERS = {"royal-flush", "full-house", "high-card", "wild-card"}
+VALID_TIERS = {"rabbit-hole", "royal-flush", "full-house", "looking-glass"}
 # Older names still parse so an in-flight branch does not break.
 LEGACY_TIERS = {
-    "tier1": "royal-flush", "companion": "full-house", "workshop": "high-card",
+    "tier1": "royal-flush", "companion": "full-house", "workshop": "rabbit-hole",
     "queens-court": "royal-flush", "tea-party": "full-house",
-    "caucus-race": "high-card", "looking-glass": "wild-card",
+    "caucus-race": "rabbit-hole", "high-card": "rabbit-hole",
+    "wild-card": "looking-glass",
+}
+
+# A venue's place on a project's path, not a ranking: every project wants a
+# stage 1, then a stage 2, then a stage 3. Stage 2 is the only one with grades.
+STAGES = {
+    "rabbit-hole":   (1, "Rabbit Hole"),
+    "royal-flush":   (2, "Wonderland"),
+    "full-house":    (2, "Wonderland"),
+    "looking-glass": (3, "Looking Glass"),
 }
 
 yaml = YAML()
@@ -235,6 +245,8 @@ def normalise(raw: dict) -> dict:
         "url_template": str(raw.get("url_template") or "").strip(),
         "year": raw.get("year"),
         "month": raw.get("month"),
+        "stage": STAGES.get(tier, (2, ""))[0],
+        "stage_name": STAGES.get(tier, (2, ""))[1],
         "rolling": bool(raw.get("rolling", False)),
         "cycle_years": max(1, int(raw.get("cycle_years", 1) or 1)),
         "formats": [str(f).strip() for f in (raw.get("formats") or []) if str(f).strip()],
@@ -308,7 +320,7 @@ def roll_over_cycle(raw, venue, now, grace_days, allow_network) -> bool:
 # --------------------------------------------------------------------------
 # asset cache-busting
 # --------------------------------------------------------------------------
-PAGES = ("index.html", "hierarchy.html")
+PAGES = ("index.html", "journey.html")
 ASSETS = ("assets/style.css", "assets/app.js")
 
 

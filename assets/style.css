@@ -349,3 +349,9 @@ a.badge:hover { border-color: var(--good); }
   font-size: .78rem; color: var(--text-muted); text-align: center;
   max-width: 46ch; margin: .4rem auto 0; line-height: 1.5;
 }
+.pyramid .p-stage { font: 700 10px Inter, sans-serif; fill: var(--text-muted); letter-spacing: .12em; }
+.p-stage-tag {
+  font-size: .66rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-muted); margin-right: .45rem;
+}
+.rank h2 { display: flex; align-items: center; flex-wrap: wrap; gap: .35rem; }

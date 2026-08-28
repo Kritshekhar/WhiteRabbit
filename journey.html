@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Journey · White Rabbit</title>
+<meta name="description" content="How a project travels: a workshop paper, then a full paper with a poster, then a journal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=fd6570fd">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐇</text></svg>">
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">🐇</span>
+      <div>
+        <h1>The Journey</h1>
+        <p class="brand-sub">Where a project goes, stage by stage</p>
+      </div>
+    </div>
+    <nav class="top-nav">
+      <a class="nav-link" href="index.html">← Deadlines</a>
+      <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle colour theme">
+        <span class="theme-icon" aria-hidden="true"></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap prose">
+  <p class="lede">
+    This is not a ranking of venues. It is the path one project takes to finish:
+    an idea gets aired at a <strong>workshop</strong>, the real result lands as a
+    <strong>full paper with a poster</strong>, and the mature version is archived in a
+    <strong>journal</strong>. Most work wants all three. The only place grades apply is
+    the middle stage, where the same finished paper could go to two different calibres
+    of venue.
+  </p>
+
+  <figure class="pyramid-figure">
+    <svg viewBox="0 0 860 300" class="pyramid" role="img"
+         aria-label="A project's three stages, left to right: Rabbit Hole, a workshop paper;
+                     Wonderland, a full paper with poster, which is either a Royal Flush or a
+                     Full House venue; and Looking Glass, the archival journal version.">
+      <defs>
+        <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+
+      <!-- stage 1 -->
+      <text x="104" y="70" class="p-stage" text-anchor="middle">STAGE 1</text>
+      <rect x="24" y="118" width="160" height="84" rx="12" fill="var(--rank-base)"
+            fill-opacity=".16" stroke="var(--rank-base)" stroke-width="1.5"/>
+      <text x="104" y="150" class="p-label" text-anchor="middle" fill="var(--rank-base)">Rabbit Hole</text>
+      <text x="104" y="170" class="p-axis" text-anchor="middle">workshop paper</text>
+      <text x="104" y="190" class="p-count" text-anchor="middle" data-count="rabbit-hole">6</text>
+
+      <line x1="192" y1="160" x2="246" y2="160" stroke="currentColor" stroke-width="1.5"
+            opacity=".5" marker-end="url(#arw)"/>
+      <text x="219" y="150" class="p-axis" text-anchor="middle">grows into</text>
+
+      <!-- stage 2: the only stage with grades -->
+      <text x="404" y="70" class="p-stage" text-anchor="middle">STAGE 2</text>
+      <rect x="256" y="82" width="296" height="180" rx="14" fill="none"
+            stroke="currentColor" stroke-opacity=".25" stroke-width="1.5" stroke-dasharray="5 5"/>
+      <text x="404" y="102" class="p-axis" text-anchor="middle">full paper + poster — pick your table</text>
+
+      <rect x="274" y="114" width="260" height="60" rx="10" fill="var(--rank-top)"
+            fill-opacity=".16" stroke="var(--rank-top)" stroke-width="1.5"/>
+      <text x="298" y="140" class="p-label" fill="var(--rank-top)">Royal Flush</text>
+      <text x="516" y="140" class="p-count" text-anchor="end" data-count="royal-flush">18</text>
+      <text x="298" y="159" class="p-axis">the strongest venues</text>
+
+      <rect x="274" y="186" width="260" height="60" rx="10" fill="var(--rank-mid)"
+            fill-opacity=".16" stroke="var(--rank-mid)" stroke-width="1.5"/>
+      <text x="298" y="212" class="p-label" fill="var(--rank-mid)">Full House</text>
+      <text x="516" y="212" class="p-count" text-anchor="end" data-count="full-house">19</text>
+      <text x="298" y="231" class="p-axis">strong and specialised</text>
+
+      <line x1="560" y1="160" x2="614" y2="160" stroke="currentColor" stroke-width="1.5"
+            opacity=".5" marker-end="url(#arw)"/>
+      <text x="587" y="150" class="p-axis" text-anchor="middle">extends into</text>
+
+      <!-- stage 3 -->
+      <text x="716" y="70" class="p-stage" text-anchor="middle">STAGE 3</text>
+      <rect x="624" y="118" width="184" height="84" rx="12" fill="var(--surface-2)"
+            stroke="currentColor" stroke-opacity=".35" stroke-width="1.5"/>
+      <text x="716" y="150" class="p-label" text-anchor="middle">Looking Glass</text>
+      <text x="716" y="170" class="p-axis" text-anchor="middle">journal · no deadline</text>
+      <text x="716" y="190" class="p-count" text-anchor="middle" data-count="looking-glass">2</text>
+    </svg>
+    <figcaption>
+      One project, three stages. Only the middle one is graded — a finished paper is
+      the same paper whichever table you take it to, so that is the single place a
+      venue's calibre changes the decision.
+    </figcaption>
+  </figure>
+
+  <section class="rank">
+    <h2><span class="p-stage-tag">Stage 1</span>
+        <span class="badge badge-rank rank-base">Rabbit Hole</span></h2>
+    <p>
+      Where you jump in with a half-formed idea. Workshops: five pages, a position,
+      and an argument you are not sure of yet. Low stakes by design, fast turnaround,
+      and the room that tells you whether the idea survives contact with people.
+      Skipping this stage is how a project discovers its flaw eighteen months late.
+    </p>
+    <p class="examples">HotOS · HotStorage · HotNets · HotInfra · HotCloudPerf · APSys</p>
+  </section>
+
+  <section class="rank">
+    <h2><span class="p-stage-tag">Stage 2</span>
+        <span class="badge badge-rank rank-top">Royal Flush</span>
+        <span class="badge badge-rank rank-mid">Full House</span></h2>
+    <p>
+      The full paper, and the poster that goes with it — the result the project is
+      actually for. This is the only stage with grades, because it is the only one
+      where the same finished paper has a choice of table:
+    </p>
+    <p>
+      <strong>Royal Flush</strong> — the best hand in the deck and the rarest.
+      Single-digit-to-twenty percent acceptance, recognised by acronym alone.
+    </p>
+    <p>
+      <strong>Full House</strong> — a strong hand that wins most tables. Specialised
+      venues with real review and a more focused audience, often where the more
+      interesting arguments happen.
+    </p>
+    <p class="examples">Royal Flush &nbsp;·&nbsp; OSDI · SOSP · NSDI · FAST · SIGCOMM · SIGMOD · VLDB · CCS · S&amp;P · ICSE</p>
+    <p class="examples">Full House &nbsp;·&nbsp; NDSS · DSN · ICDCS · IMC · INFOCOM · IPDPS · SoCC · MLSys · SYSTOR · MSST</p>
+  </section>
+
+  <section class="rank">
+    <h2><span class="p-stage-tag">Stage 3</span>
+        <span class="badge badge-rank rank-off">Looking Glass</span></h2>
+    <p>
+      The reflected version: longer, fuller, archival. Journals have no deadline, no
+      cycle and no countdown — you submit when the work is ready and the clock never
+      applies, which is why White Rabbit shows them as <em>rolling submission</em> and
+      never counts them down. It is the last stage precisely because it is the one the
+      calendar cannot rush.
+    </p>
+    <p class="examples">ACM TOS · ACM TOCS</p>
+  </section>
+
+  <section class="rank caveat">
+    <h2>What this is not</h2>
+    <p>
+      A ranking of research quality, and not a rule. Plenty of good work skips a
+      stage, and plenty of the best ideas in systems appeared first as a Rabbit Hole
+      workshop paper and never went further. Read it as the route most projects
+      benefit from, not a ladder you owe anyone.
+    </p>
+    <p>
+      Stage 2's two grades track how a venue <em>behaves</em> — selectivity, breadth
+      of audience — not how good any particular paper in it is. It is one judgement
+      call recorded in one field of <code>conferences.yml</code>; if a venue looks
+      misplaced, that is a one-line change and a reasonable pull request.
+    </p>
+  </section>
+</main>
+
+<footer class="wrap site-foot">
+  <p>Ranks live in <code>conferences.yml</code> as <code>tier:</code> —
+     <code>rabbit-hole</code>, <code>royal-flush</code>, <code>full-house</code>, <code>looking-glass</code>.</p>
+</footer>
+
+<script>
+/* Counts come from the build output - typing them in here guarantees they go
+   stale the next time a venue is added. */
+fetch('data/deadlines.json', { cache: 'no-cache' })
+  .then((r) => r.json())
+  .then((d) => {
+    document.querySelectorAll('[data-count]').forEach((el) => {
+      const key = el.dataset.count;
+      el.textContent = String(d.counts[key] || 0);
+    });
+  })
+  .catch(() => { /* keep the built-in numbers if the fetch fails */ });
+
+/* theme toggle, same behaviour as the dashboard */
+(function () {
+  const saved = localStorage.getItem('cd-theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#theme-toggle')) return;
+    const root = document.documentElement;
+    const dark = root.dataset.theme
+      ? root.dataset.theme === 'dark'
+      : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    localStorage.setItem('cd-theme', root.dataset.theme);
+  });
+})();
+</script>
+</body>
+</html>

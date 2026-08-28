@@ -31,7 +31,7 @@ Append to `venues:`. Only `name` is required; everything else has a default.
 ```yaml
   - name: SOSP
     full_name: ACM Symposium on Operating Systems Principles
-    tier: royal-flush                 # royal-flush | full-house | high-card | wild-card
+    tier: royal-flush                 # rabbit-hole | royal-flush | full-house | looking-glass
     url: https://sigops.org/s/conferences/sosp/2026/
     url_template: https://sigops.org/s/conferences/sosp/{year}/
     year: 2026
@@ -85,14 +85,14 @@ build overwrites it.
 |---|---|
 | `notes: Prefix the title: like this` | quote it — a value containing `": "` breaks YAML |
 | `date: 2026-09-15T23:59:00` | add the offset — `-12:00` is AoE |
-| `tier: tier1` | old name — use `royal-flush` (see hierarchy.html) |
+| `tier: tier1` | old name — use `royal-flush` (see journey.html) |
 | `url_template` with no `{year}` | it can never roll over; drop it or add the placeholder |
 | a venue added twice | one entry per venue |
 
-## Ranks
+## Stages
 
-Venues are ranked `royal-flush`, `full-house`, `high-card` or `wild-card`,
-not "tier 1/2" — **[hierarchy.html](hierarchy.html)** explains
+Venues are placed by stage — `rabbit-hole`, `royal-flush`, `full-house`,
+`looking-glass` — not "tier 1/2" — **[journey.html](journey.html)** explains
 what each means. The old names still parse, with a warning, so an existing
 branch will not break.
 

@@ -8,8 +8,12 @@
 # Fields
 #   name        (required) short label shown on the card, e.g. "OSDI"
 #   full_name   long name, shown under the label
-#   tier        royal-flush | full-house | high-card | wild-card
-#               (default: full-house). See hierarchy.html for what each means.
+#   tier        Where a venue sits on a project's path to completion:
+#                 rabbit-hole    stage 1 - workshops, the early idea
+#                 royal-flush    stage 2 - the strongest full-paper venues
+#                 full-house     stage 2 - strong specialised full-paper venues
+#                 looking-glass  stage 3 - journals, the archival version
+#               (default: full-house). See journey.html.
 #   url         current homepage for the cycle below
 #   url_template  homepage pattern used to roll the link over to the next
 #                 cycle automatically. Placeholders:
@@ -48,7 +52,7 @@ settings:
   aoe_label: "AoE"
 
 venues:
-  # ---------------------------- Royal Flush ---------------------------------
+  # ----------------- Stage 2 - Royal Flush (full paper) ---------------------
   - name: FAST
     full_name: USENIX Conference on File and Storage Technologies
     tier: royal-flush
@@ -403,7 +407,7 @@ venues:
         date: 2026-09-01T23:59:00-12:00
         confirmed: false
 
-  # ----------------------------- Full House ---------------------------------
+  # ----------------- Stage 2 - Full House (full paper) ----------------------
   - name: ASE
     full_name: IEEE/ACM International Conference on Automated Software Engineering
     tier: full-house
@@ -694,7 +698,7 @@ venues:
         verified_on: '2026-08-26'
   - name: APSys
     full_name: ACM SIGOPS Asia-Pacific Workshop on Systems
-    tier: high-card
+    tier: rabbit-hole
     url: https://ap-sys.org
     year: 2026
     month: 9
@@ -713,7 +717,7 @@ venues:
         verified_on: '2026-08-26'
   - name: HotCloudPerf
     full_name: Workshop on Hot Topics in Cloud Computing Performance
-    tier: high-card
+    tier: rabbit-hole
     url: https://hotcloudperf.spec.org
     year: 2026
     month: 5
@@ -733,7 +737,7 @@ venues:
         verified_on: '2026-08-26'
   - name: HotInfra
     full_name: Workshop on Hot Topics in System Infrastructure
-    tier: high-card
+    tier: rabbit-hole
     url: https://hotinfra.org/2026/
     url_template: https://hotinfra.org/{year}/
     year: 2026
@@ -748,7 +752,7 @@ venues:
         verified_on: '2026-08-26'
   - name: HotNets
     full_name: ACM Workshop on Hot Topics in Networks
-    tier: high-card
+    tier: rabbit-hole
     url: https://conferences.sigcomm.org/hotnets/2026/
     url_template: https://conferences.sigcomm.org/hotnets/{year}/
     year: 2026
@@ -762,7 +766,7 @@ venues:
         verified_on: '2026-08-26'
   - name: HotOS
     full_name: ACM SIGOPS Workshop on Hot Topics in Operating Systems
-    tier: high-card
+    tier: rabbit-hole
     url: https://sigops.org/s/conferences/hotos/2027/
     url_template: https://sigops.org/s/conferences/hotos/{year}/
     year: 2027
@@ -777,7 +781,7 @@ venues:
 
   - name: HotStorage
     full_name: ACM Workshop on Hot Topics in Storage and File Systems
-    tier: high-card
+    tier: rabbit-hole
     url: https://www.hotstorage.org/2026/cfp.html
     url_template: https://www.hotstorage.org/{year}/cfp.html
     year: 2026
@@ -792,14 +796,14 @@ venues:
         verified_on: '2026-08-26'
   - name: ACM TOS
     full_name: ACM Transactions on Storage
-    tier: wild-card
+    tier: looking-glass
     url: https://dl.acm.org/journal/tos
     rolling: true
     notes: Journal - continuous submission, no deadline.
 
   - name: ACM TOCS
     full_name: ACM Transactions on Computer Systems
-    tier: wild-card
+    tier: looking-glass
     url: https://dl.acm.org/journal/tocs
     rolling: true
     notes: Journal - continuous submission, no deadline.

@@ -4,17 +4,17 @@
    nightly rebuilds - and any venue added to the config just shows up here. */
 
 const DAY = 86400000;
-/* Ranks are poker hands rather than "tier 1/2" - hierarchy.html explains why.
-   RANK_SLOT maps a rank to its position so the CSS never has to know the names;
-   renaming a rank then touches this file and the copy, not the stylesheet. */
+/* Not a ranking - a project's path: workshop, then full paper, then journal.
+   Stage 2 is the only one with grades. journey.html explains it.
+   RANK_SLOT maps a rank to a colour slot so the CSS never knows the names. */
 const TIERS = {
+  'rabbit-hole': 'Rabbit Hole',
   'royal-flush': 'Royal Flush',
   'full-house': 'Full House',
-  'high-card': 'High Card',
-  'wild-card': 'Wild Card',
+  'looking-glass': 'Looking Glass',
 };
-const TIER_ORDER = { 'royal-flush': 0, 'full-house': 1, 'high-card': 2, 'wild-card': 3 };
-const RANK_SLOT = { 'royal-flush': 'top', 'full-house': 'mid', 'high-card': 'base', 'wild-card': 'off' };
+const TIER_ORDER = { 'rabbit-hole': 0, 'royal-flush': 1, 'full-house': 2, 'looking-glass': 3 };
+const RANK_SLOT = { 'rabbit-hole': 'base', 'royal-flush': 'top', 'full-house': 'mid', 'looking-glass': 'off' };
 
 /* Urgency bands. `color` is a status token; `label` is the text that always
    ships beside it, so the state never depends on colour alone. */
@@ -200,9 +200,9 @@ function renderStats(meta) {
   $('stat-soon').textContent = upcoming.filter((v) => v.days <= 30).length;
   $('stat-quarter').textContent = upcoming.filter((v) => v.days <= 90).length;
   $('stat-total').textContent = meta.counts.total;
-  $('stat-breakdown').textContent = Object.entries(TIERS)
-    .map(([key, label]) => `${meta.counts[key] || 0} ${label}`)
-    .join(' · ');
+  const c = meta.counts;
+  $('stat-breakdown').textContent =
+    `${c['rabbit-hole'] || 0} workshop · ${(c['royal-flush'] || 0) + (c['full-house'] || 0)} full paper · ${c['looking-glass'] || 0} journal`;
   const verified = upcoming.filter((v) => v.next.confirmed).length;
   $('verified-note').textContent =
     `${verified} of ${upcoming.length} upcoming deadlines have been checked against the venue's own CFP page; the rest are extrapolated from previous cycles.`;
