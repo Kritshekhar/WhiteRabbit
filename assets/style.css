@@ -203,7 +203,12 @@ select {
   transform-style: preserve-3d;
   transition: transform .6s cubic-bezier(.2, .7, .25, 1);
 }
-.flip:hover .flip-inner,
+/* Hover only where hovering is real. A touch browser leaves an element in
+   :hover after a tap, so an unguarded .flip:hover pins the card face-down and
+   the second tap cannot undo it. */
+@media (hover: hover) {
+  .flip:hover .flip-inner { transform: rotateY(180deg); }
+}
 .flip:focus-visible .flip-inner,
 .flip.is-flipped .flip-inner { transform: rotateY(180deg); }
 
@@ -318,7 +323,9 @@ a.badge:hover { border-color: var(--good); }
   /* No spin - swap the faces outright, so the details are still reachable. */
   .flip-inner { transform: none !important; }
   .face-back { transform: none; opacity: 0; pointer-events: none; }
-  .flip:hover .face-back,
+  @media (hover: hover) {
+    .flip:hover .face-back { opacity: 1; pointer-events: auto; }
+  }
   .flip:focus-visible .face-back,
   .flip.is-flipped .face-back { opacity: 1; pointer-events: auto; }
 }
