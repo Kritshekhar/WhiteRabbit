@@ -46,7 +46,7 @@ UA = (
 )
 TIMEOUT = 15
 MAX_PROBE_WORKERS = 8
-# Ranks are named for poker hands - see hierarchy.html.
+# A venue's stage on a project's path - see journey.html.
 VALID_TIERS = {"rabbit-hole", "royal-flush", "full-house", "looking-glass"}
 # Older names still parse so an in-flight branch does not break.
 LEGACY_TIERS = {

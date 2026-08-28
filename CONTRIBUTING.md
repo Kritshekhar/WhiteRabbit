@@ -85,14 +85,14 @@ build overwrites it.
 |---|---|
 | `notes: Prefix the title: like this` | quote it — a value containing `": "` breaks YAML |
 | `date: 2026-09-15T23:59:00` | add the offset — `-12:00` is AoE |
-| `tier: tier1` | old name — use `royal-flush` (see journey.html) |
+| `tier: tier1` | old name — use `royal-flush` (see the journey page) |
 | `url_template` with no `{year}` | it can never roll over; drop it or add the placeholder |
 | a venue added twice | one entry per venue |
 
 ## Stages
 
 Venues are placed by stage — `rabbit-hole`, `royal-flush`, `full-house`,
-`looking-glass` — not "tier 1/2" — **[journey.html](journey.html)** explains
+`looking-glass` — not "tier 1/2" — **[the journey](https://kritshekhar.github.io/WhiteRabbit/journey.html)** explains
 what each means. The old names still parse, with a warning, so an existing
 branch will not break.
 
