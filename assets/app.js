@@ -63,6 +63,17 @@ const fmtDate = (ts, offMin = 0) =>
   new Date(ts + offMin * 60000).toLocaleDateString(undefined,
     { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 
+/* Most deadlines are AoE, but some venues close in a different zone (ICML in
+   UTC, ECCV in US Pacific). Say which one instead of claiming AoE for all. */
+function zoneLabel(offMin) {
+  if (offMin === -720) return 'AoE';
+  const abs = Math.abs(offMin);
+  const body = abs % 60
+    ? `UTC${offMin < 0 ? '-' : '+'}${Math.floor(abs / 60)}:${String(abs % 60).padStart(2, '0')}`
+    : `UTC${offMin < 0 ? '-' : '+'}${abs / 60}`;
+  return offMin === 0 ? 'UTC' : body;
+}
+
 function countdownMarkup(v) {
   if (v.status === 'rolling') return '<p class="countdown-flat">Rolling submission</p>';
   if (v.status === 'passed') return '<p class="countdown-flat">Cycle closed - awaiting next CFP</p>';
@@ -90,7 +101,7 @@ function card(v) {
   // between the date and its "est." marker
   const track = (d) => (d.track ? `<span class="tag tag-track">${d.track}</span> ` : '');
   const line = v.next
-    ? `<p class="deadline-line">${track(v.next)}<strong>${v.next.name}</strong> · <span class="nowrap">${fmtDate(v.next.ts, v.next.off)} AoE${est}</span></p>`
+    ? `<p class="deadline-line">${track(v.next)}<strong>${v.next.name}</strong> · <span class="nowrap">${fmtDate(v.next.ts, v.next.off)} ${zoneLabel(v.next.off)}${est}</span></p>`
     : '';
 
   // Runway meter: full at 180 days out, empty at the deadline.
@@ -209,7 +220,7 @@ function renderStats(meta) {
   $('stat-next-label').textContent = head && head.days <= 7 ? "I'm late! I'm late!" : 'Next up';
   $('stat-next-venue').textContent = head ? `${head.name} · ${head.days}d` : ' - ';
   $('stat-next-detail').textContent = head
-    ? `${head.next.name} · ${fmtDate(head.next.ts, head.next.off)} AoE${head.next.confirmed ? '' : ' (est.)'}`
+    ? `${head.next.name} · ${fmtDate(head.next.ts, head.next.off)} ${zoneLabel(head.next.off)}${head.next.confirmed ? '' : ' (est.)'}`
     : 'nothing scheduled';
   $('stat-soon').textContent = upcoming.filter((v) => v.days <= 30).length;
   $('stat-quarter').textContent = upcoming.filter((v) => v.days <= 90).length;
