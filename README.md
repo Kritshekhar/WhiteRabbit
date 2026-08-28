@@ -180,3 +180,7 @@ badge is honest, not decorative — **always confirm on the venue's own CFP page
 before you plan around it.** If you spot a wrong date,
 [open an issue](https://github.com/Kritshekhar/WhiteRabbit/issues/new/choose);
 it takes one line to fix.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
