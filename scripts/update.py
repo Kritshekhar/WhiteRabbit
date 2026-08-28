@@ -205,7 +205,7 @@ def page_mentions_year(url: str, year: int) -> bool:
 
 
 # --------------------------------------------------------------------------
-# normalisation — every optional field gets a sane default here
+# normalisation - every optional field gets a sane default here
 # --------------------------------------------------------------------------
 def normalise(raw: dict) -> dict:
     name = str(raw.get("name") or "").strip()
@@ -251,6 +251,8 @@ def normalise(raw: dict) -> dict:
         "cycle_years": max(1, int(raw.get("cycle_years", 1) or 1)),
         "formats": [str(f).strip() for f in (raw.get("formats") or []) if str(f).strip()],
         "tracks": [str(t).strip() for t in (raw.get("tracks") or []) if str(t).strip()],
+        "topics": [str(t).strip() for t in (raw.get("topics") or []) if str(t).strip()],
+        "publisher": str(raw.get("publisher") or "").strip(),
         "notes": str(raw.get("notes") or "").strip(),
         "deadlines": deadlines,
     }

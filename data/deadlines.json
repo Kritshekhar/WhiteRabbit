@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-08-28T02:53:22+00:00",
+  "generated_at": "2026-08-28T05:27:05+00:00",
   "aoe_label": "AoE",
   "counts": {
-    "total": 45,
-    "full-house": 19,
+    "total": 99,
+    "full-house": 57,
     "looking-glass": 2,
     "rabbit-hole": 6,
-    "royal-flush": 18
+    "royal-flush": 34
   },
   "venues": [
     {
@@ -27,6 +27,10 @@
         "Research",
         "Work-in-Progress/Posters"
       ],
+      "topics": [
+        "Storage"
+      ],
+      "publisher": "USENIX",
       "notes": "",
       "deadlines": [
         {
@@ -56,6 +60,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Systems"
+      ],
+      "publisher": "USENIX",
       "notes": "",
       "deadlines": [
         {
@@ -93,6 +101,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Systems"
+      ],
+      "publisher": "USENIX",
       "notes": "SIGOPS mirror page - https://sigops.org/s/conferences/atc/. Rolls to atc27 once USENIX publishes it.",
       "deadlines": [
         {
@@ -124,6 +136,10 @@
         "Full paper"
       ],
       "tracks": [],
+      "topics": [
+        "Systems"
+      ],
+      "publisher": "ACM",
       "notes": "",
       "deadlines": [
         {
@@ -181,6 +197,11 @@
       "tracks": [
         "Research"
       ],
+      "topics": [
+        "Architecture",
+        "Systems"
+      ],
+      "publisher": "ACM",
       "notes": "A rapid review round assesses the first two pages only. The program may also include poster and lightning sessions.",
       "deadlines": [
         {
@@ -220,6 +241,10 @@
         "Full paper (10p)"
       ],
       "tracks": [],
+      "topics": [
+        "HPC"
+      ],
+      "publisher": "ACM",
       "notes": "",
       "deadlines": [
         {
@@ -259,6 +284,10 @@
         "Full paper (12p)"
       ],
       "tracks": [],
+      "topics": [
+        "Security"
+      ],
+      "publisher": "ACM",
       "notes": "CCS does not accept SoK or survey papers.",
       "deadlines": [
         {
@@ -299,6 +328,10 @@
         "Research",
         "Industry"
       ],
+      "topics": [
+        "Software Eng"
+      ],
+      "publisher": "ACM",
       "notes": "",
       "deadlines": [
         {
@@ -336,6 +369,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Software Eng"
+      ],
+      "publisher": "IEEE",
       "notes": "",
       "deadlines": [
         {
@@ -379,6 +416,10 @@
         "Frontiers",
         "Operational Systems"
       ],
+      "topics": [
+        "Networking"
+      ],
+      "publisher": "USENIX",
       "notes": "",
       "deadlines": [
         {
@@ -434,6 +475,10 @@
       "tracks": [
         "Research Papers"
       ],
+      "topics": [
+        "Languages"
+      ],
+      "publisher": "ACM",
       "notes": "",
       "deadlines": [
         {
@@ -463,6 +508,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Security"
+      ],
+      "publisher": "IEEE",
       "notes": "",
       "deadlines": [
         {
@@ -495,6 +544,10 @@
         "Research",
         "Experience"
       ],
+      "topics": [
+        "Networking"
+      ],
+      "publisher": "ACM",
       "notes": "The 2027 site is up but its CFP page still carries the 2026 call, so the date below is extrapolated from the 2026 cycle (abstract Jan 30, paper Feb 6).",
       "deadlines": [
         {
@@ -524,6 +577,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Performance"
+      ],
+      "publisher": "ACM",
       "notes": "",
       "deadlines": [
         {
@@ -581,6 +638,10 @@
         "Industrial",
         "Demo"
       ],
+      "topics": [
+        "Databases"
+      ],
+      "publisher": "ACM",
       "notes": "",
       "deadlines": [
         {
@@ -626,6 +687,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Systems"
+      ],
+      "publisher": "ACM",
       "notes": "",
       "deadlines": [
         {
@@ -658,6 +723,10 @@
         "Systematization of Knowledge (SoK)"
       ],
       "tracks": [],
+      "topics": [
+        "Security"
+      ],
+      "publisher": "USENIX",
       "notes": "",
       "deadlines": [
         {
@@ -711,6 +780,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Databases"
+      ],
+      "publisher": "VLDB",
       "notes": "Rolling monthly deadlines - PVLDB Vol. 20 submits on the 1st of each month.",
       "deadlines": [
         {
@@ -740,6 +813,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Software Eng"
+      ],
+      "publisher": "IEEE",
       "notes": "",
       "deadlines": [
         {
@@ -769,6 +846,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "AI"
+      ],
+      "publisher": "CAIS",
       "notes": "",
       "deadlines": [
         {
@@ -798,6 +879,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Security"
+      ],
+      "publisher": "IACR",
       "notes": "Four submission rounds per year (TCHES volumes).",
       "deadlines": [
         {
@@ -835,6 +920,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Dependability"
+      ],
+      "publisher": "IEEE",
       "notes": "",
       "deadlines": [
         {
@@ -876,6 +965,10 @@
         "Poster"
       ],
       "tracks": [],
+      "topics": [
+        "Architecture"
+      ],
+      "publisher": "IEEE",
       "notes": "Industry talk symposium, not a paper conference. Stable URL - the site always shows the current edition, so there is no year rollover. Hot Chips 38 ran Aug 23-25, 2026; the HC39 call had not opened as of Aug 2026.",
       "deadlines": [
         {
@@ -905,6 +998,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Distributed"
+      ],
+      "publisher": "IEEE",
       "notes": "",
       "deadlines": [
         {
@@ -937,6 +1034,10 @@
         "Poster"
       ],
       "tracks": [],
+      "topics": [
+        "Networking"
+      ],
+      "publisher": "ACM",
       "notes": "",
       "deadlines": [
         {
@@ -974,6 +1075,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Networking"
+      ],
+      "publisher": "IEEE",
       "notes": "",
       "deadlines": [
         {
@@ -1003,6 +1108,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "HPC"
+      ],
+      "publisher": "IEEE",
       "notes": "",
       "deadlines": [
         {
@@ -1040,6 +1149,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Software Eng"
+      ],
+      "publisher": "ACM",
       "notes": "",
       "deadlines": [
         {
@@ -1077,6 +1190,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Cloud"
+      ],
+      "publisher": "Linux Fdn",
       "notes": "",
       "deadlines": [
         {
@@ -1106,6 +1223,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Cloud"
+      ],
+      "publisher": "Linux Fdn",
       "notes": "Linux Foundation keeps this at a stable URL - no year rollover needed.",
       "deadlines": [
         {
@@ -1141,6 +1262,10 @@
         "Research",
         "Invited/Industry"
       ],
+      "topics": [
+        "Storage"
+      ],
+      "publisher": "IEEE",
       "notes": "Short papers must be complete work, not work-in-progress. Submissions via EasyChair.",
       "deadlines": [
         {
@@ -1170,6 +1295,11 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "ML",
+        "Systems"
+      ],
+      "publisher": "MLSys",
       "notes": "Landing page redirects to the current edition.",
       "deadlines": [
         {
@@ -1199,6 +1329,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Security"
+      ],
+      "publisher": "ISOC",
       "notes": "",
       "deadlines": [
         {
@@ -1236,6 +1370,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "Linux Fdn",
       "notes": "Stable Linux Foundation URL - no year rollover needed.",
       "deadlines": [
         {
@@ -1265,6 +1403,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "Linux Fdn",
       "notes": "No 2027 edition announced yet - link points at the series page.",
       "deadlines": [
         {
@@ -1297,6 +1439,11 @@
         "Research",
         "Posters"
       ],
+      "topics": [
+        "Storage",
+        "Systems"
+      ],
+      "publisher": "ACM",
       "notes": "",
       "deadlines": [
         {
@@ -1334,6 +1481,11 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Cloud",
+        "Systems"
+      ],
+      "publisher": "ACM",
       "notes": "",
       "deadlines": [
         {
@@ -1387,6 +1539,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Systems"
+      ],
+      "publisher": "ACM",
       "notes": "Stable URL - the site always shows the current edition, so there is no year rollover.",
       "deadlines": [
         {
@@ -1428,6 +1584,11 @@
         "Talk only (1-2p)"
       ],
       "tracks": [],
+      "topics": [
+        "Performance",
+        "Cloud"
+      ],
+      "publisher": "ACM",
       "notes": "Co-located with ICPE. Talk-only submissions are not included in the proceedings. Stable URL - no year rollover.",
       "deadlines": [
         {
@@ -1465,6 +1626,11 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Systems",
+        "Cloud"
+      ],
+      "publisher": "ACM",
       "notes": "hotinfra.org redirects to the latest edition. 2026 ran June 28 in Raleigh, NC.",
       "deadlines": [
         {
@@ -1494,6 +1660,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Networking"
+      ],
+      "publisher": "ACM",
       "notes": "ACM SIGCOMM-sponsored workshop. 2026 edition runs Nov 16-17.",
       "deadlines": [
         {
@@ -1526,6 +1696,10 @@
         "Panel proposal"
       ],
       "tracks": [],
+      "topics": [
+        "Systems"
+      ],
+      "publisher": "ACM",
       "notes": "Biennial (odd years). HotOS XXI dates are still To Be Announced; HotOS XX closed on Jan 15, 2025.",
       "deadlines": [
         {
@@ -1558,6 +1732,10 @@
         "Position (5p)"
       ],
       "tracks": [],
+      "topics": [
+        "Storage"
+      ],
+      "publisher": "ACM",
       "notes": "Prefix the title with the paper type, such as 'Position: XYZ'. Co-located with SOSP.",
       "deadlines": [
         {
@@ -1587,6 +1765,10 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Storage"
+      ],
+      "publisher": "ACM",
       "notes": "Journal - continuous submission, no deadline.",
       "deadlines": [],
       "link_status": "ok",
@@ -1607,10 +1789,1980 @@
       "cycle_years": 1,
       "formats": [],
       "tracks": [],
+      "topics": [
+        "Systems"
+      ],
+      "publisher": "ACM",
       "notes": "Journal - continuous submission, no deadline.",
       "deadlines": [],
       "link_status": "ok",
       "link_checked_on": "2026-08-27T06:22:27+00:00"
+    },
+    {
+      "id": "aaai",
+      "name": "AAAI",
+      "full_name": "AAAI Conference on Artificial Intelligence",
+      "tier": "royal-flush",
+      "url": "https://aaai.org/conference/aaai/aaai-27/",
+      "url_template": "",
+      "year": 2027,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "AI"
+      ],
+      "publisher": "AAAI",
+      "notes": "CORE A* \u00b7 CCF A. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-07-21T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aaai.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-07-28T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aaai.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "aamas",
+      "name": "AAMAS",
+      "full_name": "International Conference on Autonomous Agents and Multiagent Systems",
+      "tier": "royal-flush",
+      "url": "https://openreview.net/group?id=ifaamas.org/AAMAS/2027/Conference",
+      "url_template": "https://openreview.net/group?id=ifaamas.org/AAMAS/{year}/Conference",
+      "year": 2027,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "AI"
+      ],
+      "publisher": "IFAAMAS",
+      "notes": "CORE A* \u00b7 CCF B. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-10-02T11:59:00+00:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aamas.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-10-09T11:59:00+00:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aamas.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "accv",
+      "name": "ACCV",
+      "full_name": "Asian Conference on Computer Vision",
+      "tier": "full-house",
+      "url": "https://accv2026.org/",
+      "url_template": "https://accv{year}.org/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "CV"
+      ],
+      "publisher": "Springer",
+      "notes": "CORE B \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-07-05T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/accv.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "acl",
+      "name": "ACL",
+      "full_name": "Annual Meeting of the Association for Computational Linguistics",
+      "tier": "royal-flush",
+      "url": "https://2027.aclweb.org/",
+      "url_template": "https://{year}.aclweb.org/",
+      "year": 2027,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "NLP"
+      ],
+      "publisher": "ACL",
+      "notes": "CORE A* \u00b7 CCF A. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": null,
+          "confirmed": false,
+          "track": "",
+          "source": "",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "acml",
+      "name": "ACML",
+      "full_name": "Asian Conference on Machine Learning",
+      "tier": "full-house",
+      "url": "https://www.acml-conf.org/2026/",
+      "url_template": "https://www.acml-conf.org/{year}/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "PMLR",
+      "notes": "CORE C \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-06-20T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/acml.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "aistats",
+      "name": "AISTATS",
+      "full_name": "International Conference on Artificial Intelligence and Statistics",
+      "tier": "full-house",
+      "url": "https://virtual.aistats.org/Conferences/2026",
+      "url_template": "https://virtual.aistats.org/Conferences/{year}",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "PMLR",
+      "notes": "CORE A \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2025-09-25T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aistats.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2025-10-02T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aistats.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "alt",
+      "name": "ALT",
+      "full_name": "International Conference on Algorithmic Learning Theory",
+      "tier": "full-house",
+      "url": "https://algorithmiclearningtheory.org/alt2027/",
+      "url_template": "https://algorithmiclearningtheory.org/alt{year}/",
+      "year": 2027,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "PMLR",
+      "notes": "CORE B \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-10-12T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/alt.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "bmvc",
+      "name": "BMVC",
+      "full_name": "British Machine Vision Conference",
+      "tier": "full-house",
+      "url": "https://bmvc2026.bmva.org/",
+      "url_template": "https://bmvc{year}.bmva.org/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "CV"
+      ],
+      "publisher": "BMVA",
+      "notes": "CORE A \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-05-22T23:59:59+00:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/bmvc.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-05-29T23:59:59+00:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/bmvc.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "ieee-cec",
+      "name": "IEEE CEC",
+      "full_name": "IEEE Congress on Evolutionary Computation",
+      "tier": "full-house",
+      "url": "https://ieeecec.org/2027",
+      "url_template": "https://ieeecec.org/{year}",
+      "year": 2027,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "IEEE",
+      "notes": "CORE B \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2027-02-28T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/cec.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "cicai",
+      "name": "CICAI",
+      "full_name": "CAAI International Conference on Artificial Intelligence",
+      "tier": "full-house",
+      "url": "https://cicai.caai.cn/index.html",
+      "url_template": "",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "AI"
+      ],
+      "publisher": "Springer",
+      "notes": "CORE N \u00b7 CCF N. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-06-08T23:59:59+08:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/cicai.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "coling",
+      "name": "COLING",
+      "full_name": "INTERNATIONNAL CONFERENCE ON COMPUTATIONAL LINGUISTICS",
+      "tier": "full-house",
+      "url": "https://2027.coling-iccl.org/",
+      "url_template": "https://{year}.coling-iccl.org/",
+      "year": 2027,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "NLP"
+      ],
+      "publisher": "ACL",
+      "notes": "CORE B \u00b7 CCF B. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-10-12T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/coling.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "colm",
+      "name": "COLM",
+      "full_name": "Conference on Language Modeling",
+      "tier": "full-house",
+      "url": "https://colmweb.org",
+      "url_template": "",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "COLM",
+      "notes": "CORE N \u00b7 CCF N. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-03-26T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/colm.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-03-31T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/colm.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "colt",
+      "name": "COLT",
+      "full_name": "Annual Conference on Learning Theory",
+      "tier": "royal-flush",
+      "url": "https://learningtheory.org/colt2026/",
+      "url_template": "https://learningtheory.org/colt{year}/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "PMLR",
+      "notes": "CORE A* \u00b7 CCF B. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-02-04T16:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/colt.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "conll",
+      "name": "CoNLL",
+      "full_name": "Conference on Computational Natural Language Learning",
+      "tier": "full-house",
+      "url": "https://www.conll.org/",
+      "url_template": "",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "NLP"
+      ],
+      "publisher": "ACL",
+      "notes": "CORE B \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-02-19T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/conll.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "corl",
+      "name": "CoRL",
+      "full_name": "The Conference on Robot Learning",
+      "tier": "full-house",
+      "url": "https://www.corl.org/",
+      "url_template": "",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "RO"
+      ],
+      "publisher": "PMLR",
+      "notes": "CORE N \u00b7 CCF N. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-05-25T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/corl.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-05-28T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/corl.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "cpal",
+      "name": "CPAL",
+      "full_name": "The Conference on Parsimony and Learning",
+      "tier": "full-house",
+      "url": "https://cpal.cc/",
+      "url_template": "",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "PMLR",
+      "notes": "CORE N \u00b7 CCF N. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2025-12-05T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/cpal.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "cvpr",
+      "name": "CVPR",
+      "full_name": "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
+      "tier": "royal-flush",
+      "url": "https://cvpr.thecvf.com/Conferences/2026",
+      "url_template": "https://cvpr.thecvf.com/Conferences/{year}",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "CV"
+      ],
+      "publisher": "IEEE",
+      "notes": "CORE A* \u00b7 CCF A. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2025-11-06T23:59:00-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/cvpr.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2025-11-13T23:59:00-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/cvpr.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "dai",
+      "name": "DAI",
+      "full_name": "International Conference on Distributed Artificial Intelligence",
+      "tier": "full-house",
+      "url": "https://www.adai.ai/dai/2026/index.html",
+      "url_template": "https://www.adai.ai/dai/{year}/index.html",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "AI"
+      ],
+      "publisher": "ACM",
+      "notes": "CORE N \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-07-27T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/dai.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-08-03T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/dai.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "eacl",
+      "name": "EACL",
+      "full_name": "The Annual Conference of the European Chapter of the Association for Computational Linguistics",
+      "tier": "full-house",
+      "url": "https://2027.eacl.org/",
+      "url_template": "https://{year}.eacl.org/",
+      "year": 2027,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "NLP"
+      ],
+      "publisher": "ACL",
+      "notes": "CORE A \u00b7 CCF N. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-08-03T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/eacl.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "ecai",
+      "name": "ECAI",
+      "full_name": "European Conference on Artificial Intelligence",
+      "tier": "full-house",
+      "url": "https://ecai2025.org/deadlines/",
+      "url_template": "https://ecai{year}.org/deadlines/",
+      "year": 2025,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "AI"
+      ],
+      "publisher": "IOS",
+      "notes": "CORE A \u00b7 CCF B. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2025-04-29T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ecai.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2025-05-06T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ecai.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "eccv",
+      "name": "ECCV",
+      "full_name": "European Conference on Computer Vision",
+      "tier": "royal-flush",
+      "url": "https://eccv.ecva.net/",
+      "url_template": "",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "CV"
+      ],
+      "publisher": "Springer",
+      "notes": "CORE A* \u00b7 CCF B. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-02-26T14:00:00-08:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/eccv.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-03-05T14:00:00-08:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/eccv.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "emnlp",
+      "name": "EMNLP",
+      "full_name": "The annual Conference on Empirical Methods in Natural Language Processing",
+      "tier": "royal-flush",
+      "url": "https://2026.emnlp.org/",
+      "url_template": "https://{year}.emnlp.org/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "NLP"
+      ],
+      "publisher": "ACL",
+      "notes": "CORE A* \u00b7 CCF B. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-05-25T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/emnlp.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "esann",
+      "name": "ESANN",
+      "full_name": "European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning",
+      "tier": "full-house",
+      "url": "https://www.esann.org/",
+      "url_template": "",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "ESANN",
+      "notes": "CORE B \u00b7 CCF N. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2025-11-19T23:59:59-08:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/esann.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "euvip",
+      "name": "EUVIP",
+      "full_name": "European Conference on Visual Information Processing",
+      "tier": "full-house",
+      "url": "https://euvip2026.github.io/",
+      "url_template": "https://euvip{year}.github.io/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "CV"
+      ],
+      "publisher": "IEEE",
+      "notes": "CORE N \u00b7 CCF N. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-06-05T23:59:59+02:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/euvip.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "fg",
+      "name": "FG",
+      "full_name": "International Conference on Automatic Face and Gesture Recognition",
+      "tier": "full-house",
+      "url": "https://fg2027.ieee-biometrics.org/",
+      "url_template": "https://fg{year}.ieee-biometrics.org/",
+      "year": 2027,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "CV"
+      ],
+      "publisher": "IEEE",
+      "notes": "CORE B \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-10-09T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/fg.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-10-16T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/fg.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "gecco",
+      "name": "GECCO",
+      "full_name": "Genetic and Evolutionary Computation Conference",
+      "tier": "full-house",
+      "url": "https://gecco-2026.sigevo.org/HomePage",
+      "url_template": "https://gecco-{year}.sigevo.org/HomePage",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "ACM",
+      "notes": "CORE A \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-01-19T23:59:00-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/gecco.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-01-26T23:59:00-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/gecco.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "icann",
+      "name": "ICANN",
+      "full_name": "International Conference on Artificial Neural Networks",
+      "tier": "full-house",
+      "url": "https://e-nns.org/icann2026/",
+      "url_template": "https://e-nns.org/icann{year}/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "Springer",
+      "notes": "CORE C \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-03-30T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icann.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "icaps",
+      "name": "ICAPS",
+      "full_name": "International Conference on Automated Planning and Scheduling",
+      "tier": "royal-flush",
+      "url": "https://icaps26.icaps-conference.org/",
+      "url_template": "",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "AI"
+      ],
+      "publisher": "AAAI",
+      "notes": "CORE A* \u00b7 CCF B. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2025-12-02T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icaps.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2025-12-08T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icaps.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "iccbr",
+      "name": "ICCBR",
+      "full_name": "International Conference on Case-Based Reasoning",
+      "tier": "full-house",
+      "url": "https://2026.iccbr.org/",
+      "url_template": "https://{year}.iccbr.org/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "AI"
+      ],
+      "publisher": "Springer",
+      "notes": "CORE C \u00b7 CCF B. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-03-20T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iccbr.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "iccv",
+      "name": "ICCV",
+      "full_name": "IEEE International Conference on Computer Vision",
+      "tier": "royal-flush",
+      "url": "https://iccv.thecvf.com/Conferences/2025",
+      "url_template": "https://iccv.thecvf.com/Conferences/{year}",
+      "year": 2025,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "CV"
+      ],
+      "publisher": "IEEE",
+      "notes": "CORE A* \u00b7 CCF A. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2025-03-04T09:59:59+00:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iccv.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2025-03-08T09:59:59+00:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iccv.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "icdar",
+      "name": "ICDAR",
+      "full_name": "International Conference on Document Analysis and Recognition",
+      "tier": "full-house",
+      "url": "https://icdar2026.org/",
+      "url_template": "https://icdar{year}.org/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "CV"
+      ],
+      "publisher": "Springer",
+      "notes": "CORE A \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-02-13T23:59:59+00:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icdar.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-02-27T23:59:59+00:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icdar.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "iclr",
+      "name": "ICLR",
+      "full_name": "International Conference on Learning Representations",
+      "tier": "royal-flush",
+      "url": "https://iclr.cc/Conferences/2027",
+      "url_template": "https://iclr.cc/Conferences/{year}",
+      "year": 2027,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "ICLR",
+      "notes": "CORE A* \u00b7 CCF A. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-09-18T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iclr.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-09-25T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iclr.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "icml",
+      "name": "ICML",
+      "full_name": "International Conference on Machine Learning",
+      "tier": "royal-flush",
+      "url": "https://icml.cc/Conferences/2026",
+      "url_template": "https://icml.cc/Conferences/{year}",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "PMLR",
+      "notes": "CORE A* \u00b7 CCF A. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-01-24T11:59:59+00:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icml.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-01-29T11:59:59+00:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icml.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "iconip",
+      "name": "ICONIP",
+      "full_name": "International Conference on Neural Information Processing",
+      "tier": "full-house",
+      "url": "https://www.iconip2026.org/",
+      "url_template": "https://www.iconip{year}.org/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "Springer",
+      "notes": "CORE B \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-05-31T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iconip.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "icpr",
+      "name": "ICPR",
+      "full_name": "International Conference on Pattern Recognition",
+      "tier": "full-house",
+      "url": "https://icpr2026.org/",
+      "url_template": "https://icpr{year}.org/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "CV"
+      ],
+      "publisher": "Springer",
+      "notes": "CORE B \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2025-12-20T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icpr.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "icra",
+      "name": "ICRA",
+      "full_name": "IEEE International Conference on Robotics and Automation",
+      "tier": "royal-flush",
+      "url": "https://2027.ieee-icra.org/",
+      "url_template": "https://{year}.ieee-icra.org/",
+      "year": 2027,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "RO"
+      ],
+      "publisher": "IEEE",
+      "notes": "CORE A* \u00b7 CCF B. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-09-15T23:59:59-07:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icra.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "ictai",
+      "name": "ICTAI",
+      "full_name": "International Conference on Tools with Artificial Intellignce",
+      "tier": "full-house",
+      "url": "https://ictai.computer.org/2026/",
+      "url_template": "https://ictai.computer.org/{year}/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "AI"
+      ],
+      "publisher": "IEEE",
+      "notes": "CORE B \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-06-30T23:59:00-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ictai.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "ijcai",
+      "name": "IJCAI",
+      "full_name": "International Joint Conference on Artificial Intelligence",
+      "tier": "royal-flush",
+      "url": "https://2026.ijcai.org/",
+      "url_template": "https://{year}.ijcai.org/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "AI"
+      ],
+      "publisher": "IJCAI",
+      "notes": "CORE A* \u00b7 CCF B. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-01-12T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ijcai.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-01-19T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ijcai.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "ijcb",
+      "name": "IJCB",
+      "full_name": "International Joint Conference on Biometrics",
+      "tier": "full-house",
+      "url": "https://ijcb2026.ieee-biometrics.org/",
+      "url_template": "https://ijcb{year}.ieee-biometrics.org/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "CV"
+      ],
+      "publisher": "IEEE",
+      "notes": "CORE B \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-04-30T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ijcb.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "ijcnlp",
+      "name": "IJCNLP",
+      "full_name": "International Joint Conference on Natural Language Processing",
+      "tier": "full-house",
+      "url": "https://2026.aaclnet.org/",
+      "url_template": "https://{year}.aaclnet.org/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "NLP"
+      ],
+      "publisher": "ACL",
+      "notes": "CORE B \u00b7 CCF N. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-05-25T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ijcnlp.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "ijcnn",
+      "name": "IJCNN",
+      "full_name": "International Joint Conference on Neural Networks",
+      "tier": "full-house",
+      "url": "https://ijcnn.org/2027",
+      "url_template": "https://ijcnn.org/{year}",
+      "year": 2027,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "IEEE",
+      "notes": "CORE B \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2027-01-31T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ijcnn.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "iros",
+      "name": "IROS",
+      "full_name": "IEEE/RSJ International Conference on Intelligent Robots and Systems",
+      "tier": "full-house",
+      "url": "https://2026.ieee-iros.org/",
+      "url_template": "https://{year}.ieee-iros.org/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "RO"
+      ],
+      "publisher": "IEEE",
+      "notes": "CORE A \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-03-02T23:59:59-08:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iros.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "kr",
+      "name": "KR",
+      "full_name": "International Conference on Principles of Knowledge Representation and Reasoning",
+      "tier": "royal-flush",
+      "url": "https://kr.org/KR2026/",
+      "url_template": "https://kr.org/KR{year}/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "AI"
+      ],
+      "publisher": "IJCAI",
+      "notes": "CORE A* \u00b7 CCF B. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-02-08T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/kr.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-02-13T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/kr.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "ksem",
+      "name": "KSEM",
+      "full_name": "International Conference on Knowledge Science, Engineering and Management",
+      "tier": "full-house",
+      "url": "https://ksem2026.rosc.org.cn/",
+      "url_template": "https://ksem{year}.rosc.org.cn/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "AI"
+      ],
+      "publisher": "Springer",
+      "notes": "CORE C \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-01-15T23:59:59+00:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ksem.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "log",
+      "name": "LOG",
+      "full_name": "Learning on Graphs Conference",
+      "tier": "full-house",
+      "url": "https://logconference.org/",
+      "url_template": "",
+      "year": 2025,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "PMLR",
+      "notes": "CORE N \u00b7 CCF N. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2025-08-22T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/log.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2025-08-29T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/log.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "naacl",
+      "name": "NAACL",
+      "full_name": "The Annual Conference of the North American Chapter of the Association for Computational Linguistics",
+      "tier": "full-house",
+      "url": "https://2027.naacl.org/",
+      "url_template": "https://{year}.naacl.org/",
+      "year": 2027,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "NLP"
+      ],
+      "publisher": "ACL",
+      "notes": "CORE A \u00b7 CCF B. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-10-12T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/naacl.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "neurips",
+      "name": "NeurIPS",
+      "full_name": "Conference on Neural Information Processing Systems",
+      "tier": "royal-flush",
+      "url": "https://neurips.cc/Conferences/2026",
+      "url_template": "https://neurips.cc/Conferences/{year}",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "NeurIPS",
+      "notes": "CORE A* \u00b7 CCF A. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-05-05T11:59:00+00:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/nips.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-05-07T11:59:00+00:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/nips.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "nlpcc",
+      "name": "NLPCC",
+      "full_name": "CCF International Conference on Natural Language Processing and Chinese Computing",
+      "tier": "full-house",
+      "url": "http://tcci.ccf.org.cn/conference/2026/",
+      "url_template": "http://tcci.ccf.org.cn/conference/{year}/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "NLP"
+      ],
+      "publisher": "Springer",
+      "notes": "CORE N \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-06-20T23:59:59+08:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/nlpcc.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "ppsn",
+      "name": "PPSN",
+      "full_name": "International Conference on Parallel Problem Solving From Nature",
+      "tier": "full-house",
+      "url": "https://ppsn2026.disi.unitn.it/",
+      "url_template": "https://ppsn{year}.disi.unitn.it/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "Springer",
+      "notes": "CORE A \u00b7 CCF B. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-03-28T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ppsn.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "pricai",
+      "name": "PRICAI",
+      "full_name": "Pacific Rim International Conference on Artificial Intelligence",
+      "tier": "full-house",
+      "url": "https://2026.pricai.org/",
+      "url_template": "https://{year}.pricai.org/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "AI"
+      ],
+      "publisher": "Springer",
+      "notes": "CORE B \u00b7 CCF C. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-06-27T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/pricai.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "probml",
+      "name": "ProbML",
+      "full_name": "Symposium on Probabilistic Machine Learning",
+      "tier": "full-house",
+      "url": "https://probml.cc",
+      "url_template": "",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "PMLR",
+      "notes": "CORE N \u00b7 CCF N. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-03-20T11:59:00-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/probml.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "rss",
+      "name": "RSS",
+      "full_name": "Robotics Science and Systems",
+      "tier": "royal-flush",
+      "url": "https://roboticsconference.org",
+      "url_template": "",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "RO"
+      ],
+      "publisher": "RSS",
+      "notes": "CORE A* \u00b7 CCF N. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-01-23T23:59:00-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/rss.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-01-30T23:59:00-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/rss.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "uai",
+      "name": "UAI",
+      "full_name": "Conference on Uncertainty in Artificial Intelligence",
+      "tier": "full-house",
+      "url": "https://www.auai.org/uai2026/",
+      "url_template": "https://www.auai.org/uai{year}/",
+      "year": 2026,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "ML"
+      ],
+      "publisher": "PMLR",
+      "notes": "CORE A \u00b7 CCF B. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Paper submission",
+          "date": "2026-02-25T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/uai.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
+    },
+    {
+      "id": "wacv",
+      "name": "WACV",
+      "full_name": "IEEE/CVF Winter Conference on Applications of Computer Vision",
+      "tier": "full-house",
+      "url": "https://wacv.thecvf.com/",
+      "url_template": "",
+      "year": 2027,
+      "month": null,
+      "stage": 2,
+      "stage_name": "Wonderland",
+      "rolling": false,
+      "cycle_years": 1,
+      "formats": [],
+      "tracks": [],
+      "topics": [
+        "CV"
+      ],
+      "publisher": "IEEE",
+      "notes": "CORE A \u00b7 CCF N. Imported from ccf-deadlines.",
+      "deadlines": [
+        {
+          "name": "Abstract",
+          "date": "2026-06-19T23:59:00-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/wacv.yml",
+          "verified_on": ""
+        },
+        {
+          "name": "Paper submission",
+          "date": "2026-06-26T23:59:59-12:00",
+          "confirmed": false,
+          "track": "",
+          "source": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/wacv.yml",
+          "verified_on": ""
+        }
+      ],
+      "link_status": "unknown",
+      "link_checked_on": ""
     }
   ]
 }

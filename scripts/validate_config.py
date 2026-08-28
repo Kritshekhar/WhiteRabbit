@@ -37,7 +37,7 @@ LEGACY_TIERS = {
 PLACEHOLDER = re.compile(r"\{(year|yyyy|yy|yyn)\}")
 KNOWN_VENUE_KEYS = {
     "name", "full_name", "tier", "url", "url_template", "year", "month",
-    "formats", "tracks", "deadlines", "rolling", "cycle_years", "notes",
+    "formats", "tracks", "topics", "publisher", "deadlines", "rolling", "cycle_years", "notes",
 }
 KNOWN_DEADLINE_KEYS = {"name", "date", "confirmed", "track", "source", "verified_on"}
 
@@ -128,7 +128,7 @@ def check_venue(index: int, venue, seen: dict) -> None:
     if cycle is not None and not (isinstance(cycle, int) and 1 <= cycle <= 5):
         err(where, f"cycle_years {cycle!r} must be an integer 1-5")
 
-    for field in ("formats", "tracks"):
+    for field in ("formats", "tracks", "topics"):
         value = venue.get(field)
         if value is not None and not isinstance(value, list):
             err(where, f"{field} must be a list, e.g. [Full paper, Short paper]")

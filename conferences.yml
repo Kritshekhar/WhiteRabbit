@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Conference deadline tracker — single source of truth.
+# Conference deadline tracker - single source of truth.
 #
 # Add a venue by appending an entry to `venues:`. The ONLY required field is
 # `name`; everything else is optional and the build script fills in defaults.
@@ -42,7 +42,7 @@
 # settings), the updater probes url_template for year+1. If that page is live
 # it bumps `year`, rewrites `url`, shifts the deadlines forward by one year and
 # flips them back to `confirmed: false`. Nothing is lost if the page is not up
-# yet — it just retries the next night.
+# yet - it just retries the next night.
 # ---------------------------------------------------------------------------
 
 settings:
@@ -69,6 +69,9 @@ venues:
     tracks:
       - Research
       - Work-in-Progress/Posters
+    topics:
+      - Storage
+    publisher: USENIX
   - name: OSDI
     full_name: USENIX Symposium on Operating Systems Design and Implementation
     tier: royal-flush
@@ -87,6 +90,9 @@ venues:
         confirmed: true
         source: https://www.usenix.org/conference/osdi27
         verified_on: '2026-08-26'
+    topics:
+      - Systems
+    publisher: USENIX
   - name: ATC
     full_name: USENIX Annual Technical Conference
     tier: royal-flush
@@ -100,6 +106,9 @@ venues:
         date: 2026-01-13T23:59:00-12:00
         confirmed: false
 
+    topics:
+      - Systems
+    publisher: USENIX
   - name: EuroSys
     full_name: European Conference on Computer Systems
     tier: royal-flush
@@ -130,6 +139,9 @@ venues:
         verified_on: '2026-08-26'
     formats:
       - Full paper
+    topics:
+      - Systems
+    publisher: ACM
   - name: ASPLOS
     full_name: Architectural Support for Programming Languages and Operating Systems
     tier: royal-flush
@@ -153,6 +165,10 @@ venues:
     tracks:
       - Research
     notes: A rapid review round assesses the first two pages only. The program may also include poster and lightning sessions.
+    topics:
+      - Architecture
+      - Systems
+    publisher: ACM
   - name: SC
     full_name: International Conference for High Performance Computing, Networking, Storage and Analysis
     tier: royal-flush
@@ -170,6 +186,9 @@ venues:
 
     formats:
       - Full paper (10p)
+    topics:
+      - HPC
+    publisher: ACM
   - name: CCS
     full_name: ACM Conference on Computer and Communications Security
     tier: royal-flush
@@ -188,6 +207,9 @@ venues:
     formats:
       - Full paper (12p)
     notes: CCS does not accept SoK or survey papers.
+    topics:
+      - Security
+    publisher: ACM
   - name: FSE
     full_name: ACM International Conference on the Foundations of Software Engineering
     tier: royal-flush
@@ -209,6 +231,9 @@ venues:
         confirmed: true
         source: https://conf.researchr.org/dates/fse-2027
         verified_on: '2026-08-26'
+    topics:
+      - Software Eng
+    publisher: ACM
   - name: ICSE
     full_name: International Conference on Software Engineering
     tier: royal-flush
@@ -223,6 +248,9 @@ venues:
       - name: Full paper submission
         date: '2027-06-30T23:59:00-12:00'
         confirmed: false
+    topics:
+      - Software Eng
+    publisher: IEEE
   - name: NSDI
     full_name: USENIX Symposium on Networked Systems Design and Implementation
     tier: royal-flush
@@ -257,6 +285,9 @@ venues:
       - Traditional Research
       - Frontiers
       - Operational Systems
+    topics:
+      - Networking
+    publisher: USENIX
   - name: PLDI
     full_name: ACM SIGPLAN Conference on Programming Language Design and Implementation
     tier: royal-flush
@@ -273,6 +304,9 @@ venues:
         verified_on: '2026-08-26'
     tracks:
       - Research Papers
+    topics:
+      - Languages
+    publisher: ACM
   - name: S&P
     full_name: IEEE Symposium on Security and Privacy (Oakland)
     tier: royal-flush
@@ -285,6 +319,9 @@ venues:
         date: 2026-11-05T23:59:00-12:00
         confirmed: false
 
+    topics:
+      - Security
+    publisher: IEEE
   - name: SIGCOMM
     full_name: ACM SIGCOMM Conference
     tier: royal-flush
@@ -301,6 +338,9 @@ venues:
     tracks:
       - Research
       - Experience
+    topics:
+      - Networking
+    publisher: ACM
   - name: SIGMETRICS
     full_name: ACM SIGMETRICS / IFIP Performance
     tier: royal-flush
@@ -329,6 +369,9 @@ venues:
         confirmed: true
         source: https://www.sigmetrics.org/sigmetrics2027
         verified_on: '2026-08-26'
+    topics:
+      - Performance
+    publisher: ACM
   - name: SIGMOD
     full_name: ACM SIGMOD International Conference on Management of Data
     tier: royal-flush
@@ -351,6 +394,9 @@ venues:
       - Research
       - Industrial
       - Demo
+    topics:
+      - Databases
+    publisher: ACM
   - name: SOSP
     full_name: ACM Symposium on Operating Systems Principles
     tier: royal-flush
@@ -363,6 +409,9 @@ venues:
         date: '2027-04-16T23:59:00-12:00'
         confirmed: false
 
+    topics:
+      - Systems
+    publisher: ACM
   - name: USENIX Security
     full_name: USENIX Security Symposium
     tier: royal-flush
@@ -394,6 +443,9 @@ venues:
     formats:
       - Full paper (13p body)
       - Systematization of Knowledge (SoK)
+    topics:
+      - Security
+    publisher: USENIX
   - name: VLDB
     full_name: International Conference on Very Large Data Bases
     tier: royal-flush
@@ -408,6 +460,9 @@ venues:
         confirmed: false
 
   # ----------------- Stage 2 - Full House (full paper) ----------------------
+    topics:
+      - Databases
+    publisher: VLDB
   - name: ASE
     full_name: IEEE/ACM International Conference on Automated Software Engineering
     tier: full-house
@@ -421,6 +476,9 @@ venues:
         confirmed: true
         source: https://conf.researchr.org/dates/ase-2026
         verified_on: '2026-08-26'
+    topics:
+      - Software Eng
+    publisher: IEEE
   - name: CAIS
     full_name: Conference on AI Safety
     tier: full-house
@@ -431,6 +489,9 @@ venues:
         date:
         confirmed: false
 
+    topics:
+      - AI
+    publisher: CAIS
   - name: CHES
     full_name: Cryptographic Hardware and Embedded Systems
     tier: full-house
@@ -447,6 +508,9 @@ venues:
         date: '2027-07-15T23:59:00-12:00'
         confirmed: false
 
+    topics:
+      - Security
+    publisher: IACR
   - name: DSN
     full_name: IEEE/IFIP International Conference on Dependable Systems and Networks
     tier: full-house
@@ -461,6 +525,9 @@ venues:
         date: 2026-12-04T23:59:00-12:00
         confirmed: false
 
+    topics:
+      - Dependability
+    publisher: IEEE
   - name: Hot Chips
     full_name: A Symposium on High-Performance Chips
     tier: full-house
@@ -474,6 +541,9 @@ venues:
         date: 2027-04-06T23:59:00-12:00
         confirmed: false
 
+    topics:
+      - Architecture
+    publisher: IEEE
   - name: ICDCS
     full_name: IEEE International Conference on Distributed Computing Systems
     tier: full-house
@@ -486,6 +556,9 @@ venues:
         date: 2026-12-10T23:59:00-12:00
         confirmed: false
 
+    topics:
+      - Distributed
+    publisher: IEEE
   - name: IMC
     full_name: ACM Internet Measurement Conference
     tier: full-house
@@ -507,6 +580,9 @@ venues:
     formats:
       - Full paper (13p)
       - Poster
+    topics:
+      - Networking
+    publisher: ACM
   - name: INFOCOM
     full_name: IEEE International Conference on Computer Communications
     tier: full-house
@@ -519,6 +595,9 @@ venues:
         date: 2026-07-31T23:59:00-12:00
         confirmed: false
 
+    topics:
+      - Networking
+    publisher: IEEE
   - name: IPDPS
     full_name: IEEE International Parallel and Distributed Processing Symposium
     tier: full-house
@@ -534,6 +613,9 @@ venues:
         date: 2026-10-01T23:59:00-12:00
         confirmed: false
 
+    topics:
+      - HPC
+    publisher: IEEE
   - name: ISSTA
     full_name: ACM SIGSOFT International Symposium on Software Testing and Analysis
     tier: full-house
@@ -554,6 +636,9 @@ venues:
         confirmed: true
         source: https://conf.researchr.org/dates/issta-2027
         verified_on: '2026-08-26'
+    topics:
+      - Software Eng
+    publisher: ACM
   - name: KubeCon EU
     full_name: KubeCon + CloudNativeCon Europe
     tier: full-house
@@ -566,6 +651,9 @@ venues:
         date: 2026-11-15T23:59:00-12:00
         confirmed: false
 
+    topics:
+      - Cloud
+    publisher: Linux Fdn
   - name: KubeCon NA
     full_name: KubeCon + CloudNativeCon North America
     tier: full-house
@@ -578,6 +666,9 @@ venues:
         date: 2026-06-07T23:59:00-12:00
         confirmed: false
 
+    topics:
+      - Cloud
+    publisher: Linux Fdn
   - name: MSST
     full_name: International Conference on Massive Storage Systems and Technology
     tier: full-house
@@ -596,6 +687,9 @@ venues:
 
         source: https://msstconference.org/2026/research-cfp.html
         verified_on: '2026-08-26'
+    topics:
+      - Storage
+    publisher: IEEE
   - name: MLSys
     full_name: Conference on Machine Learning and Systems
     tier: full-house
@@ -608,6 +702,10 @@ venues:
         date: 2026-10-30T23:59:00-12:00
         confirmed: false
 
+    topics:
+      - ML
+      - Systems
+    publisher: MLSys
   - name: NDSS
     full_name: Network and Distributed System Security Symposium
     tier: full-house
@@ -623,6 +721,9 @@ venues:
         date: 2026-07-22T23:59:00-12:00
         confirmed: false
 
+    topics:
+      - Security
+    publisher: ISOC
   - name: PyTorch Conf
     full_name: PyTorch Conference (North America)
     tier: full-house
@@ -635,6 +736,9 @@ venues:
         date: 2026-06-01T23:59:00-12:00
         confirmed: false
 
+    topics:
+      - ML
+    publisher: Linux Fdn
   - name: PyTorch EU
     full_name: PyTorch Conference Europe
     tier: full-house
@@ -646,6 +750,9 @@ venues:
         date:
         confirmed: false
 
+    topics:
+      - ML
+    publisher: Linux Fdn
   - name: SYSTOR
     full_name: ACM International Systems and Storage Conference
     tier: full-house
@@ -668,6 +775,10 @@ venues:
 
         source: https://www.systor.org/2026/
         verified_on: '2026-08-26'
+    topics:
+      - Storage
+      - Systems
+    publisher: ACM
   - name: SoCC
     full_name: ACM Symposium on Cloud Computing
     tier: full-house
@@ -696,6 +807,10 @@ venues:
         confirmed: true
         source: https://acmsocc.org/2026/papers
         verified_on: '2026-08-26'
+    topics:
+      - Cloud
+      - Systems
+    publisher: ACM
   - name: APSys
     full_name: ACM SIGOPS Asia-Pacific Workshop on Systems
     tier: rabbit-hole
@@ -715,6 +830,9 @@ venues:
 
         source: https://ap-sys.org
         verified_on: '2026-08-26'
+    topics:
+      - Systems
+    publisher: ACM
   - name: HotCloudPerf
     full_name: Workshop on Hot Topics in Cloud Computing Performance
     tier: rabbit-hole
@@ -735,6 +853,10 @@ venues:
 
         source: https://hotcloudperf.spec.org
         verified_on: '2026-08-26'
+    topics:
+      - Performance
+      - Cloud
+    publisher: ACM
   - name: HotInfra
     full_name: Workshop on Hot Topics in System Infrastructure
     tier: rabbit-hole
@@ -750,6 +872,10 @@ venues:
 
         source: https://hotinfra.org/2026/
         verified_on: '2026-08-26'
+    topics:
+      - Systems
+      - Cloud
+    publisher: ACM
   - name: HotNets
     full_name: ACM Workshop on Hot Topics in Networks
     tier: rabbit-hole
@@ -764,6 +890,9 @@ venues:
         confirmed: true
         source: https://conferences.sigcomm.org/hotnets/2026/
         verified_on: '2026-08-26'
+    topics:
+      - Networking
+    publisher: ACM
   - name: HotOS
     full_name: ACM SIGOPS Workshop on Hot Topics in Operating Systems
     tier: rabbit-hole
@@ -779,6 +908,9 @@ venues:
         date:
         confirmed: false
 
+    topics:
+      - Systems
+    publisher: ACM
   - name: HotStorage
     full_name: ACM Workshop on Hot Topics in Storage and File Systems
     tier: rabbit-hole
@@ -794,6 +926,9 @@ venues:
         confirmed: true
         source: https://www.hotstorage.org/2026/cfp.html
         verified_on: '2026-08-26'
+    topics:
+      - Storage
+    publisher: ACM
   - name: ACM TOS
     full_name: ACM Transactions on Storage
     tier: looking-glass
@@ -801,9 +936,903 @@ venues:
     rolling: true
     notes: Journal - continuous submission, no deadline.
 
+    topics:
+      - Storage
+    publisher: ACM
   - name: ACM TOCS
     full_name: ACM Transactions on Computer Systems
     tier: looking-glass
     url: https://dl.acm.org/journal/tocs
     rolling: true
     notes: Journal - continuous submission, no deadline.
+    topics:
+      - Systems
+    publisher: ACM
+  - name: AAAI
+    full_name: AAAI Conference on Artificial Intelligence
+    tier: royal-flush
+    url: https://aaai.org/conference/aaai/aaai-27/
+    year: 2027
+    topics:
+      - AI
+    notes: CORE A* · CCF A. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-07-21T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aaai.yml
+      - name: Paper submission
+        date: '2026-07-28T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aaai.yml
+    publisher: AAAI
+  - name: AAMAS
+    full_name: International Conference on Autonomous Agents and Multiagent Systems
+    tier: royal-flush
+    url: https://openreview.net/group?id=ifaamas.org/AAMAS/2027/Conference
+    url_template: https://openreview.net/group?id=ifaamas.org/AAMAS/{year}/Conference
+    year: 2027
+    topics:
+      - AI
+    notes: CORE A* · CCF B. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-10-02T11:59:00+00:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aamas.yml
+      - name: Paper submission
+        date: '2026-10-09T11:59:00+00:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aamas.yml
+    publisher: IFAAMAS
+  - name: ACCV
+    full_name: Asian Conference on Computer Vision
+    tier: full-house
+    url: https://accv2026.org/
+    url_template: https://accv{year}.org/
+    year: 2026
+    topics:
+      - CV
+    notes: CORE B · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-07-05T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/accv.yml
+    publisher: Springer
+  - name: ACL
+    full_name: Annual Meeting of the Association for Computational Linguistics
+    tier: royal-flush
+    url: https://2027.aclweb.org/
+    url_template: https://{year}.aclweb.org/
+    year: 2027
+    topics:
+      - NLP
+    notes: CORE A* · CCF A. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date:
+        confirmed: false
+    publisher: ACL
+  - name: ACML
+    full_name: Asian Conference on Machine Learning
+    tier: full-house
+    url: https://www.acml-conf.org/2026/
+    url_template: https://www.acml-conf.org/{year}/
+    year: 2026
+    topics:
+      - ML
+    notes: CORE C · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-06-20T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/acml.yml
+    publisher: PMLR
+  - name: AISTATS
+    full_name: International Conference on Artificial Intelligence and Statistics
+    tier: full-house
+    url: https://virtual.aistats.org/Conferences/2026
+    url_template: https://virtual.aistats.org/Conferences/{year}
+    year: 2026
+    topics:
+      - ML
+    notes: CORE A · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2025-09-25T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aistats.yml
+      - name: Paper submission
+        date: '2025-10-02T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aistats.yml
+    publisher: PMLR
+  - name: ALT
+    full_name: International Conference on Algorithmic Learning Theory
+    tier: full-house
+    url: https://algorithmiclearningtheory.org/alt2027/
+    url_template: https://algorithmiclearningtheory.org/alt{year}/
+    year: 2027
+    topics:
+      - ML
+    notes: CORE B · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-10-12T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/alt.yml
+    publisher: PMLR
+  - name: BMVC
+    full_name: British Machine Vision Conference
+    tier: full-house
+    url: https://bmvc2026.bmva.org/
+    url_template: https://bmvc{year}.bmva.org/
+    year: 2026
+    topics:
+      - CV
+    notes: CORE A · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-05-22T23:59:59+00:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/bmvc.yml
+      - name: Paper submission
+        date: '2026-05-29T23:59:59+00:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/bmvc.yml
+    publisher: BMVA
+  - name: IEEE CEC
+    full_name: IEEE Congress on Evolutionary Computation
+    tier: full-house
+    url: https://ieeecec.org/2027
+    url_template: https://ieeecec.org/{year}
+    year: 2027
+    notes: CORE B · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2027-02-28T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/cec.yml
+    topics:
+      - ML
+    publisher: IEEE
+  - name: CICAI
+    full_name: CAAI International Conference on Artificial Intelligence
+    tier: full-house
+    url: https://cicai.caai.cn/index.html
+    year: 2026
+    topics:
+      - AI
+    notes: CORE N · CCF N. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-06-08T23:59:59+08:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/cicai.yml
+    publisher: Springer
+  - name: COLING
+    full_name: INTERNATIONNAL CONFERENCE ON COMPUTATIONAL LINGUISTICS
+    tier: full-house
+    url: https://2027.coling-iccl.org/
+    url_template: https://{year}.coling-iccl.org/
+    year: 2027
+    topics:
+      - NLP
+    notes: CORE B · CCF B. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-10-12T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/coling.yml
+    publisher: ACL
+  - name: COLM
+    full_name: Conference on Language Modeling
+    tier: full-house
+    url: https://colmweb.org
+    year: 2026
+    topics:
+      - ML
+    notes: CORE N · CCF N. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-03-26T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/colm.yml
+      - name: Paper submission
+        date: '2026-03-31T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/colm.yml
+    publisher: COLM
+  - name: COLT
+    full_name: Annual Conference on Learning Theory
+    tier: royal-flush
+    url: https://learningtheory.org/colt2026/
+    url_template: https://learningtheory.org/colt{year}/
+    year: 2026
+    topics:
+      - ML
+    notes: CORE A* · CCF B. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-02-04T16:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/colt.yml
+    publisher: PMLR
+  - name: CoNLL
+    full_name: Conference on Computational Natural Language Learning
+    tier: full-house
+    url: https://www.conll.org/
+    year: 2026
+    topics:
+      - NLP
+    notes: CORE B · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-02-19T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/conll.yml
+    publisher: ACL
+  - name: CoRL
+    full_name: The Conference on Robot Learning
+    tier: full-house
+    url: https://www.corl.org/
+    year: 2026
+    topics:
+      - RO
+    notes: CORE N · CCF N. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-05-25T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/corl.yml
+      - name: Paper submission
+        date: '2026-05-28T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/corl.yml
+    publisher: PMLR
+  - name: CPAL
+    full_name: The Conference on Parsimony and Learning
+    tier: full-house
+    url: https://cpal.cc/
+    year: 2026
+    topics:
+      - ML
+    notes: CORE N · CCF N. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2025-12-05T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/cpal.yml
+    publisher: PMLR
+  - name: CVPR
+    full_name: IEEE/CVF Conference on Computer Vision and Pattern Recognition
+    tier: royal-flush
+    url: https://cvpr.thecvf.com/Conferences/2026
+    url_template: https://cvpr.thecvf.com/Conferences/{year}
+    year: 2026
+    topics:
+      - CV
+    notes: CORE A* · CCF A. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2025-11-06T23:59:00-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/cvpr.yml
+      - name: Paper submission
+        date: '2025-11-13T23:59:00-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/cvpr.yml
+    publisher: IEEE
+  - name: DAI
+    full_name: International Conference on Distributed Artificial Intelligence
+    tier: full-house
+    url: https://www.adai.ai/dai/2026/index.html
+    url_template: https://www.adai.ai/dai/{year}/index.html
+    year: 2026
+    topics:
+      - AI
+    notes: CORE N · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-07-27T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/dai.yml
+      - name: Paper submission
+        date: '2026-08-03T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/dai.yml
+    publisher: ACM
+  - name: EACL
+    full_name: The Annual Conference of the European Chapter of the Association for Computational Linguistics
+    tier: full-house
+    url: https://2027.eacl.org/
+    url_template: https://{year}.eacl.org/
+    year: 2027
+    topics:
+      - NLP
+    notes: CORE A · CCF N. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-08-03T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/eacl.yml
+    publisher: ACL
+  - name: ECAI
+    full_name: European Conference on Artificial Intelligence
+    tier: full-house
+    url: https://ecai2025.org/deadlines/
+    url_template: https://ecai{year}.org/deadlines/
+    year: 2025
+    topics:
+      - AI
+    notes: CORE A · CCF B. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2025-04-29T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ecai.yml
+      - name: Paper submission
+        date: '2025-05-06T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ecai.yml
+    publisher: IOS
+  - name: ECCV
+    full_name: European Conference on Computer Vision
+    tier: royal-flush
+    url: https://eccv.ecva.net/
+    year: 2026
+    topics:
+      - CV
+    notes: CORE A* · CCF B. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-02-26T14:00:00-08:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/eccv.yml
+      - name: Paper submission
+        date: '2026-03-05T14:00:00-08:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/eccv.yml
+    publisher: Springer
+  - name: EMNLP
+    full_name: The annual Conference on Empirical Methods in Natural Language Processing
+    tier: royal-flush
+    url: https://2026.emnlp.org/
+    url_template: https://{year}.emnlp.org/
+    year: 2026
+    topics:
+      - NLP
+    notes: CORE A* · CCF B. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-05-25T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/emnlp.yml
+    publisher: ACL
+  - name: ESANN
+    full_name: European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning
+    tier: full-house
+    url: https://www.esann.org/
+    year: 2026
+    topics:
+      - ML
+    notes: CORE B · CCF N. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2025-11-19T23:59:59-08:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/esann.yml
+    publisher: ESANN
+  - name: EUVIP
+    full_name: European Conference on Visual Information Processing
+    tier: full-house
+    url: https://euvip2026.github.io/
+    url_template: https://euvip{year}.github.io/
+    year: 2026
+    topics:
+      - CV
+    notes: CORE N · CCF N. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-06-05T23:59:59+02:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/euvip.yml
+    publisher: IEEE
+  - name: FG
+    full_name: International Conference on Automatic Face and Gesture Recognition
+    tier: full-house
+    url: https://fg2027.ieee-biometrics.org/
+    url_template: https://fg{year}.ieee-biometrics.org/
+    year: 2027
+    topics:
+      - CV
+    notes: CORE B · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-10-09T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/fg.yml
+      - name: Paper submission
+        date: '2026-10-16T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/fg.yml
+    publisher: IEEE
+  - name: GECCO
+    full_name: Genetic and Evolutionary Computation Conference
+    tier: full-house
+    url: https://gecco-2026.sigevo.org/HomePage
+    url_template: https://gecco-{year}.sigevo.org/HomePage
+    year: 2026
+    topics:
+      - ML
+    notes: CORE A · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-01-19T23:59:00-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/gecco.yml
+      - name: Paper submission
+        date: '2026-01-26T23:59:00-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/gecco.yml
+    publisher: ACM
+  - name: ICANN
+    full_name: International Conference on Artificial Neural Networks
+    tier: full-house
+    url: https://e-nns.org/icann2026/
+    url_template: https://e-nns.org/icann{year}/
+    year: 2026
+    topics:
+      - ML
+    notes: CORE C · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-03-30T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icann.yml
+    publisher: Springer
+  - name: ICAPS
+    full_name: International Conference on Automated Planning and Scheduling
+    tier: royal-flush
+    url: https://icaps26.icaps-conference.org/
+    year: 2026
+    topics:
+      - AI
+    notes: CORE A* · CCF B. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2025-12-02T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icaps.yml
+      - name: Paper submission
+        date: '2025-12-08T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icaps.yml
+    publisher: AAAI
+  - name: ICCBR
+    full_name: International Conference on Case-Based Reasoning
+    tier: full-house
+    url: https://2026.iccbr.org/
+    url_template: https://{year}.iccbr.org/
+    year: 2026
+    topics:
+      - AI
+    notes: CORE C · CCF B. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-03-20T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iccbr.yml
+    publisher: Springer
+  - name: ICCV
+    full_name: IEEE International Conference on Computer Vision
+    tier: royal-flush
+    url: https://iccv.thecvf.com/Conferences/2025
+    url_template: https://iccv.thecvf.com/Conferences/{year}
+    year: 2025
+    topics:
+      - CV
+    notes: CORE A* · CCF A. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2025-03-04T09:59:59+00:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iccv.yml
+      - name: Paper submission
+        date: '2025-03-08T09:59:59+00:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iccv.yml
+    publisher: IEEE
+  - name: ICDAR
+    full_name: International Conference on Document Analysis and Recognition
+    tier: full-house
+    url: https://icdar2026.org/
+    url_template: https://icdar{year}.org/
+    year: 2026
+    topics:
+      - CV
+    notes: CORE A · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-02-13T23:59:59+00:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icdar.yml
+      - name: Paper submission
+        date: '2026-02-27T23:59:59+00:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icdar.yml
+    publisher: Springer
+  - name: ICLR
+    full_name: International Conference on Learning Representations
+    tier: royal-flush
+    url: https://iclr.cc/Conferences/2027
+    url_template: https://iclr.cc/Conferences/{year}
+    year: 2027
+    topics:
+      - ML
+    notes: CORE A* · CCF A. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-09-18T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iclr.yml
+      - name: Paper submission
+        date: '2026-09-25T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iclr.yml
+    publisher: ICLR
+  - name: ICML
+    full_name: International Conference on Machine Learning
+    tier: royal-flush
+    url: https://icml.cc/Conferences/2026
+    url_template: https://icml.cc/Conferences/{year}
+    year: 2026
+    topics:
+      - ML
+    notes: CORE A* · CCF A. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-01-24T11:59:59+00:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icml.yml
+      - name: Paper submission
+        date: '2026-01-29T11:59:59+00:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icml.yml
+    publisher: PMLR
+  - name: ICONIP
+    full_name: International Conference on Neural Information Processing
+    tier: full-house
+    url: https://www.iconip2026.org/
+    url_template: https://www.iconip{year}.org/
+    year: 2026
+    topics:
+      - ML
+    notes: CORE B · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-05-31T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iconip.yml
+    publisher: Springer
+  - name: ICPR
+    full_name: International Conference on Pattern Recognition
+    tier: full-house
+    url: https://icpr2026.org/
+    url_template: https://icpr{year}.org/
+    year: 2026
+    topics:
+      - CV
+    notes: CORE B · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2025-12-20T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icpr.yml
+    publisher: Springer
+  - name: ICRA
+    full_name: IEEE International Conference on Robotics and Automation
+    tier: royal-flush
+    url: https://2027.ieee-icra.org/
+    url_template: https://{year}.ieee-icra.org/
+    year: 2027
+    topics:
+      - RO
+    notes: CORE A* · CCF B. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-09-15T23:59:59-07:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/icra.yml
+    publisher: IEEE
+  - name: ICTAI
+    full_name: International Conference on Tools with Artificial Intellignce
+    tier: full-house
+    url: https://ictai.computer.org/2026/
+    url_template: https://ictai.computer.org/{year}/
+    year: 2026
+    topics:
+      - AI
+    notes: CORE B · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-06-30T23:59:00-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ictai.yml
+    publisher: IEEE
+  - name: IJCAI
+    full_name: International Joint Conference on Artificial Intelligence
+    tier: royal-flush
+    url: https://2026.ijcai.org/
+    url_template: https://{year}.ijcai.org/
+    year: 2026
+    topics:
+      - AI
+    notes: CORE A* · CCF B. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-01-12T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ijcai.yml
+      - name: Paper submission
+        date: '2026-01-19T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ijcai.yml
+    publisher: IJCAI
+  - name: IJCB
+    full_name: International Joint Conference on Biometrics
+    tier: full-house
+    url: https://ijcb2026.ieee-biometrics.org/
+    url_template: https://ijcb{year}.ieee-biometrics.org/
+    year: 2026
+    topics:
+      - CV
+    notes: CORE B · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-04-30T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ijcb.yml
+    publisher: IEEE
+  - name: IJCNLP
+    full_name: International Joint Conference on Natural Language Processing
+    tier: full-house
+    url: https://2026.aaclnet.org/
+    url_template: https://{year}.aaclnet.org/
+    year: 2026
+    topics:
+      - NLP
+    notes: CORE B · CCF N. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-05-25T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ijcnlp.yml
+    publisher: ACL
+  - name: IJCNN
+    full_name: International Joint Conference on Neural Networks
+    tier: full-house
+    url: https://ijcnn.org/2027
+    url_template: https://ijcnn.org/{year}
+    year: 2027
+    notes: CORE B · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2027-01-31T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ijcnn.yml
+    topics:
+      - ML
+    publisher: IEEE
+  - name: IROS
+    full_name: IEEE/RSJ International Conference on Intelligent Robots and Systems
+    tier: full-house
+    url: https://2026.ieee-iros.org/
+    url_template: https://{year}.ieee-iros.org/
+    year: 2026
+    topics:
+      - RO
+    notes: CORE A · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-03-02T23:59:59-08:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iros.yml
+    publisher: IEEE
+  - name: KR
+    full_name: International Conference on Principles of Knowledge Representation and Reasoning
+    tier: royal-flush
+    url: https://kr.org/KR2026/
+    url_template: https://kr.org/KR{year}/
+    year: 2026
+    topics:
+      - AI
+    notes: CORE A* · CCF B. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-02-08T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/kr.yml
+      - name: Paper submission
+        date: '2026-02-13T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/kr.yml
+    publisher: IJCAI
+  - name: KSEM
+    full_name: International Conference on Knowledge Science, Engineering and Management
+    tier: full-house
+    url: https://ksem2026.rosc.org.cn/
+    url_template: https://ksem{year}.rosc.org.cn/
+    year: 2026
+    notes: CORE C · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-01-15T23:59:59+00:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ksem.yml
+    topics:
+      - AI
+    publisher: Springer
+  - name: LOG
+    full_name: Learning on Graphs Conference
+    tier: full-house
+    url: https://logconference.org/
+    year: 2025
+    notes: CORE N · CCF N. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2025-08-22T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/log.yml
+      - name: Paper submission
+        date: '2025-08-29T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/log.yml
+    topics:
+      - ML
+    publisher: PMLR
+  - name: NAACL
+    full_name: The Annual Conference of the North American Chapter of the Association for Computational Linguistics
+    tier: full-house
+    url: https://2027.naacl.org/
+    url_template: https://{year}.naacl.org/
+    year: 2027
+    topics:
+      - NLP
+    notes: CORE A · CCF B. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-10-12T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/naacl.yml
+    publisher: ACL
+  - name: NeurIPS
+    full_name: Conference on Neural Information Processing Systems
+    tier: royal-flush
+    url: https://neurips.cc/Conferences/2026
+    url_template: https://neurips.cc/Conferences/{year}
+    year: 2026
+    topics:
+      - ML
+    notes: CORE A* · CCF A. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-05-05T11:59:00+00:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/nips.yml
+      - name: Paper submission
+        date: '2026-05-07T11:59:00+00:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/nips.yml
+    publisher: NeurIPS
+  - name: NLPCC
+    full_name: CCF International Conference on Natural Language Processing and Chinese Computing
+    tier: full-house
+    url: http://tcci.ccf.org.cn/conference/2026/
+    url_template: http://tcci.ccf.org.cn/conference/{year}/
+    year: 2026
+    notes: CORE N · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-06-20T23:59:59+08:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/nlpcc.yml
+    topics:
+      - NLP
+    publisher: Springer
+  - name: PPSN
+    full_name: International Conference on Parallel Problem Solving From Nature
+    tier: full-house
+    url: https://ppsn2026.disi.unitn.it/
+    url_template: https://ppsn{year}.disi.unitn.it/
+    year: 2026
+    topics:
+      - ML
+    notes: CORE A · CCF B. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-03-28T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ppsn.yml
+    publisher: Springer
+  - name: PRICAI
+    full_name: Pacific Rim International Conference on Artificial Intelligence
+    tier: full-house
+    url: https://2026.pricai.org/
+    url_template: https://{year}.pricai.org/
+    year: 2026
+    notes: CORE B · CCF C. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-06-27T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/pricai.yml
+    topics:
+      - AI
+    publisher: Springer
+  - name: ProbML
+    full_name: Symposium on Probabilistic Machine Learning
+    tier: full-house
+    url: https://probml.cc
+    year: 2026
+    notes: CORE N · CCF N. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-03-20T11:59:00-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/probml.yml
+    topics:
+      - ML
+    publisher: PMLR
+  - name: RSS
+    full_name: Robotics Science and Systems
+    tier: royal-flush
+    url: https://roboticsconference.org
+    year: 2026
+    topics:
+      - RO
+    notes: CORE A* · CCF N. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-01-23T23:59:00-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/rss.yml
+      - name: Paper submission
+        date: '2026-01-30T23:59:00-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/rss.yml
+    publisher: RSS
+  - name: UAI
+    full_name: Conference on Uncertainty in Artificial Intelligence
+    tier: full-house
+    url: https://www.auai.org/uai2026/
+    url_template: https://www.auai.org/uai{year}/
+    year: 2026
+    topics:
+      - ML
+    notes: CORE A · CCF B. Imported from ccf-deadlines.
+    deadlines:
+      - name: Paper submission
+        date: '2026-02-25T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/uai.yml
+    publisher: PMLR
+  - name: WACV
+    full_name: IEEE/CVF Winter Conference on Applications of Computer Vision
+    tier: full-house
+    url: https://wacv.thecvf.com/
+    year: 2027
+    topics:
+      - CV
+    notes: CORE A · CCF N. Imported from ccf-deadlines.
+    deadlines:
+      - name: Abstract
+        date: '2026-06-19T23:59:00-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/wacv.yml
+      - name: Paper submission
+        date: '2026-06-26T23:59:59-12:00'
+        confirmed: false
+        source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/wacv.yml
+    publisher: IEEE
