@@ -1,4 +1,4 @@
-name: White Rabbit — deploy to Pages
+name: White Rabbit - deploy to Pages
 
 # Split from the refresh workflow on purpose: the data rebuild must stay green
 # and visible even when publishing is blocked (a private repo on a plan without
