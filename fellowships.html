@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CFP Deadlines · White Rabbit</title>
-<meta name="description" content="White Rabbit - A self-updating tracker for conference paper deadlines. Countdowns to every open call, updated nightly.">
+<title>PhD Fellowships · White Rabbit</title>
+<meta name="description" content="PhD fellowship deadlines in computer science: NSF GRFP, Google, Microsoft, Meta, NVIDIA, DOE CSGF and more.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css?v=24d1ef71">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐇</text></svg>">
 </head>
-<body>
+<body data-audience="student">
 <div class="glow" aria-hidden="true"></div>
 
 <header class="topbar">
@@ -24,8 +24,8 @@
       </div>
     </div>
     <nav class="top-nav">
-      <a class="nav-link is-current" href="index.html" aria-current="page">CFP</a>
-      <a class="nav-link" href="fellowships.html">PhD Fellowships</a>
+      <a class="nav-link" href="index.html">CFP</a>
+      <a class="nav-link is-current" href="fellowships.html" aria-current="page">PhD Fellowships</a>
       <a class="nav-link" href="grants.html">Grants</a>
       <a class="icon-btn" href="https://github.com/Kritshekhar/WhiteRabbit" target="_blank" rel="noopener"
          aria-label="View this project on GitHub" title="View source on GitHub">
@@ -44,49 +44,46 @@
   <section class="stats" aria-label="Summary">
     <article class="tile tile-hero">
       <p class="tile-label" id="stat-next-label">Next up</p>
-      <p class="tile-value" id="stat-next-venue"> - </p>
-      <p class="tile-note" id="stat-next-detail"> - </p>
+      <p class="tile-value" id="stat-next-name">—</p>
+      <p class="tile-note" id="stat-next-detail">—</p>
     </article>
     <article class="tile">
-      <p class="tile-label">Due within 30 days</p>
-      <p class="tile-value" id="stat-soon"> - </p>
-      <p class="tile-note">across all stages</p>
+      <p class="tile-label">Fellowships tracked</p>
+      <p class="tile-value" id="stat-open">—</p>
+      <p class="tile-note">open to PhD students</p>
     </article>
     <article class="tile">
-      <p class="tile-label">Due within 90 days</p>
-      <p class="tile-value" id="stat-quarter"> - </p>
-      <p class="tile-note">plan the quarter</p>
+      <p class="tile-label">Closing within 60 days</p>
+      <p class="tile-value" id="stat-soon">—</p>
+      <p class="tile-note">across all funders</p>
     </article>
     <article class="tile">
-      <p class="tile-label">Venues tracked</p>
-      <p class="tile-value" id="stat-total"> - </p>
-      <p class="tile-note" id="stat-breakdown"> - </p>
+      <p class="tile-label">Dates confirmed</p>
+      <p class="tile-value" id="stat-total">—</p>
+      <p class="tile-note" id="stat-breakdown">—</p>
     </article>
   </section>
 
   <section class="controls" aria-label="Filters">
     <div class="search">
       <span class="search-icon" aria-hidden="true">⌕</span>
-      <input id="search" type="search" placeholder="Search venue, e.g. OSDI or storage" autocomplete="off" aria-label="Search venues">
+      <input id="search" type="search" placeholder="Search programme or funder, e.g. NSF or fellowship" autocomplete="off" aria-label="Search grants">
     </div>
-    <div class="chips" id="tier-filter" role="group" aria-label="Filter by tier">
-      <button class="chip is-active" data-tier="all" type="button">All</button>
-      <button class="chip" data-tier="rabbit-hole" type="button">Rabbit Hole</button>
-      <button class="chip" data-tier="royal-flush" type="button">Royal Flush</button>
-      <button class="chip" data-tier="full-house" type="button">Full House</button>
-      <button class="chip" data-tier="looking-glass" type="button">Looking Glass</button>
-      <a class="chip chip-link" href="journey.html" title="What these stages mean">What are these?</a>
+    <div class="chips" id="who-filter" role="group" aria-label="Filter by funder type">
+      <button class="chip is-active" data-kind="all" type="button">All</button>
+      <button class="chip" data-kind="industry" type="button">Industry</button>
+      <button class="chip" data-kind="government" type="button">Government</button>
     </div>
     <div class="controls-right">
       <label class="switch">
         <input type="checkbox" id="hide-passed" checked>
-        <span>Only upcoming</span>
+        <span>Hide closed</span>
       </label>
-      <details class="dropdown" id="topic-menu">
-        <summary id="topic-summary">Topics: all</summary>
+      <details class="dropdown" id="funder-menu">
+        <summary id="funder-summary">Funders: all</summary>
         <div class="dropdown-panel">
-          <button type="button" class="dropdown-clear" id="topic-clear">Clear all</button>
-          <div id="topic-list"></div>
+          <button type="button" class="dropdown-clear" id="funder-clear">Clear all</button>
+          <div id="funder-list"></div>
         </div>
       </details>
       <label class="select">
@@ -101,15 +98,16 @@
 
   <p class="result-count" id="result-count" aria-live="polite"></p>
   <section class="rows" id="grid"></section>
-  <p class="empty" id="empty" hidden>No venues match those filters.</p>
+  <p class="empty" id="empty" hidden>No programmes match those filters.</p>
 </main>
 
 <footer class="wrap site-foot">
   <p id="verified-note"></p>
-  <p>Dates marked <span class="badge badge-est">est.</span> are extrapolated from previous cycles - always confirm on the venue's CFP page. Run <code>python scripts/check_deadlines.py</code> to compare the config against what each site says.</p>
-  <p>All times are <strong>AoE</strong> (UTC−12) unless the venue says otherwise. Edit <code>conferences.yml</code> to add or correct a venue.</p>
+  <p>Federal programmes come from the <a href="https://www.grants.gov/">grants.gov</a> API; fellowships are maintained by hand
+     in <code>grants.yml</code>. Dates marked <span class="badge badge-est">est.</span> have not been checked against the
+     funder's own page. <strong>Always confirm on the programme page before you plan around a date.</strong></p>
 </footer>
 
-<script type="module" src="assets/app.js?v=0095b49a"></script>
+<script type="module" src="assets/grants.js?v=6ab5fa3f"></script>
 </body>
 </html>

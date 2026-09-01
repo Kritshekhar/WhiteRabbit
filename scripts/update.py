@@ -322,8 +322,10 @@ def roll_over_cycle(raw, venue, now, grace_days, allow_network) -> bool:
 # --------------------------------------------------------------------------
 # asset cache-busting
 # --------------------------------------------------------------------------
-PAGES = ("index.html", "journey.html")
-ASSETS = ("assets/style.css", "assets/app.js")
+PAGES = ("index.html", "journey.html", "fellowships.html", "grants.html", "venue.html")
+ASSETS = ("assets/style.css", "assets/app.js", "assets/grants.js", "assets/venue.js")
+MODULES = ("assets/lib/dates.js", "assets/lib/card.js", "assets/lib/ui.js",
+           "assets/lib/row.js", "assets/lib/calendar.js")
 
 
 def stamp_assets() -> bool:
@@ -339,6 +341,24 @@ def stamp_assets() -> bool:
         path = ROOT / asset
         if path.exists():
             stamps[asset] = hashlib.sha1(path.read_bytes()).hexdigest()[:8]
+
+    # A module's own imports are not in the HTML, so stamping only the entry
+    # point would leave browsers on a cached copy of a changed lib file.
+    for entry in ASSETS:
+        path = ROOT / entry
+        if not path.suffix == ".js" or not path.exists():
+            continue
+        text = original = path.read_text(encoding="utf-8")
+        for module in MODULES:
+            name = Path(module).name
+            digest = hashlib.sha1((ROOT / module).read_bytes()).hexdigest()[:8]
+            text = re.sub(rf"(\./lib/{re.escape(name)})(\?v=[0-9a-f]+)?", rf"\g<1>?v={digest}", text)
+        if text != original:
+            path.write_text(text, encoding="utf-8")
+            changed = True
+
+    stamps = {a: hashlib.sha1((ROOT / a).read_bytes()).hexdigest()[:8]
+              for a in ASSETS if (ROOT / a).exists()}
 
     for page in PAGES:
         path = ROOT / page

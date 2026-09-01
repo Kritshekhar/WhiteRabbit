@@ -1,0 +1,1020 @@
+# ---------------------------------------------------------------------------
+# Funding deadlines: grants, fellowships and research awards in computer
+# science. Companion to conferences.yml, same rules.
+#
+#   name         required
+#   funder       NSF, DARPA, Google, ... shown as a tag
+#   eligibility  who may apply. Drives the main filter on the page:
+#                  PhD student | Postdoc | Faculty / PI | Early-career faculty
+#   url          the programme page
+#   amount       free text, e.g. "$500k over 3 years"
+#   topics       subject tags
+#   deadlines    [{ name, date, confirmed, source }]
+#   notes        anything a reader needs before clicking
+#
+# The verified / estimated rule is the same as the conference list: a date is
+# `confirmed: true` only when a human read it on the funder's own page, and
+# then `source` must point there. Everything else wears an "est." badge.
+#
+# Federal programmes are imported by scripts/import_grants.py from the
+# grants.gov API. The fellowships below have no API anywhere and are
+# maintained by hand.
+# ---------------------------------------------------------------------------
+
+settings:
+  grace_days: 14
+
+grants:
+  # ------------------------- PhD student fellowships ------------------------
+  - name: NSF Graduate Research Fellowship (GRFP)
+    funder: NSF
+    eligibility: PhD student
+    url: https://www.nsfgrfp.org/
+    amount: $37k/yr stipend for 3 years, plus tuition
+    topics: [General]
+    notes: Applies to first- and second-year PhD students and seniors. The computer and information sciences deadline is usually the third week of October.
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+
+  - name: Google PhD Fellowship
+    funder: Google
+    eligibility: PhD student
+    url: https://research.google/programs-and-events/phd-fellowship/
+    topics: [AI/ML, Systems]
+    notes: Nominated by the university, not applied for directly. US/Canada round usually opens in spring.
+    deadlines:
+      - name: University nomination
+        date:
+        confirmed: false
+
+  - name: Microsoft Research PhD Fellowship
+    funder: Microsoft
+    eligibility: PhD student
+    url: https://www.microsoft.com/en-us/research/academic-program/phd-fellowship/
+    topics: [AI/ML, Systems]
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+
+  - name: Meta PhD Research Fellowship
+    funder: Meta
+    eligibility: PhD student
+    url: https://research.facebook.com/fellowship/
+    topics: [AI/ML, Systems, Networking]
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+
+  - name: NVIDIA Graduate Fellowship
+    funder: NVIDIA
+    eligibility: PhD student
+    url: https://www.nvidia.com/en-us/research/graduate-fellowships/
+    topics: [AI/ML, Systems]
+    notes: For students who have completed their first year of PhD study.
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+
+  - name: Apple Scholars in AI/ML
+    funder: Apple
+    eligibility: PhD student
+    url: https://machinelearning.apple.com/updates/apple-scholars-aiml-2025
+    topics: [AI/ML]
+    deadlines:
+      - name: University nomination
+        date:
+        confirmed: false
+
+    notes: Programme page moves between cycles; this is the research site root.
+  - name: Qualcomm Innovation Fellowship
+    funder: Qualcomm
+    eligibility: PhD student
+    url: https://www.qualcomm.com/research/university-relations/innovation-fellowship
+    topics: [Systems, AI/ML]
+    notes: Submitted as a two-student team with a faculty advisor.
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+
+  - name: IBM PhD Fellowship
+    funder: IBM
+    eligibility: PhD student
+    url: https://research.ibm.com/
+    topics: [AI/ML, Quantum, Systems]
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+
+    notes: Programme page moves between cycles; this is the research site root.
+  - name: Adobe Research Fellowship
+    funder: Adobe
+    eligibility: PhD student
+    url: https://research.adobe.com/
+    topics: [AI/ML, HCI]
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+
+    notes: Programme page moves between cycles; this is the research site root.
+  - name: Two Sigma PhD Fellowship
+    funder: Two Sigma
+    eligibility: PhD student
+    url: https://www.twosigma.com/phd-fellowship/
+    topics: [AI/ML, Data]
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+
+  - name: DOE Computational Science Graduate Fellowship (CSGF)
+    funder: DOE
+    eligibility: PhD student
+    url: https://www.krellinst.org/csgf/
+    amount: $45k/yr stipend for up to 4 years, plus tuition
+    topics: [Systems, Data]
+    notes: For students using computing in science and engineering. Usually closes in mid-January.
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+
+  - name: NDSEG Fellowship
+    funder: DoD
+    eligibility: PhD student
+    url: https://ndseg.org/
+    amount: Full tuition plus stipend for 3 years
+    topics: [General]
+    notes: US citizens and nationals only.
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+
+  - name: Hertz Fellowship
+    funder: Hertz Foundation
+    eligibility: PhD student
+    url: https://www.hertzfoundation.org/the-fellowship/
+    amount: Up to $250k over 5 years
+    topics: [General]
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+
+  # --------------------------- Faculty and PI ------------------------------
+  - name: Sloan Research Fellowship
+    funder: Sloan Foundation
+    eligibility: Early-career faculty
+    url: https://sloan.org/fellowships/
+    amount: $75k over 2 years
+    topics: [General]
+    notes: Nominated by a department head. Computer science is one of the eligible fields; usually closes mid-September.
+    deadlines:
+      - name: Nomination
+        date:
+        confirmed: false
+
+  - name: Google Research Scholar Program
+    funder: Google
+    eligibility: Early-career faculty
+    url: https://research.google/programs-and-events/research-scholar-program/
+    amount: Up to $60k
+    topics: [AI/ML, Systems]
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+
+  - name: Amazon Research Awards
+    funder: Amazon
+    eligibility: Faculty / PI
+    url: https://www.amazon.science/research-awards
+    amount: Up to $80k cash plus AWS credits
+    topics: [AI/ML, Systems]
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+
+  - name: Meta Research Awards
+    funder: Meta
+    eligibility: Faculty / PI
+    url: https://research.facebook.com/research-awards/
+    topics: [AI/ML, Systems, Networking]
+    notes: Several calls run each year on separate topics.
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+
+  - name: Microsoft Accelerating Foundation Models Research
+    funder: Microsoft
+    eligibility: Faculty / PI
+    url: https://www.microsoft.com/en-us/research/collaboration/accelerating-foundation-models-research/
+    amount: Azure compute credits
+    topics: [AI/ML]
+    deadlines:
+      - name: Application
+        date:
+        confirmed: false
+  - name: 'Established Program to Stimulate Competitive Research (EPSCoR): Workshop Opportunities'
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/352339
+    opportunity_number: 24-540
+    eligibility: Faculty / PI
+    topics:
+      - General
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: Foundational Research in Robotics
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/324369
+    opportunity_number: PD-20-144Y
+    eligibility: Faculty / PI
+    topics:
+      - Robotics
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    also_funded_by:
+      - NSF Engineering
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: Cyberinfrastructure for Public Access and Open Science
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/353475
+    opportunity_number: PD-24-7414
+    eligibility: Faculty / PI
+    topics:
+      - Security
+      - Infrastructure
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    also_funded_by:
+      - NSF Education
+      - NSF Engineering
+      - NSF MPS
+      - NSF SBE
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: Mathematical Foundations of Artificial Intelligence
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/353936
+    opportunity_number: 24-569
+    eligibility: Faculty / PI
+    topics:
+      - AI/ML
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-10-09T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24569
+        verified_on: '2026-08-28'
+    also_funded_by:
+      - NSF Engineering
+      - NSF MPS
+      - NSF SBE
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24569
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Historically Black Colleges and Universities - Excellence in Research
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/348599
+    opportunity_number: 23-598
+    eligibility: Faculty / PI
+    topics:
+      - General
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-10-20T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf23598
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf23598
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: GROWING CONVERGENCE RESEARCH
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/351889
+    opportunity_number: 24-527
+    eligibility: Faculty / PI
+    topics:
+      - General
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-02-08T23:59:00-05:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24527
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24527
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Pathways to Enable Secure Open-Source Ecosystems
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/361333
+    opportunity_number: 26-506
+    eligibility: Faculty / PI
+    topics:
+      - Security
+      - Systems
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-09-01T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26506
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26506
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: 'Computer and Information Science and Engineering (CISE): Future Computing Research'
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/360149
+    opportunity_number: 25-543
+    eligibility: Faculty / PI
+    topics:
+      - Data
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-09-10T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25543
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25543
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Security, Privacy, and Trust in Cyberspace
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/357554
+    opportunity_number: 25-515
+    eligibility: Faculty / PI
+    topics:
+      - Security
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-09-28T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25515
+        verified_on: '2026-08-28'
+    also_funded_by:
+      - NSF Education
+      - NSF MPS
+      - NSF SBE
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25515
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: U.S. National Science Foundation Research Traineeship (NRT) Program
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/356119
+    opportunity_number: 24-597
+    eligibility: Faculty / PI
+    topics:
+      - Education
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-09-08T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24597
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24597
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: NSF National Innovation Corps Teams (NSF National I-Corps (TM) Teams) program
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/360664
+    opportunity_number: 25-549
+    eligibility: Faculty / PI
+    topics:
+      - General
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: 'EPSCoR Research Infrastructure Improvement Program: Focused EPSCoR Collaborations Program (FEC)'
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/354269
+    opportunity_number: 24-573
+    eligibility: Faculty / PI
+    topics:
+      - Infrastructure
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-01-26T23:59:00-05:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24573
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24573
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Training-based Workforce Development for Advanced Cyberinfrastructure (CyberTraining)
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/344608
+    opportunity_number: 23-520
+    eligibility: Faculty / PI
+    topics:
+      - Security
+      - Infrastructure
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-01-21T23:59:00-05:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf23520
+        verified_on: '2026-08-28'
+    also_funded_by:
+      - NSF Education
+      - NSF Engineering
+      - NSF MPS
+      - NSF SBE
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf23520
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: NSF Dynamic Language Infrastructure - NEH Documenting Endangered Languages
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/342475
+    opportunity_number: 22-615
+    eligibility: Faculty / PI
+    topics:
+      - Infrastructure
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-09-15T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf22615
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf22615
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: 'Facilitating Research at Predominantly Undergraduate Institutions:'
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/358403
+    opportunity_number: 14-579
+    eligibility: Faculty / PI
+    topics:
+      - Education
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: Expeditions in Computing
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/324456
+    opportunity_number: 20-544
+    eligibility: Faculty / PI
+    topics:
+      - General
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-03-31T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf20544
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf20544
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Mid-scale Research Infrastructure-1
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/356129
+    opportunity_number: 24-598
+    eligibility: Faculty / PI
+    topics:
+      - Infrastructure
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-02-08T23:59:00-05:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24598
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24598
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Major Research Instrumentation Program
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/344610
+    opportunity_number: 23-519
+    eligibility: Faculty / PI
+    topics:
+      - Infrastructure
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-11-16T23:59:00-05:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf23519
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf23519
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Findable Accessible Interoperable Reusable Open Science
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/358036
+    opportunity_number: 25-533
+    eligibility: Faculty / PI
+    topics:
+      - General
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-04-14T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25533
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25533
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: NSF National Quantum Virtual Laboratory - Quantum Testbeds
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/355196
+    opportunity_number: 24-586
+    eligibility: Faculty / PI
+    topics:
+      - Quantum
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-04-06T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24586
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24586
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: 'EPSCoR Research Infrastructure Improvement (RII): EPSCoR Research Fellows'
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/351923
+    opportunity_number: 24-528
+    eligibility: Faculty / PI
+    topics:
+      - Infrastructure
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-04-13T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24528
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24528
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: National Science Foundation Translation to Practice
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/359966
+    opportunity_number: 25-540
+    eligibility: Faculty / PI
+    topics:
+      - General
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-11-17T23:59:00-05:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25540
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25540
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Cybersecurity Innovation for Cyberinfrastructure
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/358004
+    opportunity_number: 25-531
+    eligibility: Faculty / PI
+    topics:
+      - Security
+      - Infrastructure
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-01-20T23:59:00-05:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25531
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25531
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Faculty Early Career Development Program
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/339594
+    opportunity_number: 22-586
+    eligibility: Faculty / PI
+    topics:
+      - General
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-07-28T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf22586
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf22586
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Unlocking Dataset Value for AI-Enabled Scientific Discovery (AI Datasets)
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/363268
+    opportunity_number: 26-512
+    eligibility: Faculty / PI
+    topics:
+      - AI/ML
+      - Data
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-11-04T23:59:00-05:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26512
+        verified_on: '2026-08-28'
+    also_funded_by:
+      - NSF Engineering
+      - NSF MPS
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26512
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Research Experiences for Teachers (RET) in Engineering and Computer Science
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/350802
+    opportunity_number: 24-503
+    eligibility: Faculty / PI
+    topics:
+      - General
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-10-14T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24503
+        verified_on: '2026-08-28'
+    also_funded_by:
+      - NSF Engineering
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24503
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Integrated Data Systems &amp; Services (IDSS)
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/361915
+    opportunity_number: 26-509
+    eligibility: Faculty / PI
+    topics:
+      - Data
+      - Systems
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-07-27T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26509
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26509
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Expeditions in Computing (Expeditions)
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/363623
+    opportunity_number: 26-525
+    eligibility: Faculty / PI
+    topics:
+      - General
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-07-27T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26525
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26525
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: 'U.S. National Science Foundation State and Regional Artificial Intelligence Infrastructure Hubs:'
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/363481
+    opportunity_number: 26-513
+    eligibility: Faculty / PI
+    topics:
+      - AI/ML
+      - Infrastructure
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-11-04T23:59:00-05:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26513
+        verified_on: '2026-08-28'
+    also_funded_by:
+      - NSF Education
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26513
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Research Experiences for Undergraduates (REU)
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/348985
+    opportunity_number: 23-601
+    eligibility: Faculty / PI
+    topics:
+      - Education
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-08-18T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf23601
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf23601
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: NSF's Eddie Bernice Johnson Inclusion across the Nation of Communities of Learners of Underrepresented Discoverers in Engineering and Science (INCLUDES) Initiative
+    funder: NSF CISE
+    url: https://www.grants.gov/search-results-detail/359103
+    opportunity_number: 22-622
+    eligibility: Faculty / PI
+    topics:
+      - General
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: Computational and Data-Enabled Science and Engineering
+    funder: NSF Engineering
+    url: https://www.grants.gov/search-results-detail/356055
+    opportunity_number: PD-24-8084
+    eligibility: Faculty / PI
+    topics:
+      - Data
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    also_funded_by:
+      - NSF MPS
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: NSF-DFG Lead Agency Opportunity in Chemistry and Chemical Process and Transport Systems
+    funder: NSF Engineering
+    url: https://www.grants.gov/search-results-detail/359499
+    opportunity_number: 25-537
+    eligibility: Faculty / PI
+    topics:
+      - Systems
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    also_funded_by:
+      - NSF MPS
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: Energy, Power, Control, and Networks
+    funder: NSF Engineering
+    url: https://www.grants.gov/search-results-detail/348258
+    opportunity_number: PD-18-7607
+    eligibility: Faculty / PI
+    topics:
+      - Networking
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: Communications, Circuits, and Sensing-Systems
+    funder: NSF Engineering
+    url: https://www.grants.gov/search-results-detail/346204
+    opportunity_number: PD-18-7564
+    eligibility: Faculty / PI
+    topics:
+      - Networking
+      - Systems
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: Chemical Process Systems (CPS)
+    funder: NSF Engineering
+    url: https://www.grants.gov/search-results-detail/362061
+    opportunity_number: PD-26-367Y
+    eligibility: Faculty / PI
+    topics:
+      - Systems
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: Engineering Biological and Biomedical Systems (EBBS)
+    funder: NSF Engineering
+    url: https://www.grants.gov/search-results-detail/362062
+    opportunity_number: PD-26-369Y
+    eligibility: Faculty / PI
+    topics:
+      - Systems
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: 'Engineering (ENG): Chemical, Bioengineering, Energy, and Transport Systems (CBET)'
+    funder: NSF Engineering
+    url: https://www.grants.gov/search-results-detail/363616
+    opportunity_number: 26-518
+    eligibility: Faculty / PI
+    topics:
+      - Systems
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+        source: https://www.grants.gov/search-results-detail/363616
+    notes: grants.gov lists no fixed deadline for this programme; proposals are accepted on a rolling basis.
+  - name: 'Engineering (ENG): Electrical, Communications, and Computing Systems (ECCS)'
+    funder: NSF Engineering
+    url: https://www.grants.gov/search-results-detail/363613
+    opportunity_number: 26-514
+    eligibility: Faculty / PI
+    topics:
+      - Networking
+      - Systems
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+        source: https://www.grants.gov/search-results-detail/363613
+    notes: grants.gov lists no fixed deadline for this programme; proposals are accepted on a rolling basis.
+  - name: 'EMERGING FRONTIERS IN RESEARCH AND INNOVATION (EFRI-2026/27): Wave-Based Computing ( EFRI-WBC)'
+    funder: NSF Engineering
+    url: https://www.grants.gov/search-results-detail/363622
+    opportunity_number: 26-524
+    eligibility: Faculty / PI
+    topics:
+      - General
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-02-11T23:59:00-05:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26524
+        verified_on: '2026-08-28'
+    also_funded_by:
+      - NSF MPS
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26524
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Computational Mathematics
+    funder: NSF MPS
+    url: https://www.grants.gov/search-results-detail/278447
+    opportunity_number: PD-16-1271
+    eligibility: Faculty / PI
+    topics:
+      - General
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-12-01T23:59:00-05:00'
+        confirmed: true
+        source: http://www.nsf.gov/funding/pgm_summ.jsp?pims_id=5390
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/funding/pgm_summ.jsp?pims_id=5390
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: National Science Foundation Fostering Interdisciplinary Networks to Develop Emergent and Responsive Solutions Foundry
+    funder: NSF Education
+    url: https://www.grants.gov/search-results-detail/361604
+    opportunity_number: 26-507
+    eligibility: Faculty / PI
+    topics:
+      - Networking
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-11-18T23:59:00-05:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26507
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26507
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Artificial Intelligence and Cybersecurity Education Innovation and Scholarship for Service (CyberAI SFS)
+    funder: NSF Education
+    url: https://www.grants.gov/search-results-detail/361238
+    opportunity_number: 26-503
+    eligibility: Faculty / PI
+    topics:
+      - Security
+      - AI/ML
+      - Education
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2027-04-05T23:59:00-04:00'
+        confirmed: true
+        source: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26503
+        verified_on: '2026-08-28'
+    solicitation: http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26503
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Security and Preparedness
+    funder: NSF SBE
+    url: https://www.grants.gov/search-results-detail/320087
+    opportunity_number: PD-19-118Y
+    eligibility: Faculty / PI
+    topics:
+      - Security
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: The Research on Research Security Program
+    funder: NSF SBE
+    url: https://www.grants.gov/search-results-detail/358684
+    opportunity_number: PD-25-275Y
+    eligibility: Faculty / PI
+    topics:
+      - Security
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: 'Special Program Announcement for Office of Naval Research Research Opportunity: FY27 Communications and Networking Applied Research'
+    funder: ONR
+    url: https://www.grants.gov/search-results-detail/362836
+    opportunity_number: N0001426SBC11
+    eligibility: Faculty / PI
+    topics:
+      - Networking
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-11-16T23:59:00-05:00'
+        confirmed: true
+        source: https://www.onr.navy.mil/work-with-us/funding-opportunities
+        verified_on: '2026-08-28'
+    solicitation: https://www.onr.navy.mil/work-with-us/funding-opportunities
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: 'GlobalX Challenge 26.1: AI-Native Air Interface for Tactical Communication Networks'
+    funder: ONR
+    url: https://www.grants.gov/search-results-detail/362721
+    opportunity_number: N0001426SBC03
+    eligibility: Faculty / PI
+    topics:
+      - AI/ML
+      - Networking
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-08-31T23:59:00-04:00'
+        confirmed: true
+        source: https://www.grants.gov/search-results-detail/362721
+        verified_on: '2026-08-28'
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: Broad Agency Announcement for Fundamental AI Research
+    funder: Army Research Office
+    url: https://www.grants.gov/search-results-detail/358687
+    opportunity_number: W519TC-25-S-0001
+    eligibility: Faculty / PI
+    topics:
+      - AI/ML
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date:
+        confirmed: false
+    notes: No close date published; NSF often accepts these on a rolling window.
+  - name: FOUNDATIONS OF TRUSTED SYSTEMS
+    funder: AFOSR
+    url: https://www.grants.gov/search-results-detail/357464
+    opportunity_number: FA875025S7001
+    eligibility: Faculty / PI
+    topics:
+      - Systems
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2028-12-05T23:59:00-05:00'
+        confirmed: true
+        source: https://www.grants.gov/search-results-detail/357464
+        verified_on: '2026-08-28'
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
+  - name: 'The Genesis Mission: Transforming Science and Energy with AI'
+    funder: DOE Office of Science
+    url: https://www.grants.gov/search-results-detail/361526
+    opportunity_number: DE-FOA-0003612
+    eligibility: Faculty / PI
+    topics:
+      - AI/ML
+    source: https://www.grants.gov/
+    deadlines:
+      - name: Full proposal
+        date: '2026-12-17T23:59:00-05:00'
+        confirmed: true
+        source: https://www.grants.gov/search-results-detail/361526
+        verified_on: '2026-08-28'
+    notes: Federal proposals are due 5 p.m. submitter's local time on the closing date.
