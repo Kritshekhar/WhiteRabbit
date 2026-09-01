@@ -11,6 +11,7 @@ on:
     branches: [main]
     paths:
       - conferences.yml
+      - grants.yml
       - scripts/**
       - .github/workflows/update-deadlines.yml
   workflow_dispatch:
@@ -42,6 +43,12 @@ jobs:
       - name: Validate conferences.yml
         run: python scripts/validate_config.py
 
+      - name: Validate grants.yml
+        run: python scripts/validate_grants.py
+
+      - name: Rebuild funding data
+        run: python scripts/update_grants.py
+
       - name: Rebuild dashboard data
         run: |
           # The monthly cron forces a full sweep; the nightly one does not.
@@ -55,7 +62,8 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/deadlines.json conferences.yml index.html journey.html
+          git add data/deadlines.json data/grants.json conferences.yml grants.yml \
+            index.html journey.html fellowships.html grants.html venue.html
           if git diff --staged --quiet; then
             echo "nothing changed"
           else

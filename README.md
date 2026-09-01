@@ -23,6 +23,15 @@ A static site with no backend. GitHub Actions rebuilds the data every night and
 publishes to GitHub Pages; the countdowns themselves are computed in your browser,
 so the numbers are right even between builds.
 
+Four pages:
+
+| | |
+|---|---|
+| **CFP** | 99 conference and workshop deadlines |
+| **PhD Fellowships** | 13 fellowships open to PhD students |
+| **Grants** | 55 grant and research-award calls for faculty and PIs |
+| **The journey** | what the stage names mean |
+
 Three things make it different from a spreadsheet of dates:
 
 - **Every date says whether it was checked.** A ✓ **verified** badge links to the
@@ -32,6 +41,10 @@ Three things make it different from a spreadsheet of dates:
   year's site as soon as that site is genuinely live.
 - **It tracks a project's path, not a league table.** Workshop → full paper →
   journal, with grades only where they matter. See **[the journey](https://kritshekhar.github.io/WhiteRabbit/journey.html)**.
+- **Every deadline is one click from your calendar.** The Google Calendar link
+  is built as an absolute UTC instant rather than an all-day event, because an
+  all-day event lands on the viewer's local day and would silently move an AoE
+  deadline by one.
 
 ## Adding a venue
 
@@ -83,9 +96,18 @@ Open a PR and CI validates it. Full guide in **[CONTRIBUTING.md](CONTRIBUTING.md
 ## How it works
 
 ```
-conferences.yml  ──►  scripts/update.py  ──►  data/deadlines.json  ──►  index.html
-  you edit this        nightly + on push        build output            the dashboard
+conferences.yml  ──►  scripts/update.py         ──►  data/deadlines.json  ──►  index.html
+grants.yml       ──►  scripts/update_grants.py  ──►  data/grants.json     ──►  fellowships.html
+  you edit these       nightly + on push             build output              grants.html
 ```
+
+Two config files, one per kind of deadline. `grants.yml` holds both fellowships
+and grants in one list, split onto two pages by an `eligibility:` field, so a
+programme moves between audiences by editing one word.
+
+The list pages are rows; clicking one opens `venue.html?id=…`, a single detail
+page that reads the same JSON and renders whichever record the query names.
+That keeps every venue deep-linkable without generating a file per venue.
 
 `data/deadlines.json` holds ISO dates and **no day counts** - `assets/app.js`
 recomputes days, urgency colours and sort order from `Date.now()` on every page
@@ -117,6 +139,10 @@ and sets `confirmed: false` - a shifted date is an estimate until a human checks
 
 ```bash
 python scripts/validate_config.py            # structural checks; runs on every PR
+python scripts/validate_grants.py            # the same, for grants.yml
+python scripts/import_ccf.py AI --dry-run    # pull venues from ccf-deadlines
+python scripts/import_grants.py --dry-run    # pull CS grants from grants.gov
+python scripts/verify_grants.py --dry-run    # confirm federal dates at source
 python scripts/check_deadlines.py eurosys    # what the venue's own page says
 python scripts/check_deadlines.py --formats  # page limits and track names
 python scripts/update.py --scope all         # rebuild, re-probing everything
@@ -159,7 +185,7 @@ python3 -m http.server 8000                       # open localhost:8000
 | Workflow | Trigger | Does |
 |---|---|---|
 | `validate.yml` | every PR | validates `conferences.yml`, proves an offline build works |
-| `update-deadlines.yml` | nightly 07:00 UTC · monthly full sweep · push | rebuilds data, rolls venues over, commits back |
+| `update-deadlines.yml` | nightly 07:00 UTC · monthly full sweep · push | rebuilds both datasets, rolls venues over, commits back |
 | `deploy-pages.yml` | push to `main` | publishes to GitHub Pages |
 | `propose-deadlines.yml` | Mondays 08:00 UTC | sweeps CFP pages for `est.` venues, opens an issue - never edits the config |
 
@@ -172,6 +198,19 @@ Fork it, replace `conferences.yml` with the venues for your field, then enable
 **Settings → Pages → Source: GitHub Actions** and
 **Settings → Actions → Workflow permissions: Read and write** (the nightly job
 commits the rebuilt data back).
+
+## Where the data comes from
+
+| Source | What | How |
+|---|---|---|
+| hand-maintained | the original venue list, all 13 fellowships | `conferences.yml`, `grants.yml` |
+| [ccf-deadlines](https://github.com/ccfddl/ccf-deadlines) (MIT) | 54 AI/ML venues | `import_ccf.py`, every link probed first |
+| [grants.gov](https://www.grants.gov/) API | 50 federal CS grants | `import_grants.py`, filtered by CFDA code |
+| grants.gov `fetchOpportunity` | 33 verified grant deadlines | `verify_grants.py`, sourced to the agency solicitation |
+
+Two sources were assessed and rejected: `paperswithcode/ai-deadlines`, which
+has not been updated since September 2024 and has no future deadlines, and
+NSF's own funding pages, which return 202 to scripts and whose RSS feed is dead.
 
 ## A note on the dates
 

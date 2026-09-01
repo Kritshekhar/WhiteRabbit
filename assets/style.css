@@ -412,3 +412,105 @@ a.badge:hover { border-color: var(--good); }
   font-size: .63rem; padding: .1rem .34rem; letter-spacing: 0;
 }
 .meta-row { gap: .22rem; }
+/* Grant names are long sentences, not acronyms, so they get a smaller face. */
+.card-name-sm { font-size: .88rem; line-height: 1.25; }
+.face-front .card-name-sm { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+/* Grant names are sentences, so the funding hero tile drops the monospace
+   display face that suits a short venue acronym. */
+#stat-next-name {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.05rem; line-height: 1.35; letter-spacing: -.01em;
+}
+/* Every page links to every other, with the current one marked. */
+.top-nav { flex-wrap: wrap; justify-content: flex-end; gap: .4rem; }
+.nav-link.is-current {
+  color: var(--text-primary); border-color: var(--border-strong); background: var(--surface-2);
+}
+/* The journey sits under CFP, reached from the stages it explains. */
+.chip-link { text-decoration: none; color: var(--accent); border-style: dashed; }
+.chip-link:hover { border-color: var(--accent); }
+.crumb { color: var(--text-secondary); text-decoration: none; }
+.crumb:hover { color: var(--text-primary); text-decoration: underline; }
+
+/* --------------------------------- rows ---------------------------------- */
+/* Replaces the card grid. A column of rows is far quicker to scan for a date
+   than a grid of cards, and nothing needs hiding behind a hover. */
+.rows { display: flex; flex-direction: column; gap: .3rem; }
+.row {
+  position: relative; display: grid; align-items: center; gap: .75rem;
+  grid-template-columns: minmax(0, 2.4fr) minmax(0, 2fr) minmax(0, 2.2fr) 4.5rem auto;
+  padding: .6rem .9rem .6rem 1.05rem;
+  background: var(--surface-1); border: 1px solid var(--border); border-radius: .7rem;
+  color: inherit; text-decoration: none;
+  transition: border-color .14s, transform .14s, background .14s;
+}
+.row::before {
+  content: ""; position: absolute; inset: .35rem auto .35rem 0; width: 3px; border-radius: 3px;
+  background: var(--status, var(--border-strong));
+}
+.row:hover { border-color: var(--border-strong); background: var(--surface-2); transform: translateX(1px); }
+.row:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.row-main { display: flex; flex-direction: column; min-width: 0; }
+.row-title { font-weight: 700; font-size: .92rem; letter-spacing: -.01em; }
+.row-sub {
+  font-size: .74rem; color: var(--text-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.row-tags { display: flex; flex-wrap: wrap; gap: .25rem; min-width: 0; }
+.row-tags .tag, .row-tags .badge { font-size: .63rem; padding: .1rem .34rem; }
+.row-deadline { font-size: .8rem; color: var(--text-secondary); min-width: 0; }
+.row-when strong { color: var(--text-primary); font-weight: 600; }
+.row-muted { color: var(--text-muted); }
+.row-flat { font-size: .74rem; color: var(--text-muted); }
+.row-count { text-align: right; }
+.row-days {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 1.25rem; font-weight: 700; letter-spacing: -.02em;
+}
+.row-days small { font-size: .7rem; font-weight: 600; margin-left: .05rem; }
+.row-actions { display: flex; align-items: center; gap: .2rem; }
+.icon-action {
+  /* inline-grid, so it sits on the date line instead of wrapping below it */
+  display: inline-grid; vertical-align: middle; place-items: center;
+  width: 1.7rem; height: 1.7rem; border-radius: .45rem;
+  color: var(--text-muted); border: 1px solid transparent;
+}
+.icon-action:hover { color: var(--accent); border-color: var(--border); background: var(--surface-1); }
+
+@media (max-width: 860px) {
+  .row { grid-template-columns: minmax(0, 1fr) 4rem auto; row-gap: .35rem; }
+  .row-tags { grid-column: 1 / -1; order: 3; }
+  .row-deadline { grid-column: 1 / -1; order: 4; }
+}
+
+/* ------------------------------ detail page ------------------------------ */
+.detail { max-width: 780px; padding-block: 1.5rem 3rem; }
+.detail-head { display: flex; align-items: flex-start; gap: .8rem; flex-wrap: wrap; margin-bottom: .35rem; }
+.detail h2 { font-size: 1.6rem; letter-spacing: -.02em; margin: 0; }
+.detail-sub { color: var(--text-secondary); margin-bottom: 1rem; }
+.detail-hero {
+  display: flex; align-items: baseline; gap: .6rem; padding: 1rem 1.1rem; margin-bottom: 1.2rem;
+  background: var(--surface-1); border: 1px solid var(--border); border-radius: 1rem;
+  border-left: 3px solid var(--status, var(--border-strong));
+}
+.detail-hero .countdown-num { font-size: 2.4rem; }
+.detail-section { border-top: 1px solid var(--border); padding-top: 1rem; margin-top: 1.2rem; }
+.detail-section h3 {
+  font-size: .72rem; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: .55rem;
+}
+.detail-table { display: flex; flex-direction: column; gap: .35rem; font-size: .85rem; }
+.detail-table > div { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+.detail-table .past { text-decoration: line-through; opacity: .55; }
+.detail-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.2rem; }
+.btn {
+  display: inline-flex; align-items: center; gap: .4rem; text-decoration: none;
+  font-size: .85rem; font-weight: 600; padding: .5rem .85rem; border-radius: .7rem;
+  border: 1px solid var(--border); background: var(--surface-1); color: var(--text-primary);
+}
+.btn:hover { border-color: var(--border-strong); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.row-title { color: inherit; text-decoration: none; font-weight: 700; font-size: .92rem; }
+.row:hover .row-title { color: var(--accent); }
+.row { cursor: pointer; }

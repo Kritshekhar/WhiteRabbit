@@ -4,12 +4,14 @@ on:
   pull_request:
     paths:
       - conferences.yml
+      - grants.yml
       - scripts/**
       - .github/workflows/validate.yml
   push:
     branches: [main]
     paths:
       - conferences.yml
+      - grants.yml
       - scripts/**
 
 permissions:
@@ -29,5 +31,10 @@ jobs:
       - name: Validate conferences.yml
         run: python scripts/validate_config.py
 
+      - name: Validate grants.yml
+        run: python scripts/validate_grants.py
+
       - name: Build must succeed offline
-        run: python scripts/update.py --no-network
+        run: |
+          python scripts/update.py --no-network
+          python scripts/update_grants.py --no-network
