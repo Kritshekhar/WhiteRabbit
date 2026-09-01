@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>White Rabbit</title>
+<title>CFP Deadlines · White Rabbit</title>
 <meta name="description" content="White Rabbit - A self-updating tracker for conference paper deadlines. Countdowns to every open call, updated nightly.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=28d2d6d3">
+<link rel="stylesheet" href="assets/style.css?v=24d1ef71">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐇</text></svg>">
 </head>
 <body>
@@ -20,26 +20,21 @@
       <span class="brand-mark" aria-hidden="true">🐇</span>
       <div>
         <h1>White Rabbit</h1>
-        <p class="brand-sub" title="Day counts recompute in your browser every time the page loads. The timestamp is when the venue data was last rebuilt.">Conference CFP deadlines · countdown live · <span id="updated">loading…</span></p>
+        <p class="brand-sub">Last updated <span id="updated">…</span></p>
       </div>
     </div>
     <nav class="top-nav">
-      <a class="nav-link" href="journey.html">The journey</a>
+      <a class="nav-link is-current" href="index.html" aria-current="page">CFP</a>
+      <a class="nav-link" href="fellowships.html">PhD Fellowships</a>
+      <a class="nav-link" href="grants.html">Grants</a>
       <a class="icon-btn" href="https://github.com/Kritshekhar/WhiteRabbit" target="_blank" rel="noopener"
          aria-label="View this project on GitHub" title="View source on GitHub">
         <svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true" fill="currentColor">
-          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
-                   0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
-                   -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
-                   .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
-                   -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27
-                   .68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
-                   .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
-                   0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
         </svg>
       </a>
       <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle colour theme">
-      <span class="theme-icon" aria-hidden="true"></span>
+        <span class="theme-icon" aria-hidden="true"></span>
       </button>
     </nav>
   </div>
@@ -80,6 +75,7 @@
       <button class="chip" data-tier="royal-flush" type="button">Royal Flush</button>
       <button class="chip" data-tier="full-house" type="button">Full House</button>
       <button class="chip" data-tier="looking-glass" type="button">Looking Glass</button>
+      <a class="chip chip-link" href="journey.html" title="What these stages mean">What are these?</a>
     </div>
     <div class="controls-right">
       <label class="switch">
@@ -104,16 +100,16 @@
   </section>
 
   <p class="result-count" id="result-count" aria-live="polite"></p>
-  <section class="grid" id="grid"></section>
+  <section class="rows" id="grid"></section>
   <p class="empty" id="empty" hidden>No venues match those filters.</p>
 </main>
 
 <footer class="wrap site-foot">
   <p id="verified-note"></p>
   <p>Dates marked <span class="badge badge-est">est.</span> are extrapolated from previous cycles - always confirm on the venue's CFP page. Run <code>python scripts/check_deadlines.py</code> to compare the config against what each site says.</p>
-  <p>Most deadlines are <strong>AoE</strong> (UTC−12); where a venue closes in a different timezone, the zone is shown next to the date. Edit <code>conferences.yml</code> to add or correct a venue.</p>
+  <p>All times are <strong>AoE</strong> (UTC−12) unless the venue says otherwise. Edit <code>conferences.yml</code> to add or correct a venue.</p>
 </footer>
 
-<script src="assets/app.js?v=5dc3d297"></script>
+<script type="module" src="assets/app.js?v=0095b49a"></script>
 </body>
 </html>
