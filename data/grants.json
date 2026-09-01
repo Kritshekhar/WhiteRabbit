@@ -1,0 +1,1636 @@
+{
+  "generated_at": "2026-09-01T21:15:19+00:00",
+  "counts": {
+    "total": 68,
+    "PhD student": 13,
+    "Postdoc": 0,
+    "Early-career faculty": 2,
+    "Faculty / PI": 53
+  },
+  "grants": [
+    {
+      "id": "nsf-graduate-research-fellowship-grfp",
+      "name": "NSF Graduate Research Fellowship (GRFP)",
+      "funder": "NSF",
+      "also_funded_by": [],
+      "eligibility": "PhD student",
+      "url": "https://www.nsfgrfp.org/",
+      "amount": "$37k/yr stipend for 3 years, plus tuition",
+      "opportunity_number": "",
+      "topics": [
+        "General"
+      ],
+      "notes": "Applies to first- and second-year PhD students and seniors. The computer and information sciences deadline is usually the third week of October.",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "google-phd-fellowship",
+      "name": "Google PhD Fellowship",
+      "funder": "Google",
+      "also_funded_by": [],
+      "eligibility": "PhD student",
+      "url": "https://research.google/programs-and-events/phd-fellowship/",
+      "amount": "",
+      "opportunity_number": "",
+      "topics": [
+        "AI/ML",
+        "Systems"
+      ],
+      "notes": "Nominated by the university, not applied for directly. US/Canada round usually opens in spring.",
+      "deadlines": [
+        {
+          "name": "University nomination",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "microsoft-research-phd-fellowship",
+      "name": "Microsoft Research PhD Fellowship",
+      "funder": "Microsoft",
+      "also_funded_by": [],
+      "eligibility": "PhD student",
+      "url": "https://www.microsoft.com/en-us/research/academic-program/phd-fellowship/",
+      "amount": "",
+      "opportunity_number": "",
+      "topics": [
+        "AI/ML",
+        "Systems"
+      ],
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "meta-phd-research-fellowship",
+      "name": "Meta PhD Research Fellowship",
+      "funder": "Meta",
+      "also_funded_by": [],
+      "eligibility": "PhD student",
+      "url": "https://research.facebook.com/fellowship/",
+      "amount": "",
+      "opportunity_number": "",
+      "topics": [
+        "AI/ML",
+        "Systems",
+        "Networking"
+      ],
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "nvidia-graduate-fellowship",
+      "name": "NVIDIA Graduate Fellowship",
+      "funder": "NVIDIA",
+      "also_funded_by": [],
+      "eligibility": "PhD student",
+      "url": "https://www.nvidia.com/en-us/research/graduate-fellowships/",
+      "amount": "",
+      "opportunity_number": "",
+      "topics": [
+        "AI/ML",
+        "Systems"
+      ],
+      "notes": "For students who have completed their first year of PhD study.",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "apple-scholars-in-ai-ml",
+      "name": "Apple Scholars in AI/ML",
+      "funder": "Apple",
+      "also_funded_by": [],
+      "eligibility": "PhD student",
+      "url": "https://machinelearning.apple.com/updates/apple-scholars-aiml-2025",
+      "amount": "",
+      "opportunity_number": "",
+      "topics": [
+        "AI/ML"
+      ],
+      "notes": "Programme page moves between cycles; this is the research site root.",
+      "deadlines": [
+        {
+          "name": "University nomination",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "qualcomm-innovation-fellowship",
+      "name": "Qualcomm Innovation Fellowship",
+      "funder": "Qualcomm",
+      "also_funded_by": [],
+      "eligibility": "PhD student",
+      "url": "https://www.qualcomm.com/research/university-relations/innovation-fellowship",
+      "amount": "",
+      "opportunity_number": "",
+      "topics": [
+        "Systems",
+        "AI/ML"
+      ],
+      "notes": "Submitted as a two-student team with a faculty advisor.",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "ibm-phd-fellowship",
+      "name": "IBM PhD Fellowship",
+      "funder": "IBM",
+      "also_funded_by": [],
+      "eligibility": "PhD student",
+      "url": "https://research.ibm.com/",
+      "amount": "",
+      "opportunity_number": "",
+      "topics": [
+        "AI/ML",
+        "Quantum",
+        "Systems"
+      ],
+      "notes": "Programme page moves between cycles; this is the research site root.",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "adobe-research-fellowship",
+      "name": "Adobe Research Fellowship",
+      "funder": "Adobe",
+      "also_funded_by": [],
+      "eligibility": "PhD student",
+      "url": "https://research.adobe.com/",
+      "amount": "",
+      "opportunity_number": "",
+      "topics": [
+        "AI/ML",
+        "HCI"
+      ],
+      "notes": "Programme page moves between cycles; this is the research site root.",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "two-sigma-phd-fellowship",
+      "name": "Two Sigma PhD Fellowship",
+      "funder": "Two Sigma",
+      "also_funded_by": [],
+      "eligibility": "PhD student",
+      "url": "https://www.twosigma.com/phd-fellowship/",
+      "amount": "",
+      "opportunity_number": "",
+      "topics": [
+        "AI/ML",
+        "Data"
+      ],
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "doe-computational-science-graduate-fellowship-csgf",
+      "name": "DOE Computational Science Graduate Fellowship (CSGF)",
+      "funder": "DOE",
+      "also_funded_by": [],
+      "eligibility": "PhD student",
+      "url": "https://www.krellinst.org/csgf/",
+      "amount": "$45k/yr stipend for up to 4 years, plus tuition",
+      "opportunity_number": "",
+      "topics": [
+        "Systems",
+        "Data"
+      ],
+      "notes": "For students using computing in science and engineering. Usually closes in mid-January.",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "ndseg-fellowship",
+      "name": "NDSEG Fellowship",
+      "funder": "DoD",
+      "also_funded_by": [],
+      "eligibility": "PhD student",
+      "url": "https://ndseg.org/",
+      "amount": "Full tuition plus stipend for 3 years",
+      "opportunity_number": "",
+      "topics": [
+        "General"
+      ],
+      "notes": "US citizens and nationals only.",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "hertz-fellowship",
+      "name": "Hertz Fellowship",
+      "funder": "Hertz Foundation",
+      "also_funded_by": [],
+      "eligibility": "PhD student",
+      "url": "https://www.hertzfoundation.org/the-fellowship/",
+      "amount": "Up to $250k over 5 years",
+      "opportunity_number": "",
+      "topics": [
+        "General"
+      ],
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "sloan-research-fellowship",
+      "name": "Sloan Research Fellowship",
+      "funder": "Sloan Foundation",
+      "also_funded_by": [],
+      "eligibility": "Early-career faculty",
+      "url": "https://sloan.org/fellowships/",
+      "amount": "$75k over 2 years",
+      "opportunity_number": "",
+      "topics": [
+        "General"
+      ],
+      "notes": "Nominated by a department head. Computer science is one of the eligible fields; usually closes mid-September.",
+      "deadlines": [
+        {
+          "name": "Nomination",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "google-research-scholar-program",
+      "name": "Google Research Scholar Program",
+      "funder": "Google",
+      "also_funded_by": [],
+      "eligibility": "Early-career faculty",
+      "url": "https://research.google/programs-and-events/research-scholar-program/",
+      "amount": "Up to $60k",
+      "opportunity_number": "",
+      "topics": [
+        "AI/ML",
+        "Systems"
+      ],
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "amazon-research-awards",
+      "name": "Amazon Research Awards",
+      "funder": "Amazon",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.amazon.science/research-awards",
+      "amount": "Up to $80k cash plus AWS credits",
+      "opportunity_number": "",
+      "topics": [
+        "AI/ML",
+        "Systems"
+      ],
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "meta-research-awards",
+      "name": "Meta Research Awards",
+      "funder": "Meta",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://research.facebook.com/research-awards/",
+      "amount": "",
+      "opportunity_number": "",
+      "topics": [
+        "AI/ML",
+        "Systems",
+        "Networking"
+      ],
+      "notes": "Several calls run each year on separate topics.",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "microsoft-accelerating-foundation-models-research",
+      "name": "Microsoft Accelerating Foundation Models Research",
+      "funder": "Microsoft",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.microsoft.com/en-us/research/collaboration/accelerating-foundation-models-research/",
+      "amount": "Azure compute credits",
+      "opportunity_number": "",
+      "topics": [
+        "AI/ML"
+      ],
+      "notes": "",
+      "deadlines": [
+        {
+          "name": "Application",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "established-program-to-stimulate-competitive-research-epscor-workshop-opportunities",
+      "name": "Established Program to Stimulate Competitive Research (EPSCoR): Workshop Opportunities",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/352339",
+      "amount": "",
+      "opportunity_number": "24-540",
+      "topics": [
+        "General"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "foundational-research-in-robotics",
+      "name": "Foundational Research in Robotics",
+      "funder": "NSF CISE",
+      "also_funded_by": [
+        "NSF Engineering"
+      ],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/324369",
+      "amount": "",
+      "opportunity_number": "PD-20-144Y",
+      "topics": [
+        "Robotics"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "cyberinfrastructure-for-public-access-and-open-science",
+      "name": "Cyberinfrastructure for Public Access and Open Science",
+      "funder": "NSF CISE",
+      "also_funded_by": [
+        "NSF Education",
+        "NSF Engineering",
+        "NSF MPS",
+        "NSF SBE"
+      ],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/353475",
+      "amount": "",
+      "opportunity_number": "PD-24-7414",
+      "topics": [
+        "Security",
+        "Infrastructure"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "mathematical-foundations-of-artificial-intelligence",
+      "name": "Mathematical Foundations of Artificial Intelligence",
+      "funder": "NSF CISE",
+      "also_funded_by": [
+        "NSF Engineering",
+        "NSF MPS",
+        "NSF SBE"
+      ],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/353936",
+      "amount": "",
+      "opportunity_number": "24-569",
+      "topics": [
+        "AI/ML"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-10-09T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24569"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "historically-black-colleges-and-universities-excellence-in-research",
+      "name": "Historically Black Colleges and Universities - Excellence in Research",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/348599",
+      "amount": "",
+      "opportunity_number": "23-598",
+      "topics": [
+        "General"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-10-20T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf23598"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "growing-convergence-research",
+      "name": "GROWING CONVERGENCE RESEARCH",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/351889",
+      "amount": "",
+      "opportunity_number": "24-527",
+      "topics": [
+        "General"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-02-08T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24527"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "pathways-to-enable-secure-open-source-ecosystems",
+      "name": "Pathways to Enable Secure Open-Source Ecosystems",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361333",
+      "amount": "",
+      "opportunity_number": "26-506",
+      "topics": [
+        "Security",
+        "Systems"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-09-01T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26506"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "computer-and-information-science-and-engineering-cise-future-computing-research",
+      "name": "Computer and Information Science and Engineering (CISE): Future Computing Research",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/360149",
+      "amount": "",
+      "opportunity_number": "25-543",
+      "topics": [
+        "Data"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-09-10T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25543"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "security-privacy-and-trust-in-cyberspace",
+      "name": "Security, Privacy, and Trust in Cyberspace",
+      "funder": "NSF CISE",
+      "also_funded_by": [
+        "NSF Education",
+        "NSF MPS",
+        "NSF SBE"
+      ],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/357554",
+      "amount": "",
+      "opportunity_number": "25-515",
+      "topics": [
+        "Security"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-09-28T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25515"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "u-s-national-science-foundation-research-traineeship-nrt-program",
+      "name": "U.S. National Science Foundation Research Traineeship (NRT) Program",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/356119",
+      "amount": "",
+      "opportunity_number": "24-597",
+      "topics": [
+        "Education"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-09-08T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24597"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "nsf-national-innovation-corps-teams-nsf-national-i-corps-tm-teams-program",
+      "name": "NSF National Innovation Corps Teams (NSF National I-Corps (TM) Teams) program",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/360664",
+      "amount": "",
+      "opportunity_number": "25-549",
+      "topics": [
+        "General"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "epscor-research-infrastructure-improvement-program-focused-epscor-collaborations-program-fec",
+      "name": "EPSCoR Research Infrastructure Improvement Program: Focused EPSCoR Collaborations Program (FEC)",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/354269",
+      "amount": "",
+      "opportunity_number": "24-573",
+      "topics": [
+        "Infrastructure"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-01-26T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24573"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "training-based-workforce-development-for-advanced-cyberinfrastructure-cybertraining",
+      "name": "Training-based Workforce Development for Advanced Cyberinfrastructure (CyberTraining)",
+      "funder": "NSF CISE",
+      "also_funded_by": [
+        "NSF Education",
+        "NSF Engineering",
+        "NSF MPS",
+        "NSF SBE"
+      ],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/344608",
+      "amount": "",
+      "opportunity_number": "23-520",
+      "topics": [
+        "Security",
+        "Infrastructure"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-01-21T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf23520"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "nsf-dynamic-language-infrastructure-neh-documenting-endangered-languages",
+      "name": "NSF Dynamic Language Infrastructure - NEH Documenting Endangered Languages",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/342475",
+      "amount": "",
+      "opportunity_number": "22-615",
+      "topics": [
+        "Infrastructure"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-09-15T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf22615"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "facilitating-research-at-predominantly-undergraduate-institutions",
+      "name": "Facilitating Research at Predominantly Undergraduate Institutions:",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/358403",
+      "amount": "",
+      "opportunity_number": "14-579",
+      "topics": [
+        "Education"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "expeditions-in-computing",
+      "name": "Expeditions in Computing",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/324456",
+      "amount": "",
+      "opportunity_number": "20-544",
+      "topics": [
+        "General"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-03-31T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf20544"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "mid-scale-research-infrastructure-1",
+      "name": "Mid-scale Research Infrastructure-1",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/356129",
+      "amount": "",
+      "opportunity_number": "24-598",
+      "topics": [
+        "Infrastructure"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-02-08T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24598"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "major-research-instrumentation-program",
+      "name": "Major Research Instrumentation Program",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/344610",
+      "amount": "",
+      "opportunity_number": "23-519",
+      "topics": [
+        "Infrastructure"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-11-16T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf23519"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "findable-accessible-interoperable-reusable-open-science",
+      "name": "Findable Accessible Interoperable Reusable Open Science",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/358036",
+      "amount": "",
+      "opportunity_number": "25-533",
+      "topics": [
+        "General"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-04-14T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25533"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "nsf-national-quantum-virtual-laboratory-quantum-testbeds",
+      "name": "NSF National Quantum Virtual Laboratory - Quantum Testbeds",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/355196",
+      "amount": "",
+      "opportunity_number": "24-586",
+      "topics": [
+        "Quantum"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-04-06T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24586"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "epscor-research-infrastructure-improvement-rii-epscor-research-fellows",
+      "name": "EPSCoR Research Infrastructure Improvement (RII): EPSCoR Research Fellows",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/351923",
+      "amount": "",
+      "opportunity_number": "24-528",
+      "topics": [
+        "Infrastructure"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-04-13T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24528"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "national-science-foundation-translation-to-practice",
+      "name": "National Science Foundation Translation to Practice",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359966",
+      "amount": "",
+      "opportunity_number": "25-540",
+      "topics": [
+        "General"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-11-17T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25540"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "cybersecurity-innovation-for-cyberinfrastructure",
+      "name": "Cybersecurity Innovation for Cyberinfrastructure",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/358004",
+      "amount": "",
+      "opportunity_number": "25-531",
+      "topics": [
+        "Security",
+        "Infrastructure"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-01-20T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25531"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "faculty-early-career-development-program",
+      "name": "Faculty Early Career Development Program",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/339594",
+      "amount": "",
+      "opportunity_number": "22-586",
+      "topics": [
+        "General"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-07-28T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf22586"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "unlocking-dataset-value-for-ai-enabled-scientific-discovery-ai-datasets",
+      "name": "Unlocking Dataset Value for AI-Enabled Scientific Discovery (AI Datasets)",
+      "funder": "NSF CISE",
+      "also_funded_by": [
+        "NSF Engineering",
+        "NSF MPS"
+      ],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/363268",
+      "amount": "",
+      "opportunity_number": "26-512",
+      "topics": [
+        "AI/ML",
+        "Data"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-11-04T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26512"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "research-experiences-for-teachers-ret-in-engineering-and-computer-science",
+      "name": "Research Experiences for Teachers (RET) in Engineering and Computer Science",
+      "funder": "NSF CISE",
+      "also_funded_by": [
+        "NSF Engineering"
+      ],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/350802",
+      "amount": "",
+      "opportunity_number": "24-503",
+      "topics": [
+        "General"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-10-14T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24503"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "integrated-data-systems-amp-services-idss",
+      "name": "Integrated Data Systems &amp; Services (IDSS)",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361915",
+      "amount": "",
+      "opportunity_number": "26-509",
+      "topics": [
+        "Data",
+        "Systems"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-07-27T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26509"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "expeditions-in-computing-expeditions",
+      "name": "Expeditions in Computing (Expeditions)",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/363623",
+      "amount": "",
+      "opportunity_number": "26-525",
+      "topics": [
+        "General"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-07-27T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26525"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "u-s-national-science-foundation-state-and-regional-artificial-intelligence-infrastructure-hubs",
+      "name": "U.S. National Science Foundation State and Regional Artificial Intelligence Infrastructure Hubs:",
+      "funder": "NSF CISE",
+      "also_funded_by": [
+        "NSF Education"
+      ],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/363481",
+      "amount": "",
+      "opportunity_number": "26-513",
+      "topics": [
+        "AI/ML",
+        "Infrastructure"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-11-04T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26513"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "research-experiences-for-undergraduates-reu",
+      "name": "Research Experiences for Undergraduates (REU)",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/348985",
+      "amount": "",
+      "opportunity_number": "23-601",
+      "topics": [
+        "Education"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-08-18T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf23601"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "nsf-s-eddie-bernice-johnson-inclusion-across-the-nation-of-communities-of-learners-of-underrepresented-discoverers-in-engineering-and-science-includes-initiative",
+      "name": "NSF's Eddie Bernice Johnson Inclusion across the Nation of Communities of Learners of Underrepresented Discoverers in Engineering and Science (INCLUDES) Initiative",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359103",
+      "amount": "",
+      "opportunity_number": "22-622",
+      "topics": [
+        "General"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "computational-and-data-enabled-science-and-engineering",
+      "name": "Computational and Data-Enabled Science and Engineering",
+      "funder": "NSF Engineering",
+      "also_funded_by": [
+        "NSF MPS"
+      ],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/356055",
+      "amount": "",
+      "opportunity_number": "PD-24-8084",
+      "topics": [
+        "Data"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "nsf-dfg-lead-agency-opportunity-in-chemistry-and-chemical-process-and-transport-systems",
+      "name": "NSF-DFG Lead Agency Opportunity in Chemistry and Chemical Process and Transport Systems",
+      "funder": "NSF Engineering",
+      "also_funded_by": [
+        "NSF MPS"
+      ],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359499",
+      "amount": "",
+      "opportunity_number": "25-537",
+      "topics": [
+        "Systems"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "energy-power-control-and-networks",
+      "name": "Energy, Power, Control, and Networks",
+      "funder": "NSF Engineering",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/348258",
+      "amount": "",
+      "opportunity_number": "PD-18-7607",
+      "topics": [
+        "Networking"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "communications-circuits-and-sensing-systems",
+      "name": "Communications, Circuits, and Sensing-Systems",
+      "funder": "NSF Engineering",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/346204",
+      "amount": "",
+      "opportunity_number": "PD-18-7564",
+      "topics": [
+        "Networking",
+        "Systems"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "chemical-process-systems-cps",
+      "name": "Chemical Process Systems (CPS)",
+      "funder": "NSF Engineering",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/362061",
+      "amount": "",
+      "opportunity_number": "PD-26-367Y",
+      "topics": [
+        "Systems"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "engineering-biological-and-biomedical-systems-ebbs",
+      "name": "Engineering Biological and Biomedical Systems (EBBS)",
+      "funder": "NSF Engineering",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/362062",
+      "amount": "",
+      "opportunity_number": "PD-26-369Y",
+      "topics": [
+        "Systems"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "engineering-eng-chemical-bioengineering-energy-and-transport-systems-cbet",
+      "name": "Engineering (ENG): Chemical, Bioengineering, Energy, and Transport Systems (CBET)",
+      "funder": "NSF Engineering",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/363616",
+      "amount": "",
+      "opportunity_number": "26-518",
+      "topics": [
+        "Systems"
+      ],
+      "notes": "grants.gov lists no fixed deadline for this programme; proposals are accepted on a rolling basis.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": "https://www.grants.gov/search-results-detail/363616"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "engineering-eng-electrical-communications-and-computing-systems-eccs",
+      "name": "Engineering (ENG): Electrical, Communications, and Computing Systems (ECCS)",
+      "funder": "NSF Engineering",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/363613",
+      "amount": "",
+      "opportunity_number": "26-514",
+      "topics": [
+        "Networking",
+        "Systems"
+      ],
+      "notes": "grants.gov lists no fixed deadline for this programme; proposals are accepted on a rolling basis.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": "https://www.grants.gov/search-results-detail/363613"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "emerging-frontiers-in-research-and-innovation-efri-2026-27-wave-based-computing-efri-wbc",
+      "name": "EMERGING FRONTIERS IN RESEARCH AND INNOVATION (EFRI-2026/27): Wave-Based Computing ( EFRI-WBC)",
+      "funder": "NSF Engineering",
+      "also_funded_by": [
+        "NSF MPS"
+      ],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/363622",
+      "amount": "",
+      "opportunity_number": "26-524",
+      "topics": [
+        "General"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-02-11T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26524"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "computational-mathematics",
+      "name": "Computational Mathematics",
+      "funder": "NSF MPS",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/278447",
+      "amount": "",
+      "opportunity_number": "PD-16-1271",
+      "topics": [
+        "General"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-12-01T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/funding/pgm_summ.jsp?pims_id=5390"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "national-science-foundation-fostering-interdisciplinary-networks-to-develop-emergent-and-responsive-solutions-foundry",
+      "name": "National Science Foundation Fostering Interdisciplinary Networks to Develop Emergent and Responsive Solutions Foundry",
+      "funder": "NSF Education",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361604",
+      "amount": "",
+      "opportunity_number": "26-507",
+      "topics": [
+        "Networking"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-11-18T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26507"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "artificial-intelligence-and-cybersecurity-education-innovation-and-scholarship-for-service-cyberai-sfs",
+      "name": "Artificial Intelligence and Cybersecurity Education Innovation and Scholarship for Service (CyberAI SFS)",
+      "funder": "NSF Education",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361238",
+      "amount": "",
+      "opportunity_number": "26-503",
+      "topics": [
+        "Security",
+        "AI/ML",
+        "Education"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-04-05T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26503"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "security-and-preparedness",
+      "name": "Security and Preparedness",
+      "funder": "NSF SBE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/320087",
+      "amount": "",
+      "opportunity_number": "PD-19-118Y",
+      "topics": [
+        "Security"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "the-research-on-research-security-program",
+      "name": "The Research on Research Security Program",
+      "funder": "NSF SBE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/358684",
+      "amount": "",
+      "opportunity_number": "PD-25-275Y",
+      "topics": [
+        "Security"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "special-program-announcement-for-office-of-naval-research-research-opportunity-fy27-communications-and-networking-applied-research",
+      "name": "Special Program Announcement for Office of Naval Research Research Opportunity: FY27 Communications and Networking Applied Research",
+      "funder": "ONR",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/362836",
+      "amount": "",
+      "opportunity_number": "N0001426SBC11",
+      "topics": [
+        "Networking"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-11-16T23:59:00-05:00",
+          "confirmed": true,
+          "source": "https://www.onr.navy.mil/work-with-us/funding-opportunities"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "globalx-challenge-26-1-ai-native-air-interface-for-tactical-communication-networks",
+      "name": "GlobalX Challenge 26.1: AI-Native Air Interface for Tactical Communication Networks",
+      "funder": "ONR",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/362721",
+      "amount": "",
+      "opportunity_number": "N0001426SBC03",
+      "topics": [
+        "AI/ML",
+        "Networking"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-08-31T23:59:00-04:00",
+          "confirmed": true,
+          "source": "https://www.grants.gov/search-results-detail/362721"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "broad-agency-announcement-for-fundamental-ai-research",
+      "name": "Broad Agency Announcement for Fundamental AI Research",
+      "funder": "Army Research Office",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/358687",
+      "amount": "",
+      "opportunity_number": "W519TC-25-S-0001",
+      "topics": [
+        "AI/ML"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "foundations-of-trusted-systems",
+      "name": "FOUNDATIONS OF TRUSTED SYSTEMS",
+      "funder": "AFOSR",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/357464",
+      "amount": "",
+      "opportunity_number": "FA875025S7001",
+      "topics": [
+        "Systems"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2028-12-05T23:59:00-05:00",
+          "confirmed": true,
+          "source": "https://www.grants.gov/search-results-detail/357464"
+        }
+      ],
+      "link_status": "ok"
+    },
+    {
+      "id": "the-genesis-mission-transforming-science-and-energy-with-ai",
+      "name": "The Genesis Mission: Transforming Science and Energy with AI",
+      "funder": "DOE Office of Science",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361526",
+      "amount": "",
+      "opportunity_number": "DE-FOA-0003612",
+      "topics": [
+        "AI/ML"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-12-17T23:59:00-05:00",
+          "confirmed": true,
+          "source": "https://www.grants.gov/search-results-detail/361526"
+        }
+      ],
+      "link_status": "ok"
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grants · White Rabbit</title>
+<meta name="description" content="Computer science grant deadlines for faculty: NSF CISE, DARPA, ONR, AFOSR and industry research awards.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=24d1ef71">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐇</text></svg>">
+</head>
+<body data-audience="faculty">
+<div class="glow" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">🐇</span>
+      <div>
+        <h1>White Rabbit</h1>
+        <p class="brand-sub">Last updated <span id="updated">…</span></p>
+      </div>
+    </div>
+    <nav class="top-nav">
+      <a class="nav-link" href="index.html">CFP</a>
+      <a class="nav-link" href="fellowships.html">PhD Fellowships</a>
+      <a class="nav-link is-current" href="grants.html" aria-current="page">Grants</a>
+      <a class="icon-btn" href="https://github.com/Kritshekhar/WhiteRabbit" target="_blank" rel="noopener"
+         aria-label="View this project on GitHub" title="View source on GitHub">
+        <svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+      </a>
+      <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle colour theme">
+        <span class="theme-icon" aria-hidden="true"></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="stats" aria-label="Summary">
+    <article class="tile tile-hero">
+      <p class="tile-label" id="stat-next-label">Next up</p>
+      <p class="tile-value" id="stat-next-name">—</p>
+      <p class="tile-note" id="stat-next-detail">—</p>
+    </article>
+    <article class="tile">
+      <p class="tile-label">Open calls</p>
+      <p class="tile-value" id="stat-open">—</p>
+      <p class="tile-note">accepting proposals</p>
+    </article>
+    <article class="tile">
+      <p class="tile-label">Closing within 60 days</p>
+      <p class="tile-value" id="stat-soon">—</p>
+      <p class="tile-note">across all funders</p>
+    </article>
+    <article class="tile">
+      <p class="tile-label">Programmes tracked</p>
+      <p class="tile-value" id="stat-total">—</p>
+      <p class="tile-note" id="stat-breakdown">—</p>
+    </article>
+  </section>
+
+  <section class="controls" aria-label="Filters">
+    <div class="search">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input id="search" type="search" placeholder="Search programme or funder, e.g. NSF or fellowship" autocomplete="off" aria-label="Search grants">
+    </div>
+    <div class="chips" id="who-filter" role="group" aria-label="Filter by career stage">
+      <button class="chip is-active" data-who="all" type="button">All</button>
+      <button class="chip" data-who="Faculty / PI" type="button">Faculty / PI</button>
+      <button class="chip" data-who="Early-career faculty" type="button">Early-career</button>
+    </div>
+    <div class="controls-right">
+      <label class="switch">
+        <input type="checkbox" id="hide-passed" checked>
+        <span>Hide closed</span>
+      </label>
+      <label class="switch">
+        <input type="checkbox" id="dated-only">
+        <span>Dated only</span>
+      </label>
+      <details class="dropdown" id="funder-menu">
+        <summary id="funder-summary">Funders: all</summary>
+        <div class="dropdown-panel">
+          <button type="button" class="dropdown-clear" id="funder-clear">Clear all</button>
+          <div id="funder-list"></div>
+        </div>
+      </details>
+      <label class="select">
+        <span class="sr-only">Sort by</span>
+        <select id="sort">
+          <option value="deadline">Sort: soonest first</option>
+          <option value="name">Sort: name</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <p class="result-count" id="result-count" aria-live="polite"></p>
+  <section class="rows" id="grid"></section>
+  <p class="empty" id="empty" hidden>No programmes match those filters.</p>
+</main>
+
+<footer class="wrap site-foot">
+  <p id="verified-note"></p>
+  <p><strong>Federal proposals are due 5 p.m. submitter's local time</strong> on the closing date. Federal programmes come from the <a href="https://www.grants.gov/">grants.gov</a> API; fellowships are maintained by hand
+     in <code>grants.yml</code>. Dates marked <span class="badge badge-est">est.</span> have not been checked against the
+     funder's own page. <strong>Always confirm on the programme page before you plan around a date.</strong></p>
+</footer>
+
+<script type="module" src="assets/grants.js?v=6ab5fa3f"></script>
+</body>
+</html>
