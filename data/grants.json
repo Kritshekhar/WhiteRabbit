@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T12:03:14+00:00",
+  "generated_at": "2026-09-03T12:02:32+00:00",
   "counts": {
     "total": 68,
     "PhD student": 13,
@@ -29,7 +29,7 @@
           "source": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "google-phd-fellowship",

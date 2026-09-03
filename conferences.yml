@@ -1208,19 +1208,19 @@ venues:
   - name: CVPR
     full_name: IEEE/CVF Conference on Computer Vision and Pattern Recognition
     tier: royal-flush
-    url: https://cvpr.thecvf.com/Conferences/2026
+    url: https://cvpr.thecvf.com/Conferences/2027
     url_template: https://cvpr.thecvf.com/Conferences/{year}
-    year: 2026
+    year: 2027
     topics:
       - CV
     notes: CORE A* · CCF A. Imported from ccf-deadlines.
     deadlines:
       - name: Abstract
-        date: '2025-11-06T23:59:00-12:00'
+        date: '2026-11-06T23:59:00-12:00'
         confirmed: false
         source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/cvpr.yml
       - name: Paper submission
-        date: '2025-11-13T23:59:00-12:00'
+        date: '2026-11-13T23:59:00-12:00'
         confirmed: false
         source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/cvpr.yml
     publisher: IEEE
