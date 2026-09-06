@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T11:13:40+00:00",
+  "generated_at": "2026-09-06T11:36:26+00:00",
   "counts": {
     "total": 68,
     "PhD student": 13,
@@ -293,7 +293,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "hertz-fellowship",
