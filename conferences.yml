@@ -1628,15 +1628,15 @@ venues:
   - name: IROS
     full_name: IEEE/RSJ International Conference on Intelligent Robots and Systems
     tier: full-house
-    url: https://2026.ieee-iros.org/
+    url: https://2027.ieee-iros.org/
     url_template: https://{year}.ieee-iros.org/
-    year: 2026
+    year: 2027
     topics:
       - RO
     notes: CORE A · CCF C. Imported from ccf-deadlines.
     deadlines:
       - name: Paper submission
-        date: '2026-03-02T23:59:59-08:00'
+        date: '2027-03-02T23:59:59-08:00'
         confirmed: false
         source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/iros.yml
     publisher: IEEE
