@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T11:52:44+00:00",
+  "generated_at": "2026-09-20T12:11:36+00:00",
   "counts": {
     "total": 68,
     "PhD student": 13,
@@ -659,7 +659,7 @@
           "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf25515"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "u-s-national-science-foundation-research-traineeship-nrt-program",
@@ -780,7 +780,7 @@
           "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf22615"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "facilitating-research-at-predominantly-undergraduate-institutions",
