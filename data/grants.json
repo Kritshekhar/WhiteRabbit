@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T13:52:05+00:00",
+  "generated_at": "2026-09-22T12:31:14+00:00",
   "counts": {
     "total": 68,
     "PhD student": 13,
@@ -339,7 +339,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "google-research-scholar-program",
