@@ -1564,19 +1564,19 @@ venues:
   - name: IJCAI
     full_name: International Joint Conference on Artificial Intelligence
     tier: royal-flush
-    url: https://2026.ijcai.org/
+    url: https://2027.ijcai.org/
     url_template: https://{year}.ijcai.org/
-    year: 2026
+    year: 2027
     topics:
       - AI
     notes: CORE A* · CCF B. Imported from ccf-deadlines.
     deadlines:
       - name: Abstract
-        date: '2026-01-12T23:59:59-12:00'
+        date: '2027-01-12T23:59:59-12:00'
         confirmed: false
         source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ijcai.yml
       - name: Paper submission
-        date: '2026-01-19T23:59:59-12:00'
+        date: '2027-01-19T23:59:59-12:00'
         confirmed: false
         source: https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/ijcai.yml
     publisher: IJCAI
