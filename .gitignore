@@ -4,3 +4,4 @@ __pycache__/
 .DS_Store
 db/whiterabbit.sqlite
 db/*.tmp
+cache/

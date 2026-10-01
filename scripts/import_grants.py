@@ -22,6 +22,7 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import datetime
+import html
 import json
 import re
 import sys
@@ -149,8 +150,14 @@ def fetch() -> list[dict]:
     return list(out.values())
 
 
+def clean_title(title) -> str:
+    """grants.gov titles carry HTML entities (&ndash;, &amp;), which would end
+    up in the name and in the page URL."""
+    return re.sub(r"\s+", " ", html.unescape(title or "").strip())
+
+
 def to_grant(opp: dict) -> dict:
-    title = re.sub(r"\s+", " ", (opp.get("title") or "").strip())
+    title = clean_title(opp.get("title"))
     number = opp.get("number") or ""
     # CISE first when a call is cross-listed, since that is the CS home.
     funders = sorted(opp["_funders"], key=lambda f: (f != "NSF CISE", f))
@@ -206,7 +213,7 @@ def main() -> int:
     known = {r["id"] for r in conn.execute("SELECT id FROM grants")}
     additions, ids = [], set()
     for o in fresh:
-        gid = db.slugify(re.sub(r"\s+", " ", (o.get("title") or "").strip()))
+        gid = db.slugify(clean_title(o.get("title")))
         if gid not in known and gid not in ids:
             ids.add(gid)
             additions.append(to_grant(o))

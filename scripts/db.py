@@ -52,6 +52,7 @@ TABLES = {
     "proceedings": "venue_id, year",
     "proceedings_topics": "venue_id, year, term",
     "proceedings_keywords": "venue_id, year, term",
+    "keyword_trends": "year, term",
     "candidates": "id",
     "crawl_log": "url",
 }

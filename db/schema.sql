@@ -154,6 +154,19 @@ CREATE TABLE proceedings_keywords (
   PRIMARY KEY (venue_id, year, term)
 );
 
+-- Phrases rising across all tracked venues: the share of titles using a phrase
+-- in `year` against its share over the three years before. Computed from full
+-- title counts, since the per-venue keyword lists above are only a top 30.
+CREATE TABLE keyword_trends (
+  year       INTEGER NOT NULL,
+  term       TEXT NOT NULL,
+  count      INTEGER NOT NULL,              -- titles using it in `year`
+  prev_count REAL NOT NULL,                 -- yearly average over the 3 years before
+  venues     INTEGER NOT NULL,              -- how many venues used it in `year`
+  lift       REAL NOT NULL,                 -- share now / share before
+  PRIMARY KEY (year, term)
+);
+
 -- ---------------------------------------------------------------------------
 -- verification queue and crawl history
 -- ---------------------------------------------------------------------------

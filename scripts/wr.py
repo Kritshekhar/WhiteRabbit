@@ -23,7 +23,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -32,6 +32,17 @@ import update  # noqa: E402
 
 LIST_FIELDS = {"formats", "tracks", "topics", "also_funded_by"}
 INT_FIELDS = {"year", "month", "cycle_years", "rolling", "ccs_auto"}
+
+
+def parse_date(text: str):
+    """A date for a deadline. A bare date means AoE end of day; a time without
+    an offset is refused, because that ambiguity shifts a deadline by a day."""
+    dt = update.parse_date(text)
+    if dt is None:
+        sys.exit(f"not saved: {text!r} is not an ISO 8601 date")
+    if "T" in text and datetime.fromisoformat(text.replace("Z", "+00:00")).tzinfo is None:
+        sys.exit(f"not saved: {text!r} has a time but no offset - add -12:00 for AoE")
+    return dt
 
 
 def find(conn, ident: str) -> tuple[str, dict]:
@@ -88,7 +99,7 @@ def cmd_add_venue(conn, args) -> None:
 
 def cmd_add_deadline(conn, args) -> None:
     kind, row = find(conn, args.id)
-    dt = update.parse_date(args.date) if args.date else None
+    dt = parse_date(args.date) if args.date else None
     position = len(current_deadlines(conn, kind, row))
     if kind == "venue":
         conn.execute("INSERT INTO deadlines (venue_id, cycle_year, position, name, track, date) "
@@ -111,7 +122,7 @@ def cmd_verify(conn, args) -> None:
         sys.exit("--date needs exactly one deadline; pick it with --deadline")
     table = "deadlines" if kind == "venue" else "grant_deadlines"
     for d in deadlines:
-        dt = update.parse_date(args.date) if args.date else None
+        dt = parse_date(args.date) if args.date else None
         conn.execute(f"UPDATE {table} SET status = 'verified', source = ?, verified_on = ?, "
                      f"date = coalesce(?, date) WHERE id = ?",
                      (args.source, date.today().isoformat(), dt.isoformat() if dt else None, d["id"]))
