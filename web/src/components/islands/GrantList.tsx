@@ -9,6 +9,9 @@ import { Badge } from '../ui/badge';
 import { Row } from '../Row';
 import { Chips, MultiSelect, SearchBox, Tile, Toggle } from '../Filters';
 import { useNow, useQueryParam } from '../useNow';
+import { grantKey, useWatchlist } from '@/lib/watchlist';
+import { buildCalendar, downloadIcs, grantIcsEvents } from '@/lib/ics';
+import { Star } from 'lucide-react';
 
 /* One island, two pages: grants (faculty) and fellowships (students). */
 export default function GrantList({ grants, audience, builtAt }: { grants: Grant[]; audience: Audience; builtAt: string }) {
@@ -21,6 +24,8 @@ export default function GrantList({ grants, audience, builtAt }: { grants: Grant
   const [ccs, setCcs] = useState<Set<string>>(new Set());
   const [onlyOpen, setOnlyOpen] = useState(true);
   const [datedOnly, setDatedOnly] = useState(false);
+  const watched = useWatchlist();
+  const [starredOnly, setStarredOnly] = useState(false);
 
   const all = useMemo(() => {
     const wanted = AUDIENCE_ELIGIBILITY[audience];
@@ -42,6 +47,7 @@ export default function GrantList({ grants, audience, builtAt }: { grants: Grant
     const q = query.trim().toLowerCase();
     return all
       .filter((g) => {
+        if (starredOnly && !watched.includes(grantKey(g.id))) return false;
         if (who !== 'all' && g.eligibility !== who) return false;
         if (kind !== 'all') {
           const isGov = GOVERNMENT.test(g.funder);
@@ -56,7 +62,8 @@ export default function GrantList({ grants, audience, builtAt }: { grants: Grant
         return `${g.name} ${g.funder} ${g.notes} ${g.topics.join(' ')} ${g.eligibility}`.toLowerCase().includes(q);
       })
       .sort((a, b) => (a.days ?? Infinity) - (b.days ?? Infinity) || a.name.localeCompare(b.name));
-  }, [all, query, who, kind, funders, ccs, onlyOpen, datedOnly]);
+  }, [all, query, who, kind, funders, ccs, onlyOpen, datedOnly, starredOnly, watched]);
+  const starred = all.filter((g) => watched.includes(grantKey(g.id)));
 
   const open = all.filter((g) => g.status === 'open').sort((a, b) => (a.days ?? 0) - (b.days ?? 0));
   const undated = all.filter((g) => g.status === 'tba').length;
@@ -106,6 +113,7 @@ export default function GrantList({ grants, audience, builtAt }: { grants: Grant
             placeholder={student ? 'Search fellowship or funder, e.g. Google' : 'Search programme or funder, e.g. NSF or CAREER'}
           />
           <div className="flex flex-wrap items-center gap-2">
+            <Toggle checked={starredOnly} onChange={setStarredOnly} label={`Starred only${starred.length ? ` (${starred.length})` : ''}`} />
             <Toggle checked={onlyOpen} onChange={setOnlyOpen} label="Hide closed" />
             <Toggle checked={datedOnly} onChange={setDatedOnly} label="Dated only" />
             <MultiSelect label="Funders" counts={funderCounts} chosen={funders} onChange={setFunders} />
@@ -154,10 +162,28 @@ export default function GrantList({ grants, audience, builtAt }: { grants: Grant
             statusText={g.status === 'closed' ? 'Closed, awaiting the next call' : 'Deadline not announced'}
             url={g.url}
             calendar={g.next ? grantEvent(g, g.next, true) : null}
+            watchKey={grantKey(g.id)}
           />
         ))}
       </section>
-      {list.length === 0 && <p className="card p-8 text-center text-muted">No programmes match those filters.</p>}
+      {starredOnly && starred.length > 0 && (
+        <button
+          type="button"
+          className="inline-flex h-8 cursor-pointer items-center gap-1.5 self-start rounded-full border border-border bg-surface-1 px-3 text-[0.8rem] font-semibold text-fg-2 hover:border-border-strong hover:text-fg"
+          onClick={() => downloadIcs(`my-${student ? 'fellowships' : 'grants'}.ics`,
+            buildCalendar(`White Rabbit: my ${student ? 'fellowships' : 'grants'}`, 'Deadlines you starred on White Rabbit.',
+              starred.flatMap((g) => grantIcsEvents(g))))}
+        >
+          Download my starred deadlines (.ics)
+        </button>
+      )}
+      {list.length === 0 && (
+        <p className="card p-8 text-center text-muted">
+          {starredOnly && !starred.length
+            ? <>Nothing starred yet. Use the <Star className="inline size-4 align-[-2px]" aria-label="star" /> on any row to add it to My venues.</>
+            : 'No programmes match those filters.'}
+        </p>
+      )}
       <p className="text-sm text-muted">
         {open.length
           ? `${verifiedOpen} of ${open.length} open deadlines have been checked against the funder's own record.`

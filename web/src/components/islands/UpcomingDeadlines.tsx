@@ -12,6 +12,8 @@ export interface UpcomingEntry {
   deadlines: Deadline[];
   /* official page, for calendar events */
   url?: string;
+  /* My venues key: "venue:<id>" or "grant:<id>" */
+  key?: string;
 }
 
 /* How full the urgency bar is: a deadline 60 days out is an empty bar, one

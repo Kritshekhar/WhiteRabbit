@@ -5,6 +5,7 @@ import { GRANT_BANDS, VENUE_BANDS } from '@/lib/tiers';
 import type { UpcomingEntry } from '../islands/UpcomingDeadlines';
 import { Provenance } from '../Provenance';
 import { ArrowIcon, CalendarIcon } from '../Icons';
+import { useWatchlist } from '@/lib/watchlist';
 
 /* The hero's signature element: the very next deadline, counting down to the
    second. The first render uses the build time so server HTML and hydration
@@ -44,15 +45,19 @@ export default function NextCountdown({ entries, builtAt }: { entries: UpcomingE
   const now = useTick(builtAt);
   /* re-rank only when a deadline actually passes, not on every tick */
   const minute = Math.floor(now / 60000);
-  const queue = useMemo(
-    () =>
-      entries
+  /* starred venues first: once someone follows venues, the hero counts down
+     to their next deadline rather than the world's */
+  const watched = useWatchlist();
+  const { queue, mine } = useMemo(() => {
+    const rank = (list: UpcomingEntry[]) =>
+      list
         .map((e) => decorate(e, minute * 60000, e.kind === 'conference' ? VENUE_BANDS : GRANT_BANDS))
         .filter((e) => e.next && e.next.ts)
         .sort((a, b) => (a.next!.ts as number) - (b.next!.ts as number))
-        .slice(0, 3),
-    [entries, minute],
-  );
+        .slice(0, 3);
+    const starred = rank(entries.filter((e) => e.key && watched.includes(e.key)));
+    return starred.length ? { queue: starred, mine: true } : { queue: rank(entries), mine: false };
+  }, [entries, minute, watched]);
 
   const head = queue[0];
   if (!head) {
@@ -77,7 +82,7 @@ export default function NextCountdown({ entries, builtAt }: { entries: UpcomingE
       <div aria-hidden className="wr-hero-card-sheen" />
       <div className="relative flex items-center justify-between gap-3">
         <span className="inline-flex items-center gap-2 text-[0.7rem] font-semibold tracking-[0.14em] text-muted uppercase">
-          <span className="wr-live-dot" aria-hidden /> Next deadline
+          <span className="wr-live-dot" aria-hidden /> {mine ? 'Your next deadline' : 'Next deadline'}
         </span>
         <span className="rounded-full border border-border px-2 py-0.5 text-[0.68rem] font-semibold text-fg-2 uppercase">{head.kind}</span>
       </div>
