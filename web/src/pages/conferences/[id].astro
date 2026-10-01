@@ -8,6 +8,7 @@ import { venueDigest } from '@/lib/insights';
 import { RANK_SLOT, TIERS } from '@/lib/tiers';
 import type { Venue } from '@/lib/types';
 import { href } from '@/lib/utils';
+import { venueLd } from '@/lib/seo';
 
 export function getStaticPaths() {
   return getVenues().map((venue) => ({ params: { id: venue.id }, props: { venue } }));
@@ -19,7 +20,7 @@ const LINK = { ok: 'responded when last checked', dead: 'returned 404/410 when l
 const checked = venue.link_checked_on ? new Date(venue.link_checked_on).toISOString().slice(0, 10) : '';
 ---
 
-<Layout title={venue.name} section="conferences" description={`${venue.name}${venue.full_name ? `: ${venue.full_name}` : ''}. Deadlines, countdown and a summary of past proceedings.`}>
+<Layout title={venue.name} section="conferences" image={`og/venue/${venue.id}.png`} jsonLd={venueLd(venue)} description={`${venue.name}${venue.full_name ? `: ${venue.full_name}` : ''}. Deadlines, countdown and a summary of past proceedings.`}>
   <nav aria-label="Breadcrumb" class="mb-4 text-sm text-muted">
     <a class="hover:text-fg" href={href('conferences/')}>Conferences</a> <span aria-hidden="true">/</span> <span class="text-fg-2">{venue.name}</span>
   </nav>
