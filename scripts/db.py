@@ -53,6 +53,11 @@ TABLES = {
     "proceedings_topics": "venue_id, year, term",
     "proceedings_keywords": "venue_id, year, term",
     "keyword_trends": "year, term",
+    "tracked_terms": "term",
+    "term_venue_year": "term, venue_id, year",
+    "venue_similarity": "venue_id, other_id",
+    "proceedings_authors": "venue_id, year",
+    "top_authors": "scope, rank",
     "candidates": "id",
     "crawl_log": "url",
 }

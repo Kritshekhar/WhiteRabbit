@@ -60,6 +60,16 @@ TOPICS = {
     "GECCO": ["ML"], "PPSN": ["ML"], "CEC": ["ML"],
 }
 
+# ccf's other categories map to one subject tag each.
+CATEGORY_TOPICS = {
+    "AI": ["AI"], "CG": ["Graphics"], "CT": ["Theory"], "DB": ["Data"],
+    "DS": ["Systems"], "HI": ["HCI"], "MX": ["Interdisciplinary"],
+    "NW": ["Networking"], "SC": ["Security"], "SE": ["Software Engineering"],
+}
+
+# ccf titles that are a venue we already track under another name.
+ALIASES = {"sigops-atc": "atc"}
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import db  # noqa: E402
 import update  # noqa: E402
@@ -183,7 +193,8 @@ def to_venue(v: dict) -> dict:
         venue["url_template"] = template
     if v["year"]:
         venue["year"] = v["year"]
-    if topics := TOPICS.get(str(v["title"])):
+    topics = TOPICS.get(str(v["title"])) or CATEGORY_TOPICS.get(v["file"].split("/", 1)[0])
+    if topics:
         venue["topics"] = topics
     venue["notes"] = f"CORE {v['core'] or 'unranked'} · CCF {v['ccf'] or 'unranked'}. Imported from ccf-deadlines."
     venue["deadlines"] = deadlines
@@ -196,6 +207,9 @@ def main() -> int:
                     help="ccf-deadlines categories, e.g. AI DB NW SC SE")
     ap.add_argument("--write", action="store_true", help="add the venues to the database")
     ap.add_argument("--dry-run", action="store_true", help="report only (default)")
+    ap.add_argument("--allow-unknown", action="store_true",
+                    help="also add venues whose link check was inconclusive (bot-blocked or slow), "
+                         "but never ones that answered 404")
     args = ap.parse_args()
 
     conn = db.connect()
@@ -206,7 +220,8 @@ def main() -> int:
         print(f"fetching {cat} ...", file=sys.stderr)
         candidates += fetch_category(cat)
 
-    fresh = [v for v in candidates if slugify(v["title"]) not in existing]
+    fresh = [v for v in candidates
+             if slugify(v["title"]) not in existing and ALIASES.get(slugify(v["title"])) not in existing]
     dupes = len(candidates) - len(fresh)
 
     print(f"probing {len(fresh)} links ...", file=sys.stderr)
@@ -215,7 +230,8 @@ def main() -> int:
 
     keep, dropped = [], []
     for v, status in zip(fresh, statuses):
-        (keep if status == "ok" else dropped).append((v, status))
+        ok = status == "ok" or (args.allow_unknown and status == "unknown")
+        (keep if ok else dropped).append((v, status))
 
     for v, status in dropped:
         print(f"  skipped {v['title']}: link {status} ({v['link']})")

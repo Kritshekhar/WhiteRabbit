@@ -71,6 +71,42 @@ KNOWN_KEYS = {
     "acm-tocs": "journals/tocs",
     "hot-chips": "conf/hotchips",
     "ieee-cec": "conf/cec",
+    "ipdps": "conf/ipps",
+    "ase": "conf/kbse",
+    "msst": "conf/mss",
+    "imc": "conf/imc",
+    "rss": "conf/rss",
+    "ijcb": "conf/icb",
+    "sigkdd": "conf/kdd",            # not journals/sigkdd, the Explorations newsletter
+    "acm-mm": "conf/mm",
+    "ieee-vr": "conf/vr",
+    "ieee-acm-cgo": "conf/cgo",
+    "socg": "conf/compgeom",
+    "icsme": "conf/icsm",
+    "icpc": "conf/iwpc",
+    "mobilehci": "conf/mhci",
+    "ecml-pkdd": "conf/pkdd",
+    "icme": "conf/icmcs",
+    "icmr": "conf/mir",
+    "3dv": "conf/3dim",
+    "ccc": "conf/coco",
+    "csfw": "conf/csfw",
+    "fc": "conf/fc",
+    "pkc": "conf/pkc",
+    "hscc": "conf/hybrid",
+    "lctes": "conf/lctrts",
+    "cf": "conf/cf",
+    "ats": "conf/ats",
+    "sca": "conf/sca",
+    "glsvlsi": "conf/glvlsi",
+    "ieee-cog": "conf/cig",
+    "collaboratecom": "conf/colcom",
+    "apweb-waim": "conf/apweb",
+    "sigspatial": "conf/gis",
+    "isc": "conf/isw",
+    "cgi": "conf/cgi",
+    "smi": "conf/smi",
+    "inscrypt": "conf/cisc",
 }
 
 # Titles that are front matter, not papers.
@@ -84,7 +120,7 @@ a an the and or of for in on to with without via from by at as is are be using u
 towards toward into over under about through based new novel approach approaches method
 methods paper study analysis case its their our we can do does not than vs versus beyond
 efficient effective improving improved improve learning large scale fast via more less
-when what how why which where all any one two three high low system systems
+when what how why which where all any one two three high low system systems big
 model models data framework frameworks problem problems result results task tasks
 application applications performance design general generalized simple better
 report proceedings workshop session special issue track tutorial panel poster
@@ -141,7 +177,7 @@ def parse(streams: set[str]) -> int:
         CREATE TABLE volumes (key TEXT PRIMARY KEY, stream TEXT, year INTEGER, toc TEXT,
                               title TEXT, ee TEXT);
         CREATE TABLE papers (key TEXT PRIMARY KEY, stream TEXT, year INTEGER, toc TEXT,
-                             title TEXT, doi TEXT, booktitle TEXT);
+                             title TEXT, doi TEXT, booktitle TEXT, authors TEXT);
         CREATE TABLE streams (stream TEXT PRIMARY KEY, booktitle TEXT, papers INTEGER);
         CREATE TABLE wanted (stream TEXT PRIMARY KEY);
     """)
@@ -154,8 +190,8 @@ def parse(streams: set[str]) -> int:
 
     def start(name, attrs):
         if name in RECORDS or name == VOLUME:
-            state["rec"] = {"key": attrs.get("key", ""), "ee": []}
-        elif state["rec"] is not None and name in ("title", "year", "booktitle", "journal", "url", "ee"):
+            state["rec"] = {"key": attrs.get("key", ""), "ee": [], "author": []}
+        elif state["rec"] is not None and name in ("title", "year", "booktitle", "journal", "url", "ee", "author"):
             state["field"], state["text"] = name, []
 
     def chars(data):
@@ -168,8 +204,8 @@ def parse(streams: set[str]) -> int:
             return
         if name == state["field"]:
             text = "".join(state["text"]).strip()
-            if name == "ee":
-                rec["ee"].append(text)
+            if name in ("ee", "author"):
+                rec[name].append(text)
             else:
                 rec[name] = text
             state["field"] = None
@@ -202,9 +238,10 @@ def parse(streams: set[str]) -> int:
             doi = next((e.split("doi.org/", 1)[1] for e in rec["ee"] if "doi.org/" in e), "")
             toc = rec.get("url", "").split("#", 1)[0]
             year = int(rec["year"]) if rec.get("year", "").isdigit() else None
-            batch.append((rec["key"], stream, year, toc, rec.get("title", ""), doi.lower(), label))
+            batch.append((rec["key"], stream, year, toc, rec.get("title", ""), doi.lower(), label,
+                          "\n".join(rec["author"])))
             if len(batch) >= 5000:
-                out.executemany("INSERT OR REPLACE INTO papers VALUES (?, ?, ?, ?, ?, ?, ?)", batch)
+                out.executemany("INSERT OR REPLACE INTO papers VALUES (?, ?, ?, ?, ?, ?, ?, ?)", batch)
                 batch.clear()
 
     parser = xml.parsers.expat.ParserCreate()
@@ -228,7 +265,7 @@ def parse(streams: set[str]) -> int:
             parser.Parse(chunk, False)
         parser.Parse(b"", True)
     if batch:
-        out.executemany("INSERT OR REPLACE INTO papers VALUES (?, ?, ?, ?, ?, ?, ?)", batch)
+        out.executemany("INSERT OR REPLACE INTO papers VALUES (?, ?, ?, ?, ?, ?, ?, ?)", batch)
     out.executemany("INSERT OR REPLACE INTO volumes VALUES (?, ?, ?, ?, ?, ?)", volumes)
     out.executemany("INSERT INTO streams VALUES (?, ?, ?)",
                     [(s, labels[s].most_common(1)[0][0] if labels[s] else "", n) for s, n in census.items()])
@@ -251,6 +288,7 @@ def papers_current(streams: set[str]) -> bool:
         con = sqlite3.connect(PAPERS)
         had = {r[0] for r in con.execute("SELECT stream FROM wanted")}
         con.execute("SELECT 1 FROM volumes LIMIT 1")   # parsed before volumes existed?
+        con.execute("SELECT authors FROM papers LIMIT 1")  # ...or before authors?
         con.close()
     except sqlite3.Error:
         return False
@@ -283,6 +321,8 @@ def map_venues(conn) -> None:
             continue
         if exact:
             conn.execute("UPDATE venues SET dblp_key = ? WHERE id = ?", (guess, v["id"]))
+            conn.execute("DELETE FROM candidates WHERE entity = 'venue' AND entity_id = ? AND field = 'dblp_key'",
+                         (v["id"],))
             applied += 1
         else:
             db.propose(conn, "venue", v["id"], "dblp_key", guess, f"https://dblp.org/db/{guess}/")
@@ -340,16 +380,19 @@ def aggregate(conn) -> None:
     doc_freq: Counter = Counter()
     total_docs = 0
     per_venue_year: dict[tuple, list[str]] = {}
+    authors_of: dict[tuple, list[list[str]]] = {}
     counted = frozen = 0
     by_toc = {toc: (title, ee) for toc, title, ee in papers.execute("SELECT toc, title, ee FROM volumes")}
 
     for v in venues:
         stream = v["dblp_key"]
-        rows = papers.execute("SELECT year, toc, title FROM papers WHERE stream = ? AND year IS NOT NULL",
+        rows = papers.execute("SELECT year, toc, title, authors FROM papers WHERE stream = ? AND year IS NOT NULL",
                               (stream,)).fetchall()
-        tocs = main_tocs([(y, t) for y, t, _ in rows], stream)
+        tocs = main_tocs([(y, t) for y, t, _, _ in rows], stream)
         for year, keep in tocs.items():
-            titles = [t for y, toc, t in rows if y == year and toc in keep and not NOT_A_PAPER.match(t)]
+            kept = [(t, a) for y, toc, t, a in rows if y == year and toc in keep and not NOT_A_PAPER.match(t)]
+            titles = [t for t, _ in kept]
+            authors_of[(v["id"], year)] = [a.split("\n") if a else [] for _, a in kept]
             if not titles:
                 continue
             per_venue_year[(v["id"], year)] = titles
@@ -419,6 +462,7 @@ def aggregate(conn) -> None:
     papers.close()
 
     trends = keyword_trends(conn, per_venue_year)
+    insights(conn, per_venue_year, authors_of)
     print(f"proceedings: {counted} venue-years written, {frozen} verified and left alone; "
           f"{len(rows):,} keywords, {trends} trend rows")
 
@@ -466,6 +510,197 @@ def keyword_trends(conn, per_venue_year: dict) -> int:
     conn.executemany("INSERT INTO keyword_trends (year, term, count, prev_count, venues, lift) "
                      "VALUES (?, ?, ?, ?, ?, ?)", rows)
     return len(rows)
+
+
+# --------------------------------------------------------------------------
+# 5. insights: rise and fall, spread, similar venues, authors
+# --------------------------------------------------------------------------
+SINCE = 2000              # term_venue_year starts here
+RISING_PER_YEAR = 6       # top rising phrases kept from each recent year
+FADING = 40               # phrases that peaked and faded
+SIMILAR = 5               # matches kept per venue
+TOP_AUTHORS = 10
+# Ideas always tracked, so the spread view covers systems, security and
+# databases too, not only whatever topped the ML-heavy trend lists.
+NOTABLE = [
+    "llm", "llms", "large language models", "transformer", "diffusion", "federated learning",
+    "reinforcement learning", "graph neural networks", "deep learning", "adversarial",
+    "differential privacy", "fairness", "explainable", "quantum", "blockchain", "serverless",
+    "rdma", "persistent memory", "kubernetes", "edge computing", "cloud computing", "mapreduce",
+    "gpu", "fpga", "smart contracts", "fuzzing", "side-channel", "zero-knowledge",
+    "neural radiance", "gaussian splatting", "autonomous driving", "big data", "crowdsourcing",
+]
+NEWCOMER_WARMUP = 3       # a venue's first years have no history to be new to
+
+
+def insights(conn, per_venue_year: dict, authors_of: dict) -> None:
+    last = date.today().year - 1
+    grams_of: dict[tuple, list[set]] = {
+        key: [ngrams(t) for t in titles] for key, titles in per_venue_year.items() if key[1] >= SINCE}
+
+    # field-wide phrase shares per year
+    uses: dict[int, Counter] = defaultdict(Counter)
+    totals: Counter = Counter()
+    for (venue_id, year), sets in grams_of.items():
+        totals[year] += len(sets)
+        for g in sets:
+            uses[year].update(g)
+
+    # --- which phrases to track
+    years = [y for y in range(2005, last + 1) if totals[y]]
+
+    def share(term, y):
+        return uses[y][term] / totals[y] if totals[y] else 0.0
+
+    def plural_twin(term, picked):
+        return any(term == p + "s" or p == term + "s" for p in picked)
+
+    rising: list[str] = []
+    for (term,) in conn.execute(
+            "SELECT term FROM (SELECT term, year, row_number() OVER (PARTITION BY year ORDER BY count * ln(lift) DESC) AS r "
+            "FROM keyword_trends) WHERE r <= ? GROUP BY term ORDER BY min(year)", (RISING_PER_YEAR,)):
+        # a single word in more than 2% of all titles is vocabulary, not an idea
+        common = " " not in term and term not in NOTABLE and max(share(term, y) for y in years) > 0.02
+        if not common and not plural_twin(term, rising):
+            rising.append(term)
+
+    # Fading: a hype cycle, not a common word in slow decline. The phrase must
+    # have at least tripled its share in the six years before its peak, peaked
+    # at least four years ago, and be under 40% of that peak now.
+    fading = []
+    candidates = Counter()
+    for y in years:
+        candidates.update({t: n for t, n in uses[y].items() if n >= 40})
+    for term in candidates:
+        if term in rising:
+            continue
+        series = [(share(term, y), y) for y in years]
+        peak_share, peak_year = max(series)
+        if " " not in term and peak_share > 0.02:
+            continue
+        before = share(term, peak_year - 6) if peak_year - 6 >= SINCE else 0.0
+        now = share(term, last)
+        if (2008 <= peak_year <= last - 4 and uses[peak_year][term] >= 40
+                and peak_share >= 3 * max(before, 1e-9) and now <= 0.4 * peak_share):
+            fading.append((uses[peak_year][term] * math.log(peak_share / max(now, 1e-4)), term, peak_year, peak_share, now))
+    # a word that is only ever half of a fading phrase ("particle" in "particle
+    # swarm") is left to the phrase
+    phrases = {t: n for _, t, py, _, _ in fading if " " in t for n in [uses[py][t]]}
+    fading = [f for f in fading if " " in f[1] or not any(
+        f[1] in p.split() and n >= 0.6 * uses[f[2]][f[1]] for p, n in phrases.items())]
+    fading.sort(reverse=True)
+    picked_fading: list[tuple] = []
+    for item in fading:
+        if any(item[1] in p[1] or p[1] in item[1] for p in picked_fading) or plural_twin(item[1], [p[1] for p in picked_fading]):
+            continue
+        picked_fading.append(item)
+        if len(picked_fading) == FADING:
+            break
+
+    conn.execute("DELETE FROM tracked_terms")
+    tracked = {}
+    for term in rising:
+        series = [(share(term, y), y) for y in years]
+        peak_share, peak_year = max(series) if series else (0.0, last)
+        tracked[term] = ("rising", peak_year, peak_share, share(term, last))
+    for _, term, peak_year, peak_share, now in picked_fading:
+        tracked[term] = ("fading", peak_year, peak_share, now)
+    for term in NOTABLE:
+        if term in tracked or plural_twin(term, tracked) or not any(uses[y][term] for y in years):
+            continue
+        peak_share, peak_year = max((share(term, y), y) for y in years)
+        now = share(term, last)
+        kind = "fading" if peak_year <= last - 4 and now <= 0.4 * peak_share else "rising"
+        tracked[term] = (kind, peak_year, peak_share, now)
+    conn.executemany("INSERT INTO tracked_terms (term, kind, peak_year, peak_share, now_share) VALUES (?, ?, ?, ?, ?)",
+                     [(t, k, py, round(ps, 5), round(ns, 5)) for t, (k, py, ps, ns) in tracked.items()])
+
+    # --- where each tracked phrase appears
+    conn.execute("DELETE FROM term_venue_year")
+    rows = []
+    for (venue_id, year), sets in grams_of.items():
+        counts = Counter()
+        for g in sets:
+            for term in g & tracked.keys():
+                counts[term] += 1
+        rows += [(t, venue_id, year, n) for t, n in counts.items()]
+    conn.executemany("INSERT INTO term_venue_year (term, venue_id, year, count) VALUES (?, ?, ?, ?)", rows)
+
+    # --- similar venues: tf-idf over the last five complete years of titles
+    recent: dict[str, Counter] = defaultdict(Counter)
+    for (venue_id, year), sets in grams_of.items():
+        if last - 4 <= year <= last:
+            for g in sets:
+                recent[venue_id].update(g)
+    df = Counter()
+    for c in recent.values():
+        df.update(c.keys())
+    n_venues = len(recent)
+    vectors = {}
+    for venue_id, c in recent.items():
+        if sum(c.values()) < 50:
+            continue
+        vec = {t: n * math.log(n_venues / df[t]) for t, n in c.items() if n >= 2 and df[t] < n_venues}
+        norm_ = math.sqrt(sum(x * x for x in vec.values())) or 1.0
+        vectors[venue_id] = {t: x / norm_ for t, x in vec.items()}
+    conn.execute("DELETE FROM venue_similarity")
+    sim_rows = []
+    for a, va in vectors.items():
+        scores = []
+        for b, vb in vectors.items():
+            if a == b:
+                continue
+            small, big = (va, vb) if len(va) < len(vb) else (vb, va)
+            dot = sum(x * big.get(t, 0.0) for t, x in small.items())
+            if dot > 0:
+                scores.append((dot, b))
+        for dot, b in sorted(scores, reverse=True)[:SIMILAR]:
+            shared = sorted(va.keys() & vectors[b].keys(), key=lambda t: -min(va[t], vectors[b][t]))[:6]
+            sim_rows.append((a, b, round(dot, 4), db.jdump(shared)))
+    conn.executemany("INSERT INTO venue_similarity (venue_id, other_id, score, shared) VALUES (?, ?, ?, ?)", sim_rows)
+
+    # --- authors
+    conn.execute("DELETE FROM proceedings_authors")
+    conn.execute("DELETE FROM top_authors")
+    by_venue: dict[str, list[int]] = defaultdict(list)
+    for venue_id, year in authors_of:
+        by_venue[venue_id].append(year)
+    overall = Counter()
+    span: dict[str, list[int]] = {}
+    author_rows, top_rows = [], []
+    for venue_id, ys in by_venue.items():
+        ys.sort()
+        seen: set[str] = set()
+        mine = Counter()
+        first_years: dict[str, list[int]] = {}
+        for i, year in enumerate(ys):
+            papers_ = [a for a in authors_of[(venue_id, year)] if a]
+            if not papers_:
+                continue
+            # a paper none of whose authors had published at this venue before
+            newcomer = sum(1 for a in papers_ if all(x not in seen for x in a)) / len(papers_)
+            people = {x for a in papers_ for x in a}
+            author_rows.append((venue_id, year, round(sum(map(len, papers_)) / len(papers_), 3),
+                                round(sum(1 for a in papers_ if len(a) == 1) / len(papers_), 4),
+                                round(newcomer, 4) if i >= NEWCOMER_WARMUP else None, len(people)))
+            for a in papers_:
+                for x in a:
+                    mine[x] += 1
+                    overall[x] += 1
+                    first_years.setdefault(x, [year, year])[1] = year
+                    sp = span.setdefault(x, [year, year])
+                    sp[0], sp[1] = min(sp[0], year), max(sp[1], year)
+            seen |= people
+        for rank, (name, n) in enumerate(mine.most_common(TOP_AUTHORS), 1):
+            top_rows.append((venue_id, rank, name, n, first_years[name][0], first_years[name][1]))
+    for rank, (name, n) in enumerate(overall.most_common(20), 1):
+        top_rows.append(("all", rank, name, n, span[name][0], span[name][1]))
+    conn.executemany("INSERT INTO proceedings_authors (venue_id, year, mean_authors, solo_share, newcomer_share, authors) "
+                     "VALUES (?, ?, ?, ?, ?, ?)", author_rows)
+    conn.executemany("INSERT INTO top_authors (scope, rank, name, papers, first_year, last_year) VALUES (?, ?, ?, ?, ?, ?)",
+                     top_rows)
+    print(f"insights: {len(tracked)} tracked phrases ({len(picked_fading)} fading), {len(rows):,} spread rows, "
+          f"{len(sim_rows)} similar-venue pairs, {len(author_rows):,} author rows")
 
 
 def plausible_streams(conn) -> set[str]:

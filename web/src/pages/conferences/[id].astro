@@ -4,7 +4,7 @@ import DeadlinePanel from '@/components/islands/DeadlinePanel';
 import ProceedingsSummary from '@/components/ProceedingsSummary.astro';
 import { Badge } from '@/components/ui/badge';
 import { BUILT_AT, getVenues } from '@/lib/db';
-import { venueSummary } from '@/lib/proceedings';
+import { venueDigest } from '@/lib/insights';
 import { RANK_SLOT, TIERS } from '@/lib/tiers';
 import type { Venue } from '@/lib/types';
 import { href } from '@/lib/utils';
@@ -14,7 +14,7 @@ export function getStaticPaths() {
 }
 
 const { venue } = Astro.props as { venue: Venue };
-const summary = venueSummary(venue.id);
+const digest = venueDigest(venue.id);
 const LINK = { ok: 'responded when last checked', dead: 'returned 404/410 when last checked', unknown: 'not checked' } as Record<string, string>;
 const checked = venue.link_checked_on ? new Date(venue.link_checked_on).toISOString().slice(0, 10) : '';
 ---
@@ -38,7 +38,7 @@ const checked = venue.link_checked_on ? new Date(venue.link_checked_on).toISOStr
     <div class="flex min-w-0 flex-col gap-8">
       <DeadlinePanel client:load kind="venue" record={venue} builtAt={BUILT_AT} />
 
-      <ProceedingsSummary id={venue.id} name={venue.name} summary={summary} />
+      <ProceedingsSummary id={venue.id} name={venue.name} digest={digest} />
     </div>
 
     <aside class="space-y-4">

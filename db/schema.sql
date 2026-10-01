@@ -169,6 +169,60 @@ CREATE TABLE keyword_trends (
   PRIMARY KEY (year, term)
 );
 
+-- Phrase counts per venue per year, for a curated set of phrases: the rising
+-- ones in keyword_trends plus the ones that peaked and faded. Sums over venues
+-- give the field-wide history; per venue it shows where an idea spread.
+-- `count` is titles containing the phrase. Only years since 2000, no zeros.
+CREATE TABLE term_venue_year (
+  term     TEXT NOT NULL,
+  venue_id TEXT NOT NULL REFERENCES venues(id) ON DELETE CASCADE,
+  year     INTEGER NOT NULL,
+  count    INTEGER NOT NULL,
+  PRIMARY KEY (term, venue_id, year)
+);
+
+-- The phrases in term_venue_year and why each was chosen.
+CREATE TABLE tracked_terms (
+  term        TEXT PRIMARY KEY,
+  kind        TEXT NOT NULL CHECK (kind IN ('rising', 'fading')),
+  peak_year   INTEGER NOT NULL,             -- year of its highest share of all titles
+  peak_share  REAL NOT NULL,
+  now_share   REAL NOT NULL                 -- share in the latest complete year
+);
+
+-- Venues that publish on similar things: cosine similarity of title phrases
+-- over the last five complete years. Top matches per venue.
+CREATE TABLE venue_similarity (
+  venue_id TEXT NOT NULL REFERENCES venues(id) ON DELETE CASCADE,
+  other_id TEXT NOT NULL REFERENCES venues(id) ON DELETE CASCADE,
+  score    REAL NOT NULL,
+  shared   TEXT NOT NULL DEFAULT '[]',      -- JSON: the phrases that overlap most
+  PRIMARY KEY (venue_id, other_id)
+);
+
+-- Author statistics per venue per year, from DBLP author lists.
+CREATE TABLE proceedings_authors (
+  venue_id       TEXT NOT NULL REFERENCES venues(id) ON DELETE CASCADE,
+  year           INTEGER NOT NULL,
+  mean_authors   REAL NOT NULL,             -- authors per paper
+  solo_share     REAL NOT NULL,             -- share of single-author papers
+  newcomer_share REAL,                      -- share of papers by an entirely new team: no author had
+                                            -- published at the venue before. NULL for its first 3 years
+  authors        INTEGER NOT NULL,          -- distinct authors that year
+  PRIMARY KEY (venue_id, year)
+);
+
+-- Most published authors, per venue and across all venues (scope = 'all').
+CREATE TABLE top_authors (
+  scope      TEXT NOT NULL,                 -- a venue id, or 'all'
+  rank       INTEGER NOT NULL,
+  name       TEXT NOT NULL,
+  papers     INTEGER NOT NULL,
+  first_year INTEGER NOT NULL,
+  last_year  INTEGER NOT NULL,
+  PRIMARY KEY (scope, rank)
+);
+
 -- ---------------------------------------------------------------------------
 -- verification queue and crawl history
 -- ---------------------------------------------------------------------------

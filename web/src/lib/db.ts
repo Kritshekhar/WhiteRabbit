@@ -149,5 +149,40 @@ export function getKeywordTrends(year: number): KeywordTrend[] {
     .all(year) as KeywordTrend[];
 }
 
+export function getAllKeywordTrends(): KeywordTrend[] {
+  return db().prepare('SELECT * FROM keyword_trends ORDER BY year, count * ln(lift) DESC').all() as KeywordTrend[];
+}
+
+/* Field-wide insights, filled by scripts/proceedings_dblp.py. Every table may
+   be empty; every caller handles []. */
+export interface TrackedTerm { term: string; kind: 'rising' | 'fading'; peak_year: number; peak_share: number; now_share: number }
+export interface TermVenueYear { term: string; venue_id: string; year: number; count: number }
+export interface Similarity { venue_id: string; other_id: string; score: number; shared: string[] }
+export interface AuthorYear {
+  venue_id: string; year: number; mean_authors: number; solo_share: number; newcomer_share: number | null; authors: number;
+}
+export interface TopAuthor { scope: string; rank: number; name: string; papers: number; first_year: number; last_year: number }
+
+export function getTrackedTerms(): TrackedTerm[] {
+  return db().prepare('SELECT * FROM tracked_terms ORDER BY kind, peak_share DESC').all() as TrackedTerm[];
+}
+export function getTermVenueYears(): TermVenueYear[] {
+  return db().prepare('SELECT * FROM term_venue_year').all() as TermVenueYear[];
+}
+export function getSimilarity(venueId: string): Similarity[] {
+  return (db().prepare('SELECT * FROM venue_similarity WHERE venue_id = ? ORDER BY score DESC').all(venueId) as Row[])
+    .map((r) => ({ ...r, shared: list(r.shared) })) as Similarity[];
+}
+export function getAuthorYears(venueId?: string): AuthorYear[] {
+  const sql = venueId
+    ? 'SELECT * FROM proceedings_authors WHERE venue_id = ? ORDER BY year'
+    : 'SELECT * FROM proceedings_authors ORDER BY venue_id, year';
+  const stmt = db().prepare(sql);
+  return (venueId ? stmt.all(venueId) : stmt.all()) as AuthorYear[];
+}
+export function getTopAuthors(scope: string): TopAuthor[] {
+  return db().prepare('SELECT * FROM top_authors WHERE scope = ? ORDER BY rank').all(scope) as TopAuthor[];
+}
+
 /* When the build ran, for the "updated" stamp. Countdowns never use this. */
 export const BUILT_AT = new Date().toISOString();

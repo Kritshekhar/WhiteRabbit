@@ -514,3 +514,37 @@
     }
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Proceedings insights: a categorical palette for area charts. Hues stay
+   distinct in both themes; every series also carries a text label.
+--------------------------------------------------------------------------- */
+:root {
+  --cat-1: #2a78d6;
+  --cat-2: #6d5bd0;
+  --cat-3: #0f9d8f;
+  --cat-4: #c98a00;
+  --cat-5: #c2477a;
+  --cat-6: #4d8a2a;
+  --cat-7: #8f8e88;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme='light'])) {
+    --cat-1: #5b9cec;
+    --cat-2: #9f95ee;
+    --cat-3: #2bbfae;
+    --cat-4: #f0b429;
+    --cat-5: #ec6fa0;
+    --cat-6: #8cc152;
+    --cat-7: #77766f;
+  }
+}
+:root[data-theme='dark'] {
+  --cat-1: #5b9cec;
+  --cat-2: #9f95ee;
+  --cat-3: #2bbfae;
+  --cat-4: #f0b429;
+  --cat-5: #ec6fa0;
+  --cat-6: #8cc152;
+  --cat-7: #77766f;
+}
