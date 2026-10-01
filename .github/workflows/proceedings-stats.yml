@@ -59,6 +59,11 @@ jobs:
       - name: Acceptance rates from official sources
         run: python scripts/acceptance_rates.py --write
 
+      # reported rates from a community list, for venues without an official
+      # figure; shown as reported, never written over an official one
+      - name: Reported acceptance rates
+        run: python scripts/community_rates.py --write
+
       - name: Validate
         run: python scripts/db.py check
 
