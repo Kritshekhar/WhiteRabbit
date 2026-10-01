@@ -155,8 +155,8 @@ confirm with `wr.py set <venue> dblp_key <key>`.
 
 ```bash
 python scripts/db.py check                   # validate the data; runs on every PR
-python scripts/import_ccf.py AI --dry-run    # pull venues from ccf-deadlines
-python scripts/import_grants.py --dry-run    # pull CS grants from grants.gov
+python scripts/import_ccf.py AI --dry-run    # import more venues
+python scripts/import_grants.py --dry-run    # import new federal CS grants
 python scripts/enrich_grants.py              # solicitation text and funding figures
 python scripts/verify_grants.py --dry-run    # confirm federal dates at source
 python scripts/check_deadlines.py eurosys    # what the venue's own page says
@@ -204,7 +204,7 @@ database tools use the standard library.
 |---|---|---|
 | `validate.yml` | every PR | `db.py check`, proves the dump is canonical and an offline build works |
 | `update-deadlines.yml` | nightly 07:00 UTC · monthly full sweep · push | probes links, rolls venues over, commits the dump |
-| `weekly-funding-sweep.yml` | Mondays 09:00 UTC | imports, enriches and verifies grants.gov calls, opens a PR |
+| `weekly-funding-sweep.yml` | Mondays 09:00 UTC | imports, enriches and verifies federal grant calls, opens a PR |
 | `propose-deadlines.yml` | Mondays 08:00 UTC | sweeps CFP pages for unverified venues, opens an issue - never edits the data |
 | `proceedings-stats.yml` | daily 05:00 UTC | DBLP counts and keywords, OpenAlex topic backfill, commits the dump |
 | `deploy-pages.yml` | push to `main` | builds the database and the Astro site, publishes to GitHub Pages |
@@ -225,9 +225,6 @@ jobs commit the refreshed dump back).
 | Source | What | How |
 |---|---|---|
 | hand-maintained | the original venue list, all 13 fellowships | `wr.py` |
-| [ccf-deadlines](https://github.com/ccfddl/ccf-deadlines) (MIT) | 54 AI/ML venues | `import_ccf.py`, every link probed first |
-| [grants.gov](https://www.grants.gov/) API | federal CS grants | `import_grants.py`, by agency and CFDA code |
-| grants.gov `fetchOpportunity` | verified grant deadlines, funding figures | `verify_grants.py`, `enrich_grants.py` |
 | [DBLP](https://dblp.org) XML dump (CC0) | papers per venue per year, title keywords | `proceedings_dblp.py` |
 | [OpenAlex](https://openalex.org) (CC0) | research topics per venue-year | `proceedings_openalex.py` |
 
