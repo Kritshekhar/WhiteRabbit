@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/logo.svg" width="72" alt="White Rabbit logo: a low-poly rabbit head"></p>
+
 <h1 align="center">White Rabbit</h1>
 
 <p align="center">

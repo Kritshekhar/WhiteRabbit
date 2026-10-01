@@ -1,0 +1,12 @@
+---
+/* The mark, inline. Its colours come from CSS variables, so it follows the
+   light and dark themes like the rest of the page. */
+import { FACETS, VIEWBOX } from '@/lib/brand';
+interface Props { class?: string }
+const { class: cls = 'h-9 w-auto' } = Astro.props;
+---
+<svg class={cls} viewBox={VIEWBOX} aria-hidden="true">
+  {FACETS.map(([pts, t]) => (
+    <polygon points={pts.join(',')} style={`fill:var(--mark-${t});stroke:var(--mark-${t})`} stroke-width=".7" stroke-linejoin="round" />
+  ))}
+</svg>

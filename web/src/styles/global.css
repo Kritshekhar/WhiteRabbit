@@ -41,6 +41,8 @@
   --shadow: 0 1px 2px rgba(11, 11, 11, 0.05), 0 8px 24px -12px rgba(11, 11, 11, 0.18);
   --glow-a: rgba(42, 120, 214, 0.16);
   --glow-b: rgba(208, 59, 59, 0.1);
+  /* the logo (Aurora), see src/lib/brand.ts */
+  --mark-0: #c8f4ff; --mark-1: #58c8ff; --mark-2: #7b6cff; --mark-3: #b05cf0; --mark-4: #5b2a8f;
 }
 @media (prefers-color-scheme: dark) {
   :root:where(:not([data-theme='light'])) {
@@ -65,6 +67,7 @@
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -16px rgba(0, 0, 0, 0.7);
     --glow-a: rgba(57, 135, 229, 0.18);
     --glow-b: rgba(208, 59, 59, 0.12);
+    --mark-0: #e2faff; --mark-1: #8ad9ff; --mark-2: #a093ff; --mark-3: #c98af7; --mark-4: #8a4fc8;
   }
 }
 :root[data-theme='dark'] {
@@ -89,6 +92,7 @@
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -16px rgba(0, 0, 0, 0.7);
   --glow-a: rgba(57, 135, 229, 0.18);
   --glow-b: rgba(208, 59, 59, 0.12);
+  --mark-0: #e2faff; --mark-1: #8ad9ff; --mark-2: #a093ff; --mark-3: #c98af7; --mark-4: #8a4fc8;
 }
 
 @theme inline {
