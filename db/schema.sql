@@ -254,6 +254,10 @@ CREATE TABLE candidates (
   first_seen     TEXT NOT NULL,
   last_checked   TEXT NOT NULL,
   attempts       INTEGER NOT NULL DEFAULT 1,
+  -- 'rejected' once a person has looked and said no: the crawlers keep
+  -- seeing it, but it never returns to the queue
+  status         TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open', 'rejected')),
+  note           TEXT NOT NULL DEFAULT '',
   UNIQUE (entity, entity_id, field, proposed_value)
 );
 
