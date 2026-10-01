@@ -42,6 +42,12 @@ jobs:
       - name: Validate the database
         run: python scripts/db.py check
 
+      # Exact-date match on each venue's own CFP page; a different date is only
+      # queued for review, never written. Chrome on the runner renders
+      # JavaScript-only pages.
+      - name: Verify deadlines against official pages
+        run: python scripts/verify_deadlines.py --write --render
+
       - name: Rebuild funding data
         run: python scripts/update_grants.py
 
