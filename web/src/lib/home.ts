@@ -50,9 +50,11 @@ export function homeData() {
   const upcoming: UpcomingEntry[] = [
     ...venues.filter((v) => !v.rolling).map((v) => ({
       kind: 'conference' as const, name: v.name, sub: v.full_name, href: venueHref(v.id), deadlines: v.deadlines, url: v.url,
+      key: `venue:${v.id}`,
     })),
     ...grants.map((g) => ({
       kind: 'funding' as const, name: g.name, sub: g.funder, href: grantHref(g.id), deadlines: g.deadlines, url: g.url,
+      key: `grant:${g.id}`,
     })),
   ];
 

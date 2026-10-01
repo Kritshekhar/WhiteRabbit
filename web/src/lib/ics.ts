@@ -7,7 +7,7 @@
    which stays put across rebuilds, so a corrected date updates the event the
    subscriber already has instead of adding a second one. */
 
-import { grantEvent, HOME, venueEvent, type CalendarEvent } from './calendar';
+import { eventDetails, grantEvent, HOME, venueEvent, type CalendarEvent } from './calendar';
 import { isAoE, offsetMinutes, type Round } from './dates';
 import type { Deadline, Grant, Venue } from './types';
 
@@ -138,5 +138,35 @@ export function grantIcsEvents(g: Grant, now = Date.now()): IcsEvent[] {
   });
 }
 
+/* Events for any record with a name and deadlines (the home page's entries),
+   for the starred-deadlines download. */
+export function entryIcsEvents(e: { kind: 'conference' | 'funding'; name: string; sub: string; href: string; url?: string;
+  deadlines: Deadline[] }, now = Date.now()): IcsEvent[] {
+  return current(e.deadlines, now).map((r) => {
+    const d = r as unknown as Deadline;
+    return {
+      title: titled(`${e.name} - ${r.name}`, r.date as string, r.confirmed),
+      iso: r.date as string,
+      details: eventDetails([e.sub || e.name, '', `${r.name} deadline${r.confirmed ? '' : ' (estimated)'}.`,
+        e.url ? `Official page: ${e.url}` : '']),
+      location: e.url,
+      url: new URL(e.href, HOME).toString(),
+      uid: `${e.kind === 'conference' ? 'deadline' : 'grant-deadline'}-${d.id ?? `${e.name}-${r.name}`}`,
+      confirmed: r.confirmed,
+    };
+  });
+}
+
 export const icsResponse = (body: string) =>
   new Response(body, { headers: { 'Content-Type': 'text/calendar; charset=utf-8' } });
+
+/* Save a calendar from the browser, e.g. the starred deadlines, which are
+   different for every visitor and so cannot be a static feed. */
+export function downloadIcs(filename: string, body: string) {
+  const url = URL.createObjectURL(new Blob([body], { type: 'text/calendar;charset=utf-8' }));
+  const a = Object.assign(document.createElement('a'), { href: url, download: filename });
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}

@@ -8,6 +8,9 @@ import { href, venueHref } from '@/lib/utils';
 import { Row } from '../Row';
 import { MultiSelect, SearchBox, Tile, Toggle } from '../Filters';
 import { useNow, useQueryParam } from '../useNow';
+import { useWatchlist, venueKey } from '@/lib/watchlist';
+import { buildCalendar, downloadIcs, venueIcsEvents } from '@/lib/ics';
+import { Star } from 'lucide-react';
 
 export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; builtAt: string }) {
   const now = useNow(builtAt);
@@ -15,6 +18,8 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
   const [topics, setTopics] = useState<Set<string>>(new Set());
   const [onlyUpcoming, setOnlyUpcoming] = useState(true);
   const [sort, setSort] = useState<'deadline' | 'name'>('deadline');
+  const watched = useWatchlist();
+  const [starredOnly, setStarredOnly] = useState(false);
 
   const all = useMemo(
     () => venues.map((v) => decorate(v, now, VENUE_BANDS)).map((v) => ({ ...v, status: venueStatus(v) })),
@@ -29,6 +34,7 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
   const list = useMemo(() => {
     const q = query.trim().toLowerCase();
     const shown = all.filter((v) => {
+      if (starredOnly && !watched.includes(venueKey(v.id))) return false;
       if (topics.size && !v.topics.some((t) => topics.has(t))) return false;
       if (onlyUpcoming && v.status === 'passed') return false;
       if (!q) return true;
@@ -39,7 +45,8 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
        the most actionable state on the page. */
     const rank = (v: (typeof all)[number]) => (v.rolling ? -1 : (v.days ?? Infinity));
     return shown.sort((a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name));
-  }, [all, query, topics, onlyUpcoming, sort]);
+  }, [all, query, topics, onlyUpcoming, sort, starredOnly, watched]);
+  const starredCount = venues.filter((v) => watched.includes(venueKey(v.id))).length;
 
   const upcoming = all.filter((v) => v.status === 'upcoming').sort((a, b) => (a.days ?? 0) - (b.days ?? 0));
   const head = upcoming[0];
@@ -70,6 +77,7 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <SearchBox value={query} onChange={setQuery} label="Search venues" placeholder="Search venue, e.g. OSDI or storage" />
           <div className="flex flex-wrap items-center gap-2">
+            <Toggle checked={starredOnly} onChange={setStarredOnly} label={`Starred only${starredCount ? ` (${starredCount})` : ''}`} />
             <Toggle checked={onlyUpcoming} onChange={setOnlyUpcoming} label="Only upcoming" />
             <MultiSelect label="Topics" counts={topicCounts} chosen={topics} onChange={setTopics} />
             <a href={href('calendar/')} className="inline-flex h-8 items-center gap-1.5 rounded-full border border-border bg-surface-1 px-3 text-[0.8rem] font-semibold text-fg-2 no-underline hover:border-border-strong hover:text-fg">
@@ -106,10 +114,27 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
             statusText={v.rolling ? 'Rolling submission' : v.status === 'passed' ? 'Cycle closed' : 'Deadline TBA'}
             url={v.url}
             calendar={v.next ? venueEvent(v, v.next, true) : null}
+            watchKey={venueKey(v.id)}
           />
         ))}
       </section>
-      {list.length === 0 && <p className="card p-8 text-center text-muted">No venues match those filters.</p>}
+      {starredOnly && starredCount > 0 && (
+        <button
+          type="button"
+          className="inline-flex h-8 cursor-pointer items-center gap-1.5 self-start rounded-full border border-border bg-surface-1 px-3 text-[0.8rem] font-semibold text-fg-2 hover:border-border-strong hover:text-fg"
+          onClick={() => downloadIcs('my-venues.ics', buildCalendar('White Rabbit: my venues', 'Deadlines of the venues you starred on White Rabbit.',
+            venues.filter((v) => watched.includes(venueKey(v.id))).flatMap((v) => venueIcsEvents(v))))}
+        >
+          Download my starred deadlines (.ics)
+        </button>
+      )}
+      {list.length === 0 && (
+        <p className="card p-8 text-center text-muted">
+          {starredOnly && !starredCount
+            ? <>No starred venues yet. Use the <Star className="inline size-4 align-[-2px]" aria-label="star" /> on any row to add it to My venues.</>
+            : 'No venues match those filters.'}
+        </p>
+      )}
       <p className="text-sm text-muted">
         {verified} of {upcoming.length} upcoming deadlines have been checked against the venue's own CFP page; the rest are
         extrapolated from previous cycles.

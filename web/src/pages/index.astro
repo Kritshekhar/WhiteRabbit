@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import HomeSearch from '@/components/islands/HomeSearch';
 import UpcomingDeadlines from '@/components/islands/UpcomingDeadlines';
+import YourDeadlines from '@/components/islands/YourDeadlines';
 import NextCountdown from '@/components/home/NextCountdown';
 import { ArrowRight, BadgeCheck, BookOpen, CalendarDays, CalendarPlus, GraduationCap, HandCoins, RefreshCw, TrendingUp } from 'lucide-react';
 import { BUILT_AT } from '@/lib/db';
@@ -101,6 +102,9 @@ const growth = first && last && first.count ? Math.round((last.count / first.cou
         </div>
       ))}
     </section>
+
+    <!-- ===================== my venues (only once something is starred) ===================== -->
+    <YourDeadlines client:load entries={data.upcoming} builtAt={BUILT_AT} />
 
     <!-- ===================== coming up ===================== -->
     <section class="mt-14 space-y-4" aria-labelledby="next-h">
