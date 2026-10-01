@@ -3,6 +3,13 @@ import { Bar, BarChart, CartesianGrid, Cell, Line, LineChart, ResponsiveContaine
 import type { TermCount } from '@/lib/types';
 import { Badge } from '../ui/badge';
 import { Panel } from '../Panel';
+import TopicExplorer from '../TopicExplorer';
+
+export interface VolumeLink {
+  title: string;      // the volume's own title, from DBLP
+  publisher: string;  // the publisher's page (ACM DL, USENIX, PMLR, OpenReview, ...)
+  dblp: string;       // DBLP's table of contents
+}
 
 export interface YearRow {
   year: number;
@@ -10,6 +17,7 @@ export interface YearRow {
   rate: number | null;
   status: 'verified' | 'in-progress' | 'unverified';
   source: string;
+  links: VolumeLink[];
 }
 
 type KeywordFile = { years: Record<string, [string, number, number | null][]> };
@@ -62,14 +70,13 @@ export default function ProceedingsVenue({ rows, topics, keywordsUrl, defaultYea
     const out = [];
     for (let y = first; y <= last; y += 1) {
       const hit = (kw.years[y] || []).find(([t]) => t === term);
-      out.push({ year: y, count: hit ? hit[1] : 0 });
+      // a gap, not a zero: the phrase was just outside that year's top 30
+      out.push({ year: y, count: hit ? hit[1] : null });
     }
     return out;
   }, [kw, term, counted]);
 
-  const topicYears = useMemo(() => [...new Set(topics.map((t) => t.year))].sort((a, b) => b - a), [topics]);
-  const topicYear = year !== null && topicYears.includes(year) ? year : topicYears[0];
-  const topicRows = topics.filter((t) => t.year === topicYear).sort((a, b) => b.count - a.count).slice(0, 12);
+  const selected = rows.find((r) => r.year === year) ?? null;
 
   return (
     <div className="space-y-6">
@@ -78,13 +85,20 @@ export default function ProceedingsVenue({ rows, topics, keywordsUrl, defaultYea
         note="Counts papers published in the venue's main DBLP volume each year. This is not an official acceptance count: it can include short papers and exclude workshop or companion volumes."
       >
         <ResponsiveContainer width="100%" height={260}>
-          <BarChart data={counted} margin={{ left: -12, right: 8 }}>
+          <BarChart
+            data={counted}
+            margin={{ left: -12, right: 8 }}
+            onClick={(state) => { const y = Number(state?.activeLabel); if (y) setYear(y); }}
+            className="cursor-pointer"
+          >
             <CartesianGrid stroke="var(--border)" vertical={false} />
             <XAxis dataKey="year" tick={axis} stroke="var(--border)" minTickGap={16} />
             <YAxis tick={axis} stroke="var(--border)" allowDecimals={false} />
             <Tooltip {...tooltip} formatter={(v) => [v, 'papers']} />
             <Bar dataKey="count" radius={[3, 3, 0, 0]} isAnimationActive={false}>
-              {counted.map((r) => <Cell key={r.year} fill={statusColor[r.status]} />)}
+              {counted.map((r) => (
+                <Cell key={r.year} fill={statusColor[r.status]} fillOpacity={year === null || r.year === year ? 1 : 0.45} />
+              ))}
             </Bar>
           </BarChart>
         </ResponsiveContainer>
@@ -92,7 +106,9 @@ export default function ProceedingsVenue({ rows, topics, keywordsUrl, defaultYea
           <span><span className="mr-1 inline-block size-2.5 rounded-sm bg-accent align-middle" />verified volume</span>
           <span><span className="mr-1 inline-block size-2.5 rounded-sm bg-warning align-middle" />in progress</span>
           <span><span className="mr-1 inline-block size-2.5 rounded-sm bg-border-strong align-middle" />not yet verified</span>
+          <span className="ml-auto">Click a bar to open that year.</span>
         </p>
+        {selected && <SelectedYear row={selected} />}
       </Panel>
 
       {rates.length > 0 && (
@@ -153,6 +169,7 @@ export default function ProceedingsVenue({ rows, topics, keywordsUrl, defaultYea
                   className="h-8 w-56 max-w-full rounded-full border border-border bg-surface-1 px-3 text-[0.8rem]"
                   aria-label="Keyword to chart across years"
                 />
+                <span className="text-xs text-muted">Gaps are years where it was not among the top 30 phrases.</span>
                 <datalist id="kw-terms">{allTerms.slice(0, 500).map((t) => <option key={t} value={t} />)}</datalist>
               </label>
               {trend.length > 0 && (
@@ -162,7 +179,7 @@ export default function ProceedingsVenue({ rows, topics, keywordsUrl, defaultYea
                     <XAxis dataKey="year" tick={axis} stroke="var(--border)" minTickGap={16} />
                     <YAxis tick={axis} stroke="var(--border)" allowDecimals={false} />
                     <Tooltip {...tooltip} formatter={(v) => [v, `titles with "${term}"`]} />
-                    <Line dataKey="count" stroke="var(--rank-base)" strokeWidth={2} dot={false} isAnimationActive={false} />
+                    <Line dataKey="count" stroke="var(--rank-base)" strokeWidth={2} dot={{ r: 2.5 }} connectNulls={false} isAnimationActive={false} />
                   </LineChart>
                 </ResponsiveContainer>
               )}
@@ -171,16 +188,12 @@ export default function ProceedingsVenue({ rows, topics, keywordsUrl, defaultYea
         )}
       </Panel>
 
-      {topicRows.length > 0 && (
-        <Panel title={`Topic breakdown, ${topicYear}`} note="OpenAlex topics of the year's papers. Pick another year above to compare.">
-          <ResponsiveContainer width="100%" height={Math.max(160, topicRows.length * 28)}>
-            <BarChart data={topicRows} layout="vertical" margin={{ left: 8, right: 16 }}>
-              <XAxis type="number" tick={axis} stroke="var(--border)" allowDecimals={false} />
-              <YAxis type="category" dataKey="term" width={170} tick={{ ...axis, fill: 'var(--text-secondary)' }} stroke="var(--border)" />
-              <Tooltip {...tooltip} formatter={(v) => [v, 'papers']} />
-              <Bar dataKey="count" fill="var(--rank-base)" radius={[0, 3, 3, 0]} isAnimationActive={false} />
-            </BarChart>
-          </ResponsiveContainer>
+      {topics.length > 0 && (
+        <Panel
+          title="Topics"
+          note="OpenAlex research topics of each year's papers. Share is of all topic tags that year, so small and large years compare fairly. Click a topic to see its trend."
+        >
+          <TopicExplorer topics={topics} year={year} onYear={setYear} />
         </Panel>
       )}
 
@@ -188,15 +201,18 @@ export default function ProceedingsVenue({ rows, topics, keywordsUrl, defaultYea
         <div className="overflow-x-auto">
           <table className="w-full min-w-[420px] text-sm">
             <thead className="text-left text-xs text-muted uppercase">
-              <tr><th className="py-1.5 pr-4">Year</th><th className="py-1.5 pr-4 text-right">Papers (DBLP)</th>{rates.length > 0 && <th className="py-1.5 pr-4 text-right">Acceptance</th>}<th className="py-1.5">Status</th></tr>
+              <tr><th className="py-1.5 pr-4">Year</th><th className="py-1.5 pr-4 text-right">Papers (DBLP)</th>{rates.length > 0 && <th className="py-1.5 pr-4 text-right">Acceptance</th>}<th className="py-1.5 pr-4">Status</th><th className="py-1.5">Read the proceedings</th></tr>
             </thead>
             <tbody className="divide-y divide-border">
               {[...rows].reverse().map((r) => (
-                <tr key={r.year}>
-                  <td className="py-1.5 pr-4 font-semibold tabular">{r.year}</td>
+                <tr key={r.year} className={r.year === year ? 'bg-accent-soft/60' : undefined}>
+                  <td className="py-1.5 pr-4 font-semibold tabular">
+                    <button type="button" className="cursor-pointer hover:text-accent" onClick={() => setYear(r.year)}>{r.year}</button>
+                  </td>
                   <td className="py-1.5 pr-4 text-right tabular">{r.count?.toLocaleString() ?? 'n/a'}</td>
                   {rates.length > 0 && <td className="py-1.5 pr-4 text-right tabular">{r.rate !== null ? `${(r.rate * 100).toFixed(1)}%` : ''}</td>}
-                  <td className="py-1.5"><YearBadge row={r} /></td>
+                  <td className="py-1.5 pr-4"><YearBadge row={r} /></td>
+                  <td className="py-1.5"><VolumeLinks links={r.links} compact /></td>
                 </tr>
               ))}
             </tbody>
@@ -204,6 +220,61 @@ export default function ProceedingsVenue({ rows, topics, keywordsUrl, defaultYea
         </div>
       </Panel>
     </div>
+  );
+}
+
+/* The chosen year: its count, status and where to read it. */
+function SelectedYear({ row }: { row: YearRow }) {
+  return (
+    <div className="mt-4 flex flex-col gap-3 rounded-xl border border-border bg-surface-0 p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="min-w-0">
+        <p className="flex items-center gap-2 text-sm">
+          <span className="text-lg font-bold tabular">{row.year}</span>
+          <span className="font-mono text-fg-2 tabular">{row.count?.toLocaleString() ?? 'n/a'} papers</span>
+          <YearBadge row={row} />
+        </p>
+        {row.links[0]?.title && <p className="mt-1 line-clamp-2 text-xs text-muted">{row.links[0].title}</p>}
+      </div>
+      <VolumeLinks links={row.links} />
+    </div>
+  );
+}
+
+/* Links to a year's volume(s): the publisher's page first, DBLP's contents second. */
+function VolumeLinks({ links, compact = false }: { links: VolumeLink[]; compact?: boolean }) {
+  if (!links.length) return <span className="text-xs text-muted">n/a</span>;
+  const many = links.length > 1;
+  return (
+    <span className={compact ? 'flex flex-wrap gap-x-3 gap-y-1' : 'flex shrink-0 flex-wrap gap-2'}>
+      {links.map((l, i) => (
+        <span key={l.dblp} className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
+          {l.publisher && (
+            <a
+              href={l.publisher}
+              target="_blank"
+              rel="noopener"
+              title={l.title || 'The proceedings on the publisher site'}
+              className={compact
+                ? 'text-xs font-semibold text-accent no-underline hover:underline'
+                : 'inline-flex h-9 items-center rounded-xl bg-accent px-3.5 text-sm font-semibold text-white no-underline hover:brightness-110'}
+            >
+              {many ? `Volume ${i + 1}` : 'Proceedings'} ↗
+            </a>
+          )}
+          <a
+            href={l.dblp}
+            target="_blank"
+            rel="noopener"
+            title="Table of contents on DBLP"
+            className={compact
+              ? 'text-xs font-semibold text-fg-2 no-underline hover:text-accent hover:underline'
+              : 'inline-flex h-9 items-center rounded-xl border border-border px-3.5 text-sm font-semibold text-fg no-underline hover:border-border-strong'}
+          >
+            {many && !l.publisher ? `Volume ${i + 1} on DBLP` : 'DBLP'} ↗
+          </a>
+        </span>
+      ))}
+    </span>
   );
 }
 

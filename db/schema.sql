@@ -132,6 +132,8 @@ CREATE TABLE proceedings (
   source          TEXT NOT NULL DEFAULT '',
   status          TEXT NOT NULL DEFAULT 'unverified' CHECK (status IN ('verified', 'unverified')),
   verified_on     TEXT NOT NULL DEFAULT '',
+  -- where to read the volume(s): [{title, publisher, dblp}], one per volume
+  links           TEXT NOT NULL DEFAULT '[]',
   PRIMARY KEY (venue_id, year),
   CHECK (status = 'unverified' OR source <> '')
 );

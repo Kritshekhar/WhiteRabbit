@@ -14,7 +14,10 @@ export function getStaticPaths() {
 
 const { venue } = Astro.props as { venue: Venue };
 const all = proceedingsFor(venue.id);
-const rows: YearRow[] = all.map((p) => ({ year: p.year, count: p.accepted_count, rate: p.acceptance_rate, status: yearStatus(p), source: p.source }));
+const rows: YearRow[] = all.map((p) => ({
+  year: p.year, count: p.accepted_count, rate: p.acceptance_rate, status: yearStatus(p), source: p.source,
+  links: JSON.parse(p.links || '[]'),
+}));
 const counted = all.filter((p) => p.accepted_count !== null);
 const defaultYear = latestCompleteYear(counted);
 const summary = venueSummary(venue.id);

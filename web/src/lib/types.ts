@@ -69,6 +69,7 @@ export interface ProceedingsYear {
   source: string;
   status: string;
   verified_on: string;
+  links: string; // JSON: [{title, publisher, dblp}]
 }
 
 export interface TermCount {

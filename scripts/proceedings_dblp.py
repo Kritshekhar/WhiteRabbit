@@ -120,6 +120,9 @@ def download(force: bool = False) -> None:
 # 2. parse
 # --------------------------------------------------------------------------
 RECORDS = {"inproceedings", "article"}
+# A <proceedings> record describes a volume itself: its title and, in <ee>, the
+# publisher's page for it (ACM DL, USENIX, IEEE Xplore, PMLR, OpenReview, ...).
+VOLUME = "proceedings"
 
 
 def parse(streams: set[str]) -> int:
@@ -133,6 +136,9 @@ def parse(streams: set[str]) -> int:
         DROP TABLE IF EXISTS papers;
         DROP TABLE IF EXISTS streams;
         DROP TABLE IF EXISTS wanted;
+        DROP TABLE IF EXISTS volumes;
+        CREATE TABLE volumes (key TEXT PRIMARY KEY, stream TEXT, year INTEGER, toc TEXT,
+                              title TEXT, ee TEXT);
         CREATE TABLE papers (key TEXT PRIMARY KEY, stream TEXT, year INTEGER, toc TEXT,
                              title TEXT, doi TEXT, booktitle TEXT);
         CREATE TABLE streams (stream TEXT PRIMARY KEY, booktitle TEXT, papers INTEGER);
@@ -142,10 +148,11 @@ def parse(streams: set[str]) -> int:
     census: Counter = Counter()
     labels: dict[str, Counter] = defaultdict(Counter)
     batch: list[tuple] = []
+    volumes: list[tuple] = []
     state = {"rec": None, "field": None, "text": []}
 
     def start(name, attrs):
-        if name in RECORDS:
+        if name in RECORDS or name == VOLUME:
             state["rec"] = {"key": attrs.get("key", ""), "ee": []}
         elif state["rec"] is not None and name in ("title", "year", "booktitle", "journal", "url", "ee"):
             state["field"], state["text"] = name, []
@@ -165,6 +172,20 @@ def parse(streams: set[str]) -> int:
             else:
                 rec[name] = text
             state["field"] = None
+        elif name == VOLUME:
+            state["rec"] = None
+            parts = rec["key"].split("/")
+            stream = "/".join(parts[:2])
+            if len(parts) < 3 or stream not in streams:
+                return
+            year = int(rec["year"]) if rec.get("year", "").isdigit() else None
+            toc = rec.get("url", "").split("#", 1)[0]
+            # prefer the publisher's own page over a DOI redirect when both
+            # exist; DBLP also lists catalogue entries (Wikidata) that are not
+            # somewhere to read the papers
+            links = [e for e in rec["ee"] if "wikidata.org" not in e]
+            ee = next((e for e in links if "doi.org/" not in e), links[0] if links else "")
+            volumes.append((rec["key"], stream, year, toc, rec.get("title", ""), ee))
         elif name in RECORDS:
             state["rec"] = None
             parts = rec["key"].split("/")
@@ -207,6 +228,7 @@ def parse(streams: set[str]) -> int:
         parser.Parse(b"", True)
     if batch:
         out.executemany("INSERT OR REPLACE INTO papers VALUES (?, ?, ?, ?, ?, ?, ?)", batch)
+    out.executemany("INSERT OR REPLACE INTO volumes VALUES (?, ?, ?, ?, ?, ?)", volumes)
     out.executemany("INSERT INTO streams VALUES (?, ?, ?)",
                     [(s, labels[s].most_common(1)[0][0] if labels[s] else "", n) for s, n in census.items()])
     out.commit()
@@ -227,6 +249,7 @@ def papers_current(streams: set[str]) -> bool:
     try:
         con = sqlite3.connect(PAPERS)
         had = {r[0] for r in con.execute("SELECT stream FROM wanted")}
+        con.execute("SELECT 1 FROM volumes LIMIT 1")   # parsed before volumes existed?
         con.close()
     except sqlite3.Error:
         return False
@@ -317,6 +340,7 @@ def aggregate(conn) -> None:
     total_docs = 0
     per_venue_year: dict[tuple, list[str]] = {}
     counted = frozen = 0
+    by_toc = {toc: (title, ee) for toc, title, ee in papers.execute("SELECT toc, title, ee FROM volumes")}
 
     for v in venues:
         stream = v["dblp_key"]
@@ -332,20 +356,29 @@ def aggregate(conn) -> None:
                 doc_freq.update(ngrams(t))
             total_docs += len(titles)
 
-            existing = conn.execute("SELECT status FROM proceedings WHERE venue_id = ? AND year = ?",
+            links = db.jdump([{
+                "title": by_toc.get(toc, ("", ""))[0],
+                "publisher": by_toc.get(toc, ("", ""))[1],
+                "dblp": f"https://dblp.org/{toc}",
+            } for toc in sorted(keep)])
+            existing = conn.execute("SELECT status, links FROM proceedings WHERE venue_id = ? AND year = ?",
                                     (v["id"], year)).fetchone()
             if existing and existing["status"] == "verified":
                 frozen += 1
-                continue  # verified is final
+                # verified counts are final; where-to-read links are filled in once
+                if existing["links"] == "[]":
+                    conn.execute("UPDATE proceedings SET links = ? WHERE venue_id = ? AND year = ?",
+                                 (links, v["id"], year))
+                continue
             done = year < this_year
             source = f"https://dblp.org/{keep[0]}" if len(keep) == 1 else f"https://dblp.org/db/{stream}/"
             conn.execute(
-                "INSERT INTO proceedings (venue_id, year, accepted_count, source, status, verified_on) "
-                "VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT (venue_id, year) DO UPDATE SET "
+                "INSERT INTO proceedings (venue_id, year, accepted_count, source, status, verified_on, links) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT (venue_id, year) DO UPDATE SET "
                 "accepted_count = excluded.accepted_count, source = excluded.source, "
-                "status = excluded.status, verified_on = excluded.verified_on",
+                "status = excluded.status, verified_on = excluded.verified_on, links = excluded.links",
                 (v["id"], year, len(titles), source, "verified" if done else "unverified",
-                 today if done else ""))
+                 today if done else "", links))
             counted += 1
 
     # keywords: tf-idf over titles, recomputed for every year (cheap, local)
