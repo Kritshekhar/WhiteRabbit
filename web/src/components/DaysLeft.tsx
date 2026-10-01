@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import type { Band } from '@/lib/dates';
 
-/* Time left on a row. Within a week the row ticks: "2d 14:05:33". Further
-   out, a running clock is noise, so it stays a day count.
+/* Time left on a row, ticking every second: "42d 14:05:33". A past or
+   undated deadline shows the plain day count.
 
    One shared one-second timer drives every ticking row on the page, and the
    first render shows the plain day count so server HTML and hydration agree. */
 
-const LIVE_WINDOW = 7 * 24 * 3600 * 1000;
 const subscribers = new Set<(t: number) => void>();
 let timer: number | undefined;
 
@@ -39,7 +38,7 @@ const two = (n: number) => String(n).padStart(2, '0');
 export function DaysLeft({ ts, days, band, size = 'lg' }: {
   ts: number | null | undefined; days: number; band: Band | null; size?: 'lg' | 'base';
 }) {
-  const live = !!ts && ts - Date.now() > 0 && ts - Date.now() < LIVE_WINDOW;
+  const live = !!ts && ts - Date.now() > 0;
   const now = useSecondTick(live);
   const color = band ? band.color : 'var(--text-muted)';
   const text = size === 'lg' ? 'text-lg' : 'text-base';
