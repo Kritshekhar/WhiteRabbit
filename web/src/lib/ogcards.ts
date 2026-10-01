@@ -47,5 +47,7 @@ export const PAGE_CARDS: Record<string, OgCard> = {
     subtitle: 'Papers per year over decades, keywords, topics, and the ideas that broke out each year.' },
   calendar: { eyebrow: 'Calendar feeds', title: 'Deadlines in your calendar',
     subtitle: 'Subscribe once; verified and corrected dates update on their own.' },
+  changes: { eyebrow: 'What changed', title: 'What changed',
+    subtitle: 'Deadlines newly verified on official pages, corrected, added, or moved to a new cycle.' },
   about: { eyebrow: 'About', title: "A project's path, not a ranking", subtitle: 'Workshop, full paper, journal.' },
 };
