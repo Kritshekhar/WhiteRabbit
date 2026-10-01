@@ -26,6 +26,8 @@ final and never fetched again.
   python scripts/verify_deadlines.py --dry-run
   python scripts/verify_deadlines.py --write
   python scripts/verify_deadlines.py --write fast osdi     # just these venues
+  python scripts/verify_deadlines.py --write --render --jina        # everything, no accounts
+  python scripts/verify_deadlines.py --write --render --firecrawl   # with a Firecrawl key
 """
 
 from __future__ import annotations
@@ -33,13 +35,19 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import re
+import html
 import sys
+import threading
+import time
+import urllib.request
+from urllib.parse import urljoin, urlsplit
 from datetime import date, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import db  # noqa: E402
-from check_deadlines import SUBPAGES, fetch, researchr_dates, to_text  # noqa: E402
+from check_deadlines import (  # noqa: E402
+    FIRECRAWL_KEY, SUBPAGES, fetch, firecrawl_find_cfp, firecrawl_markdown, researchr_dates, to_text)
 from render_check import find_chrome, render  # noqa: E402
 
 CHROME = None   # set by --render: headless Chrome for pages that need JavaScript
@@ -98,9 +106,13 @@ def dates_in(line: str) -> list[tuple[date, bool]]:
     return out
 
 
+RAW: dict[str, list] = {}   # venue url -> [(page url, text, raw markup)] for link discovery
+
+
 def candidate_pages(url: str) -> list[tuple[str, str]]:
     """(page url, page text) for the venue's own pages that could carry dates."""
     pages = []
+    raw = RAW.setdefault(url, [])
     lines, source = researchr_dates(url)
     if lines:
         pages.append((source, "\n".join(lines)))
@@ -109,6 +121,7 @@ def candidate_pages(url: str) -> list[tuple[str, str]]:
         markup = fetch(target)
         if markup:
             pages.append((target, to_text(markup)))
+            raw.append((target, "", markup))
         if len(pages) >= 4:
             break
     # Plenty of venue sites render their dates with JavaScript, so a plain
@@ -119,6 +132,145 @@ def candidate_pages(url: str) -> list[tuple[str, str]]:
             markup = render(CHROME, target)
             if markup:
                 pages.append((target, to_text(markup)))
+                raw.append((target, "", markup))
+    return pages
+
+
+def scan(venue: dict, d: dict, pages: list) -> tuple[str | None, set]:
+    """Look for deadline `d` on `pages`. Returns (verifying source or None,
+    {(different date, source)} seen for the same kind of deadline)."""
+    ours = date.fromisoformat(d["date"][:10])
+    kind = kind_of(d["name"])
+    others: set = set()
+    for source, text in pages:
+        if str(venue["year"]) not in text and str(ours.year) not in text:
+            continue                        # not this edition's page
+        for raw in text.splitlines():
+            line = re.sub(r"[\s*_|#>]+", " ", raw).strip()
+            if not (6 < len(line) < 240) or not KIND_WORDS[kind].search(line):
+                continue
+            # a line about abstracts or registering only speaks for the paper
+            # deadline when it names the paper submission outright
+            if kind == "paper" and KIND_WORDS["abstract"].search(line) and not re.search(
+                    r"(?i)full paper|paper submission|submission deadline|registration (?:&|and) submission", line):
+                continue
+            if NOT_A_DEADLINE.search(line) and not re.search(r"(?i)deadline|due|submission", line):
+                continue
+            track = f"{d['name']} {d.get('track', '')}"
+            other = OTHER_TRACK.search(line)
+            if other and not re.search(re.escape(other.group(1)), track, re.I):
+                continue
+            found = dates_in(line)
+            if not found:
+                continue
+            if any(explicit and dt.year != ours.year for dt, explicit in found):
+                continue                    # another year's call
+            resolved = [dt.replace(year=ours.year) if not explicit else dt for dt, explicit in found]
+            latest = max(resolved)
+            if latest == ours:
+                return source, others
+            # a proposal needs a line that is itself about a deadline, not a
+            # news item ("call for papers is posted") or an artifact date
+            if len(set(resolved)) == 1 and re.search(r"(?i)deadline|\bdue\b", line) \
+                    and not re.search(r"(?i)posted|updated|announced|released", line):
+                others.add((latest, source))
+    return None, others
+
+
+FIRECRAWL = False   # set by --firecrawl
+JINA = False        # set by --jina
+JINA_READER = "https://r.jina.ai/"
+_jina_slots = threading.Semaphore(1)        # keyless use is rate limited; go one at a time
+
+CFP_LINK = re.compile(r"(?i)call[\s_-]*for[\s_-]*(papers|submissions|contributions)|\bcfp\b|important[\s_-]*dates|"
+                      r"\bdates\b|submission|research[\s_-]*(track|papers)|technical[\s_-]*papers|"
+                      r"main[\s_-]*track|\bpapers\b")
+
+
+def same_site(a: str, b: str) -> bool:
+    """Same registrable host: 2027.foo.org and www.foo.org both count as foo.org."""
+    def root(u):
+        host = urlsplit(u).netloc.lower().split(":")[0]
+        return ".".join(host.split(".")[-2:])
+    return root(a) == root(b)
+
+
+def discover_links(base: str, markup: str) -> list[str]:
+    """Links on a venue's page that lead to its call or dates, on its own site.
+    This is what a person clicks after landing on the homepage."""
+    found = []
+    pairs = re.findall(r'(?is)<a\b[^>]*href=["\']([^"\'#]+)["\'][^>]*>(.*?)</a>', markup)
+    pairs += [(u, t) for t, u in re.findall(r"\[([^\]]{2,80})\]\((https?://[^)\s#]+)\)", markup)]
+    for href, label in pairs:
+        text = html.unescape(re.sub(r"(?s)<[^>]+>", " ", label)).strip()
+        target = urljoin(base, href.strip())
+        if not target.startswith("http") or not same_site(target, base):
+            continue
+        if re.search(r"(?i)\.(pdf|png|jpe?g|zip)$", target):
+            continue
+        if CFP_LINK.search(text) or CFP_LINK.search(urlsplit(target).path):
+            if target.rstrip("/") != base.rstrip("/") and target not in found:
+                found.append(target)
+    # the call for papers itself first, then dates, then anything else
+    found.sort(key=lambda u: (0 if re.search(r"(?i)call|cfp", u) else 1 if "date" in u.lower() else 2))
+    return found[:4]
+
+
+def jina(url: str) -> str:
+    """Page text as rendered by Jina Reader: keyless, no account."""
+    with _jina_slots:
+        req = urllib.request.Request(JINA_READER + url, headers={"User-Agent": "WhiteRabbit/1.0"})
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                text = resp.read(800_000).decode("utf-8", "ignore")
+        except Exception:
+            text = ""
+        time.sleep(3)   # stay well under the keyless rate limit
+        return text
+
+
+def deeper_pages(url: str, first: list[tuple[str, str, str]]) -> list[tuple[str, str]]:
+    """Follow the venue's own CFP and dates links, then fall back to Jina."""
+    pages, seen = [], {u for u, _, _ in first}
+    links: list[str] = []
+    for u, _, markup in first:
+        links += [l for l in discover_links(u, markup) if l not in links]
+    for target in links[:4]:
+        if target in seen:
+            continue
+        seen.add(target)
+        markup = fetch(target)
+        if not re.search(r"(?i)deadline|submission", to_text(markup)) and CHROME:
+            markup = render(CHROME, target) or markup
+        if markup:
+            pages.append((target, to_text(markup)))
+    if JINA:
+        md = jina(url)
+        if md:
+            pages.append((url, md))
+            for target in discover_links(url, md):
+                if target not in seen:
+                    seen.add(target)
+                    more = jina(target)
+                    if more:
+                        pages.append((target, more))
+    return pages
+_firecrawl_slots = threading.Semaphore(2)   # be polite to the API
+
+
+def firecrawl_pages(url: str) -> list[tuple[str, str]]:
+    """The venue's own pages, rendered by Firecrawl: the homepage, plus the CFP
+    and dates pages its /map finds (with an API key). The source recorded is
+    still the venue's own URL; Firecrawl is only how it was read."""
+    pages = []
+    with _firecrawl_slots:
+        md = firecrawl_markdown(url)
+        if md:
+            pages.append((url, md))
+        for target in firecrawl_find_cfp(url)[:2]:
+            md = firecrawl_markdown(target)
+            if md:
+                pages.append((target, md))
     return pages
 
 
@@ -126,49 +278,27 @@ def check_venue(venue: dict, deadlines: list[dict]) -> tuple[dict, list, list]:
     """Returns (venue, [(deadline id, source)], [(deadline id, proposed iso, source)])."""
     verified, proposals = [], []
     pages = candidate_pages(venue["url"]) if venue["url"] else []
+    rendered = deeper = None
     for d in deadlines:
-        ours = date.fromisoformat(d["date"][:10])
-        kind = kind_of(d["name"])
-        others = set()
-        done = False
-        for source, text in pages:
-            if str(venue["year"]) not in text and str(ours.year) not in text:
-                continue                        # not this edition's page
-            for raw in text.splitlines():
-                line = re.sub(r"\s+", " ", raw).strip()
-                if not (6 < len(line) < 240) or not KIND_WORDS[kind].search(line):
-                    continue
-                if kind == "paper" and KIND_WORDS["abstract"].search(line) and "paper" not in line.lower():
-                    continue
-                if NOT_A_DEADLINE.search(line) and not re.search(r"(?i)deadline|due|submission", line):
-                    continue
-                track = f"{d['name']} {d.get('track', '')}"
-                other = OTHER_TRACK.search(line)
-                if other and not re.search(re.escape(other.group(1)), track, re.I):
-                    continue
-                found = dates_in(line)
-                if not found:
-                    continue
-                if any(explicit and dt.year != ours.year for dt, explicit in found):
-                    continue                    # another year's call
-                resolved = [dt.replace(year=ours.year) if not explicit else dt for dt, explicit in found]
-                latest = max(resolved)
-                if latest == ours:
-                    verified.append((d["id"], source))
-                    done = True
-                    break
-                # a proposal needs a line that is itself about a deadline, not a
-                # news item ("call for papers is posted") or an artifact date
-                if len(set(resolved)) == 1 and re.search(r"(?i)deadline|\bdue\b", line) \
-                        and not re.search(r"(?i)posted|updated|announced|released", line):
-                    others.add((latest, source))
-            if done:
-                break
-        if not done and len({dt for dt, _ in others}) == 1:
-            proposed, source = next(iter(others))
+        source, others = scan(venue, d, pages)
+        if not source and venue["url"]:
+            if deeper is None:
+                deeper = deeper_pages(venue["url"], RAW.get(venue["url"], []))
+            source, more = scan(venue, d, deeper)
+            others |= more
+        if not source and FIRECRAWL and venue["url"]:
+            if rendered is None:
+                rendered = firecrawl_pages(venue["url"])
+            source, more = scan(venue, d, rendered)
+            others |= more
+        if source:
+            verified.append((d["id"], source))
+            continue
+        if len({dt for dt, _ in others}) == 1:
+            proposed, src = next(iter(others))
+            ours = date.fromisoformat(d["date"][:10])
             if abs((proposed - ours).days) <= 120:   # a nearby correction, not another round
-                iso = proposed.isoformat() + d["date"][10:]
-                proposals.append((d["id"], iso, source))
+                proposals.append((d["id"], proposed.isoformat() + d["date"][10:], src))
     return venue, verified, proposals
 
 
@@ -179,8 +309,18 @@ def main() -> int:
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--render", action="store_true",
                     help="render pages with headless Chrome when a plain fetch finds no dates")
+    ap.add_argument("--jina", action="store_true",
+                    help="last resort: read pages through Jina Reader (keyless, no account, slow)")
+    ap.add_argument("--firecrawl", action="store_true",
+                    help="for deadlines still unmatched, read the venue's pages through Firecrawl "
+                         "(uses FIRECRAWL_API_KEY; about 1 to 3 credits per venue)")
     args = ap.parse_args()
-    global CHROME
+    global CHROME, FIRECRAWL, JINA
+    JINA = args.jina
+    if args.firecrawl:
+        FIRECRAWL = True
+        if not FIRECRAWL_KEY:
+            print("FIRECRAWL_API_KEY is not set; Firecrawl refuses most keyless requests", file=sys.stderr)
     if args.render:
         CHROME = find_chrome()
         if not CHROME:

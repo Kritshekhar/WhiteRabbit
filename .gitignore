@@ -5,3 +5,4 @@ __pycache__/
 db/whiterabbit.sqlite
 db/*.tmp
 cache/
+.env
