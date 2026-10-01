@@ -1,247 +1,213 @@
-<h1 align="center">White Rabbit 🐇</h1>
+<h1 align="center">White Rabbit</h1>
 
 <p align="center">
-  <em>"Oh dear! Oh dear! I shall be too late!"</em><br>
-  A self-updating tracker for conference paper deadlines.
+  Deadlines for computer science conferences, grants and fellowships, checked against
+  official sources, with statistics from decades of past proceedings.
 </p>
 
 <p align="center">
-  <a href="https://kritshekhar.github.io/WhiteRabbit/"><b>Live dashboard</b></a> ·
+  <a href="https://kritshekhar.github.io/WhiteRabbit/"><b>Open the site</b></a> ·
   <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
 <p align="center">
   <a href="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/update-deadlines.yml"><img alt="refresh" src="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/update-deadlines.yml/badge.svg"></a>
   <a href="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/validate.yml"><img alt="validate" src="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/validate.yml/badge.svg"></a>
+  <a href="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/deploy-pages.yml"><img alt="deploy" src="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/deploy-pages.yml/badge.svg"></a>
 </p>
 
-![The White Rabbit dashboard](docs/screenshot.png)
+![The White Rabbit home page](docs/screenshot.png)
 
 ---
 
-A static site with no backend. The data lives in a SQLite database whose text
-dump is committed to this repo; GitHub Actions refreshes it every night and
-publishes an [Astro](https://astro.build) site to GitHub Pages. Countdowns are
-computed in your browser, so the numbers are right even between builds.
+## What it is
 
-| | |
+A static site, rebuilt every night, that answers two questions researchers ask
+all year: *when is the next deadline I care about*, and *what does that venue
+actually publish*.
+
+| Page | What you get |
 |---|---|
-| **Home** | the next deadlines across conferences and funding, and a search box |
-| **Conferences** | 99 conference, workshop and journal deadlines |
-| **Grants** | federal and industry grant calls for faculty and PIs |
-| **Fellowships** | fellowships open to PhD students |
-| **Proceedings** | papers per year over each venue's full history, the keywords it publishes most, and what is trending |
-| **About** | what the stage names mean |
+| **Home** | the next deadline with a live countdown, what is due soon across conferences and funding, and a search across everything |
+| **Conferences** | 375 venues across AI, systems, security, databases, networking, software engineering, HCI, graphics and theory, with ticking countdowns |
+| **Grants** | federal and industry calls for faculty and PIs, filterable by funder and ACM classification |
+| **Fellowships** | PhD fellowships, with when each cycle usually opens |
+| **Proceedings** | papers per year over each venue's full history, its distinctive keywords and topics, rising and fading research phrases, where an idea spreads across venues, similar venues, author trends, and a link to every year's proceedings |
+| **About** | the stages a project moves through: workshop, full paper, journal |
 
-What makes it different from a spreadsheet of dates:
+Every conference page also summarises that venue's past proceedings: papers per
+year, growth, keywords, team size, how many papers come from entirely new
+teams, similar venues, and links to read the latest proceedings.
 
-- **Every date says whether it was checked.** A ✓ **verified** badge links to the
-  page it was read off. An **est.** badge means extrapolated or imported and not
-  yet confirmed. There is no third state, and the database refuses a verified
-  row without a source.
-- **Verified data is final.** Once a row is verified it is never crawled again;
-  the crawlers only revisit the `needs_check` queue of unverified rows.
-- **Links roll over on their own.** Once a cycle closes, the venue moves to next
-  year's site as soon as that site is genuinely live, and the old cycle is kept.
-- **It tracks a project's path, not a league table.** Workshop → full paper →
-  journal, with grades only where they matter. See **[About](https://kritshekhar.github.io/WhiteRabbit/about/)**.
-- **Every deadline is one click from your calendar.** The Google Calendar link
-  is an absolute UTC instant rather than an all-day event, because an all-day
-  event lands on the viewer's local day and would silently move an AoE deadline.
+## Why trust the dates
+
+- **Every date says whether it was checked.** A **✓ verified** badge links to the
+  official page the date was read from. An **est.** badge means extrapolated or
+  imported and not yet confirmed. The database refuses a verified date without
+  a source.
+- **Verification is automatic but strict.** Each night, `verify_deadlines.py`
+  opens every venue's own site, follows its *Call for Papers* and *Important
+  Dates* links, and marks a deadline verified only when that page, for this
+  edition, states exactly our date on a line about the same deadline and not
+  another track. If the page says something different, nothing is changed:
+  the date goes to a review queue for a person to confirm.
+- **Verified is final.** A verified row is never crawled again; only unverified
+  rows are revisited.
+- **Links roll over on their own.** When a cycle closes, the venue moves to next
+  year's site once that site is genuinely live. The old cycle is kept as
+  history, and the new dates stay estimates until they are verified.
+- **Calendar entries do not drift.** The Google Calendar link is an exact UTC
+  instant, not an all-day event, so an AoE deadline never moves by a day.
+
+Countdowns are computed in your browser from the stored dates, so they are
+correct to the second even between builds.
+
+## How it works
+
+```
+db/whiterabbit.sql ──► scripts/db.py build ──► db/whiterabbit.sqlite ──► web/ (Astro) ──► GitHub Pages
+  committed dump          (gitignored)               ▲
+                                                     │
+   update.py · verify_deadlines.py · import_*.py · verify_grants.py · proceedings_*.py · wr.py
+```
+
+- **Data.** A SQLite database (`db/schema.sql`). What is committed is
+  `db/whiterabbit.sql`, a deterministic text dump with one row per line, so
+  every change is an ordinary diff in a pull request. The `.sqlite` file is a
+  build artefact, rebuilt automatically when the dump or schema changes.
+- **Site.** [Astro](https://astro.build) with React islands and Tailwind, in
+  `web/`. Every venue, grant and proceedings page is pre-rendered from the
+  database at build time; filters, charts and countdowns run in the browser.
+- **Pipeline.** Python scripts in `scripts/`, run by GitHub Actions. Apart from
+  the venue importer, they use only the standard library.
+
+### Proceedings statistics
+
+`proceedings_dblp.py` downloads the [DBLP](https://dblp.org) XML dump (about
+1 GB, refreshed monthly, kept in the Actions cache and never in git), streams
+it once, and computes for each venue and year: papers in its main proceedings
+volume, distinctive title phrases, authors per paper, papers by entirely new
+teams, most published authors, and links to the volume on the publisher's
+site and on DBLP. Across venues it finds rising and fading phrases, where each
+idea spreads, and which venues publish on similar things.
+
+This covers 344 venues and over a million papers back to 1960. Counts are
+**papers in the main DBLP volume**, not official acceptance counts: some venues
+publish short papers in the same volume, and workshop volumes and front matter
+are excluded. A finished year's count is verified with its DBLP table of
+contents as the source and never recomputed.
+
+`proceedings_openalex.py` adds research topics per venue and year from
+[OpenAlex](https://openalex.org). Without an API key OpenAlex allows 1,000
+requests a day, so this backfills a little every day and resumes where it
+stopped.
 
 ## Editing the data
 
-`scripts/wr.py` is the editor. Every command writes through to
-`db/whiterabbit.sql`, so a change is an ordinary diff in a pull request.
+`scripts/wr.py` is the editor. Every command writes through to the dump, so a
+change shows up in `git diff`.
 
 ```bash
+python scripts/wr.py show osdi                                    # one venue or grant
+python scripts/wr.py queue                                        # what still needs verifying
 python scripts/wr.py add-venue HotOS --full-name "Workshop on Hot Topics in Operating Systems" \
     --tier rabbit-hole --url https://sigops.org/s/conferences/hotos/2027/ \
     --url-template "https://sigops.org/s/conferences/hotos/{year}/" --year 2027 --topic Systems
 python scripts/wr.py set hotos cycle_years 2                      # biennial
 python scripts/wr.py add-deadline hotos "Paper submission" 2027-01-14T23:59:00-12:00
 python scripts/wr.py verify hotos --source https://sigops.org/s/conferences/hotos/2027/cfp.html
-python scripts/wr.py show hotos
-python scripts/wr.py queue                                        # what still needs verifying
 ```
 
-`verify` is the only way a row becomes verified, and it needs `--source`: the
-first-party page you read the date on. Dates are ISO 8601; use `-12:00` for AoE.
-A bare date is read as AoE end of day. Any edit that breaks a rule is refused
-and nothing is saved. Full guide in **[CONTRIBUTING.md](CONTRIBUTING.md)**.
+`verify` is the only manual way a row becomes verified, and it needs
+`--source`, the official page you read the date on. Dates are ISO 8601; use
+`-12:00` for AoE, and a bare date means AoE end of day. An edit that breaks a
+rule is refused and nothing is saved. The full guide is in
+**[CONTRIBUTING.md](CONTRIBUTING.md)**.
 
 <details>
 <summary><b>Venue fields</b></summary>
 
 | Field | Meaning |
 |---|---|
-| `name` | **required** - the label on the row |
+| `name` | **required**, the label on the row |
 | `full_name` | spelled-out name, shown underneath |
-| `tier` | `rabbit-hole` \| `royal-flush` \| `full-house` \| `looking-glass` - stage on the journey (default `full-house`) |
+| `tier` | `rabbit-hole` (workshop) \| `royal-flush` \| `full-house` (full paper) \| `looking-glass` (journal); default `full-house` |
 | `url` | homepage for the current cycle |
-| `url_template` | pattern for auto-rollover: `{year}`→2027, `{yy}`→27, `{yyn}`→28. Empty freezes the link. |
+| `url_template` | pattern for rollover: `{year}`→2027, `{yy}`→27, `{yyn}`→28. Empty freezes the link. |
 | `year` | which edition `url` points at |
 | `month` | month the conference is held (sorting hint) |
 | `cycle_years` | years between editions (default 1; `2` for biennial venues) |
-| `rolling` | `1` for journals - shows "Rolling submission", never counts down |
+| `rolling` | `1` for journals: shows "Rolling submission" and never counts down |
 | `formats`, `tracks`, `topics` | comma-separated with `wr.py set`, e.g. `"Full paper, Poster"` |
-| `notes` | free text shown on the page |
-| `dblp_key` | the venue's DBLP stream, e.g. `conf/fast`, for proceedings stats |
+| `notes` | free text shown on the venue page |
+| `dblp_key` | the venue's DBLP stream, e.g. `conf/fast`, for proceedings statistics |
 
 </details>
-
-## How it works
-
-```
-db/whiterabbit.sql ──► scripts/db.py build ──► db/whiterabbit.sqlite ──► web/ (Astro) ──► GitHub Pages
-  committed dump          (gitignored)              ▲
-                                                    │
-        update.py · import_*.py · verify_grants.py · proceedings_*.py · wr.py
-```
-
-`db/schema.sql` defines the tables. The `.sqlite` file is a build artefact,
-rebuilt automatically whenever the dump or schema changes. The dump is
-deterministic, one row per line in key order, so every change reviews as a
-normal diff.
-
-The database holds ISO dates and **no day counts**. The site recomputes days,
-urgency colours and sort order from the browser's clock on every page load, so
-a venue can go un-probed for weeks and its countdown is still correct.
-
-Fetching is only about link health, year rollover and confirming unverified
-dates. A nightly run re-checks what plausibly moved: venues with unverified
-dates, venues whose last check failed, venues with a rollover pending, and
-anything last checked over 30 days ago. Verifying a date also makes the build
-cheaper, since a verified row drops out of the queue for good.
-
-### Year rollover
-
-When every deadline in a cycle has passed, the updater renders `url_template` for
-the next year and moves only if that page answers 2xx/3xx **and** looks real:
-it mentions the new year, exceeds 1 KB, and is not a bare directory listing.
-After probing, a venue that rolled onto a link that is not `ok` is put back.
-
-Those checks are not paranoia. `sigops.org/…/sosp/2099/` returns the SOSP 2017
-page, `conferences.sigcomm.org/hotnets/2027/` is an empty autoindex whose title
-contains "2027", and one host answered `200` to GitHub's runners and `404` to us
-minutes later. Each one produced a wrong rollover before the check existed.
-
-On success the venue's `year` and `url` move on, and next cycle's deadlines are
-added as new, unverified rows shifted by the cycle length. The finished cycle's
-rows stay in the database as history.
-
-### Proceedings statistics
-
-`scripts/proceedings_dblp.py` downloads the [DBLP](https://dblp.org) XML dump
-(1.1 GB, monthly, kept in the Actions cache and never in git), streams it once,
-and counts each tracked venue's papers per year in its main proceedings volume,
-over its full history. It also extracts the title phrases most distinctive of
-each venue-year, and the phrases rising across all venues. A finished year's
-count is verified with its DBLP table of contents as the source and never
-recomputed; the current year stays unverified while its volume fills in.
-
-These are **papers in the main DBLP volume**, not official acceptance counts:
-some venues publish short papers in the same volume, and DBLP excludes nothing
-the venue printed. Workshop volumes, front matter and keynotes are left out.
-
-`scripts/proceedings_openalex.py` adds a topic breakdown per venue-year from
-[OpenAlex](https://openalex.org), using the DOIs DBLP lists. OpenAlex allows
-1,000 keyless requests a day, so this backfills a little every day and resumes
-where it stopped; set `OPENALEX_API_KEY` to go faster. Venues DBLP cannot match
-by name are proposed in the `candidates` queue (`wr.py queue`) for a person to
-confirm with `wr.py set <venue> dblp_key <key>`.
 
 ## Tools
 
 ```bash
-python scripts/db.py check                   # validate the data; runs on every PR
-python scripts/import_ccf.py AI --dry-run    # import more venues
-python scripts/import_grants.py --dry-run    # import new federal CS grants
-python scripts/enrich_grants.py              # solicitation text and funding figures
-python scripts/verify_grants.py --dry-run    # confirm federal dates at source
-python scripts/check_deadlines.py eurosys    # what the venue's own page says
-python scripts/check_deadlines.py --formats  # page limits and track names
-python scripts/update.py --scope all         # refresh, re-probing everything
-python scripts/proceedings_dblp.py           # proceedings counts and keywords
-python scripts/proceedings_openalex.py       # topic backfill
+python scripts/db.py check                     # validate the data; runs on every PR
+python scripts/verify_deadlines.py --dry-run   # check unverified dates against official pages
+python scripts/verify_deadlines.py --write --render --jina   # ...and apply (Chrome + Jina fallbacks)
+python scripts/check_deadlines.py eurosys      # print what a venue's own page says
+python scripts/check_deadlines.py --formats    # page limits and track names
+python scripts/update.py --scope all           # probe links, roll venues over
+python scripts/import_ccf.py AI SE --dry-run   # import more venues
+python scripts/import_grants.py --dry-run      # import new federal CS grants
+python scripts/verify_grants.py --dry-run      # confirm federal grant dates at source
+python scripts/proceedings_dblp.py             # proceedings counts, keywords, authors
+python scripts/proceedings_openalex.py         # topic backfill
 ```
 
-`check_deadlines.py` prints the database's claim next to every deadline-looking
-line on the venue's site:
-
-```
-### EuroSys  (2027)
-    source: https://2027.eurosys.org/cfp
-    config: Fall round: 2026-10-16T23:59:00-12:00  <- unconfirmed
-    site:   Paper titles and abstracts due: Thursday, September 17, 2026
-    site:   Full paper submissions due: Thursday, September 24, 2026
-```
-
-It **never writes to the database**, and that is deliberate. CFP pages are
-prose, and plenty of them serve last year's dates from this year's URL - NDSS's
-2027 page still shows 2024 dates. Auto-parsing that would quietly produce wrong
-deadlines, which is the one thing a deadline tracker must not do. The tool
-proposes; a person decides with `wr.py verify`.
-
-Add `--firecrawl` for pages plain fetching cannot read (JS-rendered, bot-blocked,
-prose-buried). It works without an API key; `FIRECRAWL_API_KEY` raises the rate
-limit and unlocks CFP-page discovery. It runs last, only after the free paths fail.
+`verify_deadlines.py` needs no accounts or API keys. It reads pages directly,
+renders JavaScript-only sites in headless Chrome (`--render`), and as a last
+resort reads them through the free Jina Reader (`--jina`). Firecrawl is
+supported with `--firecrawl` if you have a key.
 
 ## Local development
 
 ```bash
 git clone https://github.com/Kritshekhar/WhiteRabbit.git && cd WhiteRabbit
-python3 scripts/db.py build                  # db/whiterabbit.sqlite from the dump
-cd web && npm install && npm run dev         # http://localhost:4321/WhiteRabbit/
+python3 scripts/db.py build                    # db/whiterabbit.sqlite from the dump
+cd web && npm install && npm run dev           # http://localhost:4321/WhiteRabbit/
 ```
 
-Only the importers need a package (`pip install -r requirements.txt`); the
-database tools use the standard library.
+Only the venue importer needs a package (`pip install -r requirements.txt`).
 
 ## Workflows
 
-| Workflow | Trigger | Does |
+| Workflow | When | What it does |
 |---|---|---|
-| `validate.yml` | every PR | `db.py check`, proves the dump is canonical and an offline build works |
-| `update-deadlines.yml` | nightly 07:00 UTC · monthly full sweep · push | probes links, rolls venues over, commits the dump |
-| `weekly-funding-sweep.yml` | Mondays 09:00 UTC | imports, enriches and verifies federal grant calls, opens a PR |
-| `propose-deadlines.yml` | Mondays 08:00 UTC | sweeps CFP pages for unverified venues, opens an issue - never edits the data |
-| `proceedings-stats.yml` | daily 05:00 UTC | DBLP counts and keywords, OpenAlex topic backfill, commits the dump |
+| `validate.yml` | every PR | `db.py check`, requires a canonical dump, proves an offline build works |
+| `update-deadlines.yml` | nightly, plus a monthly full sweep | verifies dates on official pages, probes links, rolls venues over, commits the dump |
+| `proceedings-stats.yml` | daily | DBLP counts, keywords and authors; OpenAlex topic backfill; commits the dump |
+| `weekly-funding-sweep.yml` | Mondays | imports and verifies federal grant calls, opens a PR for review |
+| `propose-deadlines.yml` | Mondays | sweeps CFP pages for unverified venues and opens an issue; never edits data |
 | `deploy-pages.yml` | push to `main` | builds the database and the Astro site, publishes to GitHub Pages |
-
-Deploy is a separate workflow on purpose: publishing can be blocked by Pages
-settings, and that should not make a healthy data refresh look like a broken build.
 
 ## Running your own
 
-Fork it, replace the venues with the ones for your field (`wr.py add-venue`, or
-edit `db/whiterabbit.sql` and run `db.py check`), then enable
-**Settings → Pages → Source: GitHub Actions** and
-**Settings → Actions → Workflow permissions: Read and write** (the scheduled
-jobs commit the refreshed dump back).
+Fork it, change the venues for your field (`wr.py add-venue`, or edit
+`db/whiterabbit.sql` and run `db.py check`), then enable **Settings → Pages →
+Source: GitHub Actions** and **Settings → Actions → Workflow permissions: Read
+and write** (the scheduled jobs commit the refreshed dump back).
 
-## Where the data comes from
+## Data sources
 
-| Source | What | How |
-|---|---|---|
-| hand-maintained | the original venue list, all 13 fellowships | `wr.py` |
-| [DBLP](https://dblp.org) XML dump (CC0) | papers per venue per year, title keywords | `proceedings_dblp.py` |
-| [OpenAlex](https://openalex.org) (CC0) | research topics per venue-year | `proceedings_openalex.py` |
-
-Two sources were assessed and rejected: `paperswithcode/ai-deadlines`, which
-has not been updated since September 2024 and has no future deadlines, and
-NSF's own funding pages, which return 202 to scripts and whose RSS feed is dead.
-DBLP's search API was also ruled out: it now sits behind a bot challenge, and
-the dump is the better tool for full history anyway.
+| Source | Used for |
+|---|---|
+| Venue and funder websites | deadlines, verified on the official page |
+| [DBLP](https://dblp.org) XML dump (CC0) | papers per year, title keywords, authors, links to proceedings |
+| [OpenAlex](https://openalex.org) (CC0) | research topics per venue and year |
 
 ## A note on the dates
 
-Every date here is community-maintained and some are extrapolated. The **est.**
-badge is honest, not decorative - **always confirm on the venue's own CFP page
-before you plan around it.** If you spot a wrong date,
-[open an issue](https://github.com/Kritshekhar/WhiteRabbit/issues/new/choose);
+Dates marked **est.** have not yet been confirmed on the official page.
+**Always check the venue's own call for papers before you plan around a date.**
+If you spot a wrong one, [open an issue](https://github.com/Kritshekhar/WhiteRabbit/issues/new/choose);
 it takes one line to fix.
 
 ## License
 
-MIT - see [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE).

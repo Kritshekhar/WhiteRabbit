@@ -67,7 +67,7 @@ export default function GrantList({ grants, audience, builtAt }: { grants: Grant
   const hero = head && head.next?.ts ? (
     <Tile
       hero
-      label={head.days !== null && head.days <= 14 ? "I'm late! I'm late!" : 'Next up'}
+      label={head.days !== null && head.days <= 14 ? 'Due soon' : 'Next up'}
       value={head.name}
       note={`${head.funder} · ${head.days}d · ${fmtDate(head.next.ts, head.next.off)}`}
     />
