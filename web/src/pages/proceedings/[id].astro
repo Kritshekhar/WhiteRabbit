@@ -35,7 +35,7 @@ const procLink = (id: string) => href(`proceedings/${encodeURIComponent(id)}/`);
 const picker: PickerVenue[] = venuesWithData().map((v) => ({ id: v.id, name: v.name, full_name: v.full_name, tier: v.tier, latest: null }));
 ---
 
-<Layout title={`${venue.name} proceedings`} section="proceedings" description={`${venue.name} proceedings: papers per year since ${first}, keywords and topic trends.`}>
+<Layout title={`${venue.name} proceedings`} section="proceedings" image={`og/venue/${venue.id}.png`} description={`${venue.name} proceedings: papers per year since ${first}, keywords and topic trends.`}>
   <nav aria-label="Breadcrumb" class="mb-4 text-sm text-muted">
     <a class="hover:text-fg" href={href('proceedings/')}>Proceedings</a> <span aria-hidden="true">/</span> <span class="text-fg-2">{venue.name}</span>
   </nav>

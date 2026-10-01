@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 // Static site for GitHub Pages, served under /WhiteRabbit/. Every page is
@@ -11,7 +12,8 @@ export default defineConfig({
   trailingSlash: 'always',
   output: 'static',
   build: { format: 'directory' },
-  integrations: [react()],
+  // the sitemap lists pages only; feeds, images and the 404 page stay out
+  integrations: [react(), sitemap({ filter: (page) => !page.includes('/404') })],
   vite: {
     plugins: [tailwindcss()],
     ssr: { external: ['better-sqlite3'] },

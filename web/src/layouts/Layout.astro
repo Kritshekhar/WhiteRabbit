@@ -9,11 +9,21 @@ interface Props {
   title: string;
   description?: string;
   section: Section;
+  /* preview image, as a path under the site root (e.g. 'og/venue/fast.png');
+     defaults to the section's own card */
+  image?: string;
+  /* schema.org structured data, one object or several */
+  jsonLd?: object | object[];
 }
 
-const { title, description = 'White Rabbit: self-updating deadlines for CS conferences, grants and fellowships, with proceedings statistics.', section } = Astro.props;
+const { title, description = 'White Rabbit: self-updating deadlines for CS conferences, grants and fellowships, with proceedings statistics.', section, image, jsonLd } = Astro.props;
 const fullTitle = section === 'home' ? title : `${title} · White Rabbit`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const root = new URL(import.meta.env.BASE_URL, Astro.site);
+const SECTION_CARD: Record<string, string> = { home: 'home', conferences: 'conferences', grants: 'grants',
+  fellowships: 'fellowships', proceedings: 'proceedings', about: 'about' };
+const imageUrl = new URL(image ?? `og/page/${SECTION_CARD[section] ?? 'home'}.png`, root);
+const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
 <!doctype html>
@@ -27,6 +37,18 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="White Rabbit" />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={fullTitle} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <link rel="sitemap" type="application/xml" href={new URL('sitemap-index.xml', root)} />
+    {ld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐇</text></svg>" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
