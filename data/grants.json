@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T04:52:32+00:00",
+  "generated_at": "2026-10-01T09:00:40+00:00",
   "counts": {
     "total": 117,
     "PhD student": 13,
@@ -1376,8 +1376,8 @@
       "link_status": "ok"
     },
     {
-      "id": "integrated-data-systems-amp-services-idss",
-      "name": "Integrated Data Systems &amp; Services (IDSS)",
+      "id": "integrated-data-systems-services-idss",
+      "name": "Integrated Data Systems & Services (IDSS)",
       "funder": "NSF CISE",
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
@@ -2337,8 +2337,8 @@
       "link_status": "unknown"
     },
     {
-      "id": "forecast-to-publish-a-funding-opportunity-announcement-for-embracehealth-clinical-research-network-to-reduce-health-disparities-ndash-coordinating-center",
-      "name": "Forecast to Publish a Funding Opportunity Announcement for EmbraceHealth Clinical Research Network to Reduce Health Disparities &ndash; Coordinating Center",
+      "id": "forecast-to-publish-a-funding-opportunity-announcement-for-embracehealth-clinical-research-network-to-reduce-health-disparities-coordinating-center",
+      "name": "Forecast to Publish a Funding Opportunity Announcement for EmbraceHealth Clinical Research Network to Reduce Health Disparities \u2013 Coordinating Center",
       "funder": "NIH",
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
@@ -2366,8 +2366,8 @@
       "link_status": "unknown"
     },
     {
-      "id": "notice-of-intent-to-publish-a-forecast-for-embracehealth-clinical-research-network-to-reduce-health-disparities-ndash-research-sites",
-      "name": "Notice of Intent to Publish a Forecast for EmbraceHealth Clinical Research Network to Reduce Health Disparities &ndash; Research Sites",
+      "id": "notice-of-intent-to-publish-a-forecast-for-embracehealth-clinical-research-network-to-reduce-health-disparities-research-sites",
+      "name": "Notice of Intent to Publish a Forecast for EmbraceHealth Clinical Research Network to Reduce Health Disparities \u2013 Research Sites",
       "funder": "NIH",
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
@@ -2688,8 +2688,8 @@
       "link_status": "unknown"
     },
     {
-      "id": "stroke-preclinical-assessment-network-span-to-support-translational-studies-for-acute-cerebroprotection-ndash-network-sites-and-coordinating-center-u01-ct-not-allowed",
-      "name": "Stroke Preclinical Assessment Network (SPAN) to Support Translational Studies for Acute Cerebroprotection &ndash; Network Sites and Coordinating Center (U01- CT Not Allowed)",
+      "id": "stroke-preclinical-assessment-network-span-to-support-translational-studies-for-acute-cerebroprotection-network-sites-and-coordinating-center-u01-ct-not-allowed",
+      "name": "Stroke Preclinical Assessment Network (SPAN) to Support Translational Studies for Acute Cerebroprotection \u2013 Network Sites and Coordinating Center (U01- CT Not Allowed)",
       "funder": "NIH",
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
