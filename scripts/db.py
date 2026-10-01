@@ -53,6 +53,7 @@ TABLES = {
     "proceedings_topics": "venue_id, year, term",
     "proceedings_keywords": "venue_id, year, term",
     "keyword_trends": "year, term",
+    "research_eras": "year, rank",
     "tracked_terms": "term",
     "term_venue_year": "term, venue_id, year",
     "venue_similarity": "venue_id, other_id",

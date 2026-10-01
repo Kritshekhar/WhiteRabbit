@@ -181,6 +181,20 @@ CREATE TABLE term_venue_year (
   PRIMARY KEY (term, venue_id, year)
 );
 
+-- Each year's breakout ideas: phrases whose share of all titles jumped against
+-- the three years before. An idea appears once, in the year it broke out, and
+-- generic words ("deep", "neural") give way to the phrases they belong to.
+CREATE TABLE research_eras (
+  year       INTEGER NOT NULL,
+  rank       INTEGER NOT NULL,              -- 1 = the year's breakout idea
+  term       TEXT NOT NULL,
+  count      INTEGER NOT NULL,              -- titles using it that year
+  prev_count REAL NOT NULL,                 -- yearly average over the three years before
+  lift       REAL NOT NULL,                 -- share that year / share before
+  venues     INTEGER NOT NULL,              -- venues that used it that year
+  PRIMARY KEY (year, rank)
+);
+
 -- The phrases in term_venue_year and why each was chosen.
 CREATE TABLE tracked_terms (
   term        TEXT PRIMARY KEY,

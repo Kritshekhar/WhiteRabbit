@@ -3,7 +3,7 @@
    runs in Astro frontmatter or a static JSON endpoint. */
 
 import {
-  getAllKeywordTrends, getAuthorYears, getProceedings, getSimilarity, getTermVenueYears, getTopAuthors,
+  getAuthorYears, getResearchEras, getProceedings, getSimilarity, getTermVenueYears, getTopAuthors,
   getTrackedTerms, getVenues, type AuthorYear, type TopAuthor, type TrackedTerm,
 } from './db';
 import { keywordFile, latestCompleteYear, proceedingsFor, topicsFor } from './proceedings';
@@ -35,24 +35,40 @@ function base() {
 export const latestYear = () => base().latest;
 
 /* ---------------------------------------------------------------- eras --- */
-export interface Era { year: number; terms: string[] }
+export interface EraIdea {
+  term: string;
+  count: number;      // titles using it in its breakout year
+  prev: number;       // yearly average over the three years before
+  lift: number;       // growth in share of all titles
+  venues: number;
+  points: { year: number; share: number }[];   // share of all titles, every year
+}
+export interface Era { year: number; ideas: EraIdea[] }
 
-/* The top rising phrases of each recent complete year, newest last. */
-export function eras(years = 12, perYear = 3): Era[] {
-  const latest = base().latest;
+/* Each year's breakout ideas, each idea once, with its share of all titles
+   over time so the timeline can show what happened next. */
+export function eras(from = 2005): Era[] {
+  const { totals, latest } = base();
   if (latest === null) return [];
-  const byYear = new Map<number, string[]>();
-  for (const t of getAllKeywordTrends()) {
-    const list = byYear.get(t.year) || [];
-    if (list.length < perYear) list.push(t.term);
-    byYear.set(t.year, list);
+  const counts = new Map<string, Map<number, number>>();
+  for (const r of getTermVenueYears()) {
+    if (!counts.has(r.term)) counts.set(r.term, new Map());
+    const m = counts.get(r.term)!;
+    m.set(r.year, (m.get(r.year) || 0) + r.count);
   }
-  const out: Era[] = [];
-  for (let y = latest - years + 1; y <= latest; y += 1) {
-    const terms = byYear.get(y);
-    if (terms?.length) out.push({ year: y, terms });
+  const byYear = new Map<number, EraIdea[]>();
+  for (const r of getResearchEras()) {
+    if (r.year > latest) continue;
+    const points = [];
+    for (let y = from; y <= latest; y += 1) {
+      const total = totals.get(y) || 0;
+      points.push({ year: y, share: total ? (counts.get(r.term)?.get(y) || 0) / total : 0 });
+    }
+    const list = byYear.get(r.year) || [];
+    list.push({ term: r.term, count: r.count, prev: r.prev_count, lift: r.lift, venues: r.venues, points });
+    byYear.set(r.year, list);
   }
-  return out;
+  return [...byYear.entries()].sort((a, b) => a[0] - b[0]).map(([year, ideas]) => ({ year, ideas }));
 }
 
 /* ------------------------------------------------------ rising, fading --- */

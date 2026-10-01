@@ -121,6 +121,7 @@ towards toward into over under about through based new novel approach approaches
 methods paper study analysis case its their our we can do does not than vs versus beyond
 efficient effective improving improved improve learning large scale fast via more less
 when what how why which where all any one two three high low system systems big
+only introduction special chinese english brief traditional work-in-progress
 model models data framework frameworks problem problems result results task tasks
 application applications performance design general generalized simple better
 report proceedings workshop session special issue track tutorial panel poster
@@ -531,6 +532,77 @@ NOTABLE = [
     "neural radiance", "gaussian splatting", "autonomous driving", "big data", "crowdsourcing",
 ]
 NEWCOMER_WARMUP = 3       # a venue's first years have no history to be new to
+ERAS_FROM = 2008          # first year on the research eras timeline
+ERAS_PER_YEAR = 3
+
+
+def research_eras(conn, grams_of: dict, uses: dict, totals: Counter, years: list, last: int) -> list[str]:
+    """Each year's breakout ideas, each idea once. Returns the phrases chosen."""
+    venues_using: dict[int, Counter] = defaultdict(Counter)
+    for (venue_id, year), sets in grams_of.items():
+        seen: set = set()
+        for g in sets:
+            seen |= g
+        venues_using[year].update(seen)
+
+    def share(term, y):
+        return uses[y][term] / totals[y] if totals[y] else 0.0
+
+    def generic(term):
+        # a single word in more than 2% of all titles is vocabulary, not an idea
+        return " " not in term and term not in NOTABLE and max(share(term, y) for y in years) > 0.02
+
+    def related(a, b):
+        a, b = a.replace("-", ""), b.replace("-", "")   # multi-core is multicore
+        if a in b or b in a or a + "s" == b or b + "s" == a:
+            return True
+        # the same idea named from the other end: "generative adversarial" and
+        # "adversarial networks" share the distinctive word
+        shared = set(a.split()) & set(b.split())
+        return any(w not in ("networks", "network", "learning", "neural", "graph", "deep", "models") for w in shared)
+
+    featured: list[str] = []
+    rows = []
+    for year in range(ERAS_FROM, last + 1):
+        prior = [y for y in (year - 3, year - 2, year - 1) if totals[y]]
+        if not totals[year] or not prior:
+            continue
+        prior_total = sum(totals[y] for y in prior)
+        scored = []
+        for term, n in uses[year].items():
+            if n < 30 or venues_using[year][term] < 3 or generic(term):
+                continue
+            before = sum(uses[y][term] for y in prior)
+            lift = (n / totals[year]) / ((before + 1) / prior_total)
+            if lift < 1.6:
+                continue
+            # growth counts twice: a phrase that jumped ×29 is more of a breakout
+            # than a common one that grew ×2.5, even with fewer papers
+            scored.append((n * math.log(lift) ** 2 * (1 + 0.3 * term.count(" ")), term, n, before / len(prior), lift))
+        scored.sort(reverse=True)
+        # a word gives way to its phrase when the phrase carries most of it
+        terms = {t for _, t, *_ in scored}
+        picked = []
+        for item in scored:
+            term, n = item[1], item[2]
+            if " " not in term and any(term in p.split() and uses[year][p] >= 0.5 * n for p in terms if p != term):
+                continue
+            if any(related(term, f) for f in featured) or any(related(term, p[1]) for p in picked):
+                continue
+            # two phrases for the same idea in one year ("generative adversarial",
+            # "adversarial networks"): keep the first
+            if any(set(term.split()) & set(p[1].split()) for p in picked):
+                continue
+            picked.append(item)
+            if len(picked) == ERAS_PER_YEAR:
+                break
+        for rank, (_, term, n, prev, lift) in enumerate(picked, 1):
+            rows.append((year, rank, term, n, round(prev, 1), round(lift, 2), venues_using[year][term]))
+            featured.append(term)
+    conn.execute("DELETE FROM research_eras")
+    conn.executemany("INSERT INTO research_eras (year, rank, term, count, prev_count, lift, venues) "
+                     "VALUES (?, ?, ?, ?, ?, ?, ?)", rows)
+    return featured
 
 
 def insights(conn, per_venue_year: dict, authors_of: dict) -> None:
@@ -563,6 +635,8 @@ def insights(conn, per_venue_year: dict, authors_of: dict) -> None:
         common = " " not in term and term not in NOTABLE and max(share(term, y) for y in years) > 0.02
         if not common and not plural_twin(term, rising):
             rising.append(term)
+
+    eras = research_eras(conn, grams_of, uses, totals, years, last)
 
     # Fading: a hype cycle, not a common word in slow decline. The phrase must
     # have at least tripled its share in the six years before its peak, peaked
@@ -605,6 +679,14 @@ def insights(conn, per_venue_year: dict, authors_of: dict) -> None:
         tracked[term] = ("rising", peak_year, peak_share, share(term, last))
     for _, term, peak_year, peak_share, now in picked_fading:
         tracked[term] = ("fading", peak_year, peak_share, now)
+    # era phrases get a share series too, for the timeline's trend lines
+    for term in eras:
+        if term in tracked or not any(uses[y][term] for y in years):
+            continue
+        peak_share, peak_year = max((share(term, y), y) for y in years)
+        now = share(term, last)
+        kind = "fading" if peak_year <= last - 4 and now <= 0.4 * peak_share else "rising"
+        tracked[term] = (kind, peak_year, peak_share, now)
     for term in NOTABLE:
         if term in tracked or plural_twin(term, tracked) or not any(uses[y][term] for y in years):
             continue

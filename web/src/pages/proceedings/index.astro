@@ -8,6 +8,7 @@ import FieldShare from '@/components/islands/FieldShare';
 import SpreadExplorer from '@/components/islands/SpreadExplorer';
 import SvgLine from '@/components/insights/SvgLine.astro';
 import Sparkline from '@/components/insights/Sparkline.astro';
+import EraTimeline from '@/components/insights/EraTimeline.astro';
 import { authorsOverview, eras, fieldShare, termLines } from '@/lib/insights';
 
 const venues = venuesWithData();
@@ -96,24 +97,10 @@ const share = (s: number) => `${(s * 100).toFixed(s < 0.01 ? 2 : 1)}%`;
       <section aria-labelledby="eras-h" class="card space-y-3 p-4 sm:p-5">
         <div>
           <h2 id="eras-h" class="text-lg font-bold tracking-tight">Research eras</h2>
-          <p class="text-xs text-muted">The title phrases that rose most each year across all tracked venues. Click one to see where it spread.</p>
+          <p class="text-xs text-muted">The idea that broke out each year across all tracked venues, each shown once, in the year it took off. Click one to see where it spread.</p>
         </div>
         {era.length ? (
-          <ol class="flex snap-x gap-2 overflow-x-auto pb-2 lg:grid lg:grid-cols-6 lg:overflow-visible lg:pb-0">
-            {era.map((e) => (
-              <li class="relative min-w-[8.5rem] shrink-0 snap-start rounded-xl border border-border bg-surface-0 p-3 lg:min-w-0">
-                <span class="block font-mono text-sm font-bold text-accent tabular">{e.year}</span>
-                <span class="mt-2 flex flex-col items-start gap-1">
-                  {e.terms.map((t, i) => (
-                    <button type="button" data-term={t}
-                      class:list={['wr-term max-w-full cursor-pointer truncate rounded-full px-2 py-0.5 text-left text-[0.78rem] font-semibold hover:bg-accent-soft hover:text-accent', i === 0 ? 'bg-surface-2 text-fg' : 'text-fg-2']}>
-                      {t}
-                    </button>
-                  ))}
-                </span>
-              </li>
-            ))}
-          </ol>
+          <EraTimeline eras={era} />
         ) : <p class="text-sm text-muted">Not enough years mined yet.</p>}
       </section>
 

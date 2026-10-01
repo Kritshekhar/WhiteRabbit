@@ -153,6 +153,12 @@ export function getAllKeywordTrends(): KeywordTrend[] {
   return db().prepare('SELECT * FROM keyword_trends ORDER BY year, count * ln(lift) DESC').all() as KeywordTrend[];
 }
 
+/* Each year's breakout ideas, each idea once (scripts/proceedings_dblp.py). */
+export interface EraRow { year: number; rank: number; term: string; count: number; prev_count: number; lift: number; venues: number }
+export function getResearchEras(): EraRow[] {
+  return db().prepare('SELECT * FROM research_eras ORDER BY year, rank').all() as EraRow[];
+}
+
 /* Field-wide insights, filled by scripts/proceedings_dblp.py. Every table may
    be empty; every caller handles []. */
 export interface TrackedTerm { term: string; kind: 'rising' | 'fading'; peak_year: number; peak_share: number; now_share: number }
