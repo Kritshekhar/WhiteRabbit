@@ -4,6 +4,8 @@ import { GRANT_BANDS, VENUE_BANDS } from '@/lib/tiers';
 import type { Grant, Venue } from '@/lib/types';
 import { CalendarLink } from '../CalendarLink';
 import { SubscribeMenu } from '../SubscribeMenu';
+import { StarButton } from '../StarButton';
+import { grantKey, venueKey } from '@/lib/watchlist';
 import { Provenance } from '../Provenance';
 import { Badge } from '../ui/badge';
 import { useNow } from '../useNow';
@@ -52,16 +54,24 @@ export default function DeadlinePanel(props: Props) {
             <div className="ml-auto flex flex-wrap gap-2">
               <CalendarLink event={event(v.next)} label="Add to Google Calendar" />
               <SubscribeMenu feed={feed} name={`White Rabbit: ${props.record.name}`} label="Subscribe" />
+              <StarButton labelled watchKey={isVenue ? venueKey(props.record.id) : grantKey(props.record.id)} name={props.record.name} />
             </div>
           </div>
         ) : (
-          <p className="text-lg font-semibold text-fg-2">
-            {rolling
-              ? 'Rolling submission, no deadline'
-              : v.hasDates
-                ? 'Cycle closed, awaiting the next call'
-                : 'Deadline not announced'}
-          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="text-lg font-semibold text-fg-2">
+              {rolling
+                ? 'Rolling submission, no deadline'
+                : v.hasDates
+                  ? 'Cycle closed, awaiting the next call'
+                  : 'Deadline not announced'}
+            </p>
+            <div className="ml-auto flex flex-wrap gap-2">
+              {/* following now still pays off: the next call lands in the feed */}
+              {!rolling && <SubscribeMenu feed={feed} name={`White Rabbit: ${props.record.name}`} label="Subscribe" />}
+              <StarButton labelled watchKey={isVenue ? venueKey(props.record.id) : grantKey(props.record.id)} name={props.record.name} />
+            </div>
+          </div>
         )}
       </div>
 

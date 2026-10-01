@@ -5,6 +5,7 @@ import { CalendarLink } from './CalendarLink';
 import { DaysLeft } from './DaysLeft';
 import { ExternalIcon } from './Icons';
 import { Provenance } from './Provenance';
+import { StarButton } from './StarButton';
 import { buttonVariants } from './ui/button';
 
 export interface RowProps {
@@ -18,13 +19,14 @@ export interface RowProps {
   statusText: string;
   url?: string;
   calendar?: CalendarEvent | null;
+  watchKey?: string;   // shows a star for My venues
 }
 
 /* One record per row. A div, not an anchor: the row holds links of its own
    (verified badge, calendar, official page) and nested anchors are invalid.
    The title stays a real link, so rows are keyboard reachable and
    cmd-clickable; a click anywhere else on the row follows it too. */
-export function Row({ href, title, subtitle, tags, deadline, days, band, statusText, url, calendar }: RowProps) {
+export function Row({ href, title, subtitle, tags, deadline, days, band, statusText, url, calendar, watchKey }: RowProps) {
   const go = (e: React.MouseEvent | React.KeyboardEvent) => {
     if ((e.target as HTMLElement).closest('a, button')) return;
     if ('metaKey' in e && (e.metaKey || e.ctrlKey)) window.open(href, '_blank', 'noopener');
@@ -68,6 +70,7 @@ export function Row({ href, title, subtitle, tags, deadline, days, band, statusT
             <DaysLeft ts={deadline?.ts} days={days} band={band} size="base" />
           </span>
         )}
+        {watchKey && <StarButton watchKey={watchKey} name={title} />}
         {calendar && <CalendarLink event={calendar} />}
         {url && (
           <a
