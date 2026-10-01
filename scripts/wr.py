@@ -107,9 +107,30 @@ def cmd_accept(conn, args) -> None:
     elif c["entity"] == "venue" and c["field"] == "dblp_key":
         conn.execute("UPDATE venues SET dblp_key = ? WHERE id = ?", (c["proposed_value"], c["entity_id"]))
         print(f"{c['entity_id']}: dblp_key = {c['proposed_value']} (stats appear after the next proceedings run)")
+    elif c["entity"] == "proceedings" and c["field"] == "acceptance":
+        sys.exit("an acceptance proposal lists every figure the message mentions; read the source and record "
+                 f"the right ones with: wr.py rate {c['entity_id'].replace('/', ' ')} --submitted N --accepted M "
+                 f"--source {c['source']}")
     else:
         sys.exit(f"don't know how to apply {c['entity']}.{c['field']}; edit it with wr.py set")
     conn.execute("DELETE FROM candidates WHERE id = ?", (c["id"],))
+
+
+def cmd_rate(conn, args) -> None:
+    """Record a venue-year's official acceptance figures, read from its source."""
+    row = conn.execute("SELECT * FROM proceedings WHERE venue_id = ? AND year = ?", (args.venue, args.year)).fetchone()
+    if not row:
+        sys.exit(f"no proceedings row for {args.venue} {args.year}")
+    rate = args.rate / 100 if args.rate is not None else (
+        args.accepted / args.submitted if args.accepted and args.submitted else None)
+    if rate is None:
+        sys.exit("give --rate, or both --submitted and --accepted")
+    conn.execute("UPDATE proceedings SET submitted_count = ?, accepted_official = ?, acceptance_rate = ?, "
+                 "acceptance_source = ? WHERE venue_id = ? AND year = ?",
+                 (args.submitted, args.accepted, round(rate, 4), args.source, args.venue, args.year))
+    conn.execute("DELETE FROM candidates WHERE entity = 'proceedings' AND entity_id = ? AND field = 'acceptance'",
+                 (f"{args.venue}/{args.year}",))
+    print(f"{args.venue} {args.year}: {rate:.1%}" + (f" ({args.accepted} of {args.submitted})" if args.submitted else ""))
 
 
 def cmd_reject(conn, args) -> None:
@@ -216,6 +237,12 @@ def main() -> int:
 
     p = sub.add_parser("accept", help="apply a queued proposal")
     p.add_argument("id", type=int)
+    p = sub.add_parser("rate", help="record official acceptance figures for a venue-year")
+    p.add_argument("venue"); p.add_argument("year", type=int)
+    p.add_argument("--submitted", type=int); p.add_argument("--accepted", type=int)
+    p.add_argument("--rate", type=float, help="percent, when the source states only a rate")
+    p.add_argument("--source", required=True, help="the official page or PDF the figures are from")
+
     p = sub.add_parser("reject", help="dismiss a queued proposal for good")
     p.add_argument("id", type=int)
     p.add_argument("--note", default="", help="why, for the record")
@@ -223,7 +250,7 @@ def main() -> int:
     args = ap.parse_args()
     handlers = {"show": cmd_show, "queue": cmd_queue, "add-venue": cmd_add_venue,
                 "add-deadline": cmd_add_deadline, "verify": cmd_verify, "set": cmd_set,
-                "accept": cmd_accept, "reject": cmd_reject}
+                "accept": cmd_accept, "reject": cmd_reject, "rate": cmd_rate}
     read_only = args.cmd in ("show", "queue")
     try:
         with db.session(write_dump=not read_only) as conn:

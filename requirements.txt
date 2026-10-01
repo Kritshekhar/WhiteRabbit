@@ -1,1 +1,2 @@
 ruamel.yaml>=0.18
+pypdf>=4.0

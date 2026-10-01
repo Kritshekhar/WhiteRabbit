@@ -67,6 +67,8 @@ export interface ProceedingsYear {
   accepted_count: number | null;
   submitted_count: number | null;
   acceptance_rate: number | null;
+  accepted_official: number | null;   // the venue's own accepted count, from acceptance_source
+  acceptance_source: string;
   source: string;
   status: string;
   verified_on: string;

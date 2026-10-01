@@ -252,6 +252,7 @@ export interface VenueDigest {
   similar: SimilarVenue[];
   topAuthors: TopAuthor[];
   links: { title: string; publisher: string; dblp: string }[];
+  acceptance: { year: number; rate: number; submitted: number | null; accepted: number | null; source: string } | null;
 }
 
 /* Everything the conference page shows from a venue's past proceedings, or
@@ -293,5 +294,10 @@ export function venueDigest(id: string): VenueDigest | null {
     similar: similarTo(id, 4),
     topAuthors: getTopAuthors(id).slice(0, 5),
     links: JSON.parse(latest.links || '[]'),
+    acceptance: (() => {
+      const r = [...proceedingsFor(id)].reverse().find((p) => p.acceptance_rate !== null);
+      return r ? { year: r.year, rate: r.acceptance_rate as number, submitted: r.submitted_count,
+        accepted: r.accepted_official, source: r.acceptance_source } : null;
+    })(),
   };
 }
