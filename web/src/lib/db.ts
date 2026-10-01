@@ -71,6 +71,7 @@ export function getVenues(): Venue[] {
       publisher: v.publisher,
       notes: v.notes,
       deadlines: (deadlines.all(v.id, v.year) as Row[]).map((d) => ({
+        id: d.id,
         name: d.name,
         date: d.date,
         confirmed: d.status === 'verified',
@@ -104,6 +105,7 @@ export function getGrants(): Grant[] {
     typical_window: g.typical_window,
     last_checked: g.last_checked,
     deadlines: (deadlines.all(g.id) as Row[]).map((d) => ({
+      id: d.id,
       name: d.name,
       date: d.date,
       confirmed: d.status === 'verified',

@@ -31,8 +31,9 @@ const features = [
     body: 'Every date carries a badge. Verified links to the page it was read off; est. says plainly that it is extrapolated. There is no third state.' },
   { Icon: RefreshCw, title: 'Links that roll over',
     body: "When a cycle closes, each venue moves to next year's site only once that site is genuinely live, so you never land on last year's call." },
-  { Icon: CalendarPlus, title: 'One click to your calendar',
-    body: 'Deadlines go into Google Calendar as exact instants, not all-day events, so an AoE deadline never quietly shifts by a day.' },
+  { Icon: CalendarPlus, title: 'Calendars that stay current',
+    body: 'Subscribe to a venue, an area or everything. Verified and corrected dates update in your calendar, as exact instants, so an AoE deadline never shifts by a day.',
+    link: { text: 'Calendar feeds', path: 'calendar/' } },
 ];
 
 const maxBar = teaser ? Math.max(...teaser.bars.map((b) => b.count)) : 1;
@@ -131,6 +132,7 @@ const growth = first && last && first.count ? Math.round((last.count / first.cou
             <span class="wr-icon-chip"><f.Icon className="size-5" aria-hidden="true" /></span>
             <h3 class="mt-4 text-lg font-bold">{f.title}</h3>
             <p class="mt-1.5 text-sm text-fg-2">{f.body}</p>
+            {f.link && <a class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline" href={href(f.link.path)}>{f.link.text} <ArrowRight className="size-4" aria-hidden="true" /></a>}
           </div>
         ))}
       </div>
