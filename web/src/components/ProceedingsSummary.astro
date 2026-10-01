@@ -27,7 +27,11 @@ const tiles = d ? [
     note: d.change5 === null ? 'needs five years' : `vs ${d.latestYear - 5}`,
     tone: d.change5 === null ? '' : d.change5 >= 0 ? 'text-good' : 'text-critical',
   },
-  { label: 'Papers, all years', value: d.total.toLocaleString(), note: `${d.yearsIndexed} years since ${d.since}` },
+  d.acceptance
+    ? { label: `Acceptance rate, ${d.acceptance.year}`, value: pct(d.acceptance.rate),
+        note: d.acceptance.submitted ? (d.acceptance.accepted ? `${d.acceptance.accepted} of ${d.acceptance.submitted} submitted` : `${d.acceptance.submitted} submitted`) : 'stated by the venue',
+        title: 'From the program chairs\u2019 message', href: d.acceptance.source }
+    : { label: 'Papers, all years', value: d.total.toLocaleString(), note: `${d.yearsIndexed} years since ${d.since}` },
   d.authors && {
     label: 'Authors per paper',
     value: d.authors.latest.toFixed(1),
@@ -39,7 +43,7 @@ const tiles = d ? [
     note: `of ${d.newTeams.year} papers`,
     title: 'Share of papers where no author had published at this venue before',
   },
-].filter(Boolean) as { label: string; value: string; note: string; tone?: string; title?: string }[] : [];
+].filter(Boolean) as { label: string; value: string; note: string; tone?: string; title?: string; href?: string }[] : [];
 ---
 
 <section aria-labelledby="proc-h" class="space-y-3">
@@ -58,7 +62,9 @@ const tiles = d ? [
           <div class="card p-3" title={t.title}>
             <p class="text-[0.66rem] font-semibold tracking-wide text-muted uppercase">{t.label}</p>
             <p class:list={['font-mono text-xl font-bold tabular', t.tone]}>{t.value}</p>
-            <p class="text-[0.72rem] text-muted">{t.note}</p>
+            <p class="text-[0.72rem] text-muted">
+              {t.note}{t.href && <> · <a class="font-semibold text-accent hover:underline" href={t.href} target="_blank" rel="noopener">source ↗</a></>}
+            </p>
           </div>
         ))}
       </div>

@@ -134,8 +134,14 @@ CREATE TABLE proceedings (
   verified_on     TEXT NOT NULL DEFAULT '',
   -- where to read the volume(s): [{title, publisher, dblp}], one per volume
   links           TEXT NOT NULL DEFAULT '[]',
+  -- the venue's own figures, read from an official source (e.g. the program
+  -- chairs' message); submitted_count and acceptance_rate come from there too.
+  -- accepted_count above is DBLP's volume count and can differ.
+  accepted_official INTEGER,
+  acceptance_source TEXT NOT NULL DEFAULT '',
   PRIMARY KEY (venue_id, year),
-  CHECK (status = 'unverified' OR source <> '')
+  CHECK (status = 'unverified' OR source <> ''),
+  CHECK (acceptance_rate IS NULL OR acceptance_source <> '')
 );
 
 CREATE TABLE proceedings_topics (
