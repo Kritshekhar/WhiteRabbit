@@ -109,6 +109,59 @@ KNOWN_KEYS = {
     "inscrypt": "conf/cisc",
 }
 
+# Venues whose papers DBLP files in a journal, by issue. Each rule is a
+# stream, the issues it takes (DBLP's <number>; None for every issue) and the
+# publication years it covers. Checked against DBLP's issue sizes and titles:
+# SIGGRAPH is TOG issue 4; POPL, OOPSLA, ICFP and (since 2023) PLDI are PACMPL
+# issues of those names; since 2008 CGF issue 2 is Eurographics, 3 EuroVis,
+# 4 EGSR, 5 SGP and 7 Pacific Graphics; IEEE VIS moved between TVCG issues.
+# Before a venue moved, its conference stream's main volume counts as usual.
+def _r(stream, numbers=None, start=None, end=None):
+    return {"stream": stream, "numbers": numbers, "from": start, "until": end}
+
+
+JOURNAL_VENUES: dict[str, list[dict]] = {
+    "acm-siggraph": [_r("conf/siggraph", end=2001), _r("journals/tog", ["4"], 2002)],
+    "popl": [_r("conf/popl", end=2017), _r("journals/pacmpl", ["POPL"], 2018)],
+    "oopsla": [_r("conf/oopsla", end=2016), _r("journals/pacmpl", ["OOPSLA", "OOPSLA1", "OOPSLA2"], 2017)],
+    "icfp": [_r("conf/icfp", end=2016), _r("journals/pacmpl", ["ICFP"], 2017)],
+    "pldi": [_r("conf/pldi", end=2022), _r("journals/pacmpl", ["PLDI"], 2023)],
+    "ubicomp-iswc": [_r("conf/huc", end=2016), _r("journals/imwut", None, 2017)],
+    "pets": [_r("conf/pet", end=2014), _r("journals/popets", None, 2015)],
+    "ieee-vis": [_r("journals/tvcg", ["5"], 2006, 2006), _r("journals/tvcg", ["6"], 2007, 2010),
+                 _r("journals/tvcg", ["12"], 2011, 2014), _r("journals/tvcg", ["1"], 2016, 2020),
+                 _r("journals/tvcg", ["2"], 2021, 2021), _r("journals/tvcg", ["1"], 2022)],
+    "eurographics": [_r("journals/cgf", ["2", "2pt1", "2pt2", "2pt3", "2pt4"], 2008)],
+    "eurovis": [_r("journals/cgf", ["3"], 2008)],
+    "egsr": [_r("journals/cgf", ["4"], 2008)],
+    "sgp": [_r("conf/sgp", end=2007), _r("journals/cgf", ["5"], 2008)],
+    "pg": [_r("journals/cgf", ["7"], 2008)],
+}
+
+
+def journal_rows(papers, venue_id: str) -> tuple[list[tuple], dict[int, list[str]]]:
+    """(year, toc, title, authors) for a journal-published venue, and per year
+    the tables of contents they came from. Conference-era years use the main
+    proceedings volume, exactly as for any other venue."""
+    rows: list[tuple] = []
+    tocs: dict[int, list[str]] = defaultdict(list)
+    for rule in JOURNAL_VENUES[venue_id]:
+        found = papers.execute(
+            "SELECT year, toc, title, authors, number FROM papers WHERE stream = ? AND year IS NOT NULL",
+            (rule["stream"],)).fetchall()
+        found = [r for r in found
+                 if (rule["from"] is None or r[0] >= rule["from"]) and (rule["until"] is None or r[0] <= rule["until"])
+                 and (rule["numbers"] is None or r[4] in rule["numbers"])]
+        if rule["stream"].startswith("conf/"):
+            keep = main_tocs([(y, t) for y, t, *_ in found], rule["stream"])
+            found = [r for r in found if r[1] in keep.get(r[0], [])]
+        for y, t, title, authors, _ in found:
+            rows.append((y, t, title, authors))
+            if t not in tocs[y]:
+                tocs[y].append(t)
+    return rows, dict(tocs)
+
+
 # Titles that are front matter, not papers.
 NOT_A_PAPER = re.compile(
     r"(?i)^(front matter|frontmatter|preface|foreword|editorial|message from|welcome|"
@@ -178,7 +231,7 @@ def parse(streams: set[str]) -> int:
         CREATE TABLE volumes (key TEXT PRIMARY KEY, stream TEXT, year INTEGER, toc TEXT,
                               title TEXT, ee TEXT);
         CREATE TABLE papers (key TEXT PRIMARY KEY, stream TEXT, year INTEGER, toc TEXT,
-                             title TEXT, doi TEXT, booktitle TEXT, authors TEXT);
+                             title TEXT, doi TEXT, booktitle TEXT, authors TEXT, number TEXT);
         CREATE TABLE streams (stream TEXT PRIMARY KEY, booktitle TEXT, papers INTEGER);
         CREATE TABLE wanted (stream TEXT PRIMARY KEY);
     """)
@@ -192,7 +245,7 @@ def parse(streams: set[str]) -> int:
     def start(name, attrs):
         if name in RECORDS or name == VOLUME:
             state["rec"] = {"key": attrs.get("key", ""), "ee": [], "author": []}
-        elif state["rec"] is not None and name in ("title", "year", "booktitle", "journal", "url", "ee", "author"):
+        elif state["rec"] is not None and name in ("title", "year", "booktitle", "journal", "url", "ee", "author", "number"):
             state["field"], state["text"] = name, []
 
     def chars(data):
@@ -240,9 +293,9 @@ def parse(streams: set[str]) -> int:
             toc = rec.get("url", "").split("#", 1)[0]
             year = int(rec["year"]) if rec.get("year", "").isdigit() else None
             batch.append((rec["key"], stream, year, toc, rec.get("title", ""), doi.lower(), label,
-                          "\n".join(rec["author"])))
+                          "\n".join(rec["author"]), rec.get("number", "")))
             if len(batch) >= 5000:
-                out.executemany("INSERT OR REPLACE INTO papers VALUES (?, ?, ?, ?, ?, ?, ?, ?)", batch)
+                out.executemany("INSERT OR REPLACE INTO papers VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", batch)
                 batch.clear()
 
     parser = xml.parsers.expat.ParserCreate()
@@ -266,7 +319,7 @@ def parse(streams: set[str]) -> int:
             parser.Parse(chunk, False)
         parser.Parse(b"", True)
     if batch:
-        out.executemany("INSERT OR REPLACE INTO papers VALUES (?, ?, ?, ?, ?, ?, ?, ?)", batch)
+        out.executemany("INSERT OR REPLACE INTO papers VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", batch)
     out.executemany("INSERT OR REPLACE INTO volumes VALUES (?, ?, ?, ?, ?, ?)", volumes)
     out.executemany("INSERT INTO streams VALUES (?, ?, ?)",
                     [(s, labels[s].most_common(1)[0][0] if labels[s] else "", n) for s, n in census.items()])
@@ -289,7 +342,7 @@ def papers_current(streams: set[str]) -> bool:
         con = sqlite3.connect(PAPERS)
         had = {r[0] for r in con.execute("SELECT stream FROM wanted")}
         con.execute("SELECT 1 FROM volumes LIMIT 1")   # parsed before volumes existed?
-        con.execute("SELECT authors FROM papers LIMIT 1")  # ...or before authors?
+        con.execute("SELECT authors, number FROM papers LIMIT 1")  # ...or before authors and issues?
         con.close()
     except sqlite3.Error:
         return False
@@ -301,6 +354,10 @@ def norm(text: str) -> str:
 
 
 def map_venues(conn) -> None:
+    # venues that publish in a journal are mapped by their rules, not by name
+    for venue_id, rules in JOURNAL_VENUES.items():
+        conn.execute("UPDATE venues SET dblp_key = ? WHERE id = ? AND (dblp_key IS NULL OR dblp_key <> ?)",
+                     (rules[-1]["stream"], venue_id, rules[-1]["stream"]))
     papers = sqlite3.connect(PAPERS)
     streams = {r[0]: (r[1], r[2]) for r in papers.execute("SELECT stream, booktitle, papers FROM streams")}
     papers.close()
@@ -387,9 +444,12 @@ def aggregate(conn) -> None:
 
     for v in venues:
         stream = v["dblp_key"]
-        rows = papers.execute("SELECT year, toc, title, authors FROM papers WHERE stream = ? AND year IS NOT NULL",
-                              (stream,)).fetchall()
-        tocs = main_tocs([(y, t) for y, t, _, _ in rows], stream)
+        if v["id"] in JOURNAL_VENUES:
+            rows, tocs = journal_rows(papers, v["id"])
+        else:
+            rows = papers.execute("SELECT year, toc, title, authors FROM papers WHERE stream = ? AND year IS NOT NULL",
+                                  (stream,)).fetchall()
+            tocs = main_tocs([(y, t) for y, t, _, _ in rows], stream)
         for year, keep in tocs.items():
             kept = [(t, a) for y, toc, t, a in rows if y == year and toc in keep and not NOT_A_PAPER.match(t)]
             titles = [t for t, _ in kept]
@@ -787,7 +847,7 @@ def insights(conn, per_venue_year: dict, authors_of: dict) -> None:
 
 def plausible_streams(conn) -> set[str]:
     """Every stream a tracked venue could map to, so one parse serves mapping too."""
-    out = set()
+    out = {rule["stream"] for rules in JOURNAL_VENUES.values() for rule in rules}
     for v in conn.execute("SELECT id, name, dblp_key FROM venues"):
         if v["dblp_key"]:
             out.add(v["dblp_key"])
@@ -802,6 +862,9 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--skip-download", action="store_true")
     ap.add_argument("--map-only", action="store_true", help="propose dblp keys, do not count")
+    ap.add_argument("--recompute", default="",
+                    help="comma-separated venue ids whose statistics were computed from a wrong mapping: "
+                         "their rows, verified ones included, are cleared and computed afresh")
     args = ap.parse_args()
 
     if not args.skip_download:
@@ -815,6 +878,11 @@ def main() -> int:
         map_venues(conn)
         if args.map_only:
             return 0
+        for venue_id in filter(None, (x.strip() for x in args.recompute.split(","))):
+            for table in ("proceedings", "proceedings_keywords", "proceedings_topics", "proceedings_authors"):
+                conn.execute(f"DELETE FROM {table} WHERE venue_id = ?", (venue_id,))
+            conn.execute("DELETE FROM top_authors WHERE scope = ?", (venue_id,))
+            print(f"recomputing {venue_id} from scratch")
         aggregate(conn)
         db.set_meta(conn, "proceedings_updated", datetime.now(timezone.utc).date().isoformat())
     return 0
