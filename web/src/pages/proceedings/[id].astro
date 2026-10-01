@@ -1,0 +1,58 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import ProceedingsVenue, { type YearRow } from '@/components/islands/ProceedingsVenue';
+import VenuePicker, { type PickerVenue } from '@/components/islands/VenuePicker';
+import { Badge } from '@/components/ui/badge';
+import { latestCompleteYear, proceedingsFor, topicsFor, venueSummary, venuesWithData, yearStatus } from '@/lib/proceedings';
+import { RANK_SLOT, TIERS } from '@/lib/tiers';
+import type { Venue } from '@/lib/types';
+import { href, venueHref } from '@/lib/utils';
+
+export function getStaticPaths() {
+  return venuesWithData().map((venue) => ({ params: { id: venue.id }, props: { venue } }));
+}
+
+const { venue } = Astro.props as { venue: Venue };
+const all = proceedingsFor(venue.id);
+const rows: YearRow[] = all.map((p) => ({ year: p.year, count: p.accepted_count, rate: p.acceptance_rate, status: yearStatus(p), source: p.source }));
+const counted = all.filter((p) => p.accepted_count !== null);
+const defaultYear = latestCompleteYear(counted);
+const summary = venueSummary(venue.id);
+const total = counted.reduce((n, p) => n + (p.accepted_count ?? 0), 0);
+const first = counted[0]?.year;
+const picker: PickerVenue[] = venuesWithData().map((v) => ({ id: v.id, name: v.name, full_name: v.full_name, tier: v.tier, latest: null }));
+---
+
+<Layout title={`${venue.name} proceedings`} section="proceedings" description={`${venue.name} proceedings: papers per year since ${first}, keywords and topic trends.`}>
+  <nav aria-label="Breadcrumb" class="mb-4 text-sm text-muted">
+    <a class="hover:text-fg" href={href('proceedings/')}>Proceedings</a> <span aria-hidden="true">/</span> <span class="text-fg-2">{venue.name}</span>
+  </nav>
+
+  <header class="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+    <div class="space-y-2">
+      <h1 class="text-3xl font-bold tracking-tight">{venue.name} proceedings</h1>
+      {venue.full_name && <p class="text-lg text-fg-2">{venue.full_name}</p>}
+      <div class="flex flex-wrap items-center gap-1.5">
+        {venue.publisher && <Badge variant="publisher">{venue.publisher}</Badge>}
+        <Badge variant={RANK_SLOT[venue.tier] || 'off'}>{TIERS[venue.tier] || venue.tier}</Badge>
+        <a class="ml-1 text-sm font-semibold text-accent hover:underline" href={venueHref(venue.id)}>Deadlines for {venue.name}</a>
+      </div>
+    </div>
+    <VenuePicker client:idle venues={picker} current={venue.id} compact />
+  </header>
+
+  <section class="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4" aria-label="Summary">
+    <div class="card p-3"><p class="text-[0.68rem] font-semibold tracking-wide text-muted uppercase">Papers in {summary.latest?.year ?? 'latest year'}</p><p class="text-xl font-bold tabular">{summary.latest?.accepted_count?.toLocaleString() ?? 'n/a'}</p></div>
+    <div class="card p-3"><p class="text-[0.68rem] font-semibold tracking-wide text-muted uppercase">Papers, all years</p><p class="text-xl font-bold tabular">{total.toLocaleString()}</p></div>
+    <div class="card p-3"><p class="text-[0.68rem] font-semibold tracking-wide text-muted uppercase">Years indexed</p><p class="text-xl font-bold tabular">{counted.length}</p></div>
+    <div class="card p-3"><p class="text-[0.68rem] font-semibold tracking-wide text-muted uppercase">Since</p><p class="text-xl font-bold tabular">{first ?? 'n/a'}</p></div>
+  </section>
+
+  <ProceedingsVenue
+    client:visible
+    rows={rows}
+    topics={topicsFor(venue.id)}
+    keywordsUrl={href(`proceedings/${encodeURIComponent(venue.id)}.json`)}
+    defaultYear={defaultYear}
+  />
+</Layout>

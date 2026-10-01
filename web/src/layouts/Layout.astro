@@ -1,0 +1,57 @@
+---
+import '@/styles/global.css';
+import Header from '@/components/site/Header.astro';
+import Footer from '@/components/site/Footer.astro';
+
+export type Section = 'home' | 'conferences' | 'grants' | 'fellowships' | 'proceedings' | 'about' | 'none';
+
+interface Props {
+  title: string;
+  description?: string;
+  section: Section;
+}
+
+const { title, description = 'White Rabbit: self-updating deadlines for CS conferences, grants and fellowships, with proceedings statistics.', section } = Astro.props;
+const fullTitle = section === 'home' ? title : `${title} · White Rabbit`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐇</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Apply a pinned theme before first paint, so there is no flash. -->
+    <script is:inline>
+      try {
+        const saved = localStorage.getItem('cd-theme');
+        if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+      } catch (e) {}
+    </script>
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-lg focus:bg-surface-1 focus:px-3 focus:py-2">
+      Skip to content
+    </a>
+    <div class="glow" aria-hidden="true"></div>
+    <Header section={section} />
+    <main id="main" class="wrap flex-1 py-6 sm:py-8">
+      <slot />
+    </main>
+    <Footer><slot name="footer" /></Footer>
+  </body>
+</html>

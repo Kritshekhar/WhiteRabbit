@@ -1,0 +1,192 @@
+@import 'tailwindcss';
+
+/* Dark mode follows the OS unless the toggle pinned a theme on <html>. */
+@custom-variant dark {
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme='light']), :root:not([data-theme='light']) *) {
+      @slot;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Brand tokens, carried over from assets/style.css. Light values on :root, the
+   dark set declared twice so the OS setting and the explicit toggle both win in
+   the right direction. Status hues are fixed in both modes and never used
+   decoratively: every state also ships a text label.
+--------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+  --surface-0: #fcfcfb;
+  --surface-1: #ffffff;
+  --surface-2: #f4f3f0;
+  --border: #e4e3de;
+  --border-strong: #d3d2cc;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #6f6e68;
+  --accent: #2a78d6;
+  --accent-soft: #e9f1fc;
+  --rank-top: #2a78d6;
+  --rank-mid: #4a3aa7;
+  --rank-base: #13875e;
+  --rank-off: #6f6e68;
+  --good: #0ca30c;
+  --warning: #d99400;
+  --serious: #e0703f;
+  --critical: #d03b3b;
+  --shadow: 0 1px 2px rgba(11, 11, 11, 0.05), 0 8px 24px -12px rgba(11, 11, 11, 0.18);
+  --glow-a: rgba(42, 120, 214, 0.16);
+  --glow-b: rgba(208, 59, 59, 0.1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme='light'])) {
+    color-scheme: dark;
+    --rank-top: #5b9cec;
+    --rank-mid: #9f95ee;
+    --rank-base: #2bbf8a;
+    --rank-off: #a3a29a;
+    --surface-0: #1a1a19;
+    --surface-1: #232322;
+    --surface-2: #2b2b29;
+    --border: #383835;
+    --border-strong: #4a4a46;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted: #9a998f;
+    --accent: #5b9cec;
+    --accent-soft: #1e2f45;
+    --warning: #fab219;
+    --serious: #ec835a;
+    --critical: #ef5b5b;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -16px rgba(0, 0, 0, 0.7);
+    --glow-a: rgba(57, 135, 229, 0.18);
+    --glow-b: rgba(208, 59, 59, 0.12);
+  }
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --rank-top: #5b9cec;
+  --rank-mid: #9f95ee;
+  --rank-base: #2bbf8a;
+  --rank-off: #a3a29a;
+  --surface-0: #1a1a19;
+  --surface-1: #232322;
+  --surface-2: #2b2b29;
+  --border: #383835;
+  --border-strong: #4a4a46;
+  --text-primary: #ffffff;
+  --text-secondary: #c3c2b7;
+  --text-muted: #9a998f;
+  --accent: #5b9cec;
+  --accent-soft: #1e2f45;
+  --warning: #fab219;
+  --serious: #ec835a;
+  --critical: #ef5b5b;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -16px rgba(0, 0, 0, 0.7);
+  --glow-a: rgba(57, 135, 229, 0.18);
+  --glow-b: rgba(208, 59, 59, 0.12);
+}
+
+@theme inline {
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--text-primary);
+  --color-fg-2: var(--text-secondary);
+  --color-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-rank-top: var(--rank-top);
+  --color-rank-mid: var(--rank-mid);
+  --color-rank-base: var(--rank-base);
+  --color-rank-off: var(--rank-off);
+  --color-good: var(--good);
+  --color-warning: var(--warning);
+  --color-serious: var(--serious);
+  --color-critical: var(--critical);
+  --shadow-card: var(--shadow);
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--surface-0);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .wrap {
+    width: min(1200px, 100% - 2rem);
+    margin-inline: auto;
+  }
+  /* ambient wash behind the header, purely decorative */
+  .glow {
+    position: fixed;
+    inset: -30vh 0 auto 0;
+    height: 70vh;
+    pointer-events: none;
+    z-index: -1;
+    background:
+      radial-gradient(58% 60% at 18% 35%, var(--glow-a), transparent 70%),
+      radial-gradient(46% 55% at 82% 20%, var(--glow-b), transparent 70%);
+    filter: blur(8px);
+  }
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+  }
+  .prose-wr p + p {
+    margin-top: 0.8rem;
+  }
+  .prose-wr a {
+    color: var(--accent);
+  }
+  .prose-wr code,
+  .code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 0.35rem;
+    padding: 0.05rem 0.3rem;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}

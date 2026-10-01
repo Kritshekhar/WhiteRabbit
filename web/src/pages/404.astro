@@ -1,0 +1,13 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { href } from '@/lib/utils';
+---
+
+<Layout title="Page not found" section="none">
+  <div class="mx-auto flex max-w-lg flex-col items-center gap-3 py-16 text-center">
+    <span class="text-5xl" aria-hidden="true">🐇</span>
+    <h1 class="text-2xl font-bold">Down the wrong rabbit hole</h1>
+    <p class="text-fg-2">That page does not exist, or it moved when the site was rebuilt.</p>
+    <a class="mt-2 inline-flex h-10 items-center rounded-xl bg-accent px-4 text-sm font-semibold text-white no-underline" href={href()}>Back to the home page</a>
+  </div>
+</Layout>

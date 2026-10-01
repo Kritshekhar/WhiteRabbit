@@ -1,0 +1,51 @@
+---
+import type { VenueSummary } from '@/lib/proceedings';
+import { href } from '@/lib/utils';
+
+interface Props { id: string; name: string; summary: VenueSummary }
+const { id, name, summary } = Astro.props;
+
+/* Static sparkline: five bars, no JavaScript. */
+const W = 120, H = 32, GAP = 4;
+const peak = Math.max(1, ...summary.spark.map((s) => s.count));
+const bw = summary.spark.length ? (W - GAP * (summary.spark.length - 1)) / summary.spark.length : 0;
+const link = href(`proceedings/${encodeURIComponent(id)}/`);
+---
+
+<section aria-labelledby="proc-h">
+  <h2 id="proc-h" class="mb-2 text-sm font-semibold tracking-wide text-muted uppercase">From past proceedings</h2>
+  {summary.hasData && summary.latest ? (
+    <div class="card flex flex-col gap-4 p-4 sm:flex-row sm:items-center">
+      <div class="flex items-center gap-4">
+        <div>
+          <p class="text-[0.68rem] font-semibold tracking-wide text-muted uppercase">Papers in {summary.latest.year} (DBLP)</p>
+          <p class="text-2xl font-bold tabular">{summary.latest.accepted_count?.toLocaleString()}</p>
+        </div>
+        {summary.spark.length > 1 && (
+          <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="img"
+               aria-label={`Papers per year: ${summary.spark.map((s) => `${s.year} ${s.count}`).join(', ')}`}>
+            {summary.spark.map((s, i) => {
+              const h = Math.max(2, (s.count / peak) * H);
+              return <rect x={i * (bw + GAP)} y={H - h} width={bw} height={h} rx="2" fill="var(--accent)" opacity={i === summary.spark.length - 1 ? 1 : 0.45}><title>{s.year}: {s.count}</title></rect>;
+            })}
+          </svg>
+        )}
+      </div>
+      {summary.topKeywords.length > 0 && (
+        <div class="min-w-0 flex-1">
+          <p class="mb-1 text-[0.68rem] font-semibold tracking-wide text-muted uppercase">Top keywords</p>
+          <div class="flex flex-wrap gap-1.5">
+            {summary.topKeywords.map((k) => (
+              <span class="rounded-full border border-border bg-surface-2 px-2 py-0.5 text-[0.72rem] font-semibold text-fg-2">{k.term}</span>
+            ))}
+          </div>
+        </div>
+      )}
+      <a class="shrink-0 text-sm font-semibold text-accent hover:underline" href={link}>All {name} proceedings →</a>
+    </div>
+  ) : (
+    <p class="card border-dashed p-4 text-sm text-muted">
+      Proceedings data for {name} (papers per year, keywords, topics) is not available yet. It will appear once the DBLP crawl has covered this venue.
+    </p>
+  )}
+</section>

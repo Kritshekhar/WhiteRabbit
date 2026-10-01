@@ -1,0 +1,18 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import ConferenceList from '@/components/islands/ConferenceList';
+import { BUILT_AT, getVenues } from '@/lib/db';
+
+const venues = getVenues();
+---
+
+<Layout title="Conference deadlines" section="conferences" description="Countdowns to every open CS call for papers, in AoE, updated nightly.">
+  <header class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Conference deadlines</h1>
+    <p class="mt-1 text-fg-2">Every tracked call for papers, soonest first. Click a venue for all its rounds and a summary of its past proceedings.</p>
+  </header>
+  <ConferenceList client:load venues={venues} builtAt={BUILT_AT} />
+  <Fragment slot="footer">
+    <p>All times are <strong>AoE</strong> (UTC-12) unless the venue says otherwise. Estimated dates are extrapolated from previous cycles.</p>
+  </Fragment>
+</Layout>

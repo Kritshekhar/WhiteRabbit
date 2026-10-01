@@ -1,0 +1,88 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import HomeSearch, { type SearchEntry } from '@/components/islands/HomeSearch';
+import UpcomingDeadlines, { type UpcomingEntry } from '@/components/islands/UpcomingDeadlines';
+import { BUILT_AT, getGrants, getVenues } from '@/lib/db';
+import { venuesWithData } from '@/lib/proceedings';
+import { AUDIENCE_ELIGIBILITY } from '@/lib/tiers';
+import { grantHref, href, venueHref } from '@/lib/utils';
+
+const venues = getVenues();
+const grants = getGrants();
+const fellowships = grants.filter((g) => AUDIENCE_ELIGIBILITY.student.includes(g.eligibility));
+const faculty = grants.filter((g) => AUDIENCE_ELIGIBILITY.faculty.includes(g.eligibility));
+
+const entries: SearchEntry[] = [
+  ...venues.map((v) => ({
+    kind: 'Conference' as const, name: v.name, sub: v.full_name, href: venueHref(v.id),
+    text: `${v.name} ${v.full_name} ${v.topics.join(' ')} ${v.publisher}`.toLowerCase(),
+  })),
+  ...grants.map((g) => ({
+    kind: (fellowships.includes(g) ? 'Fellowship' : 'Grant') as SearchEntry['kind'], name: g.name, sub: g.funder, href: grantHref(g.id),
+    text: `${g.name} ${g.funder} ${g.topics.join(' ')} ${g.opportunity_number}`.toLowerCase(),
+  })),
+];
+
+const upcoming: UpcomingEntry[] = [
+  ...venues.filter((v) => !v.rolling).map((v) => ({ kind: 'conference' as const, name: v.name, sub: v.full_name, href: venueHref(v.id), deadlines: v.deadlines })),
+  ...grants.map((g) => ({ kind: 'funding' as const, name: g.name, sub: g.funder, href: grantHref(g.id), deadlines: g.deadlines })),
+];
+
+const verifiedCount = [...venues, ...grants].reduce((n, r) => n + r.deadlines.filter((d) => d.confirmed).length, 0);
+const statVenues = venuesWithData().length;
+
+const sections = [
+  { title: 'Conferences', path: 'conferences/', count: venues.length, unit: 'venues', blurb: 'Paper deadlines for systems, ML, security, databases and more, in AoE with live countdowns.', icon: '📅' },
+  { title: 'Grants', path: 'grants/', count: faculty.length, unit: 'programmes', blurb: 'NSF, NIH, DoD, DOE and industry funding for faculty and PIs, verified against grants.gov.', icon: '💰' },
+  { title: 'Fellowships', path: 'fellowships/', count: fellowships.length, unit: 'fellowships', blurb: 'PhD fellowships from industry and government, with when each cycle usually opens.', icon: '🎓' },
+  { title: 'Proceedings', path: 'proceedings/', count: statVenues, unit: 'venues indexed', blurb: 'Papers per year across each venue\'s full history, with the keywords and topics it publishes most.', icon: '📚' },
+];
+---
+
+<Layout title="White Rabbit · CS deadlines, funding and proceedings stats" section="home">
+  <section class="flex flex-col items-start gap-5 pt-4 pb-10 sm:pt-10">
+    <span class="rounded-full border border-border bg-surface-1 px-3 py-1 text-xs font-semibold text-fg-2">
+      {verifiedCount} deadlines verified against their official source
+    </span>
+    <h1 class="max-w-3xl text-[2.1rem] leading-[1.1] font-bold tracking-tight sm:text-5xl">
+      Never be late for a very important date.
+    </h1>
+    <p class="max-w-2xl text-base text-fg-2 sm:text-lg">
+      Conference deadlines, research grants and PhD fellowships in computer science, in one place. Every date says whether
+      it was checked on the official page, and countdowns run in your browser so they are always current.
+    </p>
+    <HomeSearch client:load entries={entries} />
+  </section>
+
+  <section class="space-y-3" aria-labelledby="next-h">
+    <div class="flex items-end justify-between gap-4">
+      <h2 id="next-h" class="text-lg font-bold tracking-tight">Coming up next</h2>
+      <a class="text-sm font-semibold text-accent hover:underline" href={href('conferences/')}>All deadlines</a>
+    </div>
+    <UpcomingDeadlines client:load entries={upcoming} builtAt={BUILT_AT} />
+  </section>
+
+  <section class="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4" aria-label="Sections">
+    {sections.map((s) => (
+      <a href={href(s.path)} class="card group flex flex-col gap-2 p-5 no-underline transition hover:-translate-y-0.5 hover:border-border-strong">
+        <span class="text-2xl" aria-hidden="true">{s.icon}</span>
+        <span class="text-lg font-bold group-hover:text-accent">{s.title}</span>
+        <span class="text-sm text-fg-2">{s.blurb}</span>
+        <span class="mt-auto pt-2 font-mono text-sm text-muted"><strong class="text-fg">{s.count}</strong> {s.unit}</span>
+      </a>
+    ))}
+  </section>
+
+  <section class="card mt-10 grid grid-cols-1 gap-4 p-6 sm:grid-cols-[1fr_auto] sm:items-center">
+    <div>
+      <h2 class="text-lg font-bold tracking-tight">What does a venue actually publish?</h2>
+      <p class="mt-1 text-sm text-fg-2">
+        Mined from past proceedings via DBLP and OpenAlex: papers per year over each venue's full history, trending
+        keywords, and the topics each venue publishes most. {statVenues ? `${statVenues} venues indexed so far.` : 'The first crawl is on its way.'}
+      </p>
+    </div>
+    <a class="inline-flex h-10 items-center justify-center rounded-xl bg-accent px-4 text-sm font-semibold text-white no-underline hover:brightness-110" href={href('proceedings/')}>
+      Explore proceedings
+    </a>
+  </section>
+</Layout>

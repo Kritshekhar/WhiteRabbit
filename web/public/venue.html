@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moved · White Rabbit</title>
+<meta name="robots" content="noindex">
+<!-- Old detail URLs were venue.html?id=X and venue.html?type=grant&id=X.
+     Each record now has its own page. Paths are relative, so this works under
+     any base path. -->
+<script>
+  (function () {
+    var p = new URLSearchParams(location.search);
+    var id = p.get('id');
+    var target = !id ? 'conferences/'
+      : (p.get('type') === 'grant' ? 'grants/' : 'conferences/') + encodeURIComponent(id) + '/';
+    location.replace(target);
+  })();
+</script>
+<meta http-equiv="refresh" content="2; url=conferences/">
+</head>
+<body><p>This page moved. Continue to the <a href="conferences/">conference list</a>.</p></body>
+</html>
