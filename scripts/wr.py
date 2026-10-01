@@ -80,12 +80,42 @@ def cmd_queue(conn, args) -> None:
     for r in rows:
         print(f"  {r['entity']:<15} {r['owner']}  ({r['n']})")
     print(f"\n{sum(r['n'] for r in rows)} unverified row(s)")
-    cands = conn.execute("SELECT * FROM candidates ORDER BY last_checked DESC").fetchall()
+    cands = conn.execute("SELECT * FROM candidates WHERE status = 'open' ORDER BY last_checked DESC").fetchall()
     if cands:
-        print("\nProposed by crawlers, awaiting a person:")
+        print("\nProposed by crawlers, awaiting a person (wr.py accept|reject <id>):")
         for c in cands:
-            print(f"  {c['entity']} {c['entity_id']} {c['field']} = {c['proposed_value']}  "
+            print(f"  #{c['id']:<4} {c['entity']} {c['entity_id']} {c['field']} = {c['proposed_value']}  "
                   f"(seen {c['attempts']}x, {c['source']})")
+
+
+def candidate(conn, cid: int):
+    row = conn.execute("SELECT * FROM candidates WHERE id = ?", (cid,)).fetchone()
+    if not row:
+        sys.exit(f"no candidate #{cid}")
+    return row
+
+
+def cmd_accept(conn, args) -> None:
+    """Apply a proposal. A date is verified against the page it was read from."""
+    c = candidate(conn, args.id)
+    if c["entity"] == "deadline" and c["field"] == "date":
+        d = conn.execute("SELECT * FROM deadlines WHERE id = ?", (int(c["entity_id"]),)).fetchone()
+        conn.execute("UPDATE deadlines SET date = ?, status = 'verified', source = ?, verified_on = ? WHERE id = ?",
+                     (c["proposed_value"], c["source"], date.today().isoformat(), d["id"]))
+        db.record_change(conn, "venue", d["venue_id"], "corrected", d["name"], d["date"], c["proposed_value"], c["source"])
+        print(f"{d['venue_id']}: {d['name']} {(d['date'] or '')[:10]} -> {c['proposed_value'][:10]}, verified")
+    elif c["entity"] == "venue" and c["field"] == "dblp_key":
+        conn.execute("UPDATE venues SET dblp_key = ? WHERE id = ?", (c["proposed_value"], c["entity_id"]))
+        print(f"{c['entity_id']}: dblp_key = {c['proposed_value']} (stats appear after the next proceedings run)")
+    else:
+        sys.exit(f"don't know how to apply {c['entity']}.{c['field']}; edit it with wr.py set")
+    conn.execute("DELETE FROM candidates WHERE id = ?", (c["id"],))
+
+
+def cmd_reject(conn, args) -> None:
+    c = candidate(conn, args.id)
+    conn.execute("UPDATE candidates SET status = 'rejected', note = ? WHERE id = ?", (args.note, c["id"]))
+    print(f"rejected #{c['id']}: {c['entity']} {c['entity_id']} {c['field']} = {c['proposed_value']}")
 
 
 def cmd_add_venue(conn, args) -> None:
@@ -184,9 +214,16 @@ def main() -> int:
 
     p = sub.add_parser("set"); p.add_argument("id"); p.add_argument("field"); p.add_argument("value")
 
+    p = sub.add_parser("accept", help="apply a queued proposal")
+    p.add_argument("id", type=int)
+    p = sub.add_parser("reject", help="dismiss a queued proposal for good")
+    p.add_argument("id", type=int)
+    p.add_argument("--note", default="", help="why, for the record")
+
     args = ap.parse_args()
     handlers = {"show": cmd_show, "queue": cmd_queue, "add-venue": cmd_add_venue,
-                "add-deadline": cmd_add_deadline, "verify": cmd_verify, "set": cmd_set}
+                "add-deadline": cmd_add_deadline, "verify": cmd_verify, "set": cmd_set,
+                "accept": cmd_accept, "reject": cmd_reject}
     read_only = args.cmd in ("show", "queue")
     try:
         with db.session(write_dump=not read_only) as conn:
