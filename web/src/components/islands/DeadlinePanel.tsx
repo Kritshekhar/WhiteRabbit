@@ -3,6 +3,7 @@ import { grantEvent, venueEvent, type CalendarEvent } from '@/lib/calendar';
 import { GRANT_BANDS, VENUE_BANDS } from '@/lib/tiers';
 import type { Grant, Venue } from '@/lib/types';
 import { CalendarLink } from '../CalendarLink';
+import { SubscribeMenu } from '../SubscribeMenu';
 import { Provenance } from '../Provenance';
 import { Badge } from '../ui/badge';
 import { useNow } from '../useNow';
@@ -20,6 +21,8 @@ export default function DeadlinePanel(props: Props) {
   const event = (r: NonNullable<typeof v.next>): CalendarEvent =>
     isVenue ? venueEvent(props.record as Venue, r) : grantEvent(props.record as Grant, r);
   const rolling = isVenue && (props.record as Venue).rolling;
+  // a subscription keeps following this venue's next cycles too
+  const feed = `${isVenue ? 'conferences' : 'grants'}/${props.record.id}.ics`;
   const dated = v.rounds.filter((r) => r.ts);
 
   return (
@@ -46,8 +49,9 @@ export default function DeadlinePanel(props: Props) {
                 {isAoE(v.next.date) ? ' · deadline is AoE (UTC-12)' : ''}
               </p>
             </div>
-            <div className="ml-auto">
+            <div className="ml-auto flex flex-wrap gap-2">
               <CalendarLink event={event(v.next)} label="Add to Google Calendar" />
+              <SubscribeMenu feed={feed} name={`White Rabbit: ${props.record.name}`} label="Subscribe" />
             </div>
           </div>
         ) : (
