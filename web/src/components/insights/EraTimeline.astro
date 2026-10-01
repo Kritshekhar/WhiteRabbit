@@ -1,0 +1,126 @@
+---
+/* Research eras as a horizontal timeline: each year's breakout idea, how much
+   it grew, and a trend line of what happened to it afterwards. Static HTML;
+   phrases are .wr-term buttons, so a click selects them in the spread
+   explorer like every other phrase on the page. */
+import type { Era } from '@/lib/insights';
+
+interface Props {
+  eras: Era[];
+  /* Where a phrase links to. Without it, phrases are .wr-term buttons that
+     select it in the spread explorer on the same page. */
+  termHref?: (term: string) => string;
+}
+const { eras, termHref } = Astro.props;
+const Tag: any = termHref ? 'a' : 'button';
+const termProps = (term: string): Record<string, string> =>
+  termHref ? { href: termHref(term) } : { type: 'button', 'data-term': term };
+
+const growth = (lift: number) => (lift >= 100 ? 'new' : `×${lift >= 10 ? Math.round(lift) : lift.toFixed(1)}`);
+const n = (x: number) => x.toLocaleString('en-US');
+
+/* Share of all titles per year; the breakout year is marked, and the tail
+   after it shows whether the idea stayed. */
+function trend(points: { year: number; share: number }[], year: number) {
+  const w = 200;
+  const h = 44;
+  const max = Math.max(...points.map((p) => p.share), 1e-9);
+  const x = (i: number) => 2 + (i * (w - 4)) / Math.max(1, points.length - 1);
+  const y = (s: number) => h - 3 - (s / max) * (h - 8);
+  const line = points.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p.share).toFixed(1)}`).join(' ');
+  const area = `${line} L${x(points.length - 1).toFixed(1)},${h} L${x(0).toFixed(1)},${h} Z`;
+  const at = Math.max(0, points.findIndex((p) => p.year === year));
+  return { w, h, line, area, mx: x(at), my: y(points[at]?.share ?? 0), first: points[0]?.year, last: points.at(-1)?.year };
+}
+---
+<div class="wr-eras">
+  <div class="relative">
+  <ol class="wr-eras-track flex snap-x snap-mandatory gap-3 overflow-x-auto pt-7 pb-3" aria-label="Breakout ideas by year">
+    {eras.map((era, idx) => {
+      const [top, ...rest] = era.ideas;
+      const t = trend(top.points, era.year);
+      return (
+        <li class="wr-era relative w-[15.5rem] shrink-0 snap-end">
+          <span class="wr-era-dot" aria-hidden="true"></span>
+          <span class="absolute -top-7 left-0 leading-none font-mono text-sm font-bold text-accent tabular">{era.year}</span>
+          <article class="card flex h-full flex-col gap-2 p-4">
+            <p class="text-[0.66rem] font-semibold tracking-wide text-muted uppercase">Breakout</p>
+            <Tag {...termProps(top.term)}
+              class:list={['-mx-1 cursor-pointer rounded-md px-1 text-left text-lg leading-tight font-bold text-fg no-underline hover:bg-accent-soft hover:text-accent', !termHref && 'wr-term']}>
+              {top.term}
+            </Tag>
+            <p class="flex flex-wrap items-baseline gap-x-2 text-xs text-fg-2">
+              <span class="font-mono font-bold text-good tabular" title="Growth in share of all titles against the three years before">{growth(top.lift)}</span>
+              <span class="tabular">{n(top.count)} papers</span>
+              <span class="text-muted">· {top.venues} venues</span>
+            </p>
+            <svg viewBox={`0 0 ${t.w} ${t.h}`} class="h-11 w-full" role="img"
+              aria-label={`Share of titles using ${top.term}, ${t.first} to ${t.last}; it broke out in ${era.year}`}>
+              <title>{`${top.term}: share of all titles ${t.first} to ${t.last}`}</title>
+              <path d={t.area} fill="var(--accent)" opacity="0.12" />
+              <path d={t.line} fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke" />
+              <line x1={t.mx} x2={t.mx} y1="0" y2={t.h} stroke="var(--border-strong)" stroke-dasharray="2 2" />
+              <circle cx={t.mx} cy={t.my} r="3.2" fill="var(--accent)" stroke="var(--surface-1)" stroke-width="1.5" />
+            </svg>
+            {rest.length > 0 && (
+              <ul class="mt-auto space-y-1 border-t border-border pt-2">
+                {rest.map((idea) => (
+                  <li class="flex items-baseline justify-between gap-2 text-[0.8rem]">
+                    <Tag {...termProps(idea.term)}
+                      class:list={['min-w-0 cursor-pointer truncate text-left font-semibold text-fg-2 no-underline hover:text-accent', !termHref && 'wr-term']}>{idea.term}</Tag>
+                    <span class="shrink-0 font-mono text-[0.72rem] text-muted tabular" title={`${n(idea.count)} papers`}>{growth(idea.lift)}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </article>
+        </li>
+      );
+    })}
+  </ol>
+  <div class="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-surface-1 to-transparent" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-surface-1 to-transparent" aria-hidden="true"></div>
+  </div>
+  <div class="mt-1 flex items-center justify-between gap-3 text-xs text-muted">
+    <span>×N is growth in share of all papers against the three years before; "new" means it barely existed before. The line is its share every year since {eras[0]?.ideas[0]?.points[0]?.year}, with the breakout year marked.</span>
+    <span class="hidden shrink-0 gap-1 sm:flex">
+      <button type="button" class="wr-eras-nav cursor-pointer rounded-full border border-border px-2.5 py-1 font-semibold text-fg-2 hover:border-border-strong" data-dir="-1" aria-label="Earlier years">←</button>
+      <button type="button" class="wr-eras-nav cursor-pointer rounded-full border border-border px-2.5 py-1 font-semibold text-fg-2 hover:border-border-strong" data-dir="1" aria-label="Later years">→</button>
+    </span>
+  </div>
+</div>
+
+<style>
+  /* the timeline rule and a dot per year above each card */
+  .wr-eras-track { position: relative; scrollbar-width: thin; }
+  .wr-era::before {
+    content: '';
+    position: absolute;
+    top: -0.4rem;
+    left: 0;
+    right: -0.75rem;
+    border-top: 2px solid var(--border);
+  }
+  .wr-era:last-child::before { right: 0; }
+  .wr-era-dot {
+    position: absolute;
+    top: calc(-0.4rem - 4px);
+    left: 3.2rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--surface-0);
+  }
+</style>
+
+<script>
+  /* Start at the newest years, and let the arrows page through. */
+  for (const root of document.querySelectorAll<HTMLElement>('.wr-eras')) {
+    const track = root.querySelector<HTMLElement>('.wr-eras-track');
+    if (!track) continue;
+    track.scrollLeft = track.scrollWidth;
+    root.querySelectorAll<HTMLButtonElement>('.wr-eras-nav').forEach((b) =>
+      b.addEventListener('click', () => track.scrollBy({ left: Number(b.dataset.dir) * track.clientWidth * 0.8, behavior: 'smooth' })));
+  }
+</script>
