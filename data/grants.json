@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T09:00:40+00:00",
+  "generated_at": "2026-10-01T09:10:32+00:00",
   "counts": {
     "total": 117,
     "PhD student": 13,
@@ -409,7 +409,7 @@
           "source": ""
         }
       ],
-      "link_status": "ok"
+      "link_status": "unknown"
     },
     {
       "id": "google-research-scholar-program",
@@ -2152,7 +2152,7 @@
           "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26506"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "arctic-doctoral-dissertation-research-improvement-grants-arctic-ddrig-arctic-social-sciences-arctic-system-sciences-and-arctic-observing-network",
@@ -2184,7 +2184,7 @@
           "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf20597"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "leveraging-network-infrastructure-to-conduct-innovative-research-for-women-children-pregnant-and-lactating-women-and-persons-with-disabilities-ug3-uh3-clinical-trial-optional",
@@ -2216,7 +2216,7 @@
           "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-25-311.html"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "research-experiences-and-or-mentoring-networks-through-research-education-to-enhance-clinician-scientists-participation-in-nidcds-research-r25-clinical-trial-not-allowed",
@@ -2248,7 +2248,7 @@
           "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-25-020.html"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "small-business-translator-medtech-and-digital-health-technologies",
@@ -2276,7 +2276,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "cellular-senescence-network-sennet-sennet-data-coordination-integration-and-organizational-center-u24-or-um1",
@@ -2305,7 +2305,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "cellular-senescence-network-sennet-technology-projects-ug3-uh3-clinical-trial-not-allowed",
@@ -2334,7 +2334,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "forecast-to-publish-a-funding-opportunity-announcement-for-embracehealth-clinical-research-network-to-reduce-health-disparities-coordinating-center",
@@ -2363,7 +2363,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "notice-of-intent-to-publish-a-forecast-for-embracehealth-clinical-research-network-to-reduce-health-disparities-research-sites",
@@ -2392,7 +2392,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "computational-modeling-and-analysis-of-the-impact-of-genomic-variation-on-function-um1-clinical-trial-not-allowed",
@@ -2420,7 +2420,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "notice-of-intent-to-publish-a-funding-opportunity-announcement-for-impact-of-technology-and-digital-media-exposure-usage-on-child-and-adolescent-development",
@@ -2448,7 +2448,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "blueprint-neurotherapeutics-network-bpn-biologic-based-drug-discovery-and-development-for-disorders-of-the-nervous-system-ug3-uh3-clinical-trial-optional",
@@ -2478,7 +2478,7 @@
           "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-24-293.html"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "laboratories-to-optimize-digital-health-r01-clinical-trial-required",
@@ -2506,7 +2506,7 @@
           "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-25-136.html"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "computational-approaches-to-curation-at-scale-for-biomedical-research-assets-r01-clinical-trial-not-allowed",
@@ -2537,7 +2537,7 @@
           "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-25-131.html"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "investigator-initiated-innovation-in-computational-genomics-and-data-science-r01-clinical-trial-not-allowed",
@@ -2566,7 +2566,7 @@
           "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-25-228.html"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "investigator-initiated-innovation-in-computational-genomics-and-data-science-r21-clinical-trial-not-allowed",
@@ -2595,7 +2595,7 @@
           "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-25-229.html"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "nih-research-software-engineer-rse-award-r50-clinical-trials-not-allowed",
@@ -2623,7 +2623,7 @@
           "source": "http://grants.nih.gov/grants/guide/rfa-files/RFA-OD-24-011.html"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "cooperative-agreement-for-in-vivo-high-resolution-imaging-for-inner-ear-visualization-u01-clinical-trial-required",
@@ -2654,7 +2654,7 @@
           "source": "http://grants.nih.gov/grants/guide/rfa-files/RFA-DC-25-003.html"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "in-vivo-high-resolution-imaging-for-inner-ear-visualization-r01-clinical-trial-optional",
@@ -2685,7 +2685,7 @@
           "source": "http://grants.nih.gov/grants/guide/rfa-files/RFA-DC-25-005.html"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "stroke-preclinical-assessment-network-span-to-support-translational-studies-for-acute-cerebroprotection-network-sites-and-coordinating-center-u01-ct-not-allowed",
@@ -2714,7 +2714,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "translational-center-for-accelerating-the-use-of-digital-health-technologies-data-in-ad-adrd-research",
@@ -2743,7 +2743,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "limited-competition-heal-initiative-resource-centers-for-the-pain-management-effectiveness-network-ern-clinical-trial-not-allowed",
@@ -2772,7 +2772,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "personal-health-informatics-for-delivering-actionable-insights-to-individuals-r01-clinical-trial-optional",
@@ -2803,7 +2803,7 @@
           "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-25-235.html"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "nlm-institutional-grants-for-research-training-in-biomedical-informatics-data-science-and-ai",
@@ -2833,7 +2833,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "heal-initiative-program-to-reveal-and-evaluate-cells-to-gene-information-that-specify-intricacies-origins-and-the-nature-of-precision-human-pain-network",
@@ -2863,7 +2863,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "research-grants-in-clinical-informatics-r01-clinical-trial-optional",
@@ -2896,7 +2896,7 @@
           "source": "https://www.grants.gov/search-results-detail/359004"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "advancing-bioinformatics-translational-bioinformatics-and-computational-biology-research-r01-clinical-trial-optional",
@@ -2929,7 +2929,7 @@
           "source": "https://www.grants.gov/search-results-detail/359003"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "network-of-the-national-library-of-medicine-coordinating-center-u24-clinical-trial-optional",
@@ -2958,7 +2958,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "network-of-the-national-library-of-medicine-training-center-u24-clinical-trial-not-allowed",
@@ -2987,7 +2987,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "network-of-the-national-library-of-medicine-regional-medical-libraries-ug4-clinical-trial-not-allowed",
@@ -3016,7 +3016,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "dental-primary-care-practice-based-research-network-administrative-and-resource-center",
@@ -3044,7 +3044,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "dental-primary-care-practice-based-research-network-coordinating-center",
@@ -3072,7 +3072,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "heal-initiative-pain-management-effectiveness-research-network-clinical-trial-planning-and-implementation-cooperative-agreement-ug3-uh3-clinical-trial-required",
@@ -3101,7 +3101,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "dental-primary-care-practice-based-research-network-clinical-trial-or-observational-study-planning-and-implementation-cooperative-agreement",
@@ -3130,7 +3130,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "institutional-network-award-for-promoting-kidney-urologic-and-hematologic-research-training-u2c-clinical-trial-not-allowed",
@@ -3163,7 +3163,7 @@
           "source": "https://www.grants.gov/search-results-detail/358935"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "heal-initiative-integrative-management-of-chronic-pain-and-oud-for-whole-recovery-impowr-building-engagement-assistance-capacity-outreach-and-networks-beacon-center",
@@ -3191,7 +3191,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "advancing-research-on-the-application-of-digital-health-technology-to-the-management-of-type-2-diabetes-r01-clinical-trail-required",
@@ -3219,7 +3219,7 @@
           "source": "http://grants.nih.gov/grants/guide/rfa-files/RFA-DK-26-315.html"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "idea-networks-of-biomedical-research-excellence-inbre",
@@ -3248,7 +3248,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "interdisciplinary-research-networks-to-advance-biomedical-research-on-resilience-and-health-optimization",
@@ -3277,7 +3277,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "renewal-of-nia-research-centers-collaborative-network-rccn",
@@ -3305,7 +3305,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "building-sustainable-software-tools-for-open-science-r03-clinical-trial-not-allowed",
@@ -3333,7 +3333,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "brain-initiative-cell-atlas-network-bican-coordinating-unit-for-biostatistics-informatics-and-engagement-cubie",
@@ -3362,7 +3362,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "national-resource-network-for-the-study-of-human-auditory-and-vestibular-disorders",
@@ -3391,7 +3391,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "coordinating-center-for-national-resource-network-for-the-study-of-human-auditory-and-vestibular-disorders",
@@ -3420,7 +3420,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "limited-competition-biospecimen-banks-to-support-nci-national-clinical-trials-network-biospecimen-banks-nctn-biobanks-and-the-nci-early-phase-and-experimental-clinical-trials-biospecimen-bank-eet-biobank-u24-clinical-trial-not-allowed",
@@ -3449,7 +3449,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "the-metastasis-research-network-metnet-metnet-research-projects-u01-clinical-trial-not-allowed",
@@ -3480,7 +3480,7 @@
           "source": "https://www.grants.gov/search-results-detail/359725"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "canine-cancer-immunotherapy-network-k9cin-u01-clinical-trial-not-allowed",
@@ -3509,7 +3509,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "clinical-trials-and-ancillary-studies-conducted-within-nih-funded-clinical-trial-research-networks-ug3-uh3-clinical-trial-required",
@@ -3538,7 +3538,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "novel-experiential-technologies-assisting-individual-learning-next-ai-hubs-p20-clinical-trial-optional",
@@ -3570,7 +3570,7 @@
           "source": "https://www.grants.gov/search-results-detail/359949"
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     }
   ]
 }
