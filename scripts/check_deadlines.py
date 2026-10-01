@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Pull deadline-looking lines off every venue's site, for eyeball verification.
 
-This does NOT edit conferences.yml. Conference CFP pages are unstructured prose
+This does NOT edit the database. Conference CFP pages are unstructured prose
 and every venue words things differently, so auto-parsing them into the config
 would quietly write wrong dates - the exact failure this tool exists to catch.
 Instead it prints what each site says, next to what the config claims, and you
-correct the config by hand and flip `confirmed: true`.
+verify it with `python scripts/wr.py verify` once you have read the date on
+the venue's own page. Verified deadlines are never fetched again, so
+--unconfirmed (what the weekly workflow runs) only visits the needs_check queue.
 
 Usage
   python scripts/check_deadlines.py                # every venue
@@ -26,10 +28,10 @@ import urllib.request
 from pathlib import Path
 from urllib.parse import urlsplit
 
-from ruamel.yaml import YAML
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import db  # noqa: E402
 
-ROOT = Path(__file__).resolve().parent.parent
-CONFIG = ROOT / "conferences.yml"
+ROOT = db.ROOT
 
 # Several conference hosts (systor.org among them) answer 403 to an obvious
 # bot UA, which would show up as a false "not checked" on the dashboard.
@@ -289,15 +291,15 @@ def main() -> int:
                          "(works keyless; FIRECRAWL_API_KEY raises limits and enables /map)")
     args = ap.parse_args()
 
-    config = YAML().load(CONFIG.read_text(encoding="utf-8"))
-    venues = [v for v in config["venues"] if not v.get("rolling")]
+    conn = db.connect()
+    venues = [v for v in db.venue_records(conn) if not v["rolling"]]
 
     if args.names:
         wanted = [n.lower() for n in args.names]
         venues = [v for v in venues if any(w in str(v["name"]).lower() for w in wanted)]
     if args.unconfirmed:
-        venues = [v for v in venues
-                  if any(not d.get("confirmed") for d in (v.get("deadlines") or []))]
+        pending = {r["owner"] for r in conn.execute("SELECT owner FROM needs_check WHERE entity = 'deadline'")}
+        venues = [v for v in venues if v["id"] in pending]
 
     if args.firecrawl:
         mode = "with API key" if FIRECRAWL_KEY else "keyless (lower rate limit, no /map)"

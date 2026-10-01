@@ -31,7 +31,7 @@ const AUDIENCE_ELIGIBILITY = {
 // Government money and industry money have different rules and timelines.
 const GOVERNMENT = /^(NSF|DOE|DoD|DARPA|ONR|AFOSR|Army|NASA|NIH)/i;
 
-const state = { grants: [], who: 'all', kind: 'all', funders: new Set(), query: '', onlyOpen: true, datedOnly: false, sort: 'deadline' };
+const state = { grants: [], who: 'all', kind: 'all', funders: new Set(), query: '', onlyOpen: true, datedOnly: false, ccs: new Set() };
 
 
 function countdown(g) {
@@ -44,7 +44,8 @@ function countdown(g) {
 function grantRow(g) {
   const tags = [
     g.funder ? `<span class="tag tag-pub">${g.funder}</span>` : '',
-    ...g.topics.slice(0, 2).map((t) => `<span class="tag">${t}</span>`),
+    g.ccs ? `<span class="tag tag-ccs" title="ACM Computing Classification System">${g.ccs}</span>` : '',
+    ...g.topics.slice(0, 1).map((t) => `<span class="tag">${t}</span>`),
     `<span class="badge badge-rank rank-${WHO_SLOT[g.eligibility] || 'base'}">${g.eligibility}</span>`,
   ].filter(Boolean);
 
@@ -59,7 +60,13 @@ function grantRow(g) {
     /* Not `notes`: every federal record carries the same "due 5 p.m. local
        time" rule, so falling back to it printed one identical line on 33 rows.
        The award or the opportunity number actually distinguishes them. */
-    subtitle: g.amount || (g.opportunity_number ? `Opportunity ${g.opportunity_number}` : ''),
+    /* With no date, the useful thing is when to look. Not `notes`: every
+       federal record carries the same "due 5 p.m. local time" line, so falling
+       back to it printed one identical string on 33 rows. */
+    subtitle: g.status === 'tba' && g.typical_window
+      ? g.typical_window
+      : [g.amount, g.opportunity_number ? `Opportunity ${g.opportunity_number}` : '']
+          .filter(Boolean).join(' · '),
     tags,
     deadline: g.next,
     days: g.days,
@@ -92,6 +99,7 @@ function visible() {
       if (state.kind === 'industry' && isGov) return false;
     }
     if (state.funders.size && !state.funders.has(g.funder)) return false;
+    if (state.ccs.size && !state.ccs.has(g.ccs)) return false;
     if (state.onlyOpen && g.status === 'closed') return false;
     if (state.datedOnly && g.status !== 'open') return false;
     if (!q) return true;
@@ -100,9 +108,8 @@ function visible() {
 }
 
 function render() {
-  const list = [...visible()].sort(state.sort === 'name'
-    ? (a, b) => a.name.localeCompare(b.name)
-    : (a, b) => (a.days ?? Infinity) - (b.days ?? Infinity) || a.name.localeCompare(b.name));
+  const list = [...visible()].sort(
+    (a, b) => (a.days ?? Infinity) - (b.days ?? Infinity) || a.name.localeCompare(b.name));
   $('grid').innerHTML = list.map(grantRow).join('');
   $('empty').hidden = list.length > 0;
   $('result-count').textContent = `${list.length} of ${state.grants.length} programmes`;
@@ -152,7 +159,6 @@ $('search').addEventListener('input', (e) => { state.query = e.target.value; ren
 $('hide-passed').addEventListener('change', (e) => { state.onlyOpen = e.target.checked; render(); });
 const datedBox = $('dated-only');
 if (datedBox) datedBox.addEventListener('change', (e) => { state.datedOnly = e.target.checked; render(); });
-$('sort').addEventListener('change', (e) => { state.sort = e.target.value; render(); });
 
 fetch('data/grants.json', { cache: 'no-cache' })
   .then((r) => r.json())
@@ -170,6 +176,13 @@ fetch('data/grants.json', { cache: 'no-cache' })
       menu: $('funder-menu'), list: $('funder-list'), clear: $('funder-clear'),
       summary: $('funder-summary'), label: 'Funders', counts,
       onChange: (chosen) => { state.funders = chosen; render(); },
+    });
+    const classes = new Map();
+    state.grants.forEach((g) => g.ccs && classes.set(g.ccs, (classes.get(g.ccs) || 0) + 1));
+    initMultiSelect({
+      menu: $('ccs-menu'), list: $('ccs-list'), clear: $('ccs-clear'),
+      summary: $('ccs-summary'), label: 'ACM class', counts: classes,
+      onChange: (chosen) => { state.ccs = chosen; render(); },
     });
     initChips($('who-filter'), AUDIENCE === 'student' ? 'kind' : 'who',
       (v) => { if (AUDIENCE === 'student') state.kind = v; else state.who = v; render(); });

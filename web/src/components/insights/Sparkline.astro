@@ -1,0 +1,24 @@
+---
+/* An inline trend for one phrase: share of all titles per year. The peak is
+   marked, so a fading phrase shows where it topped out. */
+interface Props { points: { year: number; share: number }[]; color?: string; label: string }
+const { points, color = 'var(--accent)', label } = Astro.props;
+const w = 120;
+const h = 28;
+const max = Math.max(...points.map((p) => p.share), 1e-9);
+const sx = (i: number) => 1 + (i * (w - 2)) / Math.max(1, points.length - 1);
+const sy = (s: number) => h - 2 - (s / max) * (h - 4);
+const path = points.map((p, i) => `${i ? 'L' : 'M'}${sx(i).toFixed(1)},${sy(p.share).toFixed(1)}`).join(' ');
+const peak = points.reduce((best, p, i) => (p.share > points[best].share ? i : best), 0);
+const first = points[0];
+const last = points[points.length - 1];
+const pct = (s: number) => `${(s * 100).toFixed(s < 0.01 ? 2 : 1)}%`;
+---
+{points.length > 1 && (
+  <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" class="h-7 w-16 shrink-0 sm:w-[120px]" role="img"
+    aria-label={`${label}: ${pct(first.share)} of titles in ${first.year}, peak ${pct(points[peak].share)} in ${points[peak].year}, ${pct(last.share)} in ${last.year}`}>
+    <title>{`${label}: peak ${pct(points[peak].share)} of titles in ${points[peak].year}; ${pct(last.share)} in ${last.year}`}</title>
+    <path d={path} fill="none" stroke={color} stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke" />
+    <circle cx={sx(peak)} cy={sy(points[peak].share)} r="2.4" fill={color} />
+  </svg>
+)}

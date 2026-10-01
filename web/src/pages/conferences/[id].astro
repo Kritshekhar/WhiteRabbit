@@ -1,0 +1,80 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import DeadlinePanel from '@/components/islands/DeadlinePanel';
+import ProceedingsSummary from '@/components/ProceedingsSummary.astro';
+import { Badge } from '@/components/ui/badge';
+import { BUILT_AT, getVenues } from '@/lib/db';
+import { venueDigest } from '@/lib/insights';
+import { RANK_SLOT, TIERS } from '@/lib/tiers';
+import type { Venue } from '@/lib/types';
+import { href } from '@/lib/utils';
+
+export function getStaticPaths() {
+  return getVenues().map((venue) => ({ params: { id: venue.id }, props: { venue } }));
+}
+
+const { venue } = Astro.props as { venue: Venue };
+const digest = venueDigest(venue.id);
+const LINK = { ok: 'responded when last checked', dead: 'returned 404/410 when last checked', unknown: 'not checked' } as Record<string, string>;
+const checked = venue.link_checked_on ? new Date(venue.link_checked_on).toISOString().slice(0, 10) : '';
+---
+
+<Layout title={venue.name} section="conferences" description={`${venue.name}${venue.full_name ? `: ${venue.full_name}` : ''}. Deadlines, countdown and a summary of past proceedings.`}>
+  <nav aria-label="Breadcrumb" class="mb-4 text-sm text-muted">
+    <a class="hover:text-fg" href={href('conferences/')}>Conferences</a> <span aria-hidden="true">/</span> <span class="text-fg-2">{venue.name}</span>
+  </nav>
+
+  <header class="mb-6 space-y-2">
+    <h1 class="text-3xl font-bold tracking-tight">{venue.name} {venue.year && <span class="font-normal text-muted">{venue.year}</span>}</h1>
+    {venue.full_name && <p class="text-lg text-fg-2">{venue.full_name}</p>}
+    <div class="flex flex-wrap gap-1.5 pt-1">
+      {venue.publisher && <Badge variant="publisher">{venue.publisher}</Badge>}
+      {venue.topics.map((t) => <Badge>{t}</Badge>)}
+      <Badge variant={RANK_SLOT[venue.tier] || 'off'}>{TIERS[venue.tier] || venue.tier}</Badge>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
+    <div class="flex min-w-0 flex-col gap-8">
+      <DeadlinePanel client:load kind="venue" record={venue} builtAt={BUILT_AT} />
+
+      <ProceedingsSummary id={venue.id} name={venue.name} digest={digest} />
+    </div>
+
+    <aside class="space-y-4">
+      {venue.url && (
+        <a class="flex h-10 items-center justify-center rounded-xl bg-accent px-4 text-sm font-semibold text-white no-underline hover:brightness-110" href={venue.url} target="_blank" rel="noopener">
+          Official page ↗
+        </a>
+      )}
+      {venue.formats.length > 0 && (
+        <section class="card p-4">
+          <h3 class="mb-2 text-xs font-semibold tracking-wide text-muted uppercase">Accepts</h3>
+          <div class="flex flex-wrap gap-1.5">{venue.formats.map((f) => <Badge>{f}</Badge>)}</div>
+        </section>
+      )}
+      {venue.tracks.length > 0 && (
+        <section class="card p-4">
+          <h3 class="mb-2 text-xs font-semibold tracking-wide text-muted uppercase">Tracks</h3>
+          <div class="flex flex-wrap gap-1.5">{venue.tracks.map((t) => <Badge variant="track">{t}</Badge>)}</div>
+        </section>
+      )}
+      {venue.notes && (
+        <section class="card p-4">
+          <h3 class="mb-2 text-xs font-semibold tracking-wide text-muted uppercase">Notes</h3>
+          <p class="text-sm text-fg-2">{venue.notes}</p>
+        </section>
+      )}
+      <section class="card p-4">
+        <h3 class="mb-2 text-xs font-semibold tracking-wide text-muted uppercase">Record</h3>
+        <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-sm">
+          {venue.year && <><dt class="text-muted">Edition</dt><dd>{venue.year}</dd></>}
+          <dt class="text-muted">Stage</dt><dd>{venue.stage}: {venue.stage_name}</dd>
+          {venue.month && <><dt class="text-muted">Usually held</dt><dd>{new Date(Date.UTC(2000, venue.month - 1, 1)).toLocaleString('en', { month: 'long', timeZone: 'UTC' })}</dd></>}
+          {venue.cycle_years > 1 && <><dt class="text-muted">Cycle</dt><dd>every {venue.cycle_years} years</dd></>}
+          <dt class="text-muted">Link</dt><dd>{LINK[venue.link_status] ?? venue.link_status}{checked && ` (${checked})`}</dd>
+        </dl>
+      </section>
+    </aside>
+  </div>
+</Layout>

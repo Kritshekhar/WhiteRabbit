@@ -1,0 +1,172 @@
+---
+/* "From past proceedings" on a conference page: what the venue has published,
+   built at build time with no JavaScript. The full, interactive view lives at
+   /proceedings/[id]/. */
+import type { VenueDigest } from '@/lib/insights';
+import { href, venueHref } from '@/lib/utils';
+
+interface Props { id: string; name: string; digest: VenueDigest | null }
+const { id, name, digest: d } = Astro.props;
+const full = href(`proceedings/${encodeURIComponent(id)}/`);
+const pct = (x: number) => `${Math.round(x * 100)}%`;
+const signed = (x: number) => `${x >= 0 ? '+' : ''}${Math.round(x * 100)}%`;
+const displayName = (n: string) => n.replace(/ \d{4}$/, '');
+
+/* bar chart of every year: thin bars, the latest complete year highlighted */
+const W = 640;
+const H = 120;
+const bars = d?.bars ?? [];
+const peak = Math.max(1, ...bars.map((b) => b.count));
+const step = bars.length ? W / bars.length : 0;
+const bw = Math.max(1.5, step * 0.72);
+const tiles = d ? [
+  { label: `Papers in ${d.latestYear}`, value: d.latestCount.toLocaleString(), note: 'main DBLP volume' },
+  {
+    label: '5-year change',
+    value: d.change5 === null ? 'n/a' : signed(d.change5),
+    note: d.change5 === null ? 'needs five years' : `vs ${d.latestYear - 5}`,
+    tone: d.change5 === null ? '' : d.change5 >= 0 ? 'text-good' : 'text-critical',
+  },
+  { label: 'Papers, all years', value: d.total.toLocaleString(), note: `${d.yearsIndexed} years since ${d.since}` },
+  d.authors && {
+    label: 'Authors per paper',
+    value: d.authors.latest.toFixed(1),
+    note: d.authors.tenYear !== null ? `${d.authors.tenYear.toFixed(1)} in ${d.authors.year - 10}` : `in ${d.authors.year}`,
+  },
+  d.newTeams && {
+    label: 'By an entirely new team',
+    value: pct(d.newTeams.share),
+    note: `of ${d.newTeams.year} papers`,
+    title: 'Share of papers where no author had published at this venue before',
+  },
+].filter(Boolean) as { label: string; value: string; note: string; tone?: string; title?: string }[] : [];
+---
+
+<section aria-labelledby="proc-h" class="space-y-3">
+  <div class="flex flex-wrap items-end justify-between gap-2">
+    <div>
+      <h2 id="proc-h" class="text-lg font-bold tracking-tight">From past proceedings</h2>
+      {d && <p class="text-xs text-muted">Papers in {name}'s main DBLP volume each year, not official acceptance counts.</p>}
+    </div>
+    {d && <a class="text-sm font-semibold text-accent hover:underline" href={full}>Full proceedings stats →</a>}
+  </div>
+
+  {d ? (
+    <div class="space-y-4">
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-5">
+        {tiles.map((t) => (
+          <div class="card p-3" title={t.title}>
+            <p class="text-[0.66rem] font-semibold tracking-wide text-muted uppercase">{t.label}</p>
+            <p class:list={['font-mono text-xl font-bold tabular', t.tone]}>{t.value}</p>
+            <p class="text-[0.72rem] text-muted">{t.note}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="card p-4">
+        <div class="mb-2 flex items-baseline justify-between gap-2 text-xs text-muted">
+          <span class="font-semibold text-fg-2">Papers per year</span>
+          <span class="font-mono tabular">{d.since} to {d.latestYear}</span>
+        </div>
+        <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" class="h-28 w-full" role="img"
+          aria-label={`Papers per year from ${d.since} to ${d.latestYear}; ${d.latestCount} in ${d.latestYear}`}>
+          {bars.map((b, i) => {
+            const h = Math.max(1.5, (b.count / peak) * (H - 4));
+            return (
+              <rect x={i * step + (step - bw) / 2} y={H - h} width={bw} height={h} rx="1.5"
+                fill="var(--accent)" opacity={b.latest ? 1 : 0.4}>
+                <title>{`${b.year}: ${b.count.toLocaleString()} papers`}</title>
+              </rect>
+            );
+          })}
+        </svg>
+
+        {d.links.length > 0 && (
+          <div class="mt-4 flex flex-wrap items-center gap-2">
+            <span class="mr-1 text-sm font-semibold">Read the {d.latestYear} proceedings</span>
+            {d.links.map((l, i) => (
+              <>
+                {l.publisher && (
+                  <a href={l.publisher} target="_blank" rel="noopener" title={l.title}
+                    class="inline-flex h-8 items-center rounded-lg bg-accent px-3 text-sm font-semibold text-white no-underline hover:brightness-110">
+                    {d.links.length > 1 ? `Volume ${i + 1}` : 'Proceedings'} ↗
+                  </a>
+                )}
+                <a href={l.dblp} target="_blank" rel="noopener" title="Table of contents on DBLP"
+                  class="inline-flex h-8 items-center rounded-lg border border-border px-3 text-sm font-semibold text-fg no-underline hover:border-border-strong">
+                  DBLP{d.links.length > 1 && !l.publisher ? ` ${i + 1}` : ''} ↗
+                </a>
+              </>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div class="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
+        <div class="flex min-w-0 flex-col gap-4">
+        {d.keywords.length > 0 && (
+          <div class="card p-4">
+            <h3 class="mb-2 text-sm font-semibold">Top keywords, {d.latestYear}</h3>
+            <div class="flex flex-wrap gap-1.5">
+              {d.keywords.map((k) => <span class="rounded-full border border-border bg-surface-2 px-2 py-0.5 text-[0.75rem] font-semibold text-fg-2">{k}</span>)}
+            </div>
+          </div>
+        )}
+        {d.topics.length > 0 && (
+          <div class="card p-4">
+            <h3 class="mb-2 text-sm font-semibold">Top topics</h3>
+            <ol class="space-y-1.5">
+              {d.topics.map((t) => (
+                <li class="text-sm">
+                  <span class="flex justify-between gap-2"><span class="min-w-0 truncate">{t.term}</span><span class="shrink-0 font-mono text-xs text-muted tabular">{pct(t.share)}</span></span>
+                  <span class="mt-0.5 block h-1 rounded-full bg-surface-2"><span class="block h-full rounded-full bg-rank-base" style={`width:${Math.min(100, t.share * 250)}%`}></span></span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
+        </div>
+        <div class="flex min-w-0 flex-col gap-4">
+        {d.similar.length > 0 && (
+          <div class="card p-4">
+            <h3 class="mb-2 text-sm font-semibold">Venues like {name}</h3>
+            <ol class="space-y-2.5">
+              {d.similar.map((s) => (
+                <li>
+                  <a href={venueHref(s.venue.id)} class="group flex items-baseline justify-between gap-2 text-sm no-underline">
+                    <span class="min-w-0 truncate"><span class="font-semibold text-fg group-hover:text-accent">{s.venue.name}</span> <span class="text-xs text-muted">{s.venue.full_name}</span></span>
+                    <span class="shrink-0 font-mono text-xs text-muted tabular" title="Similarity of title phrases, 0 to 1">{s.score.toFixed(2)}</span>
+                  </a>
+                  {s.shared.length > 0 && (
+                    <span class="mt-1 flex flex-wrap gap-1">
+                      {s.shared.slice(0, 4).map((t) => <span class="rounded-full bg-surface-2 px-1.5 py-px text-[0.68rem] font-semibold text-fg-2">{t}</span>)}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
+        {d.topAuthors.length > 0 && (
+          <div class="card p-4">
+            <h3 class="mb-2 text-sm font-semibold">Most published at {name}</h3>
+            <ol class="divide-y divide-border">
+              {d.topAuthors.map((a) => (
+                <li class="flex items-center justify-between gap-2 py-1.5 text-sm">
+                  <span class="min-w-0"><span class="block truncate font-semibold" title={a.name}>{displayName(a.name)}</span><span class="block font-mono text-[0.7rem] text-muted tabular">{a.first_year} to {a.last_year}</span></span>
+                  <span class="shrink-0 font-mono font-bold tabular">{a.papers}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
+        </div>
+      </div>
+    </div>
+  ) : (
+    <p class="card border-dashed p-4 text-sm text-muted">
+      No proceedings data for {name}. Either the venue publishes no proceedings (industry events such as KubeCon do not)
+      or it could not yet be matched to DBLP.
+    </p>
+  )}
+</section>

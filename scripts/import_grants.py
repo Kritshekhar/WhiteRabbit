@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Import US federal CS funding opportunities from grants.gov into grants.yml.
+"""Import US federal CS funding opportunities from grants.gov into the database.
 
 grants.gov exposes a free, keyless JSON API (Search2). Its `cfda` filter is the
 precise way in: an ALN/CFDA code maps to a funding directorate, so 47.070 is
@@ -10,7 +10,7 @@ Everything under CISE is CS by definition and comes in whole. The broader codes
 (NSF Engineering, Maths, Education, and the DoD offices) fund plenty that is not
 CS, so those are kept only when the title reads as computing.
 
-Imported deadlines land as `confirmed: false`, same rule as the conference list:
+Imported deadlines land unverified, same rule as the conference list:
 they are read off an aggregator rather than the program's own solicitation.
 
   python scripts/import_grants.py --dry-run
@@ -22,22 +22,39 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import datetime
-import io
+import html
 import json
 import re
 import sys
 import urllib.request
 from pathlib import Path
 
-from ruamel.yaml import YAML
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import db  # noqa: E402
+from lib_ccs import classify  # noqa: E402
 
-ROOT = Path(__file__).resolve().parent.parent
-CONFIG = ROOT / "grants.yml"
 API = "https://api.grants.gov/v1/api/search2"
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
 
-# ALN/CFDA code -> funder label. CISE is taken wholesale; the rest are filtered.
+# Two ways in, because neither alone is complete.
+#
+# By agency is the broad net: NSF publishes every programme to grants.gov, and
+# an agency query returns all 140 of them where the ten CFDA codes returned 50.
+# NIH is reached the same way - its own guide index exists but is 17,000 mostly
+# historical notices, while grants.gov carries the open calls with uniform
+# fields and funding figures.
+#
+# By CFDA is the precision net: ALN 47.070 is exactly NSF CISE, so everything
+# under it is computer science by definition and skips the relevance filter.
+AGENCIES = {
+    "NSF": "NSF",
+    "HHS-NIH11": "NIH",
+    "DOD": "DoD",
+    "DOE": "DOE",
+    "NASA": "NASA",
+}
+CISE_CFDA = "47.070"
 FUNDERS = {
     "47.070": ("NSF CISE", False),
     "47.041": ("NSF Engineering", True),
@@ -51,14 +68,7 @@ FUNDERS = {
     "81.049": ("DOE Office of Science", True),
 }
 
-CS_WORDS = re.compile(
-    r"(?i)\b(comput|software|algorithm|cyber|security|privacy|network|robotic|"
-    r"artificial intelligence|machine learning|\bAI\b|data science|informatics|"
-    r"human[- ]computer|systems|semiconductor|quantum information|"
-    r"cyberinfrastructure|information technology)\w*"
-)
-
-# Topic tags, so the page can filter the same way the conference list does.
+# Topic tags, a coarser cut than the ACM class, for the page filters.
 TOPIC_RULES = [
     (re.compile(r"(?i)secur|privacy|cyber|cryptog"), "Security"),
     (re.compile(r"(?i)artificial intelligence|machine learning|\bAI\b|learning"), "AI/ML"),
@@ -70,13 +80,15 @@ TOPIC_RULES = [
     (re.compile(r"(?i)human|social|behavio"), "HCI"),
     (re.compile(r"(?i)system|architect|semiconductor|chip|hardware"), "Systems"),
     (re.compile(r"(?i)infrastructure|facility|instrument"), "Infrastructure"),
+    (re.compile(r"(?i)health|biomed|clinical|medic"), "Health"),
 ]
 
-yaml = YAML()
-yaml.preserve_quotes = True
-yaml.width = 4096
-yaml.indent(mapping=2, sequence=4, offset=2)
-
+CS_WORDS = re.compile(
+    r"(?i)\b(comput|software|algorithm|cyber|informatics|data scien|"
+    r"artificial intelligence|machine learning|\bAI\b|robot|network|"
+    r"semiconductor|quantum information|human[- ]computer|visuali[sz]ation|"
+    r"cyberinfrastructure|information technology|digital)\w*"
+)
 
 def post(body: dict) -> dict:
     req = urllib.request.Request(
@@ -84,10 +96,6 @@ def post(body: dict) -> dict:
         headers={"Content-Type": "application/json", "User-Agent": UA})
     with urllib.request.urlopen(req, timeout=45) as resp:
         return json.loads(resp.read().decode("utf-8", "ignore"))
-
-
-def slugify(text: str) -> str:
-    return re.sub(r"[^a-z0-9]+", "-", str(text).lower()).strip("-")
 
 
 def iso(date_text: str) -> str | None:
@@ -106,31 +114,50 @@ def topics_for(title: str) -> list[str]:
     return found[:3] or ["General"]
 
 
+def query(body: dict) -> list[dict]:
+    try:
+        data = post({"rows": 500, "oppStatuses": "forecasted|posted", **body}).get("data") or {}
+    except Exception as exc:
+        print(f"  ! {body}: {exc}", file=sys.stderr)
+        return []
+    return data.get("oppHits") or []
+
+
 def fetch() -> list[dict]:
     out: dict[str, dict] = {}
+
+    def keep(opp: dict, label: str, always: bool = False) -> None:
+        title = opp.get("title") or ""
+        if not always and not CS_WORDS.search(title):
+            return
+        existing = out.get(opp["id"])
+        if existing:
+            existing["_funders"].add(label)
+        else:
+            opp["_funders"] = {label}
+            out[opp["id"]] = opp
+
+    # precise first, so a CISE programme keeps its label even if the agency
+    # sweep sees it too
     for code, (label, needs_filter) in FUNDERS.items():
-        try:
-            data = post({"rows": 200, "cfda": code,
-                         "oppStatuses": "forecasted|posted"}).get("data") or {}
-        except Exception as exc:
-            print(f"  ! {label}: {exc}", file=sys.stderr)
-            continue
-        for opp in data.get("oppHits") or []:
-            title = opp.get("title") or ""
-            if needs_filter and not CS_WORDS.search(title):
-                continue
-            opp.setdefault("_funders", set()).add(label)
-            existing = out.get(opp["id"])
-            if existing:
-                existing["_funders"].add(label)
-            else:
-                opp["_funders"] = {label}
-                out[opp["id"]] = opp
+        for opp in query({"cfda": code}):
+            keep(opp, label, always=(code == CISE_CFDA))
+
+    for code, label in AGENCIES.items():
+        for opp in query({"agencies": code}):
+            keep(opp, label)
+
     return list(out.values())
 
 
+def clean_title(title) -> str:
+    """grants.gov titles carry HTML entities (&ndash;, &amp;), which would end
+    up in the name and in the page URL."""
+    return re.sub(r"\s+", " ", html.unescape(title or "").strip())
+
+
 def to_grant(opp: dict) -> dict:
-    title = re.sub(r"\s+", " ", (opp.get("title") or "").strip())
+    title = clean_title(opp.get("title"))
     number = opp.get("number") or ""
     # CISE first when a call is cross-listed, since that is the CS home.
     funders = sorted(opp["_funders"], key=lambda f: (f != "NSF CISE", f))
@@ -147,6 +174,9 @@ def to_grant(opp: dict) -> dict:
     if len(funders) > 1:
         grant["also_funded_by"] = funders[1:]
     close = iso(opp.get("closeDate") or "")
+    cls, why = classify(title)
+    grant["ccs"] = cls
+    grant["ccs_auto"] = True   # assigned by rule, not by reading the solicitation
     grant["deadlines"] = [{
         "name": "Full proposal",
         "date": close,
@@ -179,12 +209,14 @@ def main() -> int:
             pass
         fresh.append(opp)
 
-    config = {"grants": []}
-    if CONFIG.exists():
-        config = yaml.load(CONFIG.read_text(encoding="utf-8")) or {"grants": []}
-    known = {slugify(g.get("name")) for g in (config.get("grants") or [])}
-
-    additions = [to_grant(o) for o in fresh if slugify(o.get("title")) not in known]
+    conn = db.connect()
+    known = {r["id"] for r in conn.execute("SELECT id FROM grants")}
+    additions, ids = [], set()
+    for o in fresh:
+        gid = db.slugify(clean_title(o.get("title")))
+        if gid not in known and gid not in ids:
+            ids.add(gid)
+            additions.append(to_grant(o))
 
     print(f"{len(opps)} matched · {expired} already closed · "
           f"{len(fresh) - len(additions)} already tracked · {len(additions)} to add")
@@ -195,11 +227,13 @@ def main() -> int:
         print("\n(dry run - pass --write to apply)")
         return 0
 
-    config.setdefault("grants", []).extend(additions)
-    buf = io.StringIO()
-    yaml.dump(config, buf)
-    CONFIG.write_text(buf.getvalue(), encoding="utf-8")
-    print(f"\nWrote {len(additions)} grants to {CONFIG.name}")
+    # New grants arrive with unverified dates (an "est." badge on the page);
+    # verify_grants.py confirms them against grants.gov's own record.
+    for g in additions:
+        db.insert_grant(conn, g)
+    conn.commit()
+    db.dump(conn)
+    print(f"\nAdded {len(additions)} grants to the database")
     return 0
 
 

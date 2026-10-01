@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Build the dashboard data file from conferences.yml.
+"""Refresh the conference data in the database and rebuild the dashboard JSON.
 
 Run nightly by .github/workflows/update-deadlines.yml, and on every push that
-touches the config.
+touches the data.
 
 What it does
-  1. Reads conferences.yml (the single source of truth).
-  2. Fills in defaults, so a brand-new entry needs nothing but a `name`.
-  3. Rolls a venue over to next year's site once its cycle is done and the new
+  1. Reads every venue from the database (scripts/db.py).
+  2. Rolls a venue over to next year's site once its cycle is done and the new
      page is actually live (see roll_over_cycle).
-  4. Probes every link so the dashboard can flag dead URLs.
-  5. Writes data/deadlines.json for the front-end.
+  3. Probes the links that plausibly moved, so the dashboard can flag dead URLs.
+  4. Writes the changes back, re-dumps db/whiterabbit.sql, and writes
+     data/deadlines.json for the front-end.
 
 Usage
   python scripts/update.py                 # full run (network probes on)
@@ -23,7 +23,6 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import hashlib
-import io
 import json
 import re
 import sys
@@ -32,11 +31,11 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from ruamel.yaml import YAML
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import db  # noqa: E402
+import export_json  # noqa: E402
 
-ROOT = Path(__file__).resolve().parent.parent
-CONFIG = ROOT / "conferences.yml"
-OUTPUT = ROOT / "data" / "deadlines.json"
+ROOT = db.ROOT
 
 # Several conference hosts (systor.org among them) answer 403 to an obvious
 # bot UA, which would show up as a false "not checked" on the dashboard.
@@ -65,30 +64,14 @@ STAGES = {
     "looking-glass": (3, "Looking Glass"),
 }
 
-yaml = YAML()
-yaml.preserve_quotes = True
-yaml.width = 4096
-yaml.indent(mapping=2, sequence=4, offset=2)
-
-
 # --------------------------------------------------------------------------
 # probe policy
 #
 # Link probing is the only slow part of a build, and most links do not change.
 # So a nightly run only re-checks what plausibly moved, and everything else
-# carries its previous result forward. Countdowns are unaffected either way -
+# keeps the result stored in the database. Countdowns are unaffected either way -
 # they are computed in the browser from the ISO dates, not stored here.
 # --------------------------------------------------------------------------
-def load_previous() -> dict:
-    """Last build's results, keyed by venue id, used as a probe cache."""
-    if not OUTPUT.exists():
-        return {}
-    try:
-        return {v["id"]: v for v in json.loads(OUTPUT.read_text(encoding="utf-8"))["venues"]}
-    except Exception:
-        return {}
-
-
 def should_probe(venue: dict, cached: dict, now: datetime, max_age_days: int) -> str:
     """Return the reason to probe this venue, or '' to reuse the cached result."""
     if not cached:
@@ -157,22 +140,28 @@ def render_template(template: str, year: int) -> str:
     )
 
 
-def probe(url: str) -> str:
-    """Return 'ok', 'dead' or 'unknown' for a URL."""
+def probe_with_code(url: str) -> tuple[str, int | None]:
+    """Return ('ok' | 'dead' | 'unknown', last HTTP status) for a URL."""
     if not url:
-        return "unknown"
+        return "unknown", None
+    code = None
     for method in ("HEAD", "GET"):
         req = urllib.request.Request(url, method=method, headers={"User-Agent": UA})
         try:
             with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
-                return "ok" if 200 <= resp.status < 400 else "dead"
+                return ("ok" if 200 <= resp.status < 400 else "dead"), resp.status
         except urllib.error.HTTPError as exc:
+            code = exc.code
             if exc.code in (403, 405, 406, 429):
                 continue  # bot-blocked or method not allowed -> retry as GET
-            return "dead" if exc.code in (404, 410) else "unknown"
+            return ("dead" if exc.code in (404, 410) else "unknown"), code
         except Exception:
             continue
-    return "unknown"
+    return "unknown", code
+
+
+def probe(url: str) -> str:
+    return probe_with_code(url)[0]
 
 
 def looks_like_a_real_site(body: str, year: int) -> bool:
@@ -261,62 +250,55 @@ def normalise(raw: dict) -> dict:
 # --------------------------------------------------------------------------
 # year rollover
 # --------------------------------------------------------------------------
-def snapshot(raw: dict) -> dict:
-    """Enough of a venue to put it back the way it was."""
-    return {
-        "year": raw.get("year"),
-        "url": raw.get("url"),
-        "dates": [e.get("date") for e in (raw.get("deadlines") or []) if isinstance(e, dict)],
-        "confirmed": [e.get("confirmed") for e in (raw.get("deadlines") or []) if isinstance(e, dict)],
-    }
+def roll_over_cycle(conn, venue, now, grace_days, allow_network) -> tuple | None:
+    """Move a venue on to next year's site once this cycle is over.
 
+    Returns (old_year, old_url) if the database was changed, so the caller can
+    undo it. Deliberately conservative: we only move when the next-year page
+    answers 200, so a venue that has not published its site yet simply stays
+    put and is retried tomorrow.
 
-def restore(raw: dict, snap: dict) -> None:
-    raw["year"] = snap["year"]
-    raw["url"] = snap["url"]
-    entries = [e for e in (raw.get("deadlines") or []) if isinstance(e, dict)]
-    for entry, date, confirmed in zip(entries, snap["dates"], snap["confirmed"]):
-        entry["date"] = date
-        entry["confirmed"] = confirmed
-
-
-def roll_over_cycle(raw, venue, now, grace_days, allow_network) -> bool:
-    """Bump a venue to next year's site once this cycle is over.
-
-    Returns True if conferences.yml was modified. Deliberately conservative:
-    we only move when the next-year page answers 200, so a venue that has not
-    published its site yet simply stays put and is retried tomorrow.
+    The finished cycle's deadline rows stay as history. The next cycle gets new
+    rows, shifted by the cycle length and unverified: a shifted date is an
+    estimate until someone reads it on the new CFP page.
     """
     template, year = venue["url_template"], venue["year"]
     step = venue["cycle_years"]  # 2 for biennial venues such as HotOS
     if venue["rolling"] or not template or not isinstance(year, int):
-        return False
+        return None
 
     dated = [d["_dt"] for d in venue["deadlines"] if d["_dt"]]
     if not dated:
-        return False
+        return None
     if now < max(dated) + timedelta(days=grace_days):
-        return False  # cycle still running
+        return None  # cycle still running
 
     next_year = year + step
     next_url = render_template(template, next_year)
     if not allow_network:
         print(f"  - {venue['name']}: cycle over, would probe {next_url}")
-        return False
+        return None
     if probe(next_url) != "ok" or not page_mentions_year(next_url, next_year):
         print(f"  - {venue['name']}: {next_year} site not live yet ({next_url})")
-        return False
+        return None
 
-    raw["year"] = next_year
-    raw["url"] = next_url
-    for entry in raw.get("deadlines") or []:
-        dt = parse_date(entry.get("date") if isinstance(entry, dict) else entry)
-        if not isinstance(entry, dict) or dt is None:
-            continue
-        entry["date"] = shift_year(dt, step).isoformat()
-        entry["confirmed"] = False  # shifted dates are estimates until verified
+    conn.execute("UPDATE venues SET year = ?, url = ? WHERE id = ?", (next_year, next_url, venue["id"]))
+    conn.execute("DELETE FROM deadlines WHERE venue_id = ? AND cycle_year = ?", (venue["id"], next_year))
+    for i, d in enumerate(venue["deadlines"]):
+        date = shift_year(d["_dt"], step).isoformat() if d["_dt"] else None
+        conn.execute(
+            "INSERT INTO deadlines (venue_id, cycle_year, position, name, track, date, status, source) "
+            "VALUES (?, ?, ?, ?, ?, ?, 'unverified', ?)",
+            (venue["id"], next_year, i, d["name"], d["track"], date, d["source"]))
     print(f"  * {venue['name']}: rolled over to {next_year} -> {next_url}")
-    return True
+    return (year, venue["url"])
+
+
+def undo_rollover(conn, venue_id: str, before: tuple) -> None:
+    old_year, old_url = before
+    new_year = conn.execute("SELECT year FROM venues WHERE id = ?", (venue_id,)).fetchone()[0]
+    conn.execute("DELETE FROM deadlines WHERE venue_id = ? AND cycle_year = ?", (venue_id, new_year))
+    conn.execute("UPDATE venues SET year = ?, url = ? WHERE id = ?", (old_year, old_url, venue_id))
 
 
 # --------------------------------------------------------------------------
@@ -394,122 +376,72 @@ def main() -> int:
 
     allow_network = not args.no_network
     now = datetime.now(timezone.utc)
+    stamp = now.replace(microsecond=0).isoformat()
 
-    config = yaml.load(CONFIG.read_text(encoding="utf-8"))
-    settings = config.get("settings") or {}
-    grace_days = int(settings.get("grace_days", 21))
-    aoe_label = str(settings.get("aoe_label", "AoE"))
+    conn = db.connect()
+    grace_days = int(db.get_meta(conn, "grace_days", "21"))
+    records = db.venue_records(conn)
+    print(f"Loaded {len(records)} venues from {db.DUMP.relative_to(ROOT)}")
 
-    raw_venues = config.get("venues") or []
-    previous = load_previous()
-    print(f"Loaded {len(raw_venues)} venues from {CONFIG.name}")
-
-    config_changed = False
-    venues, seen = [], set()
-    rolled: dict[str, tuple] = {}  # venue id -> (raw entry, pre-rollover snapshot)
-
-    for raw in raw_venues:
-        venue = normalise(raw)
-        if venue["id"] in seen:
-            print(f"  ! duplicate venue {venue['name']!r}, skipping", file=sys.stderr)
-            continue
-        seen.add(venue["id"])
-
-        before = snapshot(raw)
-        if roll_over_cycle(raw, venue, now, grace_days, allow_network):
-            config_changed = True
-            rolled[slugify(str(raw.get("name")))] = (raw, before)
-            venue = normalise(raw)  # re-read the bumped values
-
-        cached = previous.get(venue["id"], {})
+    venues = []
+    rolled: dict[str, tuple] = {}  # venue id -> (year, url) before rollover
+    for record in records:
+        venue = normalise(record)
+        before = roll_over_cycle(conn, venue, now, grace_days, allow_network)
+        if before:
+            rolled[venue["id"]] = before
+        # the last check's result is the probe cache
+        cached = {"link_status": record["link_status"], "link_checked_on": record["link_checked_on"]}
         venue["_reason"] = (
             "scope=all" if args.scope == "all"
             else should_probe(venue, cached, now, args.max_age_days)
         )
-        venue["_cached"] = cached
-        for d in venue["deadlines"]:
-            d.pop("_dt", None)
+        if before:
+            venue["_reason"] = "rolled over"
+            venue["url"] = conn.execute("SELECT url FROM venues WHERE id = ?", (venue["id"],)).fetchone()[0]
         venues.append(venue)
 
-    # Probe only what needs it, concurrently. Everything else carries its last
-    # result forward, so a nightly run touches a handful of hosts, not all 45.
+    # Probe only what needs it, concurrently. Everything else keeps its last
+    # result, so a nightly run touches a handful of hosts, not all of them.
     if allow_network:
         todo = [v for v in venues if v["_reason"]]
-        skipped = len(venues) - len(todo)
-        print(f"Probing {len(todo)} venue(s), reusing {skipped} cached result(s)")
+        print(f"Probing {len(todo)} venue(s), reusing {len(venues) - len(todo)} cached result(s)")
         for v in todo:
             print(f"  ~ {v['name']}: {v['_reason']}")
-
-        stamp = now.replace(microsecond=0).isoformat()
         if todo:
             with concurrent.futures.ThreadPoolExecutor(MAX_PROBE_WORKERS) as pool:
-                for venue, status in zip(todo, pool.map(probe, (v["url"] for v in todo))):
-                    venue["link_status"] = status
-                    venue["link_checked_on"] = stamp
-        for v in venues:
-            if not v["_reason"]:
-                v["link_status"] = v["_cached"].get("link_status", "unknown")
-                v["link_checked_on"] = v["_cached"].get("link_checked_on", "")
-        # A rollover is only trusted if the new URL still resolves once we get
-        # here. Hosts have handed us a 200 during the rollover check and a 404
-        # moments later (conferences.sigcomm.org has done both), so verify
-        # rather than assume, and put the venue back if the new link is dead.
-        for venue in venues:
-            entry = rolled.get(venue["id"])
-            if entry and venue["link_status"] != "ok":
-                raw, before = entry
-                restore(raw, before)
-                print(f"  ! {venue['name']}: rollover to {venue['url']} landed on a "
-                      f"{venue['link_status']} link - reverted to {before['url']}",
-                      file=sys.stderr)
-                rolled.pop(venue["id"])
-                fixed = normalise(raw)
-                fixed["link_status"] = "ok"        # the URL we came from
-                fixed["link_checked_on"] = venue.get("link_checked_on", "")
-                for d in fixed["deadlines"]:
-                    d.pop("_dt", None)
-                venues[venues.index(venue)] = fixed
-
-        dead = [v["name"] for v in venues if v["link_status"] == "dead"]
+                for venue, (status, code) in zip(todo, pool.map(probe_with_code, (v["url"] for v in todo))):
+                    db.log_fetch(conn, venue["url"], code)
+                    # A rollover is only trusted if the new URL still resolves
+                    # here. Hosts have handed us a 200 during the rollover check
+                    # and a 404 moments later (conferences.sigcomm.org has done
+                    # both), so put the venue back if the new link is dead.
+                    if venue["id"] in rolled and status != "ok":
+                        undo_rollover(conn, venue["id"], rolled.pop(venue["id"]))
+                        print(f"  ! {venue['name']}: rollover landed on a {status} link - reverted",
+                              file=sys.stderr)
+                        status = "ok"  # the URL we came from
+                    conn.execute("UPDATE venues SET link_status = ?, link_checked_on = ? WHERE id = ?",
+                                 (status, stamp, venue["id"]))
+        dead = [r["name"] for r in conn.execute("SELECT name FROM venues WHERE link_status = 'dead'")]
         if dead:
             print(f"  ! dead links: {', '.join(dead)}", file=sys.stderr)
-    else:
-        for venue in venues:
-            venue["link_status"] = venue["_cached"].get("link_status", "unknown")
-            venue["link_checked_on"] = venue["_cached"].get("link_checked_on", "")
-
-    for venue in venues:
-        venue.pop("_reason", None)
-        venue.pop("_cached", None)
-
-    payload = {
-        "generated_at": now.replace(microsecond=0).isoformat(),
-        "aoe_label": aoe_label,
-        "counts": {
-            "total": len(venues),
-            **{tier: sum(v["tier"] == tier for v in venues) for tier in sorted(VALID_TIERS)},
-        },
-        "venues": venues,
-    }
 
     if args.dry_run:
-        print(json.dumps(payload["counts"], indent=2))
-        print(f"(dry run) config_changed={config_changed}")
+        tiers = {t: sum(v["tier"] == t for v in venues) for t in sorted(VALID_TIERS)}
+        print(json.dumps({"total": len(venues), **tiers}, indent=2))
+        print(f"(dry run) rolled over: {sorted(rolled) or 'none'}")
+        conn.rollback()
         return 0
+
+    conn.commit()
+    db.dump(conn)
+    if rolled:
+        print(f"Rolled over: {', '.join(sorted(rolled))}")
 
     if stamp_assets():
         print("Re-stamped asset cache-busting hashes")
-
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    print(f"Wrote {OUTPUT.relative_to(ROOT)} ({len(venues)} venues)")
-
-    if config_changed:
-        buf = io.StringIO()
-        yaml.dump(config, buf)
-        CONFIG.write_text(buf.getvalue(), encoding="utf-8")
-        print("Updated conferences.yml (year rollover)")
-
+    export_json.export(conn)
     return 0
 
 

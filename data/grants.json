@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-30T13:33:03+00:00",
+  "generated_at": "2026-10-01T09:00:40+00:00",
   "counts": {
-    "total": 68,
+    "total": 117,
     "PhD student": 13,
     "Postdoc": 0,
     "Early-career faculty": 2,
-    "Faculty / PI": 53
+    "Faculty / PI": 102
   },
   "grants": [
     {
@@ -21,6 +21,11 @@
         "General"
       ],
       "notes": "Applies to first- and second-year PhD students and seniors. The computer and information sciences deadline is usually the third week of October.",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "Applications usually open in August and close in late October, with a different deadline per field. Solicitation NSF 26-526.",
+      "last_checked": "2026-09-01",
       "deadlines": [
         {
           "name": "Application",
@@ -45,6 +50,11 @@
         "Systems"
       ],
       "notes": "Nominated by the university, not applied for directly. US/Canada round usually opens in spring.",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "Annual cycle. The programme page publishes dates only while the call is open, so there is nothing to count down between cycles.",
+      "last_checked": "2026-09-01",
       "deadlines": [
         {
           "name": "University nomination",
@@ -69,6 +79,11 @@
         "Systems"
       ],
       "notes": "",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "Annual cycle. The programme page publishes dates only while the call is open, so there is nothing to count down between cycles.",
+      "last_checked": "2026-09-01",
       "deadlines": [
         {
           "name": "Application",
@@ -94,6 +109,11 @@
         "Networking"
       ],
       "notes": "",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "Annual cycle. The programme page publishes dates only while the call is open, so there is nothing to count down between cycles.",
+      "last_checked": "2026-09-01",
       "deadlines": [
         {
           "name": "Application",
@@ -118,6 +138,11 @@
         "Systems"
       ],
       "notes": "For students who have completed their first year of PhD study.",
+      "ccs": "Computing methodologies",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "Annual cycle. The most recent dates published on the page were for the 2022 call (9 September).",
+      "last_checked": "2026-09-01",
       "deadlines": [
         {
           "name": "Application",
@@ -141,6 +166,11 @@
         "AI/ML"
       ],
       "notes": "Programme page moves between cycles; this is the research site root.",
+      "ccs": "Computing methodologies",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "Annual cycle. The programme page publishes dates only while the call is open, so there is nothing to count down between cycles.",
+      "last_checked": "2026-09-01",
       "deadlines": [
         {
           "name": "University nomination",
@@ -165,6 +195,11 @@
         "AI/ML"
       ],
       "notes": "Submitted as a two-student team with a faculty advisor.",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "Annual cycle. The programme page publishes dates only while the call is open, so there is nothing to count down between cycles.",
+      "last_checked": "2026-09-01",
       "deadlines": [
         {
           "name": "Application",
@@ -190,6 +225,11 @@
         "Systems"
       ],
       "notes": "Programme page moves between cycles; this is the research site root.",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "Annual cycle. The programme page publishes dates only while the call is open, so there is nothing to count down between cycles.",
+      "last_checked": "2026-09-01",
       "deadlines": [
         {
           "name": "Application",
@@ -214,6 +254,11 @@
         "HCI"
       ],
       "notes": "Programme page moves between cycles; this is the research site root.",
+      "ccs": "Computing methodologies",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "Annual cycle. The programme page publishes dates only while the call is open, so there is nothing to count down between cycles.",
+      "last_checked": "2026-09-01",
       "deadlines": [
         {
           "name": "Application",
@@ -238,6 +283,11 @@
         "Data"
       ],
       "notes": "",
+      "ccs": "Computing methodologies",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "Annual cycle. The programme page publishes dates only while the call is open, so there is nothing to count down between cycles.",
+      "last_checked": "2026-09-01",
       "deadlines": [
         {
           "name": "Application",
@@ -262,6 +312,11 @@
         "Data"
       ],
       "notes": "For students using computing in science and engineering. Usually closes in mid-January.",
+      "ccs": "Applied computing",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "Usually closes in mid-January.",
+      "last_checked": "2026-09-01",
       "deadlines": [
         {
           "name": "Application",
@@ -285,6 +340,11 @@
         "General"
       ],
       "notes": "US citizens and nationals only.",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "Usually opens in the autumn and closes in the winter.",
+      "last_checked": "2026-09-01",
       "deadlines": [
         {
           "name": "Application",
@@ -308,6 +368,11 @@
         "General"
       ],
       "notes": "",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "Usually closes in late October.",
+      "last_checked": "2026-09-01",
       "deadlines": [
         {
           "name": "Application",
@@ -331,6 +396,11 @@
         "General"
       ],
       "notes": "Nominated by a department head. Computer science is one of the eligible fields; usually closes mid-September.",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Nomination",
@@ -339,7 +409,7 @@
           "source": ""
         }
       ],
-      "link_status": "unknown"
+      "link_status": "ok"
     },
     {
       "id": "google-research-scholar-program",
@@ -355,6 +425,11 @@
         "Systems"
       ],
       "notes": "",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Application",
@@ -379,6 +454,11 @@
         "Systems"
       ],
       "notes": "",
+      "ccs": "Computing methodologies",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Application",
@@ -404,6 +484,11 @@
         "Networking"
       ],
       "notes": "Several calls run each year on separate topics.",
+      "ccs": "Computing methodologies",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Application",
@@ -427,6 +512,11 @@
         "AI/ML"
       ],
       "notes": "",
+      "ccs": "Computing methodologies",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Application",
@@ -444,12 +534,21 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/352339",
-      "amount": "",
+      "amount": "$1.5M total \u00b7 20 awards \u00b7 up to $200k each",
       "opportunity_number": "24-540",
       "topics": [
         "General"
       ],
       "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Social and professional topics",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 1500000,
+        "award_ceiling": 200000,
+        "expected_awards": 20
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -475,6 +574,11 @@
         "Robotics"
       ],
       "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Computer systems organization",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -497,13 +601,23 @@
       ],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/353475",
-      "amount": "",
+      "amount": "$600k total \u00b7 10 awards \u00b7 up to $600k each",
       "opportunity_number": "PD-24-7414",
       "topics": [
         "Security",
         "Infrastructure"
       ],
       "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Information systems",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 600000,
+        "award_ceiling": 600000,
+        "award_floor": 50000,
+        "expected_awards": 10
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -525,12 +639,21 @@
       ],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/353936",
-      "amount": "",
+      "amount": "$8.5M total \u00b7 up to $1.5M each",
       "opportunity_number": "24-569",
       "topics": [
         "AI/ML"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Computing methodologies",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 8500000,
+        "award_ceiling": 1500000,
+        "award_floor": 500000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -548,12 +671,20 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/348599",
-      "amount": "",
+      "amount": "$28M total \u00b7 35 awards",
       "opportunity_number": "23-598",
       "topics": [
         "General"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Social and professional topics",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 28000000,
+        "expected_awards": 35
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -571,12 +702,22 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/351889",
-      "amount": "",
+      "amount": "$16M total \u00b7 10 awards \u00b7 up to $3.6M each",
       "opportunity_number": "24-527",
       "topics": [
         "General"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 16000000,
+        "award_ceiling": 3600000,
+        "award_floor": 1200000,
+        "expected_awards": 10
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -594,17 +735,25 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/361333",
-      "amount": "",
+      "amount": "$40M total \u00b7 60 awards",
       "opportunity_number": "26-506",
       "topics": [
         "Security",
         "Systems"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Software and its engineering",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 40000000,
+        "expected_awards": 60
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
-          "date": "2026-09-01T23:59:00-04:00",
+          "date": "2027-03-02T23:59:00-05:00",
           "confirmed": true,
           "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26506"
         }
@@ -618,12 +767,22 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/360149",
-      "amount": "",
+      "amount": "$280M total \u00b7 600 awards \u00b7 up to $12M each",
       "opportunity_number": "25-543",
       "topics": [
         "Data"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Theory of computation",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 280000000,
+        "award_ceiling": 12000000,
+        "award_floor": 600000,
+        "expected_awards": 600
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -645,12 +804,21 @@
       ],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/357554",
-      "amount": "",
+      "amount": "$60M total \u00b7 up to $1.2M each",
       "opportunity_number": "25-515",
       "topics": [
         "Security"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Security and privacy",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 60000000,
+        "award_ceiling": 1200000,
+        "award_floor": 50000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -668,12 +836,22 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/356119",
-      "amount": "",
+      "amount": "$53M total \u00b7 20 awards \u00b7 up to $3M each",
       "opportunity_number": "24-597",
       "topics": [
         "Education"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 53000000,
+        "award_ceiling": 3000000,
+        "award_floor": 2000000,
+        "expected_awards": 20
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -691,12 +869,20 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/360664",
-      "amount": "",
+      "amount": "$12M total",
       "opportunity_number": "25-549",
       "topics": [
         "General"
       ],
       "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Social and professional topics",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 12000000,
+        "award_floor": 50000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -714,12 +900,21 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/354269",
-      "amount": "",
+      "amount": "$18M total \u00b7 up to $1.5M each",
       "opportunity_number": "24-573",
       "topics": [
         "Infrastructure"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Social and professional topics",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 18000000,
+        "award_ceiling": 1500000,
+        "award_floor": 1000000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -742,13 +937,21 @@
       ],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/344608",
-      "amount": "",
+      "amount": "$9.3M total \u00b7 up to $1M each",
       "opportunity_number": "23-520",
       "topics": [
         "Security",
         "Infrastructure"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 9300000,
+        "award_ceiling": 1000000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -766,12 +969,20 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/342475",
-      "amount": "",
+      "amount": "$4.8M total \u00b7 25 awards",
       "opportunity_number": "22-615",
       "topics": [
         "Infrastructure"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 4800000,
+        "expected_awards": 25
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -789,12 +1000,19 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/358403",
-      "amount": "",
+      "amount": "$56M total",
       "opportunity_number": "14-579",
       "topics": [
         "Education"
       ],
       "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Social and professional topics",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 56000000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -812,12 +1030,21 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/324456",
-      "amount": "",
+      "amount": "$60M total \u00b7 4 awards",
       "opportunity_number": "20-544",
       "topics": [
         "General"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 60000000,
+        "award_floor": 15000000,
+        "expected_awards": 4
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -835,12 +1062,22 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/356129",
-      "amount": "",
+      "amount": "$100M total \u00b7 10 awards \u00b7 up to $20M each",
       "opportunity_number": "24-598",
       "topics": [
         "Infrastructure"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 100000000,
+        "award_ceiling": 19999999,
+        "award_floor": 4000000,
+        "expected_awards": 10
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -858,12 +1095,21 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/344610",
-      "amount": "",
+      "amount": "$75M total \u00b7 up to $4M each",
       "opportunity_number": "23-519",
       "topics": [
         "Infrastructure"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 75000000,
+        "award_ceiling": 4000000,
+        "award_floor": 100000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -881,12 +1127,20 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/358036",
-      "amount": "",
+      "amount": "$6M total \u00b7 10 awards",
       "opportunity_number": "25-533",
       "topics": [
         "General"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Information systems",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 6000000,
+        "expected_awards": 10
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -904,12 +1158,19 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/355196",
-      "amount": "",
+      "amount": "$32M total",
       "opportunity_number": "24-586",
       "topics": [
         "Quantum"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Hardware",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 32000000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -927,12 +1188,19 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/351923",
-      "amount": "",
+      "amount": "$15M total",
       "opportunity_number": "24-528",
       "topics": [
         "Infrastructure"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Social and professional topics",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 15000000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -950,12 +1218,21 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/359966",
-      "amount": "",
+      "amount": "$30M total \u00b7 up to $2M each",
       "opportunity_number": "25-540",
       "topics": [
         "General"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Social and professional topics",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 30000000,
+        "award_ceiling": 2000000,
+        "award_floor": 600000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -973,13 +1250,22 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/358004",
-      "amount": "",
+      "amount": "$12M total \u00b7 20 awards \u00b7 up to $1.2M each",
       "opportunity_number": "25-531",
       "topics": [
         "Security",
         "Infrastructure"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Security and privacy",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 12000000,
+        "award_ceiling": 1200000,
+        "expected_awards": 20
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -997,12 +1283,20 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/339594",
-      "amount": "",
+      "amount": "$250M total",
       "opportunity_number": "22-586",
       "topics": [
         "General"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Social and professional topics",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 250000000,
+        "award_floor": 400000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1023,13 +1317,21 @@
       ],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/363268",
-      "amount": "",
+      "amount": "$100M total \u00b7 50 awards",
       "opportunity_number": "26-512",
       "topics": [
         "AI/ML",
         "Data"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Information systems",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 100000000,
+        "expected_awards": 50
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1049,12 +1351,20 @@
       ],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/350802",
-      "amount": "",
+      "amount": "$5.8M total",
       "opportunity_number": "24-503",
       "topics": [
         "General"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 5800000,
+        "award_floor": 600000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1066,19 +1376,29 @@
       "link_status": "ok"
     },
     {
-      "id": "integrated-data-systems-amp-services-idss",
-      "name": "Integrated Data Systems &amp; Services (IDSS)",
+      "id": "integrated-data-systems-services-idss",
+      "name": "Integrated Data Systems & Services (IDSS)",
       "funder": "NSF CISE",
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/361915",
-      "amount": "",
+      "amount": "$60M total \u00b7 9 awards \u00b7 up to $30M each",
       "opportunity_number": "26-509",
       "topics": [
         "Data",
         "Systems"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Information systems",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 60000000,
+        "award_ceiling": 30000000,
+        "award_floor": 500000,
+        "expected_awards": 9
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1096,12 +1416,21 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/363623",
-      "amount": "",
+      "amount": "$60M total \u00b7 4 awards",
       "opportunity_number": "26-525",
       "topics": [
         "General"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "General and reference",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 60000000,
+        "award_floor": 15000000,
+        "expected_awards": 4
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1121,13 +1450,20 @@
       ],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/363481",
-      "amount": "",
+      "amount": "$100M total",
       "opportunity_number": "26-513",
       "topics": [
         "AI/ML",
         "Infrastructure"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Computer systems organization",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 100000000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1145,12 +1481,22 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/348985",
-      "amount": "",
+      "amount": "$84.8M total \u00b7 1350 awards \u00b7 up to $500k each",
       "opportunity_number": "23-601",
       "topics": [
         "Education"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 84800000,
+        "award_ceiling": 500000,
+        "award_floor": 5000,
+        "expected_awards": 1350
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1168,12 +1514,20 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/359103",
-      "amount": "",
+      "amount": "$5.5M total \u00b7 15 awards",
       "opportunity_number": "22-622",
       "topics": [
         "General"
       ],
       "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Social and professional topics",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 5500000,
+        "expected_awards": 15
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1199,6 +1553,11 @@
         "Data"
       ],
       "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1218,12 +1577,22 @@
       ],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/359499",
-      "amount": "",
+      "amount": "$5M total \u00b7 10 awards \u00b7 up to $700k each",
       "opportunity_number": "25-537",
       "topics": [
         "Systems"
       ],
       "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 5000000,
+        "award_ceiling": 700000,
+        "award_floor": 200000,
+        "expected_awards": 10
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1247,6 +1616,11 @@
         "Networking"
       ],
       "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Computer systems organization",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1271,6 +1645,11 @@
         "Systems"
       ],
       "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Hardware",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1294,6 +1673,11 @@
         "Systems"
       ],
       "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1317,6 +1701,11 @@
         "Systems"
       ],
       "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1334,12 +1723,21 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/363616",
-      "amount": "",
+      "amount": "$100M total \u00b7 275 awards",
       "opportunity_number": "26-518",
       "topics": [
         "Systems"
       ],
       "notes": "grants.gov lists no fixed deadline for this programme; proposals are accepted on a rolling basis.",
+      "ccs": "Applied computing",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 100000000,
+        "award_floor": 500000,
+        "expected_awards": 275
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1357,13 +1755,21 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/363613",
-      "amount": "",
+      "amount": "$110M total \u00b7 300 awards",
       "opportunity_number": "26-514",
       "topics": [
         "Networking",
         "Systems"
       ],
       "notes": "grants.gov lists no fixed deadline for this programme; proposals are accepted on a rolling basis.",
+      "ccs": "Hardware",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 110000000,
+        "expected_awards": 300
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1383,12 +1789,20 @@
       ],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/363622",
-      "amount": "",
+      "amount": "$30M total \u00b7 30 awards",
       "opportunity_number": "26-524",
       "topics": [
         "General"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Hardware",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 30000000,
+        "expected_awards": 30
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1406,12 +1820,21 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/278447",
-      "amount": "",
+      "amount": "$18M total \u00b7 up to $1.2M each",
       "opportunity_number": "PD-16-1271",
       "topics": [
         "General"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Mathematics of computing",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 18000000,
+        "award_ceiling": 1200000,
+        "award_floor": 1
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1429,12 +1852,19 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/361604",
-      "amount": "",
+      "amount": "$8.5M total",
       "opportunity_number": "26-507",
       "topics": [
         "Networking"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 8500000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1452,7 +1882,7 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/361238",
-      "amount": "",
+      "amount": "$2.5M total \u00b7 25 awards \u00b7 up to $2.5M each",
       "opportunity_number": "26-503",
       "topics": [
         "Security",
@@ -1460,6 +1890,16 @@
         "Education"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 2500000,
+        "award_ceiling": 2500000,
+        "award_floor": 300000,
+        "expected_awards": 25
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1483,6 +1923,11 @@
         "Security"
       ],
       "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Social and professional topics",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1500,12 +1945,20 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/358684",
-      "amount": "",
+      "amount": "$2M total \u00b7 8 awards",
       "opportunity_number": "PD-25-275Y",
       "topics": [
         "Security"
       ],
-      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "notes": "No close date published; NSF often accepts these on a rolling window. grants.gov lists no fixed deadline for this programme; proposals are accepted on a rolling basis.",
+      "ccs": "Social and professional topics",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 2000000,
+        "expected_awards": 8
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1523,12 +1976,21 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/362836",
-      "amount": "",
+      "amount": "6 awards \u00b7 up to $500k each",
       "opportunity_number": "N0001426SBC11",
       "topics": [
         "Networking"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Networks",
+      "ccs_auto": false,
+      "funding": {
+        "award_ceiling": 500000,
+        "award_floor": 250000,
+        "expected_awards": 6
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1546,13 +2008,20 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/362721",
-      "amount": "",
+      "amount": "up to $500k each",
       "opportunity_number": "N0001426SBC03",
       "topics": [
         "AI/ML",
         "Networking"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Networks",
+      "ccs_auto": false,
+      "funding": {
+        "award_ceiling": 500000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1576,6 +2045,11 @@
         "AI/ML"
       ],
       "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Computing methodologies",
+      "ccs_auto": false,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1593,12 +2067,19 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/357464",
-      "amount": "",
+      "amount": "up to $99.9M each",
       "opportunity_number": "FA875025S7001",
       "topics": [
         "Systems"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Security and privacy",
+      "ccs_auto": false,
+      "funding": {
+        "award_ceiling": 99900000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1616,12 +2097,21 @@
       "also_funded_by": [],
       "eligibility": "Faculty / PI",
       "url": "https://www.grants.gov/search-results-detail/361526",
-      "amount": "",
+      "amount": "$293.8M total \u00b7 up to $16M each",
       "opportunity_number": "DE-FOA-0003612",
       "topics": [
         "AI/ML"
       ],
       "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": false,
+      "funding": {
+        "total_program": 293760000,
+        "award_ceiling": 16000000,
+        "award_floor": 500000
+      },
+      "typical_window": "",
+      "last_checked": "",
       "deadlines": [
         {
           "name": "Full proposal",
@@ -1631,6 +2121,1456 @@
         }
       ],
       "link_status": "ok"
+    },
+    {
+      "id": "pathways-to-enable-secure-open-source-ecosystems-pesose",
+      "name": "Pathways to Enable Secure Open-Source Ecosystems (PESOSE)",
+      "funder": "NSF CISE",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361333",
+      "amount": "$40M total \u00b7 60 awards",
+      "opportunity_number": "26-506",
+      "topics": [
+        "Security",
+        "Systems"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Software and its engineering",
+      "ccs_auto": true,
+      "funding": {
+        "total_program": 40000000,
+        "expected_awards": 60
+      },
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-03-02T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26506"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "arctic-doctoral-dissertation-research-improvement-grants-arctic-ddrig-arctic-social-sciences-arctic-system-sciences-and-arctic-observing-network",
+      "name": "Arctic Doctoral Dissertation Research Improvement Grants (Arctic DDRIG) Arctic Social Sciences, Arctic System Sciences, and Arctic Observing Network",
+      "funder": "NSF",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361896",
+      "amount": "$1.2M total",
+      "opportunity_number": "20-597",
+      "topics": [
+        "Networking",
+        "HCI",
+        "Systems"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "General and reference",
+      "ccs_auto": true,
+      "funding": {
+        "total_program": 1250000
+      },
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-12-15T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf20597"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "leveraging-network-infrastructure-to-conduct-innovative-research-for-women-children-pregnant-and-lactating-women-and-persons-with-disabilities-ug3-uh3-clinical-trial-optional",
+      "name": "Leveraging Network Infrastructure to Conduct Innovative Research for Women, Children, Pregnant and Lactating Women, and Persons with Disabilities (UG3/UH3 - Clinical Trial Optional)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/357730",
+      "amount": "up to $6.2M each",
+      "opportunity_number": "PAR-25-311",
+      "topics": [
+        "Networking",
+        "Infrastructure",
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {
+        "award_ceiling": 6250000
+      },
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-11-15T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-25-311.html"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "research-experiences-and-or-mentoring-networks-through-research-education-to-enhance-clinician-scientists-participation-in-nidcds-research-r25-clinical-trial-not-allowed",
+      "name": "Research Experiences and/or Mentoring Networks through Research Education to Enhance Clinician-Scientists' Participation in NIDCDs Research (R25 Clinical Trial Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/356620",
+      "amount": "up to $250k each",
+      "opportunity_number": "PAR-25-020",
+      "topics": [
+        "Networking",
+        "Education",
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {
+        "award_ceiling": 250000
+      },
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-09-29T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-25-020.html"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "small-business-translator-medtech-and-digital-health-technologies",
+      "name": "Small Business Translator: MedTech and Digital Health Technologies",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359156",
+      "amount": "",
+      "opportunity_number": "FOR-NS-25-017",
+      "topics": [
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "cellular-senescence-network-sennet-sennet-data-coordination-integration-and-organizational-center-u24-or-um1",
+      "name": "Cellular Senescence Network (SenNet): SenNet Data Coordination, Integration and Organizational Center (U24 or UM1)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359169",
+      "amount": "",
+      "opportunity_number": "NOT-RM-25-019",
+      "topics": [
+        "Networking",
+        "Data"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "General and reference",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "cellular-senescence-network-sennet-technology-projects-ug3-uh3-clinical-trial-not-allowed",
+      "name": "Cellular Senescence Network (SenNet):Technology Projects (UG3/UH3 Clinical Trial Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359168",
+      "amount": "",
+      "opportunity_number": "NOT-RM-25-018",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "forecast-to-publish-a-funding-opportunity-announcement-for-embracehealth-clinical-research-network-to-reduce-health-disparities-coordinating-center",
+      "name": "Forecast to Publish a Funding Opportunity Announcement for EmbraceHealth Clinical Research Network to Reduce Health Disparities \u2013 Coordinating Center",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359864",
+      "amount": "",
+      "opportunity_number": "FOR-MD-25-009",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "notice-of-intent-to-publish-a-forecast-for-embracehealth-clinical-research-network-to-reduce-health-disparities-research-sites",
+      "name": "Notice of Intent to Publish a Forecast for EmbraceHealth Clinical Research Network to Reduce Health Disparities \u2013 Research Sites",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359865",
+      "amount": "",
+      "opportunity_number": "FOR-MD-25-008",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "computational-modeling-and-analysis-of-the-impact-of-genomic-variation-on-function-um1-clinical-trial-not-allowed",
+      "name": "Computational Modeling and Analysis of the Impact of Genomic Variation on Function (UM1, Clinical Trial Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359170",
+      "amount": "",
+      "opportunity_number": "FOR-HG-25-021",
+      "topics": [
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "notice-of-intent-to-publish-a-funding-opportunity-announcement-for-impact-of-technology-and-digital-media-exposure-usage-on-child-and-adolescent-development",
+      "name": "Notice of Intent to Publish a Funding Opportunity Announcement for Impact of Technology and Digital Media Exposure Usage on Child and Adolescent Development",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359070",
+      "amount": "",
+      "opportunity_number": "NOT-HD-25-008",
+      "topics": [
+        "General"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "General and reference",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "blueprint-neurotherapeutics-network-bpn-biologic-based-drug-discovery-and-development-for-disorders-of-the-nervous-system-ug3-uh3-clinical-trial-optional",
+      "name": "Blueprint Neurotherapeutics Network (BPN): Biologic-based Drug Discovery and Development for Disorders of the Nervous System (UG3/UH3 Clinical Trial Optional)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/356610",
+      "amount": "",
+      "opportunity_number": "PAR-24-293",
+      "topics": [
+        "Networking",
+        "Systems",
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-08-18T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-24-293.html"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "laboratories-to-optimize-digital-health-r01-clinical-trial-required",
+      "name": "Laboratories to Optimize Digital Health (R01 Clinical Trial Required)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/357034",
+      "amount": "",
+      "opportunity_number": "PAR-25-136",
+      "topics": [
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2028-01-07T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-25-136.html"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "computational-approaches-to-curation-at-scale-for-biomedical-research-assets-r01-clinical-trial-not-allowed",
+      "name": "Computational Approaches to Curation at Scale for Biomedical Research Assets (R01 Clinical Trial Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/356888",
+      "amount": "$250k total \u00b7 up to $250k each",
+      "opportunity_number": "PAR-25-131",
+      "topics": [
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {
+        "total_program": 250000,
+        "award_ceiling": 250000
+      },
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-04-15T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-25-131.html"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "investigator-initiated-innovation-in-computational-genomics-and-data-science-r01-clinical-trial-not-allowed",
+      "name": "Investigator Initiated Innovation in Computational Genomics and Data Science (R01 Clinical Trial Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/357194",
+      "amount": "",
+      "opportunity_number": "PAR-25-228",
+      "topics": [
+        "Data",
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-09-07T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-25-228.html"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "investigator-initiated-innovation-in-computational-genomics-and-data-science-r21-clinical-trial-not-allowed",
+      "name": "Investigator Initiated Innovation in Computational Genomics and Data Science (R21 Clinical Trial Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/357195",
+      "amount": "",
+      "opportunity_number": "PAR-25-229",
+      "topics": [
+        "Data",
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-09-07T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-25-229.html"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "nih-research-software-engineer-rse-award-r50-clinical-trials-not-allowed",
+      "name": "NIH Research Software Engineer (RSE) Award (R50 Clinical Trials Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/355439",
+      "amount": "",
+      "opportunity_number": "RFA-OD-24-011",
+      "topics": [
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-12-04T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://grants.nih.gov/grants/guide/rfa-files/RFA-OD-24-011.html"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "cooperative-agreement-for-in-vivo-high-resolution-imaging-for-inner-ear-visualization-u01-clinical-trial-required",
+      "name": "Cooperative Agreement for In Vivo High-Resolution Imaging for Inner Ear Visualization (U01 Clinical Trial Required)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/358021",
+      "amount": "$500k total \u00b7 up to $500k each",
+      "opportunity_number": "RFA-DC-25-003",
+      "topics": [
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {
+        "total_program": 500000,
+        "award_ceiling": 500000
+      },
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-10-01T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://grants.nih.gov/grants/guide/rfa-files/RFA-DC-25-003.html"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "in-vivo-high-resolution-imaging-for-inner-ear-visualization-r01-clinical-trial-optional",
+      "name": "In Vivo High-Resolution Imaging for Inner Ear Visualization (R01 Clinical Trial optional)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/358022",
+      "amount": "$500k total \u00b7 up to $500k each",
+      "opportunity_number": "RFA-DC-25-005",
+      "topics": [
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {
+        "total_program": 500000,
+        "award_ceiling": 500000
+      },
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-10-01T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://grants.nih.gov/grants/guide/rfa-files/RFA-DC-25-005.html"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "stroke-preclinical-assessment-network-span-to-support-translational-studies-for-acute-cerebroprotection-network-sites-and-coordinating-center-u01-ct-not-allowed",
+      "name": "Stroke Preclinical Assessment Network (SPAN) to Support Translational Studies for Acute Cerebroprotection \u2013 Network Sites and Coordinating Center (U01- CT Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/360432",
+      "amount": "",
+      "opportunity_number": "RFA-NS-26-012",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "General and reference",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "translational-center-for-accelerating-the-use-of-digital-health-technologies-data-in-ad-adrd-research",
+      "name": "Translational Center for Accelerating the Use of Digital Health Technologies Data in AD/ADRD Research",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/360451",
+      "amount": "",
+      "opportunity_number": "RFA-AG-27-002",
+      "topics": [
+        "Data",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "limited-competition-heal-initiative-resource-centers-for-the-pain-management-effectiveness-network-ern-clinical-trial-not-allowed",
+      "name": "Limited Competition: HEAL Initiative Resource Centers for the Pain Management Effectiveness Network (ERN) (Clinical Trial Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/360673",
+      "amount": "",
+      "opportunity_number": "RFA-TR-26-002",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "personal-health-informatics-for-delivering-actionable-insights-to-individuals-r01-clinical-trial-optional",
+      "name": "Personal Health Informatics for Delivering Actionable Insights to Individuals (R01 Clinical Trial Optional)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/357273",
+      "amount": "up to $250k each",
+      "opportunity_number": "PAR-25-235",
+      "topics": [
+        "Data",
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {
+        "award_ceiling": 250000
+      },
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2027-01-07T23:59:00-05:00",
+          "confirmed": true,
+          "source": "http://grants.nih.gov/grants/guide/pa-files/PAR-25-235.html"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "nlm-institutional-grants-for-research-training-in-biomedical-informatics-data-science-and-ai",
+      "name": "NLM Institutional Grants for Research Training in Biomedical Informatics, Data Science, and AI",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361318",
+      "amount": "",
+      "opportunity_number": "RFA-LM-26-004",
+      "topics": [
+        "AI/ML",
+        "Data",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "heal-initiative-program-to-reveal-and-evaluate-cells-to-gene-information-that-specify-intricacies-origins-and-the-nature-of-precision-human-pain-network",
+      "name": "HEAL Initiative: Program to Reveal and Evaluate Cells-to-gene Information that Specify Intricacies, Origins and the Nature of (PRECISION) Human Pain Network",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361334",
+      "amount": "",
+      "opportunity_number": "RFA-NS-26-013",
+      "topics": [
+        "Networking",
+        "Data",
+        "HCI"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "General and reference",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "research-grants-in-clinical-informatics-r01-clinical-trial-optional",
+      "name": "Research Grants in Clinical Informatics (R01 Clinical Trial Optional)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359004",
+      "amount": "$2.5M total \u00b7 10 awards \u00b7 up to $250k each",
+      "opportunity_number": "PAR-26-042",
+      "topics": [
+        "Data",
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {
+        "total_program": 2500000,
+        "award_ceiling": 250000,
+        "expected_awards": 10
+      },
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2029-03-05T23:59:00-05:00",
+          "confirmed": true,
+          "source": "https://www.grants.gov/search-results-detail/359004"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "advancing-bioinformatics-translational-bioinformatics-and-computational-biology-research-r01-clinical-trial-optional",
+      "name": "Advancing Bioinformatics, Translational Bioinformatics and Computational Biology Research (R01 Clinical Trial Optional)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359003",
+      "amount": "$2.5M total \u00b7 10 awards \u00b7 up to $250k each",
+      "opportunity_number": "PAR-26-040",
+      "topics": [
+        "Data",
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {
+        "total_program": 2500000,
+        "award_ceiling": 250000,
+        "expected_awards": 10
+      },
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2029-03-05T23:59:00-05:00",
+          "confirmed": true,
+          "source": "https://www.grants.gov/search-results-detail/359003"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "network-of-the-national-library-of-medicine-coordinating-center-u24-clinical-trial-optional",
+      "name": "Network of the National Library of Medicine Coordinating Center (U24 Clinical Trial Optional)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361282",
+      "amount": "",
+      "opportunity_number": "RFA-LM-26-001",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "network-of-the-national-library-of-medicine-training-center-u24-clinical-trial-not-allowed",
+      "name": "Network of the National Library of Medicine Training Center (U24 Clinical Trial Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361281",
+      "amount": "",
+      "opportunity_number": "RFA-LM-26-002",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "network-of-the-national-library-of-medicine-regional-medical-libraries-ug4-clinical-trial-not-allowed",
+      "name": "Network of the National Library of Medicine Regional Medical Libraries (UG4 Clinical Trial Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361284",
+      "amount": "",
+      "opportunity_number": "RFA-LM-26-003",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "dental-primary-care-practice-based-research-network-administrative-and-resource-center",
+      "name": "Dental Primary Care Practice-Based Research Network: Administrative and Resource Center",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/360373",
+      "amount": "",
+      "opportunity_number": "RFA-DE-27-003",
+      "topics": [
+        "Networking"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "General and reference",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "dental-primary-care-practice-based-research-network-coordinating-center",
+      "name": "Dental Primary Care Practice-Based Research Network: Coordinating Center",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/360377",
+      "amount": "",
+      "opportunity_number": "RFA-DE-27-004",
+      "topics": [
+        "Networking"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "General and reference",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "heal-initiative-pain-management-effectiveness-research-network-clinical-trial-planning-and-implementation-cooperative-agreement-ug3-uh3-clinical-trial-required",
+      "name": "HEAL Initiative: Pain Management Effectiveness Research Network: Clinical Trial Planning and Implementation Cooperative Agreement (UG3/UH3 Clinical Trial Required)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/360385",
+      "amount": "",
+      "opportunity_number": "RFA-NS-25-031",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "dental-primary-care-practice-based-research-network-clinical-trial-or-observational-study-planning-and-implementation-cooperative-agreement",
+      "name": "Dental Primary Care Practice-Based Research Network: Clinical Trial or Observational Study Planning and Implementation Cooperative Agreement",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/360375",
+      "amount": "",
+      "opportunity_number": "PAR-26-052",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "institutional-network-award-for-promoting-kidney-urologic-and-hematologic-research-training-u2c-clinical-trial-not-allowed",
+      "name": "Institutional Network Award for Promoting Kidney, Urologic, and Hematologic Research Training (U2C - Clinical Trial Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/358935",
+      "amount": "$4M total \u00b7 8 awards \u00b7 up to $2.1M each",
+      "opportunity_number": "PAR-26-115",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {
+        "total_program": 4000000,
+        "award_ceiling": 2100000,
+        "expected_awards": 8
+      },
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2028-05-26T23:59:00-04:00",
+          "confirmed": true,
+          "source": "https://www.grants.gov/search-results-detail/358935"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "heal-initiative-integrative-management-of-chronic-pain-and-oud-for-whole-recovery-impowr-building-engagement-assistance-capacity-outreach-and-networks-beacon-center",
+      "name": "HEAL Initiative: Integrative Management of chronic Pain and OUD for Whole Recovery (IMPOWR) - Building Engagement, Assistance, Capacity, Outreach, and Networks (BEACON) Center",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/360366",
+      "amount": "",
+      "opportunity_number": "RFA-DA-27-006",
+      "topics": [
+        "Networking"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "General and reference",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "advancing-research-on-the-application-of-digital-health-technology-to-the-management-of-type-2-diabetes-r01-clinical-trail-required",
+      "name": "Advancing Research on the Application of Digital Health Technology to the Management of Type 2 Diabetes (R01- Clinical Trail Required)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359252",
+      "amount": "",
+      "opportunity_number": "RFA-DK-26-315",
+      "topics": [
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-10-06T23:59:00-04:00",
+          "confirmed": true,
+          "source": "http://grants.nih.gov/grants/guide/rfa-files/RFA-DK-26-315.html"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "idea-networks-of-biomedical-research-excellence-inbre",
+      "name": "IDeA Networks of Biomedical Research Excellence (INBRE)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/360633",
+      "amount": "",
+      "opportunity_number": "PAR-26-026",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "interdisciplinary-research-networks-to-advance-biomedical-research-on-resilience-and-health-optimization",
+      "name": "Interdisciplinary Research Networks to Advance Biomedical Research on Resilience and Health Optimization",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/360645",
+      "amount": "",
+      "opportunity_number": "RFA-AT-26-001",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "renewal-of-nia-research-centers-collaborative-network-rccn",
+      "name": "Renewal of NIA Research Centers Collaborative Network (RCCN)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/360876",
+      "amount": "",
+      "opportunity_number": "RFA-AG-26-026",
+      "topics": [
+        "Networking"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "General and reference",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "building-sustainable-software-tools-for-open-science-r03-clinical-trial-not-allowed",
+      "name": "Building Sustainable Software Tools for Open Science (R03 Clinical Trial Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361239",
+      "amount": "",
+      "opportunity_number": "RFA-OD-26-034",
+      "topics": [
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "brain-initiative-cell-atlas-network-bican-coordinating-unit-for-biostatistics-informatics-and-engagement-cubie",
+      "name": "BRAIN Initiative Cell Atlas Network (BICAN): Coordinating Unit for Biostatistics, Informatics, and Engagement (CUBIE)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361449",
+      "amount": "",
+      "opportunity_number": "RFA-MH-27-120",
+      "topics": [
+        "Networking",
+        "Data"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "General and reference",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "national-resource-network-for-the-study-of-human-auditory-and-vestibular-disorders",
+      "name": "National Resource Network for the Study of Human Auditory and Vestibular Disorders",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361207",
+      "amount": "",
+      "opportunity_number": "RFA-DC-27-001",
+      "topics": [
+        "Networking",
+        "HCI"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "General and reference",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "coordinating-center-for-national-resource-network-for-the-study-of-human-auditory-and-vestibular-disorders",
+      "name": "Coordinating Center for National Resource Network for the Study of Human Auditory and Vestibular Disorders",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361208",
+      "amount": "",
+      "opportunity_number": "RFA-DC-27-002",
+      "topics": [
+        "Networking",
+        "HCI"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "General and reference",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "limited-competition-biospecimen-banks-to-support-nci-national-clinical-trials-network-biospecimen-banks-nctn-biobanks-and-the-nci-early-phase-and-experimental-clinical-trials-biospecimen-bank-eet-biobank-u24-clinical-trial-not-allowed",
+      "name": "Limited Competition: Biospecimen Banks to support NCI National Clinical Trials Network Biospecimen Banks (NCTN Biobanks) and the NCI Early-Phase and Experimental Clinical Trials Biospecimen Bank (EET Biobank) (U24 Clinical Trial Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361134",
+      "amount": "",
+      "opportunity_number": "RFA-CA-25-035",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "the-metastasis-research-network-metnet-metnet-research-projects-u01-clinical-trial-not-allowed",
+      "name": "The Metastasis Research Network (MetNet): MetNet Research Projects (U01 Clinical Trial Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359725",
+      "amount": "up to $500k each",
+      "opportunity_number": "PAR-26-134",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {
+        "award_ceiling": 500000
+      },
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2028-11-22T23:59:00-05:00",
+          "confirmed": true,
+          "source": "https://www.grants.gov/search-results-detail/359725"
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "canine-cancer-immunotherapy-network-k9cin-u01-clinical-trial-not-allowed",
+      "name": "Canine Cancer Immunotherapy Network (K9CIN; U01 Clinical Trial Not Allowed)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361532",
+      "amount": "",
+      "opportunity_number": "RFA-CA-26-010",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "clinical-trials-and-ancillary-studies-conducted-within-nih-funded-clinical-trial-research-networks-ug3-uh3-clinical-trial-required",
+      "name": "Clinical Trials and Ancillary Studies Conducted within NIH-Funded Clinical Trial Research Networks (UG3/UH3 - Clinical Trial Required)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/361522",
+      "amount": "",
+      "opportunity_number": "PAR-27-007",
+      "topics": [
+        "Networking",
+        "Health"
+      ],
+      "notes": "No close date published; NSF often accepts these on a rolling window.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {},
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": null,
+          "confirmed": false,
+          "source": ""
+        }
+      ],
+      "link_status": "unknown"
+    },
+    {
+      "id": "novel-experiential-technologies-assisting-individual-learning-next-ai-hubs-p20-clinical-trial-optional",
+      "name": "Novel Experiential Technologies Assisting Individual Learning (NExT AI) Hubs (P20 Clinical Trial Optional)",
+      "funder": "NIH",
+      "also_funded_by": [],
+      "eligibility": "Faculty / PI",
+      "url": "https://www.grants.gov/search-results-detail/359949",
+      "amount": "$1.6M total \u00b7 3 awards",
+      "opportunity_number": "RFA-HD-27-006",
+      "topics": [
+        "AI/ML",
+        "Health"
+      ],
+      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
+      "ccs": "Applied computing",
+      "ccs_auto": true,
+      "funding": {
+        "total_program": 1600000,
+        "expected_awards": 3
+      },
+      "typical_window": "",
+      "last_checked": "",
+      "deadlines": [
+        {
+          "name": "Full proposal",
+          "date": "2026-10-02T23:59:00-04:00",
+          "confirmed": true,
+          "source": "https://www.grants.gov/search-results-detail/359949"
+        }
+      ],
+      "link_status": "unknown"
     }
   ]
 }
