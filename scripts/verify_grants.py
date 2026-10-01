@@ -142,6 +142,9 @@ def main() -> int:
         if str(row["date"])[:10] != iso[:10]:
             changed += 1
             print(f"  ~ {row['name'][:52]:<54} {str(row['date'])[:10]} -> {iso[:10]}")
+        name = conn.execute("SELECT name FROM grant_deadlines WHERE id = ?", (row["deadline_id"],)).fetchone()[0]
+        db.record_change(conn, "grant", row["id"], "corrected" if str(row["date"])[:10] != iso[:10] else "verified",
+                         name, row["date"], iso, source)
         conn.execute("UPDATE grant_deadlines SET date = ?, status = 'verified', source = ?, verified_on = ? "
                      "WHERE id = ?", (iso, source, today.isoformat(), row["deadline_id"]))
         if solicitation:

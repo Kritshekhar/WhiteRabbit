@@ -194,3 +194,22 @@ export function getTopAuthors(scope: string): TopAuthor[] {
 
 /* When the build ran, for the "updated" stamp. Countdowns never use this. */
 export const BUILT_AT = new Date().toISOString();
+
+/* The change log behind /changes/ and changes.xml, newest first, with the
+   venue or grant name joined in. */
+export interface ChangeRow {
+  id: number; at: string; entity: 'venue' | 'grant'; entity_id: string; deadline: string;
+  kind: 'added' | 'verified' | 'corrected' | 'rolled_over' | 'removed'; before: string; after: string; source: string;
+  name: string; year: number | null; topics: string; eligibility: string | null;
+}
+export function getChanges(entityId?: string): ChangeRow[] {
+  const sql = `SELECT c.*, coalesce(v.name, g.name, c.entity_id) AS name, v.year AS year,
+      coalesce(v.topics, g.topics, '[]') AS topics, g.eligibility AS eligibility
+    FROM changes c
+    LEFT JOIN venues v ON c.entity = 'venue' AND v.id = c.entity_id
+    LEFT JOIN grants g ON c.entity = 'grant' AND g.id = c.entity_id
+    ${entityId ? 'WHERE c.entity_id = ?' : ''}
+    ORDER BY c.at DESC, c.id DESC`;
+  const stmt = db().prepare(sql);
+  return (entityId ? stmt.all(entityId) : stmt.all()) as ChangeRow[];
+}

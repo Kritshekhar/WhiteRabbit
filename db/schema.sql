@@ -257,6 +257,22 @@ CREATE TABLE candidates (
   UNIQUE (entity, entity_id, field, proposed_value)
 );
 
+-- What changed, for the "What changed" page and its RSS feed. Every script
+-- that adds, verifies, corrects or rolls over a deadline records it through
+-- scripts/db.py record_change(). Kept for a year.
+CREATE TABLE changes (
+  id        INTEGER PRIMARY KEY,
+  at        TEXT NOT NULL,                  -- UTC timestamp
+  entity    TEXT NOT NULL CHECK (entity IN ('venue', 'grant')),
+  entity_id TEXT NOT NULL,
+  deadline  TEXT NOT NULL DEFAULT '',       -- the deadline's name; '' for the venue or grant itself
+  kind      TEXT NOT NULL CHECK (kind IN ('added', 'verified', 'corrected', 'rolled_over', 'removed')),
+  before    TEXT NOT NULL DEFAULT '',       -- the date before (ISO), or the old cycle
+  after     TEXT NOT NULL DEFAULT '',       -- the date after, or the new cycle
+  source    TEXT NOT NULL DEFAULT ''        -- where the new value was read
+);
+CREATE INDEX changes_at ON changes (at);
+
 -- Latest fetch per URL, so a run can prove what it did and did not touch.
 CREATE TABLE crawl_log (
   url          TEXT PRIMARY KEY,

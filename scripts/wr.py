@@ -108,6 +108,7 @@ def cmd_add_deadline(conn, args) -> None:
     else:
         conn.execute("INSERT INTO grant_deadlines (grant_id, position, name, date) VALUES (?, ?, ?, ?)",
                      (row["id"], position, args.name, dt.isoformat() if dt else None))
+    db.record_change(conn, kind, row["id"], "added", args.name, "", dt.isoformat() if dt else "")
     print(f"added unverified deadline {args.name!r} to {row['id']}")
 
 
@@ -126,6 +127,10 @@ def cmd_verify(conn, args) -> None:
         conn.execute(f"UPDATE {table} SET status = 'verified', source = ?, verified_on = ?, "
                      f"date = coalesce(?, date) WHERE id = ?",
                      (args.source, date.today().isoformat(), dt.isoformat() if dt else None, d["id"]))
+        after = dt.isoformat() if dt else d["date"]
+        changed = bool(dt) and (d["date"] or "")[:10] != after[:10]
+        db.record_change(conn, kind, row["id"], "corrected" if changed else "verified", d["name"],
+                         d["date"], after, args.source)
         print(f"verified {row['id']}: {d['name']}")
     # whatever crawlers proposed for these rows is now settled
     entity = "deadline" if kind == "venue" else "grant_deadline"

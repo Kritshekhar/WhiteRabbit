@@ -48,6 +48,7 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
     <link rel="sitemap" type="application/xml" href={new URL('sitemap-index.xml', root)} />
+    <link rel="alternate" type="application/rss+xml" title="White Rabbit: what changed" href={new URL('changes.xml', root)} />
     {ld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐇</text></svg>" />

@@ -31,7 +31,7 @@ import json
 import re
 import sqlite3
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -59,6 +59,7 @@ TABLES = {
     "venue_similarity": "venue_id, other_id",
     "proceedings_authors": "venue_id, year",
     "top_authors": "scope, rank",
+    "changes": "id",
     "candidates": "id",
     "crawl_log": "url",
 }
@@ -224,6 +225,21 @@ def propose(conn: sqlite3.Connection, entity: str, entity_id: str, field: str,
         (entity, str(entity_id), field, str(value), source, stamp, stamp))
 
 
+KEEP_CHANGES_DAYS = 365
+
+
+def record_change(conn: sqlite3.Connection, entity: str, entity_id: str, kind: str, deadline: str = "",
+                  before: str | None = "", after: str | None = "", source: str = "") -> None:
+    """Log one change for the "What changed" feed, and forget anything older
+    than a year so the dump does not grow without bound."""
+    conn.execute(
+        "INSERT INTO changes (at, entity, entity_id, deadline, kind, before, after, source) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        (now_iso(), entity, entity_id, deadline, kind, before or "", after or "", source or ""))
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=KEEP_CHANGES_DAYS)).replace(microsecond=0).isoformat()
+    conn.execute("DELETE FROM changes WHERE at < ?", (cutoff,))
+
+
 def log_fetch(conn: sqlite3.Connection, url: str, status: int | None, body: bytes | None = None) -> None:
     digest = hashlib.sha1(body).hexdigest()[:16] if body else None
     conn.execute("INSERT INTO crawl_log (url, fetched_at, http_status, content_hash) VALUES (?, ?, ?, ?) "
@@ -248,6 +264,8 @@ def insert_venue(conn: sqlite3.Connection, v: dict) -> str:
             "source, verified_on) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (v["id"], v["year"], i, d["name"], d["track"], d["date"],
              "verified" if d["confirmed"] else "unverified", d["source"], d["verified_on"]))
+    first = next((d["date"] for d in v["deadlines"] if d["date"]), "")
+    record_change(conn, "venue", v["id"], "added", after=first or "", source=v["url"])
     return v["id"]
 
 
@@ -272,6 +290,8 @@ def insert_grant(conn: sqlite3.Connection, g: dict) -> str:
             (gid, i, d.get("name") or "Application", d.get("date"),
              "verified" if d.get("confirmed") else "unverified", d.get("source") or "",
              d.get("verified_on") or ""))
+    first = next((d.get("date") for d in g.get("deadlines") or [] if d.get("date")), "")
+    record_change(conn, "grant", gid, "added", after=first or "", source=g.get("url", ""))
     return gid
 
 

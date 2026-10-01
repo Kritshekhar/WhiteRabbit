@@ -1,0 +1,26 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import ChangesFeed from '@/components/islands/ChangesFeed';
+import { changeItems } from '@/lib/changes';
+import { href } from '@/lib/utils';
+
+const items = changeItems();
+---
+
+<Layout title="What changed" section="none" image="og/page/changes.png"
+  description="Deadlines newly verified on official pages, corrected, added, or moved to a new cycle on White Rabbit. Also as an RSS feed.">
+  <div class="mx-auto max-w-4xl space-y-6">
+    <header class="space-y-3">
+      <h1 class="text-3xl font-bold tracking-tight">What changed</h1>
+      <p class="max-w-2xl text-lg text-fg-2">
+        Every deadline newly verified on its official page, corrected, added, or moved to a venue's next cycle, newest first.
+        Kept for a year.
+      </p>
+      <p class="text-sm">
+        <a class="font-semibold text-accent hover:underline" href={href('changes.xml')}>Follow as RSS</a>
+        <span class="text-muted"> · or subscribe to a <a class="text-accent hover:underline" href={href('calendar/')}>calendar feed</a> to get the dates themselves.</span>
+      </p>
+    </header>
+    <ChangesFeed client:load items={items} />
+  </div>
+</Layout>

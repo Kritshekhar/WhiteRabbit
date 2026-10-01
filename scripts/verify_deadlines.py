@@ -352,6 +352,8 @@ def main() -> int:
                 print(f"  ✓ {venue['name']:<18} deadline {deadline_id} confirmed at {source}")
                 conn.execute("UPDATE deadlines SET status = 'verified', source = ?, verified_on = ? WHERE id = ?",
                              (source, today, deadline_id))
+                row = conn.execute("SELECT venue_id, name, date FROM deadlines WHERE id = ?", (deadline_id,)).fetchone()
+                db.record_change(conn, "venue", row["venue_id"], "verified", row["name"], row["date"], row["date"], source)
             for deadline_id, iso, source in proposals:
                 n_prop += 1
                 print(f"  ~ {venue['name']:<18} deadline {deadline_id}: page says {iso[:10]}")
