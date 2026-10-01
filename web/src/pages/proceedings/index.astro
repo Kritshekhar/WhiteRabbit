@@ -30,7 +30,7 @@ const share = (s: number) => `${(s * 100).toFixed(s < 0.01 ? 2 : 1)}%`;
 const rated = venuesWithData().map((v) => {
   const r = [...proceedingsFor(v.id)].reverse().find((p) => p.acceptance_rate !== null);
   return r ? { id: v.id, name: v.name, year: r.year, rate: r.acceptance_rate as number, submitted: r.submitted_count,
-    accepted: r.accepted_official, source: r.acceptance_source } : null;
+    accepted: r.accepted_official, source: r.acceptance_source, kind: r.acceptance_kind } : null;
 }).filter((x): x is NonNullable<typeof x> => x !== null).sort((a, b) => a.rate - b.rate);
 ---
 
@@ -104,15 +104,15 @@ const rated = venuesWithData().map((v) => {
         <section aria-labelledby="rates-h" class="card space-y-3 p-4 sm:p-5">
           <div>
             <h2 id="rates-h" class="text-lg font-bold tracking-tight">Acceptance rates</h2>
-            <p class="text-xs text-muted">The latest figure each venue published itself, from its program chairs' message. Coverage is partial: only venues whose official figures can be read automatically (USENIX today) appear here.</p>
+            <p class="text-xs text-muted">The latest figure for each venue, most selective first. Unmarked figures come from the venue itself (USENIX program chairs' messages); figures marked <strong class="text-fg-2">reported</strong> are reported figures. Each links to its source. Venues not listed have no figure we can source.</p>
           </div>
           <ol class="divide-y divide-border">
             {rated.map((r) => (
               <li class="flex flex-wrap items-center justify-between gap-2 py-2 text-sm">
-                <a class="font-semibold text-fg no-underline hover:text-accent" href={href(`proceedings/${r.id}/`)}>{r.name} <span class="font-normal text-muted">{r.year}</span></a>
+                <a class="font-semibold text-fg no-underline hover:text-accent" href={href(`proceedings/${r.id}/`)}>{r.name} <span class="font-normal text-muted">{r.year}</span>{r.kind === 'reported' && <span class="ml-2 rounded-md border border-border px-1.5 text-[0.65rem] font-semibold text-muted">reported</span>}</a>
                 <span class="flex items-center gap-3 font-mono text-xs tabular">
                   {r.submitted && <span class="text-muted">{r.accepted ? `${r.accepted} of ${r.submitted}` : `${r.submitted} submitted`}</span>}
-                  <a class="text-base font-bold text-fg no-underline hover:text-accent" href={r.source} target="_blank" rel="noopener" title="Source: the program chairs' message">{(r.rate * 100).toFixed(1)}%</a>
+                  <a class="text-base font-bold text-fg no-underline hover:text-accent" href={r.source} target="_blank" rel="noopener" title={r.kind === 'reported' ? 'Reported figure' : "Source: the program chairs' message"}>{(r.rate * 100).toFixed(1)}%</a>
                 </span>
               </li>
             ))}
