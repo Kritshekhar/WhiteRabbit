@@ -139,7 +139,7 @@ JOURNAL_VENUES: dict[str, list[dict]] = {
 }
 
 
-def journal_rows(papers, venue_id: str) -> tuple[list[tuple], dict[int, list[str]]]:
+def journal_rows(papers, venue_id: str, with_doi: bool = False) -> tuple[list[tuple], dict[int, list[str]]]:
     """(year, toc, title, authors) for a journal-published venue, and per year
     the tables of contents they came from. Conference-era years use the main
     proceedings volume, exactly as for any other venue."""
@@ -147,7 +147,7 @@ def journal_rows(papers, venue_id: str) -> tuple[list[tuple], dict[int, list[str
     tocs: dict[int, list[str]] = defaultdict(list)
     for rule in JOURNAL_VENUES[venue_id]:
         found = papers.execute(
-            "SELECT year, toc, title, authors, number FROM papers WHERE stream = ? AND year IS NOT NULL",
+            "SELECT year, toc, title, authors, number, doi FROM papers WHERE stream = ? AND year IS NOT NULL",
             (rule["stream"],)).fetchall()
         found = [r for r in found
                  if (rule["from"] is None or r[0] >= rule["from"]) and (rule["until"] is None or r[0] <= rule["until"])
@@ -155,8 +155,8 @@ def journal_rows(papers, venue_id: str) -> tuple[list[tuple], dict[int, list[str
         if rule["stream"].startswith("conf/"):
             keep = main_tocs([(y, t) for y, t, *_ in found], rule["stream"])
             found = [r for r in found if r[1] in keep.get(r[0], [])]
-        for y, t, title, authors, _ in found:
-            rows.append((y, t, title, authors))
+        for y, t, title, authors, _, doi in found:
+            rows.append((y, t, title, authors, doi) if with_doi else (y, t, title, authors))
             if t not in tocs[y]:
                 tocs[y].append(t)
     return rows, dict(tocs)

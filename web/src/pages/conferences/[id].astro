@@ -3,6 +3,8 @@ import Layout from '@/layouts/Layout.astro';
 import RecentChanges from '@/components/RecentChanges.astro';
 import DeadlinePanel from '@/components/islands/DeadlinePanel';
 import ProceedingsSummary from '@/components/ProceedingsSummary.astro';
+import WhoPublishes from '@/components/WhoPublishes.astro';
+import { whoPublishes } from '@/lib/who';
 import { Badge } from '@/components/ui/badge';
 import { BUILT_AT, getVenues } from '@/lib/db';
 import { venueDigest } from '@/lib/insights';
@@ -41,6 +43,8 @@ const checked = venue.link_checked_on ? new Date(venue.link_checked_on).toISOStr
       <DeadlinePanel client:load kind="venue" record={venue} builtAt={BUILT_AT} />
 
       <ProceedingsSummary id={venue.id} name={venue.name} digest={digest} />
+      {digest && <WhoPublishes who={whoPublishes(venue.id)} name={venue.name} compact
+        missing={venue.publisher === 'USENIX' ? 'USENIX does not register DOIs for its papers, and affiliations are matched by DOI, so this venue is not covered yet.' : undefined} />}
     </div>
 
     <aside class="space-y-4">

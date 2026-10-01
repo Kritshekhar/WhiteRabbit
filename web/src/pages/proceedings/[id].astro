@@ -1,5 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import WhoPublishes from '@/components/WhoPublishes.astro';
+import { whoPublishes } from '@/lib/who';
 import ProceedingsVenue, { type YearRow } from '@/components/islands/ProceedingsVenue';
 import VenuePicker, { type PickerVenue } from '@/components/islands/VenuePicker';
 import { Badge } from '@/components/ui/badge';
@@ -69,6 +71,11 @@ const picker: PickerVenue[] = venuesWithData().map((v) => ({ id: v.id, name: v.n
     keywordsUrl={href(`proceedings/${encodeURIComponent(venue.id)}.json`)}
     defaultYear={defaultYear}
   />
+
+  <div class="mt-6">
+    <WhoPublishes who={whoPublishes(venue.id)} name={venue.name}
+      missing={venue.publisher === 'USENIX' ? 'USENIX does not register DOIs for its papers, and affiliations are matched by DOI, so this venue is not covered yet.' : undefined} />
+  </div>
 
   <div class="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
     <section class="card min-w-0 p-4 sm:p-5" aria-labelledby="like-h">

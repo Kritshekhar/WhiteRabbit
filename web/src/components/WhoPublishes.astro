@@ -1,0 +1,89 @@
+---
+/* Institutions and countries behind a venue's papers over recent years, or
+   across many venues. Static: everything is computed at build time. */
+import { flag, sector, type Who } from '@/lib/who';
+
+interface Props {
+  who: Who | null;
+  name: string;              // the venue, or "all venues"
+  missing?: string;          // why there is no data, when known
+  compact?: boolean;         // fewer rows, for the conference page
+}
+const { who, name, missing, compact = false } = Astro.props;
+const inst = who ? who.institutions.slice(0, compact ? 8 : 12) : [];
+const countries = who ? who.countries.slice(0, compact ? 6 : 10) : [];
+const maxI = Math.max(1, ...inst.map((i) => i.papers));
+const maxC = Math.max(1, ...countries.map((c) => c.papers));
+const pct = (x: number) => `${Math.round(x * 100)}%`;
+const SECTOR = { academia: 'Academia', industry: 'Industry', other: 'Government and other' } as const;
+const COLOR = { academia: 'var(--rank-base)', industry: 'var(--rank-mid)', other: 'var(--rank-off)', unknown: 'var(--border-strong)' } as const;
+---
+<section class="space-y-3" aria-label={`Who publishes at ${name}`}>
+  <div class="flex flex-wrap items-baseline justify-between gap-2">
+    <h3 class="font-bold">Who publishes {name === 'all venues' ? 'most' : 'here'}</h3>
+    {who && <p class="text-xs text-muted">{who.from === who.to ? who.from : `${who.from} to ${who.to}`} · papers count once per institution on them</p>}
+  </div>
+
+  {!who ? (
+    <p class="card p-4 text-sm text-muted">
+      {missing ?? 'Institution data is still being gathered for this venue; it fills in over the coming days.'}
+    </p>
+  ) : (
+    <div class="space-y-3">
+      <div class="card p-4">
+        <div class="flex h-3 overflow-hidden rounded-full" role="img"
+          aria-label={`Academia ${pct(who.split.academia)}, industry ${pct(who.split.industry)}, other ${pct(who.split.other)}`}>
+          {(['academia', 'industry', 'other'] as const).map((s) => (
+            <span style={`width:${who.split[s] * 100}%;background:${COLOR[s]}`}></span>
+          ))}
+        </div>
+        <p class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-fg-2">
+          {(['academia', 'industry', 'other'] as const).map((s) => (
+            <span><span class="mr-1 inline-block size-2.5 rounded-sm align-middle" style={`background:${COLOR[s]}`}></span>{SECTOR[s]} <strong class="text-fg">{pct(who.split[s])}</strong></span>
+          ))}
+        </p>
+      </div>
+
+      <div class:list={['grid grid-cols-1 gap-3', !compact && 'lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]']}>
+        <div class="card p-4">
+          <h4 class="mb-2 text-xs font-semibold tracking-wide text-muted uppercase">Institutions</h4>
+          <ol class="space-y-1.5">
+            {inst.map((i, n) => (
+              <li class="grid grid-cols-[1.25rem_minmax(0,1fr)_auto] items-center gap-x-2 text-sm">
+                <span class="font-mono text-xs text-muted tabular">{n + 1}</span>
+                <span class="min-w-0">
+                  <span class="flex items-baseline gap-1.5">
+                    <span class="truncate font-semibold" title={i.name}>{i.name}</span>
+                    <span class="shrink-0 text-xs" title={i.country} aria-label={i.country}>{flag(i.country)}</span>
+                  </span>
+                  <span class="mt-0.5 block h-1.5 rounded-full bg-surface-2">
+                    <span class="block h-full rounded-full" style={`width:${(i.papers / maxI) * 100}%;background:${COLOR[sector(i.type)]}`}></span>
+                  </span>
+                </span>
+                <span class="font-mono text-xs font-semibold tabular">{i.papers}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div class="card p-4">
+          <h4 class="mb-2 text-xs font-semibold tracking-wide text-muted uppercase">Countries</h4>
+          <ol class="space-y-1.5">
+            {countries.map((c) => (
+              <li class="grid grid-cols-[1.5rem_minmax(0,1fr)_auto] items-center gap-x-2 text-sm">
+                <span aria-hidden="true">{flag(c.code)}</span>
+                <span class="min-w-0">
+                  <span class="block truncate font-semibold">{c.name}</span>
+                  <span class="mt-0.5 block h-1.5 rounded-full bg-surface-2">
+                    <span class="block h-full rounded-full bg-accent" style={`width:${(c.papers / maxC) * 100}%`}></span>
+                  </span>
+                </span>
+                <span class="font-mono text-xs font-semibold tabular">{c.papers}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+      <p class="text-xs text-muted">Affiliations from OpenAlex for the papers DBLP lists. A paper with authors from three institutions counts for each of them; the split above is over the top institutions.</p>
+    </div>
+  )}
+</section>

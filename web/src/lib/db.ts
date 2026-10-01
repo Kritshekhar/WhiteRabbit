@@ -213,3 +213,19 @@ export function getChanges(entityId?: string): ChangeRow[] {
   const stmt = db().prepare(sql);
   return (entityId ? stmt.all(entityId) : stmt.all()) as ChangeRow[];
 }
+
+/* Who publishes: papers per institution and per country, per venue-year
+   (OpenAlex, for the papers DBLP lists). */
+export interface InstitutionYear { venue_id: string; year: number; institution_id: string; papers: number;
+  name: string; type: string; country: string }
+export function getInstitutionYears(venueId?: string): InstitutionYear[] {
+  const sql = `SELECT p.*, i.name, i.type, i.country FROM proceedings_institutions p
+    JOIN institutions i ON i.id = p.institution_id ${venueId ? 'WHERE p.venue_id = ?' : ''}`;
+  const stmt = db().prepare(sql);
+  return (venueId ? stmt.all(venueId) : stmt.all()) as InstitutionYear[];
+}
+export interface CountryYear { venue_id: string; year: number; country: string; papers: number }
+export function getCountryYears(venueId?: string): CountryYear[] {
+  const stmt = db().prepare(`SELECT * FROM proceedings_countries ${venueId ? 'WHERE venue_id = ?' : ''}`);
+  return (venueId ? stmt.all(venueId) : stmt.all()) as CountryYear[];
+}
