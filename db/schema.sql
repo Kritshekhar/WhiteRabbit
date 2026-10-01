@@ -139,6 +139,10 @@ CREATE TABLE proceedings (
   -- accepted_count above is DBLP's volume count and can differ.
   accepted_official INTEGER,
   acceptance_source TEXT NOT NULL DEFAULT '',
+  -- 'official': the venue's own figure (chairs' message, venue site);
+  -- 'reported': a community-maintained list, shown as such; an official
+  -- figure always replaces it
+  acceptance_kind   TEXT NOT NULL DEFAULT 'official' CHECK (acceptance_kind IN ('official', 'reported')),
   PRIMARY KEY (venue_id, year),
   CHECK (status = 'unverified' OR source <> ''),
   CHECK (acceptance_rate IS NULL OR acceptance_source <> '')

@@ -19,6 +19,7 @@ const all = proceedingsFor(venue.id);
 const rows: YearRow[] = all.map((p) => ({
   year: p.year, count: p.accepted_count, rate: p.acceptance_rate, status: yearStatus(p), source: p.source,
   submitted: p.submitted_count, acceptedOfficial: p.accepted_official, rateSource: p.acceptance_source,
+  rateKind: p.acceptance_kind,
   links: JSON.parse(p.links || '[]'),
 }));
 const counted = all.filter((p) => p.accepted_count !== null);

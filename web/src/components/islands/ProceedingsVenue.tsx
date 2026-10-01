@@ -21,6 +21,7 @@ export interface YearRow {
   submitted?: number | null;         // official figures, from rateSource
   acceptedOfficial?: number | null;
   rateSource?: string;
+  rateKind?: 'official' | 'reported';
 }
 
 type KeywordFile = { years: Record<string, [string, number, number | null][]> };
@@ -115,7 +116,7 @@ export default function ProceedingsVenue({ rows, topics, keywordsUrl, defaultYea
       </Panel>
 
       {rates.length > 0 && (
-        <Panel title="Acceptance rate" note="Accepted papers as a share of submissions, as the venue itself published them (the program chairs\u2019 message). Only years with an official figure; hover a year in the table for the counts and click for the source.">
+        <Panel title="Acceptance rate" note="Accepted papers as a share of submissions. Unmarked figures come from the venue itself (the program chairs\u2019 message); figures marked \u2020 are reported figures. Hover a year in the table for the counts; click for the source.">
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={rates} margin={{ left: -12, right: 8 }}>
               <CartesianGrid stroke="var(--border)" vertical={false} />
@@ -217,8 +218,8 @@ export default function ProceedingsVenue({ rows, topics, keywordsUrl, defaultYea
                     <td className="py-1.5 pr-4 text-right tabular">
                       {r.rate !== null && (
                         <a href={r.rateSource} target="_blank" rel="noopener" className="text-fg no-underline hover:text-accent"
-                          title={`${r.acceptedOfficial ? `${r.acceptedOfficial} accepted, ` : ''}${r.submitted ? `${r.submitted} submitted, ` : ''}from the program chairs' message`}>
-                          {(r.rate * 100).toFixed(1)}%
+                          title={`${r.acceptedOfficial ? `${r.acceptedOfficial} accepted, ` : ''}${r.submitted ? `${r.submitted} submitted, ` : ''}${r.rateKind === 'reported' ? 'reported figure' : "from the program chairs' message"}`}>
+                          {(r.rate * 100).toFixed(1)}%{r.rateKind === 'reported' && <sup className="text-muted">†</sup>}
                           {r.submitted ? <span className="ml-1 text-xs text-muted">({r.acceptedOfficial ? `${r.acceptedOfficial}/${r.submitted}` : `${r.submitted} submitted`})</span> : null}
                         </a>
                       )}
