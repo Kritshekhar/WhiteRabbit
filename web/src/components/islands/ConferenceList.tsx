@@ -1,20 +1,16 @@
 import { useMemo, useState } from 'react';
 import { decorate, fmtDate } from '@/lib/dates';
 import { venueEvent } from '@/lib/calendar';
-import { RANK_SLOT, TIERS, VENUE_BANDS, venueStatus } from '@/lib/tiers';
+import { VENUE_BANDS, venueStatus } from '@/lib/tiers';
 import type { Venue } from '@/lib/types';
-import { href, venueHref } from '@/lib/utils';
-import { Badge } from '../ui/badge';
+import { venueHref } from '@/lib/utils';
 import { Row } from '../Row';
-import { Chips, MultiSelect, SearchBox, Tile, Toggle } from '../Filters';
+import { MultiSelect, SearchBox, Tile, Toggle } from '../Filters';
 import { useNow, useQueryParam } from '../useNow';
-
-type TierFilter = 'all' | keyof typeof TIERS;
 
 export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; builtAt: string }) {
   const now = useNow(builtAt);
   const [query, setQuery] = useQueryParam('q');
-  const [tier, setTier] = useState<TierFilter>('all');
   const [topics, setTopics] = useState<Set<string>>(new Set());
   const [onlyUpcoming, setOnlyUpcoming] = useState(true);
   const [sort, setSort] = useState<'deadline' | 'name'>('deadline');
@@ -32,7 +28,6 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
   const list = useMemo(() => {
     const q = query.trim().toLowerCase();
     const shown = all.filter((v) => {
-      if (tier !== 'all' && v.tier !== tier) return false;
       if (topics.size && !v.topics.some((t) => topics.has(t))) return false;
       if (onlyUpcoming && v.status === 'passed') return false;
       if (!q) return true;
@@ -43,7 +38,7 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
        the most actionable state on the page. */
     const rank = (v: (typeof all)[number]) => (v.rolling ? -1 : (v.days ?? Infinity));
     return shown.sort((a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name));
-  }, [all, query, tier, topics, onlyUpcoming, sort]);
+  }, [all, query, topics, onlyUpcoming, sort]);
 
   const upcoming = all.filter((v) => v.status === 'upcoming').sort((a, b) => (a.days ?? 0) - (b.days ?? 0));
   const head = upcoming[0];
@@ -89,17 +84,6 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
             </label>
           </div>
         </div>
-        <Chips
-          label="Filter by stage"
-          value={tier}
-          onChange={setTier}
-          options={[{ value: 'all', label: 'All' }, ...Object.entries(TIERS).map(([value, label]) => ({ value, label }))]}
-          extra={
-            <a className="inline-flex h-8 items-center px-2 text-[0.8rem] font-semibold text-accent underline-offset-2 hover:underline" href={href('about/')}>
-              What are these?
-            </a>
-          }
-        />
       </section>
 
       <p className="text-sm text-muted" aria-live="polite">
@@ -112,13 +96,6 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
             href={venueHref(v.id)}
             title={v.name}
             subtitle={v.full_name}
-            tags={
-              <>
-                {v.publisher && <Badge variant="publisher">{v.publisher}</Badge>}
-                {v.topics.slice(0, 2).map((t) => <Badge key={t}>{t}</Badge>)}
-                <Badge variant={RANK_SLOT[v.tier] || 'off'}>{TIERS[v.tier] || v.tier}</Badge>
-              </>
-            }
             deadline={v.next}
             days={v.days}
             band={v.band}

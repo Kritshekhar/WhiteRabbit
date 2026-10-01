@@ -10,7 +10,7 @@ export interface RowProps {
   href: string;
   title: string;
   subtitle?: string;
-  tags: ReactNode;
+  tags?: ReactNode;
   deadline: Round | null;
   days: number | null;
   band: Band | null;
@@ -31,7 +31,9 @@ export function Row({ href, title, subtitle, tags, deadline, days, band, statusT
   };
   return (
     <div
-      className="group relative grid cursor-pointer grid-cols-[1fr_auto] items-center gap-x-4 gap-y-2 rounded-xl border border-border bg-surface-1 py-3 pr-3 pl-5 shadow-sm transition hover:-translate-y-px hover:border-border-strong hover:shadow-card md:grid-cols-[minmax(0,2.2fr)_minmax(0,1.6fr)_minmax(0,1.9fr)_3.5rem_auto]"
+      className={`group relative grid cursor-pointer grid-cols-[1fr_auto] items-center gap-x-4 gap-y-2 rounded-xl border border-border bg-surface-1 py-3 pr-3 pl-5 shadow-sm transition hover:-translate-y-px hover:border-border-strong hover:shadow-card ${
+        tags ? 'md:grid-cols-[minmax(0,2.2fr)_minmax(0,1.6fr)_minmax(0,1.9fr)_3.5rem_auto]' : 'md:grid-cols-[minmax(0,2.6fr)_minmax(0,2fr)_3.5rem_auto]'
+      }`}
       style={{ ['--status' as string]: band ? band.color : 'var(--border-strong)' }}
       onClick={go}
     >
@@ -42,7 +44,7 @@ export function Row({ href, title, subtitle, tags, deadline, days, band, statusT
         </a>
         {subtitle && <span className="block truncate text-[0.8rem] text-muted">{subtitle}</span>}
       </span>
-      <span className="col-span-2 flex min-w-0 flex-wrap gap-1.5 md:col-span-1">{tags}</span>
+      {tags && <span className="col-span-2 flex min-w-0 flex-wrap gap-1.5 md:col-span-1">{tags}</span>}
       <span className="min-w-0 text-[0.85rem]">
         {deadline && deadline.ts ? (
           <span className="text-fg-2">
