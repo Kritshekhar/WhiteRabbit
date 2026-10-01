@@ -211,10 +211,13 @@ def main() -> int:
 
     conn = db.connect()
     known = {r["id"] for r in conn.execute("SELECT id FROM grants")}
+    # the same opportunity under a slightly different title is still the same one
+    known_numbers = {r["opportunity_number"] for r in conn.execute("SELECT opportunity_number FROM grants")
+                     if r["opportunity_number"]}
     additions, ids = [], set()
     for o in fresh:
         gid = db.slugify(clean_title(o.get("title")))
-        if gid not in known and gid not in ids:
+        if gid not in known and gid not in ids and (o.get("number") or "") not in known_numbers:
             ids.add(gid)
             additions.append(to_grant(o))
 

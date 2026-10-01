@@ -48,6 +48,11 @@ jobs:
       - name: Verify deadlines against official pages
         run: python scripts/verify_deadlines.py --write --render --jina
 
+      # fellowship calls publish dates only while open; pick them up from the
+      # programmes' own pages (one clear upcoming deadline, or queued)
+      - name: Find fellowship deadlines
+        run: python scripts/fellowship_dates.py --write --render --jina
+
       - name: Rebuild funding data
         run: python scripts/update_grants.py
 
