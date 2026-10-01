@@ -247,6 +247,33 @@ CREATE TABLE top_authors (
   PRIMARY KEY (scope, rank)
 );
 
+-- Who publishes at each venue, from OpenAlex: papers per institution and per
+-- country, per venue-year, for the papers DBLP lists. A paper counts once for
+-- every institution (or country) among its authors, so totals exceed the
+-- paper count. Institutions keep the top 25 per venue-year.
+CREATE TABLE institutions (
+  id      TEXT PRIMARY KEY,                 -- OpenAlex id, e.g. I63966007
+  name    TEXT NOT NULL,
+  type    TEXT NOT NULL DEFAULT '',         -- education | company | government | facility | ...
+  country TEXT NOT NULL DEFAULT ''          -- ISO 3166 code
+);
+
+CREATE TABLE proceedings_institutions (
+  venue_id       TEXT NOT NULL REFERENCES venues(id) ON DELETE CASCADE,
+  year           INTEGER NOT NULL,
+  institution_id TEXT NOT NULL,
+  papers         INTEGER NOT NULL,
+  PRIMARY KEY (venue_id, year, institution_id)
+);
+
+CREATE TABLE proceedings_countries (
+  venue_id TEXT NOT NULL REFERENCES venues(id) ON DELETE CASCADE,
+  year     INTEGER NOT NULL,
+  country  TEXT NOT NULL,                   -- ISO 3166 code
+  papers   INTEGER NOT NULL,
+  PRIMARY KEY (venue_id, year, country)
+);
+
 -- ---------------------------------------------------------------------------
 -- verification queue and crawl history
 -- ---------------------------------------------------------------------------

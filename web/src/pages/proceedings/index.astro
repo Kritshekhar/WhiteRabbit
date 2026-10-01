@@ -4,6 +4,8 @@ import VenuePicker, { type PickerVenue } from '@/components/islands/VenuePicker'
 import { StatsEmpty } from '@/components/StatsEmpty';
 import { latestCompleteYear, overview, proceedingsFor, venuesWithData } from '@/lib/proceedings';
 import { href } from '@/lib/utils';
+import WhoOverview from '@/components/islands/WhoOverview';
+import { whoOverall } from '@/lib/who';
 import FieldShare from '@/components/islands/FieldShare';
 import SpreadExplorer from '@/components/islands/SpreadExplorer';
 import SvgLine from '@/components/insights/SvgLine.astro';
@@ -32,6 +34,7 @@ const rated = venuesWithData().map((v) => {
   return r ? { id: v.id, name: v.name, year: r.year, rate: r.acceptance_rate as number, submitted: r.submitted_count,
     accepted: r.accepted_official, source: r.acceptance_source, kind: r.acceptance_kind } : null;
 }).filter((x): x is NonNullable<typeof x> => x !== null).sort((a, b) => a.rate - b.rate);
+const who = whoOverall();
 ---
 
 <Layout title="Proceedings" section="proceedings" description="What CS venues publish: papers per year from DBLP, keywords and topic trends, across the full history of each venue.">
@@ -117,6 +120,16 @@ const rated = venuesWithData().map((v) => {
               </li>
             ))}
           </ol>
+        </section>
+      )}
+
+      {who.length > 0 && (
+        <section aria-labelledby="who-h" class="card space-y-3 p-4 sm:p-5">
+          <div>
+            <h2 id="who-h" class="text-lg font-bold tracking-tight">Who publishes most</h2>
+            <p class="text-xs text-muted">Institutions and countries behind the last five years of papers, across all venues or by research area. Affiliations from OpenAlex; a paper counts once for every institution on it. Still filling in: data arrives over the coming days.</p>
+          </div>
+          <WhoOverview client:visible areas={who} />
         </section>
       )}
 
