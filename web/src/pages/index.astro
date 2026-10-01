@@ -9,6 +9,7 @@ import { BUILT_AT, getVenues } from '@/lib/db';
 import { heatmap, MONTH_NAMES, MONTHS } from '@/lib/heatmap';
 import EraTimeline from '@/components/insights/EraTimeline.astro';
 import { eras } from '@/lib/insights';
+import { websiteLd } from '@/lib/seo';
 import { compact, homeData } from '@/lib/home';
 import { href, venueHref } from '@/lib/utils';
 
@@ -49,7 +50,7 @@ const last = teaser?.bars[teaser.bars.length - 1];
 const growth = first && last && first.count ? Math.round((last.count / first.count) * 10) / 10 : null;
 ---
 
-<Layout title="White Rabbit · CS deadlines, funding and proceedings stats" section="home">
+<Layout title="White Rabbit · CS deadlines, funding and proceedings stats" section="home" jsonLd={websiteLd()}>
   <!-- Mark JS as available before first paint, so reveal states never hide
        content from a reader without scripts. -->
   <script is:inline>document.documentElement.classList.add('wr-js');</script>
