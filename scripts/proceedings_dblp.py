@@ -89,6 +89,7 @@ model models data framework frameworks problem problems result results task task
 application applications performance design general generalized simple better
 report proceedings workshop session special issue track tutorial panel poster
 posters demo demos extended abstract abstracts invited talk keynote overview
+enhancing enhanced enhance enabling enable leveraging exploring rethinking revisiting understanding unified
 """.split())
 # venue-and-year tokens such as "sc25" or "2024" say nothing about the research
 NOISE_TOKEN = re.compile(r"^(\d+|[a-z]+\d{2,4})$")

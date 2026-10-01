@@ -1,88 +1,301 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import HomeSearch, { type SearchEntry } from '@/components/islands/HomeSearch';
-import UpcomingDeadlines, { type UpcomingEntry } from '@/components/islands/UpcomingDeadlines';
-import { BUILT_AT, getGrants, getVenues } from '@/lib/db';
-import { venuesWithData } from '@/lib/proceedings';
-import { AUDIENCE_ELIGIBILITY } from '@/lib/tiers';
-import { grantHref, href, venueHref } from '@/lib/utils';
+import HomeSearch from '@/components/islands/HomeSearch';
+import UpcomingDeadlines from '@/components/islands/UpcomingDeadlines';
+import NextCountdown from '@/components/home/NextCountdown';
+import { ArrowRight, BadgeCheck, BookOpen, CalendarDays, CalendarPlus, GraduationCap, HandCoins, RefreshCw, TrendingUp } from 'lucide-react';
+import { BUILT_AT } from '@/lib/db';
+import { compact, homeData } from '@/lib/home';
+import { href, venueHref } from '@/lib/utils';
 
-const venues = getVenues();
-const grants = getGrants();
-const fellowships = grants.filter((g) => AUDIENCE_ELIGIBILITY.student.includes(g.eligibility));
-const faculty = grants.filter((g) => AUDIENCE_ELIGIBILITY.faculty.includes(g.eligibility));
-
-const entries: SearchEntry[] = [
-  ...venues.map((v) => ({
-    kind: 'Conference' as const, name: v.name, sub: v.full_name, href: venueHref(v.id),
-    text: `${v.name} ${v.full_name} ${v.topics.join(' ')} ${v.publisher}`.toLowerCase(),
-  })),
-  ...grants.map((g) => ({
-    kind: (fellowships.includes(g) ? 'Fellowship' : 'Grant') as SearchEntry['kind'], name: g.name, sub: g.funder, href: grantHref(g.id),
-    text: `${g.name} ${g.funder} ${g.topics.join(' ')} ${g.opportunity_number}`.toLowerCase(),
-  })),
-];
-
-const upcoming: UpcomingEntry[] = [
-  ...venues.filter((v) => !v.rolling).map((v) => ({ kind: 'conference' as const, name: v.name, sub: v.full_name, href: venueHref(v.id), deadlines: v.deadlines })),
-  ...grants.map((g) => ({ kind: 'funding' as const, name: g.name, sub: g.funder, href: grantHref(g.id), deadlines: g.deadlines })),
-];
-
-const verifiedCount = [...venues, ...grants].reduce((n, r) => n + r.deadlines.filter((d) => d.confirmed).length, 0);
-const statVenues = venuesWithData().length;
+const data = homeData();
+const { counts, teaser } = data;
 
 const sections = [
-  { title: 'Conferences', path: 'conferences/', count: venues.length, unit: 'venues', blurb: 'Paper deadlines for systems, ML, security, databases and more, in AoE with live countdowns.', icon: '📅' },
-  { title: 'Grants', path: 'grants/', count: faculty.length, unit: 'programmes', blurb: 'NSF, NIH, DoD, DOE and industry funding for faculty and PIs, verified against grants.gov.', icon: '💰' },
-  { title: 'Fellowships', path: 'fellowships/', count: fellowships.length, unit: 'fellowships', blurb: 'PhD fellowships from industry and government, with when each cycle usually opens.', icon: '🎓' },
-  { title: 'Proceedings', path: 'proceedings/', count: statVenues, unit: 'venues indexed', blurb: 'Papers per year across each venue\'s full history, with the keywords and topics it publishes most.', icon: '📚' },
+  { title: 'Conferences', path: 'conferences/', count: counts.venues, unit: 'venues', Icon: CalendarDays,
+    blurb: 'Paper deadlines for systems, ML, security, databases and more, in AoE, with live countdowns.' },
+  { title: 'Grants', path: 'grants/', count: counts.faculty, unit: 'programmes', Icon: HandCoins,
+    blurb: 'Federal and industry funding for faculty and PIs, with dates checked against the official record.' },
+  { title: 'Fellowships', path: 'fellowships/', count: counts.fellowships, unit: 'fellowships', Icon: GraduationCap,
+    blurb: 'PhD fellowships from industry and government, and when each cycle usually opens.' },
+  { title: 'Proceedings', path: 'proceedings/', count: counts.indexed, unit: 'venues indexed', Icon: BookOpen,
+    blurb: "Papers per year over each venue's full history, and the keywords and topics it publishes most." },
 ];
+
+const features = [
+  { Icon: BadgeCheck, title: 'Verified, not guessed',
+    body: 'Every date carries a badge. Verified links to the page it was read off; est. says plainly that it is extrapolated. There is no third state.' },
+  { Icon: RefreshCw, title: 'Links that roll over',
+    body: "When a cycle closes, each venue moves to next year's site only once that site is genuinely live, so you never land on last year's call." },
+  { Icon: CalendarPlus, title: 'One click to your calendar',
+    body: 'Deadlines go into Google Calendar as exact instants, not all-day events, so an AoE deadline never quietly shifts by a day.' },
+];
+
+const maxBar = teaser ? Math.max(...teaser.bars.map((b) => b.count)) : 1;
+const first = teaser?.bars[0];
+const last = teaser?.bars[teaser.bars.length - 1];
+const growth = first && last && first.count ? Math.round((last.count / first.count) * 10) / 10 : null;
 ---
 
 <Layout title="White Rabbit · CS deadlines, funding and proceedings stats" section="home">
-  <section class="flex flex-col items-start gap-5 pt-4 pb-10 sm:pt-10">
-    <span class="rounded-full border border-border bg-surface-1 px-3 py-1 text-xs font-semibold text-fg-2">
-      {verifiedCount} deadlines verified against their official source
-    </span>
-    <h1 class="max-w-3xl text-[2.1rem] leading-[1.1] font-bold tracking-tight sm:text-5xl">
-      Never be late for a very important date.
-    </h1>
-    <p class="max-w-2xl text-base text-fg-2 sm:text-lg">
-      Conference deadlines, research grants and PhD fellowships in computer science, in one place. Every date says whether
-      it was checked on the official page, and countdowns run in your browser so they are always current.
-    </p>
-    <HomeSearch client:load entries={entries} />
-  </section>
+  <!-- Mark JS as available before first paint, so reveal states never hide
+       content from a reader without scripts. -->
+  <script is:inline>document.documentElement.classList.add('wr-js');</script>
 
-  <section class="space-y-3" aria-labelledby="next-h">
-    <div class="flex items-end justify-between gap-4">
-      <h2 id="next-h" class="text-lg font-bold tracking-tight">Coming up next</h2>
-      <a class="text-sm font-semibold text-accent hover:underline" href={href('conferences/')}>All deadlines</a>
+  <div class="wr-home">
+    <!-- ambient background: drifting blurred blobs over a faint grid -->
+    <div class="wr-ambient" aria-hidden="true">
+      <span class="wr-blob wr-blob-a"></span>
+      <span class="wr-blob wr-blob-b"></span>
+      <span class="wr-blob wr-blob-c"></span>
+      <span class="wr-grid"></span>
     </div>
-    <UpcomingDeadlines client:load entries={upcoming} builtAt={BUILT_AT} />
-  </section>
 
-  <section class="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4" aria-label="Sections">
-    {sections.map((s) => (
-      <a href={href(s.path)} class="card group flex flex-col gap-2 p-5 no-underline transition hover:-translate-y-0.5 hover:border-border-strong">
-        <span class="text-2xl" aria-hidden="true">{s.icon}</span>
-        <span class="text-lg font-bold group-hover:text-accent">{s.title}</span>
-        <span class="text-sm text-fg-2">{s.blurb}</span>
-        <span class="mt-auto pt-2 font-mono text-sm text-muted"><strong class="text-fg">{s.count}</strong> {s.unit}</span>
-      </a>
-    ))}
-  </section>
+    <!-- ===================== hero ===================== -->
+    <section class="grid grid-cols-1 items-center gap-10 pt-2 pb-12 sm:pt-8 lg:grid-cols-[1.12fr_0.88fr] lg:gap-12 lg:pb-16">
+      <div class="flex min-w-0 flex-col items-start gap-5">
+        <span class="wr-rise inline-flex items-center gap-2 rounded-full border border-border bg-surface-1/80 px-3 py-1 text-xs font-semibold text-fg-2 backdrop-blur" style="--d:0">
+          <span class="wr-live-dot" aria-hidden="true"></span>
+          {data.verified} deadlines verified against their official source
+        </span>
+        <h1 class="wr-rise max-w-3xl text-[2.35rem] leading-[1.05] font-bold tracking-[-0.025em] sm:text-6xl" style="--d:1">
+          Never be late for a <span class="wr-gradient-text">very important date.</span>
+        </h1>
+        <p class="wr-rise max-w-xl text-base text-fg-2 sm:text-lg" style="--d:2">
+          Conference deadlines, research grants and PhD fellowships in computer science, in one place. Every date says whether it
+          was checked on the official page, and the countdowns run in your browser, so they are always current.
+        </p>
+        <div class="wr-rise w-full" style="--d:3">
+          <HomeSearch client:load entries={data.entries} />
+        </div>
+        <div class="wr-rise flex flex-wrap items-center gap-3" style="--d:4">
+          <a href={href('conferences/')} class="wr-btn-primary">
+            Browse deadlines <ArrowRight className="size-4" aria-hidden="true" />
+          </a>
+          <a href={href('proceedings/')} class="wr-btn-ghost">
+            <TrendingUp className="size-4" aria-hidden="true" /> Explore proceedings
+          </a>
+        </div>
+      </div>
 
-  <section class="card mt-10 grid grid-cols-1 gap-4 p-6 sm:grid-cols-[1fr_auto] sm:items-center">
-    <div>
-      <h2 class="text-lg font-bold tracking-tight">What does a venue actually publish?</h2>
-      <p class="mt-1 text-sm text-fg-2">
-        Mined from past proceedings via DBLP and OpenAlex: papers per year over each venue's full history, trending
-        keywords, and the topics each venue publishes most. {statVenues ? `${statVenues} venues indexed so far.` : 'The first crawl is on its way.'}
+      <div class="wr-rise min-w-0" style="--d:3">
+        <NextCountdown client:load entries={data.upcoming} builtAt={BUILT_AT} />
+      </div>
+    </section>
+
+    <!-- ===================== stats strip ===================== -->
+    <section aria-label="At a glance" data-reveal class="wr-stats card grid grid-cols-2 gap-px overflow-hidden p-0 lg:grid-cols-5">
+      {data.stats.map((s, i) => (
+        <div class:list={['flex flex-col gap-0.5 bg-surface-1 px-5 py-5', i === data.stats.length - 1 && data.stats.length % 2 === 1 && 'col-span-2 lg:col-span-1']}>
+          <span
+            class="font-mono text-2xl font-bold tracking-tight tabular sm:text-3xl"
+            data-count={s.value}
+            data-format={s.format}
+          >{s.format === 'compact' ? compact(s.value) : s.value.toLocaleString('en-US')}</span>
+          <span class="text-xs text-muted sm:text-sm">{s.label}</span>
+        </div>
+      ))}
+    </section>
+
+    <!-- ===================== coming up ===================== -->
+    <section class="mt-14 space-y-4" aria-labelledby="next-h">
+      <div class="flex items-end justify-between gap-4" data-reveal>
+        <div>
+          <p class="wr-eyebrow">Live</p>
+          <h2 id="next-h" class="text-2xl font-bold tracking-tight">Coming up next</h2>
+        </div>
+        <a class="group inline-flex items-center gap-1 text-sm font-semibold text-accent no-underline" href={href('conferences/')}>
+          All deadlines <ArrowRight className="size-4 transition group-hover:translate-x-0.5" aria-hidden="true" />
+        </a>
+      </div>
+      <!-- revealed as a group: the island may re-order its rows once it
+           hydrates on the real clock, so the rows themselves carry no state -->
+      <div data-reveal class="wr-stagger">
+        <UpcomingDeadlines client:load entries={data.upcoming} builtAt={BUILT_AT} />
+      </div>
+    </section>
+
+    <!-- ===================== features ===================== -->
+    <section class="mt-16" aria-labelledby="why-h">
+      <div class="max-w-2xl" data-reveal>
+        <p class="wr-eyebrow">Why White Rabbit</p>
+        <h2 id="why-h" class="text-2xl font-bold tracking-tight sm:text-3xl">A deadline tracker that tells you how much to trust each date.</h2>
+      </div>
+      <div class="mt-6 grid grid-cols-1 gap-3 md:grid-cols-3">
+        {features.map((f, i) => (
+          <div class="card wr-lift wr-glow-card p-6" data-reveal style={`--i:${i}`}>
+            <span class="wr-icon-chip"><f.Icon className="size-5" aria-hidden="true" /></span>
+            <h3 class="mt-4 text-lg font-bold">{f.title}</h3>
+            <p class="mt-1.5 text-sm text-fg-2">{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ===================== sections ===================== -->
+    <section class="mt-16" aria-labelledby="explore-h">
+      <div data-reveal>
+        <p class="wr-eyebrow">Explore</p>
+        <h2 id="explore-h" class="text-2xl font-bold tracking-tight sm:text-3xl">Everything on one site</h2>
+      </div>
+      <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {sections.map((s, i) => (
+          <a href={href(s.path)} class="card wr-lift wr-glow-card group flex flex-col gap-2 p-5 no-underline" data-reveal style={`--i:${i}`}>
+            <span class="wr-icon-chip"><s.Icon className="size-5" aria-hidden="true" /></span>
+            <span class="mt-2 flex items-center gap-1.5 text-lg font-bold text-fg group-hover:text-accent">
+              {s.title}
+              <ArrowRight className="size-4 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100" aria-hidden="true" />
+            </span>
+            <span class="text-sm text-fg-2">{s.blurb}</span>
+            <span class="mt-auto pt-3 font-mono text-sm text-muted"><strong class="text-fg">{s.count}</strong> {s.unit}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- ===================== proceedings teaser ===================== -->
+    {teaser && (
+      <section class="card wr-teaser mt-16 overflow-hidden p-0" aria-labelledby="teaser-h" data-reveal>
+        <div class="grid grid-cols-1 gap-8 p-6 sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <p class="wr-eyebrow">Proceedings</p>
+            <h2 id="teaser-h" class="text-2xl font-bold tracking-tight sm:text-3xl">What does a venue actually publish?</h2>
+            <p class="mt-3 text-fg-2">
+              Paper counts over each venue's full history, the title phrases it uses most, and what is trending across the field,
+              mined from {compact(counts.papers)} papers in main proceedings across {counts.indexed} venues.
+            </p>
+            <a href={href('proceedings/')} class="wr-btn-primary mt-5">
+              Explore proceedings <ArrowRight className="size-4" aria-hidden="true" />
+            </a>
+          </div>
+
+          <figure class="min-w-0">
+            <figcaption class="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+              <a href={venueHref(teaser.id)} class="font-semibold text-fg no-underline hover:text-accent">{teaser.venue}: papers per year</a>
+              {growth && first && last && (
+                <span class="text-xs text-muted">{growth}x from {first.year} to {last.year}</span>
+              )}
+            </figcaption>
+            <svg
+              class="wr-bars block h-44 w-full sm:h-52"
+              viewBox={`0 0 ${teaser.bars.length * 40} 200`}
+              preserveAspectRatio="none"
+              role="img"
+              aria-label={`${teaser.venue} papers per year: ${teaser.bars.map((b) => `${b.year} ${b.count}`).join(', ')}`}
+            >
+              {teaser.bars.map((b, i) => {
+                const h = Math.max(4, (b.count / maxBar) * 180);
+                return (
+                  <rect
+                    class="wr-bar"
+                    x={i * 40 + 6}
+                    y={200 - h}
+                    width="28"
+                    height={h}
+                    rx="5"
+                    style={`--i:${i}`}
+                  >
+                    <title>{b.year}: {b.count.toLocaleString('en-US')} papers</title>
+                  </rect>
+                );
+              })}
+            </svg>
+            <div class="mt-1.5 flex justify-between font-mono text-[0.68rem] text-muted tabular">
+              <span>{first?.year}</span>
+              <span>{last?.count.toLocaleString('en-US')} papers in {last?.year}</span>
+            </div>
+          </figure>
+        </div>
+
+        {data.trending.length > 0 && (
+          <div class="border-t border-border bg-surface-2/50 py-4">
+            <p class="mb-2.5 px-6 text-xs sm:px-8 font-semibold tracking-[0.14em] text-muted uppercase">
+              Trending in {data.trendingYear} titles
+            </p>
+            <div class="wr-marquee" aria-label={`Trending title phrases in ${data.trendingYear}`}>
+              <ul class="wr-marquee-track">
+                {[...data.trending, ...data.trending].map((t, i) => (
+                  <li aria-hidden={i >= data.trending.length ? 'true' : undefined}>
+                    <a
+                      href={href('proceedings/')}
+                      tabindex={i >= data.trending.length ? -1 : undefined}
+                      class="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-1 px-3 py-1.5 text-sm font-semibold whitespace-nowrap text-fg no-underline transition hover:border-accent hover:text-accent"
+                    ><TrendingUp className="size-3.5 text-good" aria-hidden="true" />{t}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+      </section>
+    )}
+
+    <!-- ===================== final CTA ===================== -->
+    <section class="wr-cta mt-16 overflow-hidden rounded-3xl border border-border p-8 text-center sm:p-12" data-reveal>
+      <h2 class="mx-auto max-w-2xl text-2xl font-bold tracking-tight sm:text-4xl">Oh dear! Oh dear! You shall not be too late.</h2>
+      <p class="mx-auto mt-3 max-w-xl text-fg-2">
+        Find your next venue, put the deadline in your calendar, and see what the venue has been publishing. Free, open source, refreshed every night.
       </p>
-    </div>
-    <a class="inline-flex h-10 items-center justify-center rounded-xl bg-accent px-4 text-sm font-semibold text-white no-underline hover:brightness-110" href={href('proceedings/')}>
-      Explore proceedings
-    </a>
-  </section>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a href={href('conferences/')} class="wr-btn-primary">Find a deadline <ArrowRight className="size-4" aria-hidden="true" /></a>
+        <a href="https://github.com/Kritshekhar/WhiteRabbit" target="_blank" rel="noopener" class="wr-btn-ghost">Star on GitHub</a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    /* Scroll reveal and count-up. One observer; everything is visible without
+       it, and reduced motion skips the animation but keeps the values. */
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function compact(n: number): string {
+      if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace(/\.0$/, '')}M`;
+      if (n >= 10_000) return `${Math.round(n / 1000)}k`;
+      if (n >= 1000) return `${(n / 1000).toFixed(1).replace(/\.0$/, '')}k`;
+      return String(n);
+    }
+
+    function countUp(el: HTMLElement) {
+      const target = Number(el.dataset.count || 0);
+      const fmt = el.dataset.format === 'compact' ? compact : (n: number) => n.toLocaleString('en-US');
+      if (reduce || !target) return;
+      const start = performance.now();
+      const dur = 1400;
+      const step = (t: number) => {
+        const p = Math.min(1, (t - start) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(Math.round(target * eased));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      el.textContent = fmt(0);
+      requestAnimationFrame(step);
+    }
+
+    function reveal(el: Element) {
+      el.classList.add('is-in');
+      el.querySelectorAll<HTMLElement>('[data-count]').forEach(countUp);
+    }
+
+    function watch() {
+      const els = document.querySelectorAll('[data-reveal]:not(.is-in)');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(reveal);
+        return;
+      }
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              reveal(e.target);
+              io.unobserve(e.target);
+            }
+          }
+        },
+        { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
+      );
+      els.forEach((el) => io.observe(el));
+    }
+
+    watch();
+  </script>
 </Layout>
