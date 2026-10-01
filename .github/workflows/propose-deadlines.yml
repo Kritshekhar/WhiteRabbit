@@ -1,9 +1,10 @@
 name: White Rabbit - propose deadline updates
 
 # Weekly CFP sweep over venues whose dates are still estimated. It opens an
-# issue with what each venue's own page says, next to what the config claims.
+# issue with what each venue's own page says, next to what the database claims.
+# Verified deadlines are never swept again; only the needs_check queue is.
 #
-# It never edits conferences.yml. A human reads the report and makes the change,
+# It never edits the database. A human reads the report and makes the change,
 # because a rendered page is not a current page: NDSS's 2027 CFP still shows
 # 2024 dates and SIGCOMM's 2027 site still serves the 2026 call. Extraction
 # proposes; a person decides.
@@ -70,10 +71,10 @@ jobs:
           # GitHub caps an issue body at 65536 chars
           {
             echo "Weekly sweep of venues whose dates are still marked \`est.\`."
-            echo "Each block shows what \`conferences.yml\` claims, then what the venue's own page says."
+            echo "Each block shows what the database claims, then what the venue's own page says."
             echo
-            echo "**Nothing here has been applied.** Fix a date by editing \`conferences.yml\`,"
-            echo "setting \`confirmed: true\`, and adding \`source:\` + \`verified_on:\`."
+            echo "**Nothing here has been applied.** Once you have read a date on the venue's own page, run"
+            echo "\`python scripts/wr.py verify <venue> --source <url> [--deadline <name>] [--date <iso>]\`."
             echo
             echo '```'
             head -c 60000 report.txt

@@ -15,6 +15,9 @@ earns `confirmed: true` with the solicitation as its source.
 Fellowships are not federal and have no equivalent record, so this leaves them
 alone. They need a human on the funder's page.
 
+Only unverified deadlines are fetched (the needs_check view). Once a date is
+verified it is final and never re-fetched.
+
   python scripts/verify_grants.py --dry-run
   python scripts/verify_grants.py --write
 """
@@ -24,25 +27,18 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import datetime
-import io
 import json
 import re
 import sys
 import urllib.request
 from pathlib import Path
 
-from ruamel.yaml import YAML
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import db  # noqa: E402
 
-ROOT = Path(__file__).resolve().parent.parent
-CONFIG = ROOT / "grants.yml"
 API = "https://api.grants.gov/v1/api/fetchOpportunity"
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
-
-yaml = YAML()
-yaml.preserve_quotes = True
-yaml.width = 4096
-yaml.indent(mapping=2, sequence=4, offset=2)
 
 # "Oct 09, 2026 12:00:00 AM EDT"
 STAMP = re.compile(r"^([A-Za-z]{3} \d{2}, \d{4})")
@@ -82,30 +78,40 @@ def to_iso(response_date: str) -> str | None:
     return f"{day.isoformat()}T23:59:00{OFFSETS.get(zone, '-05:00')}"
 
 
+RULE = "Federal proposals are due 5 p.m. submitter's local time on the closing date."
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
-    config = yaml.load(CONFIG.read_text(encoding="utf-8"))
-    grants = config.get("grants") or []
+    conn = db.connect()
+    pending = conn.execute(
+        "SELECT gd.id AS deadline_id, gd.date, g.id, g.name, g.url, g.notes "
+        "FROM needs_check n JOIN grant_deadlines gd ON n.entity = 'grant_deadline' "
+        "AND gd.id = CAST(n.entity_id AS INTEGER) JOIN grants g ON g.id = gd.grant_id "
+        "WHERE gd.position = 0 ORDER BY g.position").fetchall()
+    total = conn.execute("SELECT count(*) FROM grants").fetchone()[0]
 
     targets = []
-    for g in grants:
-        url = str(g.get("url") or "")
-        m = re.search(r"grants\.gov/search-results-detail/(\d+)", url)
+    for row in pending:
+        m = re.search(r"grants\.gov/search-results-detail/(\d+)", row["url"])
         if m:
-            targets.append((g, m.group(1)))
+            targets.append((row, m.group(1)))
 
-    print(f"{len(targets)} federal opportunities to check "
-          f"({len(grants) - len(targets)} non-federal, left alone)", file=sys.stderr)
+    print(f"{len(targets)} unverified federal opportunities to check "
+          f"({total - len(pending)} already verified, "
+          f"{len(pending) - len(targets)} non-federal, left alone)", file=sys.stderr)
 
     with concurrent.futures.ThreadPoolExecutor(6) as pool:
         records = list(pool.map(lambda t: fetch(t[1]), targets))
 
     confirmed = changed = missing = rolling = 0
-    for (g, oid), record in zip(targets, records):
+    today = datetime.date.today()
+    for (row, oid), record in zip(targets, records):
+        db.log_fetch(conn, f"{API}#{oid}", 200 if record else None)
         if not record:
             missing += 1
             continue
@@ -116,39 +122,32 @@ def main() -> int:
             continue
         # the agency's own solicitation, when grants.gov links one
         solicitation = (syn.get("fundingDescLinkUrl") or "").strip()
-        source = solicitation or g["url"]
-
-        entry = (g.get("deadlines") or [{}])[0]
-        was = entry.get("date")
+        source = solicitation or row["url"]
+        note = row["notes"]
 
         # grants.gov parks continuing programmes on a placeholder decades out
         # (2076 shows up). A fifty-year countdown is noise, so treat anything
         # implausibly far away as "no announced date" rather than a deadline.
-        horizon = datetime.date.today() + datetime.timedelta(days=5 * 365)
+        horizon = today + datetime.timedelta(days=5 * 365)
         if datetime.date.fromisoformat(iso[:10]) > horizon:
-            entry["date"] = None
-            entry["confirmed"] = False
-            note = str(g.get("notes") or "")
+            conn.execute("UPDATE grant_deadlines SET date = NULL WHERE id = ?", (row["deadline_id"],))
             if "no fixed deadline" not in note:
-                g["notes"] = (note + " grants.gov lists no fixed deadline for this "
-                              "programme; proposals are accepted on a rolling basis.").strip()
+                note = (note + " grants.gov lists no fixed deadline for this "
+                        "programme; proposals are accepted on a rolling basis.").strip()
+                conn.execute("UPDATE grants SET notes = ? WHERE id = ?", (note, row["id"]))
             rolling += 1
-            print(f"  = {g['name'][:52]:<54} {iso[:10]} looks like a placeholder -> rolling")
+            print(f"  = {row['name'][:52]:<54} {iso[:10]} looks like a placeholder -> rolling")
             continue
 
-        if str(was)[:10] != iso[:10]:
+        if str(row["date"])[:10] != iso[:10]:
             changed += 1
-            print(f"  ~ {g['name'][:52]:<54} {str(was)[:10]} -> {iso[:10]}")
-        entry["date"] = iso
-        entry["confirmed"] = True
-        entry["source"] = source
-        entry["verified_on"] = datetime.date.today().isoformat()
+            print(f"  ~ {row['name'][:52]:<54} {str(row['date'])[:10]} -> {iso[:10]}")
+        conn.execute("UPDATE grant_deadlines SET date = ?, status = 'verified', source = ?, verified_on = ? "
+                     "WHERE id = ?", (iso, source, today.isoformat(), row["deadline_id"]))
         if solicitation:
-            g["solicitation"] = solicitation
-        note = str(g.get("notes") or "")
-        rule = "Federal proposals are due 5 p.m. submitter's local time on the closing date."
+            conn.execute("UPDATE grants SET solicitation = ? WHERE id = ?", (solicitation, row["id"]))
         if "5 p.m." not in note:
-            g["notes"] = (note + " " + rule).strip()
+            conn.execute("UPDATE grants SET notes = ? WHERE id = ?", ((note + " " + RULE).strip(), row["id"]))
         confirmed += 1
 
     print(f"\n{confirmed} verified against grants.gov's own record · "
@@ -156,13 +155,13 @@ def main() -> int:
           f"{missing} without a usable record")
 
     if not args.write:
+        conn.rollback()
         print("(dry run - pass --write to apply)")
         return 0
 
-    buf = io.StringIO()
-    yaml.dump(config, buf)
-    CONFIG.write_text(buf.getvalue(), encoding="utf-8")
-    print(f"Updated {CONFIG.name}")
+    conn.commit()
+    db.dump(conn)
+    print("Updated the database")
     return 0
 
 

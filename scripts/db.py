@@ -225,6 +225,49 @@ def log_fetch(conn: sqlite3.Connection, url: str, status: int | None, body: byte
                  (url, now_iso(), status, digest))
 
 
+def insert_venue(conn: sqlite3.Connection, v: dict) -> str:
+    """Add a venue (as update.normalise() shapes it) at the end of the list."""
+    position = conn.execute("SELECT coalesce(max(position), 0) + 1 FROM venues").fetchone()[0]
+    conn.execute(
+        "INSERT INTO venues (id, position, name, full_name, tier, url, url_template, year, month, "
+        "rolling, cycle_years, formats, tracks, topics, publisher, notes) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        (v["id"], position, v["name"], v["full_name"], v["tier"], v["url"], v["url_template"],
+         v["year"], v["month"], int(v["rolling"]), v["cycle_years"], jdump(v["formats"]),
+         jdump(v["tracks"]), jdump(v["topics"]), v["publisher"], v["notes"]))
+    for i, d in enumerate(v["deadlines"]):
+        conn.execute(
+            "INSERT INTO deadlines (venue_id, cycle_year, position, name, track, date, status, "
+            "source, verified_on) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (v["id"], v["year"], i, d["name"], d["track"], d["date"],
+             "verified" if d["confirmed"] else "unverified", d["source"], d["verified_on"]))
+    return v["id"]
+
+
+def insert_grant(conn: sqlite3.Connection, g: dict) -> str:
+    """Add a grant (and its deadlines) at the end of the list. Returns its id."""
+    gid = slugify(g["name"])
+    position = conn.execute("SELECT coalesce(max(position), 0) + 1 FROM grants").fetchone()[0]
+    conn.execute(
+        "INSERT INTO grants (id, position, name, funder, also_funded_by, eligibility, url, amount, "
+        "opportunity_number, topics, notes, ccs, ccs_auto, funding, typical_window, last_checked, "
+        "solicitation, source) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        (gid, position, g["name"], g.get("funder", ""), jdump(g.get("also_funded_by") or []),
+         g.get("eligibility") or "Faculty / PI", g.get("url", ""), g.get("amount", ""),
+         g.get("opportunity_number", ""), jdump(g.get("topics") or []), g.get("notes", ""),
+         g.get("ccs", ""), int(bool(g.get("ccs_auto"))), jdump(g.get("funding") or {}),
+         g.get("typical_window", ""), g.get("last_checked", ""), g.get("solicitation", ""),
+         g.get("source", "")))
+    for i, d in enumerate(g.get("deadlines") or []):
+        conn.execute(
+            "INSERT INTO grant_deadlines (grant_id, position, name, date, status, source, verified_on) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (gid, i, d.get("name") or "Application", d.get("date"),
+             "verified" if d.get("confirmed") else "unverified", d.get("source") or "",
+             d.get("verified_on") or ""))
+    return gid
+
+
 # --------------------------------------------------------------------------
 # records in the shape the front end reads (data/*.json)
 # --------------------------------------------------------------------------

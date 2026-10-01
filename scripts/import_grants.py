@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Import US federal CS funding opportunities from grants.gov into grants.yml.
+"""Import US federal CS funding opportunities from grants.gov into the database.
 
 grants.gov exposes a free, keyless JSON API (Search2). Its `cfda` filter is the
 precise way in: an ALN/CFDA code maps to a funding directorate, so 47.070 is
@@ -10,7 +10,7 @@ Everything under CISE is CS by definition and comes in whole. The broader codes
 (NSF Engineering, Maths, Education, and the DoD offices) fund plenty that is not
 CS, so those are kept only when the title reads as computing.
 
-Imported deadlines land as `confirmed: false`, same rule as the conference list:
+Imported deadlines land unverified, same rule as the conference list:
 they are read off an aggregator rather than the program's own solicitation.
 
   python scripts/import_grants.py --dry-run
@@ -22,20 +22,16 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import datetime
-import io
 import json
 import re
 import sys
 import urllib.request
 from pathlib import Path
 
-from ruamel.yaml import YAML
-
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import db  # noqa: E402
 from lib_ccs import classify  # noqa: E402
 
-ROOT = Path(__file__).resolve().parent.parent
-CONFIG = ROOT / "grants.yml"
 API = "https://api.grants.gov/v1/api/search2"
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
@@ -93,22 +89,12 @@ CS_WORDS = re.compile(
     r"cyberinfrastructure|information technology|digital)\w*"
 )
 
-yaml = YAML()
-yaml.preserve_quotes = True
-yaml.width = 4096
-yaml.indent(mapping=2, sequence=4, offset=2)
-
-
 def post(body: dict) -> dict:
     req = urllib.request.Request(
         API, data=json.dumps(body).encode(),
         headers={"Content-Type": "application/json", "User-Agent": UA})
     with urllib.request.urlopen(req, timeout=45) as resp:
         return json.loads(resp.read().decode("utf-8", "ignore"))
-
-
-def slugify(text: str) -> str:
-    return re.sub(r"[^a-z0-9]+", "-", str(text).lower()).strip("-")
 
 
 def iso(date_text: str) -> str | None:
@@ -216,12 +202,14 @@ def main() -> int:
             pass
         fresh.append(opp)
 
-    config = {"grants": []}
-    if CONFIG.exists():
-        config = yaml.load(CONFIG.read_text(encoding="utf-8")) or {"grants": []}
-    known = {slugify(g.get("name")) for g in (config.get("grants") or [])}
-
-    additions = [to_grant(o) for o in fresh if slugify(o.get("title")) not in known]
+    conn = db.connect()
+    known = {r["id"] for r in conn.execute("SELECT id FROM grants")}
+    additions, ids = [], set()
+    for o in fresh:
+        gid = db.slugify(re.sub(r"\s+", " ", (o.get("title") or "").strip()))
+        if gid not in known and gid not in ids:
+            ids.add(gid)
+            additions.append(to_grant(o))
 
     print(f"{len(opps)} matched · {expired} already closed · "
           f"{len(fresh) - len(additions)} already tracked · {len(additions)} to add")
@@ -232,11 +220,13 @@ def main() -> int:
         print("\n(dry run - pass --write to apply)")
         return 0
 
-    config.setdefault("grants", []).extend(additions)
-    buf = io.StringIO()
-    yaml.dump(config, buf)
-    CONFIG.write_text(buf.getvalue(), encoding="utf-8")
-    print(f"\nWrote {len(additions)} grants to {CONFIG.name}")
+    # New grants arrive with unverified dates (an "est." badge on the page);
+    # verify_grants.py confirms them against grants.gov's own record.
+    for g in additions:
+        db.insert_grant(conn, g)
+    conn.commit()
+    db.dump(conn)
+    print(f"\nAdded {len(additions)} grants to the database")
     return 0
 
 

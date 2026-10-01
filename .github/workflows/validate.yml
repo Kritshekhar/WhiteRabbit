@@ -1,17 +1,15 @@
-name: Validate config
+name: Validate data
 
 on:
   pull_request:
     paths:
-      - conferences.yml
-      - grants.yml
+      - db/**
       - scripts/**
       - .github/workflows/validate.yml
   push:
     branches: [main]
     paths:
-      - conferences.yml
-      - grants.yml
+      - db/**
       - scripts/**
 
 permissions:
@@ -28,11 +26,14 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
 
-      - name: Validate conferences.yml
-        run: python scripts/validate_config.py
+      - name: Validate the database
+        run: python scripts/db.py check
 
-      - name: Validate grants.yml
-        run: python scripts/validate_grants.py
+      - name: The dump must be canonical (as scripts/db.py dump writes it)
+        run: |
+          python scripts/db.py build
+          python scripts/db.py dump
+          git diff --exit-code db/whiterabbit.sql
 
       - name: Build must succeed offline
         run: |

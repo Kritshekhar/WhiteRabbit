@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Import venues from ccf-deadlines into conferences.yml.
+"""Import venues from ccf-deadlines into the database.
 
 ccf-deadlines (MIT, github.com/ccfddl/ccf-deadlines) is the actively maintained
 dataset behind aideadlines.org. It carries links, deadlines and CCF/CORE ranks
@@ -24,17 +24,15 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import datetime
-import io
 import json
 import re
 import sys
 import urllib.request
 from pathlib import Path
 
-from ruamel.yaml import YAML
+from ruamel.yaml import YAML  # ccf-deadlines publishes YAML
 
 ROOT = Path(__file__).resolve().parent.parent
-CONFIG = ROOT / "conferences.yml"
 API = "https://api.github.com/repos/ccfddl/ccf-deadlines/contents/conference/"
 RAW = "https://raw.githubusercontent.com/ccfddl/ccf-deadlines/main/conference/"
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
@@ -62,10 +60,9 @@ TOPICS = {
     "GECCO": ["ML"], "PPSN": ["ML"], "CEC": ["ML"],
 }
 
-yaml = YAML()
-yaml.preserve_quotes = True
-yaml.width = 4096
-yaml.indent(mapping=2, sequence=4, offset=2)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import db  # noqa: E402
+import update  # noqa: E402
 
 
 def get(url: str) -> str:
@@ -197,12 +194,12 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("categories", nargs="*", default=["AI"],
                     help="ccf-deadlines categories, e.g. AI DB NW SC SE")
-    ap.add_argument("--write", action="store_true", help="write conferences.yml")
+    ap.add_argument("--write", action="store_true", help="add the venues to the database")
     ap.add_argument("--dry-run", action="store_true", help="report only (default)")
     args = ap.parse_args()
 
-    config = yaml.load(CONFIG.read_text(encoding="utf-8"))
-    existing = {slugify(v.get("name")) for v in config["venues"]}
+    conn = db.connect()
+    existing = {r["id"] for r in conn.execute("SELECT id FROM venues")}
 
     candidates = []
     for cat in (args.categories or ["AI"]):
@@ -235,12 +232,16 @@ def main() -> int:
         print("\n(dry run - pass --write to apply)")
         return 0
 
+    added = set()
     for v, _ in keep:
-        config["venues"].append(to_venue(v))
-    buf = io.StringIO()
-    yaml.dump(config, buf)
-    CONFIG.write_text(buf.getvalue(), encoding="utf-8")
-    print(f"\nAdded {len(keep)} venues to {CONFIG.name}")
+        venue = update.normalise(to_venue(v))
+        if venue["id"] in added:
+            continue
+        added.add(venue["id"])
+        db.insert_venue(conn, venue)
+    conn.commit()
+    db.dump(conn)
+    print(f"\nAdded {len(added)} venues to the database")
     return 0
 
 

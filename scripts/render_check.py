@@ -18,7 +18,6 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import html
-import json
 import re
 import shutil
 import subprocess
@@ -26,8 +25,8 @@ import sys
 from pathlib import Path
 from urllib.parse import urlsplit
 
-ROOT = Path(__file__).resolve().parent.parent
-GRANTS = ROOT / "data" / "grants.json"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import db  # noqa: E402
 
 CHROME_CANDIDATES = [
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -119,8 +118,7 @@ def main() -> int:
               "check_deadlines.py --firecrawl with an API key.", file=sys.stderr)
         return 1
 
-    data = json.loads(GRANTS.read_text(encoding="utf-8"))
-    rows = [g for g in data["grants"] if not any(d.get("date") for d in g["deadlines"])]
+    rows = [g for g in db.grant_records(db.connect()) if not any(d["date"] for d in g["deadlines"])]
     if args.names:
         wanted = [n.lower() for n in args.names]
         rows = [g for g in rows if any(w in g["name"].lower() for w in wanted)]

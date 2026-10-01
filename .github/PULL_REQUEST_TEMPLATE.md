@@ -13,7 +13,7 @@
 
 ## Checklist
 
-- [ ] `python scripts/validate_config.py` passes
+- [ ] `python scripts/db.py check` passes
 - [ ] Dates carry a timezone offset (`-12:00` for AoE)
-- [ ] `confirmed: true` entries have `source:` and `verified_on:`
+- [ ] Verified dates were set with `scripts/wr.py verify --source <url>`
 - [ ] I did not hand-edit `data/deadlines.json`
