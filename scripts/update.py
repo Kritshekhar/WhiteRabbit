@@ -290,6 +290,7 @@ def roll_over_cycle(conn, venue, now, grace_days, allow_network) -> tuple | None
             "INSERT INTO deadlines (venue_id, cycle_year, position, name, track, date, status, source) "
             "VALUES (?, ?, ?, ?, ?, ?, 'unverified', ?)",
             (venue["id"], next_year, i, d["name"], d["track"], date, d["source"]))
+    db.record_change(conn, "venue", venue["id"], "rolled_over", "", str(year), str(next_year), next_url)
     print(f"  * {venue['name']}: rolled over to {next_year} -> {next_url}")
     return (year, venue["url"])
 
@@ -299,6 +300,9 @@ def undo_rollover(conn, venue_id: str, before: tuple) -> None:
     new_year = conn.execute("SELECT year FROM venues WHERE id = ?", (venue_id,)).fetchone()[0]
     conn.execute("DELETE FROM deadlines WHERE venue_id = ? AND cycle_year = ?", (venue_id, new_year))
     conn.execute("UPDATE venues SET year = ?, url = ? WHERE id = ?", (old_year, old_url, venue_id))
+    # the rollover never really happened, so it leaves no trace in the feed
+    conn.execute("DELETE FROM changes WHERE id = (SELECT max(id) FROM changes WHERE entity = 'venue' "
+                 "AND entity_id = ? AND kind = 'rolled_over')", (venue_id,))
 
 
 # --------------------------------------------------------------------------

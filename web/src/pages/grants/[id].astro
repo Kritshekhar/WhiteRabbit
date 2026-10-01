@@ -1,5 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import RecentChanges from '@/components/RecentChanges.astro';
 import DeadlinePanel from '@/components/islands/DeadlinePanel';
 import { Badge } from '@/components/ui/badge';
 import { BUILT_AT, getGrants } from '@/lib/db';
@@ -100,6 +101,7 @@ const source = grant.deadlines.find((d) => d.confirmed && d.source)?.source;
           {source && <><dt class="text-muted">Date source</dt><dd><a class="text-accent hover:underline" href={source} target="_blank" rel="noopener">solicitation ↗</a></dd></>}
         </dl>
       </section>
+      <RecentChanges id={grant.id} />
     </aside>
   </div>
 </Layout>
