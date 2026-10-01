@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { fmtDate, type Band, type Round } from '@/lib/dates';
 import type { CalendarEvent } from '@/lib/calendar';
 import { CalendarLink } from './CalendarLink';
+import { DaysLeft } from './DaysLeft';
 import { ExternalIcon } from './Icons';
 import { Provenance } from './Provenance';
 import { buttonVariants } from './ui/button';
@@ -32,7 +33,7 @@ export function Row({ href, title, subtitle, tags, deadline, days, band, statusT
   return (
     <div
       className={`group relative grid cursor-pointer grid-cols-[1fr_auto] items-center gap-x-4 gap-y-2 rounded-xl border border-border bg-surface-1 py-3 pr-3 pl-5 shadow-sm transition hover:-translate-y-px hover:border-border-strong hover:shadow-card ${
-        tags ? 'md:grid-cols-[minmax(0,2.2fr)_minmax(0,1.6fr)_minmax(0,1.9fr)_3.5rem_auto]' : 'md:grid-cols-[minmax(0,2.6fr)_minmax(0,2fr)_3.5rem_auto]'
+        tags ? 'md:grid-cols-[minmax(0,2.2fr)_minmax(0,1.6fr)_minmax(0,1.9fr)_minmax(3.5rem,auto)_auto]' : 'md:grid-cols-[minmax(0,2.6fr)_minmax(0,2fr)_minmax(3.5rem,auto)_auto]'
       }`}
       style={{ ['--status' as string]: band ? band.color : 'var(--border-strong)' }}
       onClick={go}
@@ -59,18 +60,12 @@ export function Row({ href, title, subtitle, tags, deadline, days, band, statusT
         )}
       </span>
       <span className="hidden text-right md:block">
-        {days !== null && (
-          <span className="font-mono text-lg font-bold tabular" style={{ color: band ? band.color : 'var(--text-muted)' }}>
-            {days}
-            <small className="text-xs">d</small>
-          </span>
-        )}
+        {days !== null && <DaysLeft ts={deadline?.ts} days={days} band={band} />}
       </span>
       <span className="flex items-center justify-end gap-0.5">
         {days !== null && (
-          <span className="mr-2 font-mono text-base font-bold tabular md:hidden" style={{ color: band ? band.color : undefined }}>
-            {days}
-            <small className="text-xs">d</small>
+          <span className="mr-2 md:hidden">
+            <DaysLeft ts={deadline?.ts} days={days} band={band} size="base" />
           </span>
         )}
         {calendar && <CalendarLink event={calendar} />}
