@@ -51,7 +51,7 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
         <div className="col-span-2 lg:col-span-1">
           <Tile
             hero
-            label={head && head.days !== null && head.days <= 7 ? "I'm late! I'm late!" : 'Next up'}
+            label={head && head.days !== null && head.days <= 7 ? 'Due soon' : 'Next up'}
             value={head ? `${head.name} · ${head.days}d` : 'Nothing scheduled'}
             note={head?.next?.ts ? `${head.next.name} · ${fmtDate(head.next.ts, head.next.off)} AoE${head.next.confirmed ? '' : ' (est.)'}` : 'no upcoming deadline'}
           />
