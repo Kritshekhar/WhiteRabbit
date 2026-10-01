@@ -1,5 +1,5 @@
 import { CalendarSync } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { decorate, fmtDate } from '@/lib/dates';
 import { venueEvent } from '@/lib/calendar';
 import { VENUE_BANDS, venueStatus } from '@/lib/tiers';
@@ -10,7 +10,10 @@ import { MultiSelect, SearchBox, Tile, Toggle } from '../Filters';
 import { useNow, useQueryParam } from '../useNow';
 import { useWatchlist, venueKey } from '@/lib/watchlist';
 import { buildCalendar, downloadIcs, venueIcsEvents } from '@/lib/ics';
-import { Star } from 'lucide-react';
+import { Star, X } from 'lucide-react';
+import { DeadlineHeatmap } from '../DeadlineHeatmap';
+import { areaLabel, areaOf } from '@/lib/areas';
+import { deadlineMonth, MONTH_NAMES } from '@/lib/heatmap';
 
 export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; builtAt: string }) {
   const now = useNow(builtAt);
@@ -20,6 +23,27 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
   const [sort, setSort] = useState<'deadline' | 'name'>('deadline');
   const watched = useWatchlist();
   const [starredOnly, setStarredOnly] = useState(false);
+  /* heatmap cell: an area, a month (0-11), or both */
+  const [area, setArea] = useState<string | null>(null);
+  const [month, setMonth] = useState<number | null>(null);
+  const [calendarOpen, setCalendarOpen] = useState(false);   // closed by default
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    const a = p.get('area');
+    const m = Number(p.get('month'));
+    if (a) setArea(a);
+    if (p.has('month') && m >= 1 && m <= 12) setMonth(m - 1);
+    if (a || p.has('month')) {
+      setOnlyUpcoming(false);
+      setCalendarOpen(true);   // arriving from a month or area link: show where it is
+    }
+  }, []);
+  const pick = (a: string | null, m: number | null) => {
+    setArea(a);
+    setMonth(m);
+    // a month is about the calendar, so show the venues whose cycle already passed too
+    if (a !== null || m !== null) setOnlyUpcoming(false);
+  };
 
   const all = useMemo(
     () => venues.map((v) => decorate(v, now, VENUE_BANDS)).map((v) => ({ ...v, status: venueStatus(v) })),
@@ -35,6 +59,8 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
     const q = query.trim().toLowerCase();
     const shown = all.filter((v) => {
       if (starredOnly && !watched.includes(venueKey(v.id))) return false;
+      if (area && areaOf(v) !== area) return false;
+      if (month !== null && deadlineMonth(v) !== month) return false;
       if (topics.size && !v.topics.some((t) => topics.has(t))) return false;
       if (onlyUpcoming && v.status === 'passed') return false;
       if (!q) return true;
@@ -45,7 +71,7 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
        the most actionable state on the page. */
     const rank = (v: (typeof all)[number]) => (v.rolling ? -1 : (v.days ?? Infinity));
     return shown.sort((a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name));
-  }, [all, query, topics, onlyUpcoming, sort, starredOnly, watched]);
+  }, [all, query, topics, onlyUpcoming, sort, starredOnly, watched, area, month]);
   const starredCount = venues.filter((v) => watched.includes(venueKey(v.id))).length;
 
   const upcoming = all.filter((v) => v.status === 'upcoming').sort((a, b) => (a.days ?? 0) - (b.days ?? 0));
@@ -73,6 +99,25 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
         />
       </section>
 
+      <details className="card group p-4 sm:p-5" open={calendarOpen}
+        onToggle={(e) => setCalendarOpen((e.currentTarget as HTMLDetailsElement).open)}>
+        <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3">
+          <span>
+            <span className="font-bold">Deadline calendar</span>
+            <span className="ml-2 text-sm text-muted">When each venue's main deadline falls, by area. Click a cell to filter.</span>
+          </span>
+          <span className="text-xs font-semibold text-accent group-open:hidden">Show</span>
+          <span className="hidden text-xs font-semibold text-accent group-open:inline">Hide</span>
+        </summary>
+        <div className="mt-4">
+          <DeadlineHeatmap venues={venues} area={area} month={month} onPick={pick} currentMonth={new Date(now).getMonth()} />
+          <p className="mt-2 text-xs text-muted">
+            One deadline per venue (its paper submission), from its current cycle, estimated dates included. A cycle that has
+            passed still counts in its month: that is roughly when the next call will be.
+          </p>
+        </div>
+      </details>
+
       <section aria-label="Filters" className="flex flex-col gap-3">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <SearchBox value={query} onChange={setQuery} label="Search venues" placeholder="Search venue, e.g. OSDI or storage" />
@@ -98,8 +143,15 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
         </div>
       </section>
 
-      <p className="text-sm text-muted" aria-live="polite">
+      <p className="flex flex-wrap items-center gap-2 text-sm text-muted" aria-live="polite">
         {list.length} of {venues.length} venues
+        {(area || month !== null) && (
+          <button type="button" onClick={() => pick(null, null)}
+            className="inline-flex cursor-pointer items-center gap-1 rounded-full border border-accent bg-accent-soft px-2.5 py-0.5 text-xs font-semibold text-accent">
+            {[area && areaLabel(area), month !== null && MONTH_NAMES[month]].filter(Boolean).join(' · ')}
+            <X className="size-3.5" aria-label="Clear" />
+          </button>
+        )}
       </p>
       <section className="flex flex-col gap-2">
         {list.map((v) => (
