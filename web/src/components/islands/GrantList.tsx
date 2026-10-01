@@ -1,9 +1,10 @@
+import { CalendarSync } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { decorate, fmtDate } from '@/lib/dates';
 import { grantEvent } from '@/lib/calendar';
 import { AUDIENCE_ELIGIBILITY, GOVERNMENT, GRANT_BANDS, WHO_SLOT, grantStatus, type Audience } from '@/lib/tiers';
 import type { Grant } from '@/lib/types';
-import { grantHref } from '@/lib/utils';
+import { grantHref, href } from '@/lib/utils';
 import { Badge } from '../ui/badge';
 import { Row } from '../Row';
 import { Chips, MultiSelect, SearchBox, Tile, Toggle } from '../Filters';
@@ -109,6 +110,9 @@ export default function GrantList({ grants, audience, builtAt }: { grants: Grant
             <Toggle checked={datedOnly} onChange={setDatedOnly} label="Dated only" />
             <MultiSelect label="Funders" counts={funderCounts} chosen={funders} onChange={setFunders} />
             <MultiSelect label="ACM class" counts={ccsCounts} chosen={ccs} onChange={setCcs} />
+            <a href={href('calendar/')} className="inline-flex h-8 items-center gap-1.5 rounded-full border border-border bg-surface-1 px-3 text-[0.8rem] font-semibold text-fg-2 no-underline hover:border-border-strong hover:text-fg">
+              <CalendarSync className="size-3.5" aria-hidden="true" /> Subscribe
+            </a>
           </div>
         </div>
         {student ? (

@@ -1,0 +1,84 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SubscribeMenu } from '@/components/SubscribeMenu';
+import { AREAS, areaOf } from '@/lib/areas';
+import { getGrants, getVenues } from '@/lib/db';
+import { grantIcsEvents, venueIcsEvents } from '@/lib/ics';
+import { AUDIENCE_ELIGIBILITY } from '@/lib/tiers';
+import { href } from '@/lib/utils';
+
+/* Every feed with how many deadlines it carries right now, counted from the
+   same events the .ics files are built from. */
+const venues = getVenues().filter((v) => !v.rolling);
+const grants = getGrants();
+const upcoming = (events: { iso: string }[]) => events.filter((e) => Date.parse(e.iso) > Date.now()).length;
+const venueCount = (list: typeof venues) => upcoming(list.flatMap((v) => venueIcsEvents(v)));
+
+const main = [
+  { feed: 'calendar/conferences.ics', name: 'All conferences', blurb: `${venues.length} venues`, count: venueCount(venues) },
+  { feed: 'calendar/grants.ics', name: 'Grants', blurb: 'faculty and PI funding',
+    count: upcoming(grants.filter((g) => AUDIENCE_ELIGIBILITY.faculty.includes(g.eligibility)).flatMap((g) => grantIcsEvents(g))) },
+  { feed: 'calendar/fellowships.ics', name: 'Fellowships', blurb: 'PhD fellowships',
+    count: upcoming(grants.filter((g) => AUDIENCE_ELIGIBILITY.student.includes(g.eligibility)).flatMap((g) => grantIcsEvents(g))) },
+];
+const areas = AREAS.map((a) => {
+  const list = venues.filter((v) => areaOf(v) === a.slug);
+  return { feed: `calendar/${a.slug}.ics`, name: a.label, blurb: `${list.length} venues`, count: venueCount(list) };
+}).filter((a) => a.blurb !== '0 venues');
+---
+
+<Layout title="Calendar feeds" section="none" description="Subscribe to CS conference, grant and fellowship deadlines in Google Calendar, Apple Calendar or Outlook. Feeds update as dates are verified.">
+  <div class="mx-auto max-w-4xl space-y-8">
+    <header class="space-y-3">
+      <h1 class="text-3xl font-bold tracking-tight">Calendar feeds</h1>
+      <p class="max-w-2xl text-lg text-fg-2">
+        Subscribe once and your calendar keeps up: new deadlines appear, estimated dates are replaced when they are verified on the
+        official page, and corrections update the event you already have.
+      </p>
+    </header>
+
+    <section class="space-y-3" aria-labelledby="main-h">
+      <h2 id="main-h" class="text-lg font-bold tracking-tight">Everything</h2>
+      <ul class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        {main.map((f) => (
+          <li class="card flex flex-col gap-3 p-4">
+            <div>
+              <p class="font-bold">{f.name}</p>
+              <p class="text-sm text-muted">{f.blurb} · <span class="tabular">{f.count}</span> upcoming deadlines</p>
+            </div>
+            <SubscribeMenu client:visible feed={f.feed} name={`White Rabbit: ${f.name}`} className="self-start" />
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="space-y-3" aria-labelledby="areas-h">
+      <h2 id="areas-h" class="text-lg font-bold tracking-tight">By research area</h2>
+      <ul class="card divide-y divide-border">
+        {areas.map((f) => (
+          <li class="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
+            <div>
+              <p class="font-semibold">{f.name}</p>
+              <p class="text-sm text-muted">{f.blurb} · <span class="tabular">{f.count}</span> upcoming deadlines</p>
+            </div>
+            <SubscribeMenu client:visible feed={f.feed} name={`White Rabbit: ${f.name}`} size="sm" />
+          </li>
+        ))}
+      </ul>
+      <p class="text-sm text-muted">
+        Want a single venue? Every conference and grant page has its own <strong class="text-fg-2">Subscribe</strong> button.
+      </p>
+    </section>
+
+    <section class="card space-y-3 p-5" aria-labelledby="how-h">
+      <h2 id="how-h" class="text-lg font-bold tracking-tight">How it works</h2>
+      <ul class="list-disc space-y-2 pl-5 text-fg-2">
+        <li>Each deadline is a 30-minute event ending at the exact deadline, so an AoE deadline shows at the right time in your own timezone.</li>
+        <li>Dates not yet confirmed on the official page are marked <strong class="text-fg">(est.)</strong> and appear as tentative. They update in place once verified.</li>
+        <li>Every event has a reminder 7 days before.</li>
+        <li><strong class="text-fg">Google Calendar</strong> refreshes subscriptions roughly every 12 to 24 hours; Apple Calendar and Outlook usually more often. You can also add a feed in Google by hand under <em>Other calendars → From URL</em>, using the copied address.</li>
+        <li>A downloaded .ics file is a one-off copy and will not update. Subscribe to keep it current.</li>
+      </ul>
+    </section>
+  </div>
+</Layout>

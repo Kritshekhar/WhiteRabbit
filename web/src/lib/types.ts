@@ -2,6 +2,7 @@
    so the pages read exactly what data/*.json used to carry. */
 
 export interface Deadline {
+  id?: number;          // database row id; stable across rebuilds, used for calendar UIDs
   name: string;
   date: string | null;
   confirmed: boolean;

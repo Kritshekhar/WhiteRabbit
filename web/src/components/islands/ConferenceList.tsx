@@ -1,9 +1,10 @@
+import { CalendarSync } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { decorate, fmtDate } from '@/lib/dates';
 import { venueEvent } from '@/lib/calendar';
 import { VENUE_BANDS, venueStatus } from '@/lib/tiers';
 import type { Venue } from '@/lib/types';
-import { venueHref } from '@/lib/utils';
+import { href, venueHref } from '@/lib/utils';
 import { Row } from '../Row';
 import { MultiSelect, SearchBox, Tile, Toggle } from '../Filters';
 import { useNow, useQueryParam } from '../useNow';
@@ -71,6 +72,9 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
           <div className="flex flex-wrap items-center gap-2">
             <Toggle checked={onlyUpcoming} onChange={setOnlyUpcoming} label="Only upcoming" />
             <MultiSelect label="Topics" counts={topicCounts} chosen={topics} onChange={setTopics} />
+            <a href={href('calendar/')} className="inline-flex h-8 items-center gap-1.5 rounded-full border border-border bg-surface-1 px-3 text-[0.8rem] font-semibold text-fg-2 no-underline hover:border-border-strong hover:text-fg">
+              <CalendarSync className="size-3.5" aria-hidden="true" /> Subscribe
+            </a>
             <label className="inline-flex h-8 items-center">
               <span className="sr-only">Sort by</span>
               <select
