@@ -75,7 +75,24 @@ function render(v) {
     ${section('All deadlines', rounds ? `<div class="detail-table">${rounds}</div>` : '')}
     ${section('Accepts', (v.formats || []).map((f) => `<span class="tag">${f}</span>`).join(' '))}
     ${section('Tracks', (v.tracks || []).map((t) => `<span class="tag tag-track">${t}</span>`).join(' '))}
-    ${section('Award', v.amount ? `<p class="deadline-line">${v.amount}</p>` : '')}
+    ${section('Funding', v.amount || v.funding ? `
+      <div class="detail-table">
+        ${v.amount ? `<div><span>Summary</span><span>${v.amount}</span></div>` : ''}
+        ${v.funding && v.funding.total_program ? `<div><span>Total programme funding</span><span>$${v.funding.total_program.toLocaleString()}</span></div>` : ''}
+        ${v.funding && v.funding.award_ceiling ? `<div><span>Maximum per award</span><span>$${v.funding.award_ceiling.toLocaleString()}</span></div>` : ''}
+        ${v.funding && v.funding.award_floor ? `<div><span>Minimum per award</span><span>$${v.funding.award_floor.toLocaleString()}</span></div>` : ''}
+        ${v.funding && v.funding.expected_awards ? `<div><span>Expected awards</span><span>${v.funding.expected_awards}</span></div>` : ''}
+      </div>` : '')}
+    ${section('ACM classification', v.ccs
+      ? `<span class="tag tag-ccs">${v.ccs}</span>
+         <p class="note">Top-level class from the ACM Computing Classification System (2012),
+            ${v.ccs_auto ? 'assigned automatically from the programme title and awaiting review'
+                         : 'assigned by reading the solicitation'}.</p>`
+      : '')}
+    ${section('When to apply', v.typical_window
+      ? `<p class="deadline-line">${v.typical_window}</p>
+         ${v.last_checked ? `<p class="note">Programme page last checked ${v.last_checked}. It published no dates.</p>` : ''}`
+      : '')}
     ${section('Notes', v.notes ? `<p class="note">${v.notes}</p>` : '')}
     ${section('Record', `<div class="detail-table">
         ${v.year ? `<div><span>Edition</span><span>${v.year}</span></div>` : ''}

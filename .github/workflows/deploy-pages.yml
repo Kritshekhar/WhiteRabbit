@@ -4,6 +4,9 @@ name: White Rabbit - deploy to Pages
 # and visible even when publishing is blocked (a private repo on a plan without
 # Pages fails here, and that should not look like a broken build).
 #
+# The site is built by Astro (web/) from the database, which is rebuilt from
+# the committed dump first. Every page is static; countdowns run in the browser.
+#
 # Requires, one time:
 #   Settings -> Pages -> Source: GitHub Actions
 
@@ -26,10 +29,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Build the database from the dump
+        run: python scripts/db.py build
+
+      - name: Build the site
+        working-directory: web
+        run: |
+          npm ci
+          npm run build
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: web/dist
 
   deploy:
     needs: build

@@ -1,0 +1,24 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import GrantList from '@/components/islands/GrantList';
+import { BUILT_AT, getGrants } from '@/lib/db';
+import { AUDIENCE_ELIGIBILITY } from '@/lib/tiers';
+
+/* Only this page's audience ships to the browser. */
+const grants = getGrants().filter((g) => AUDIENCE_ELIGIBILITY.faculty.includes(g.eligibility));
+---
+
+<Layout title="Grants" section="grants" description="Computer science grant deadlines for faculty: NSF CISE, NIH, DoD, DOE and industry research awards.">
+  <header class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Research grants</h1>
+    <p class="mt-1 text-fg-2">Funding for faculty and PIs, soonest deadline first.</p>
+  </header>
+  <GrantList client:load grants={grants} audience="faculty" builtAt={BUILT_AT} />
+  <Fragment slot="footer">
+    <p>
+      <strong>Federal proposals are due 5 p.m. submitter's local time</strong> on the closing date. Federal programmes come
+      from the <a class="text-accent hover:underline" href="https://www.grants.gov/">grants.gov</a> API and are verified
+      against each opportunity's own record.
+    </p>
+  </Fragment>
+</Layout>

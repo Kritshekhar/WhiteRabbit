@@ -1,0 +1,104 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import DeadlinePanel from '@/components/islands/DeadlinePanel';
+import { Badge } from '@/components/ui/badge';
+import { BUILT_AT, getGrants } from '@/lib/db';
+import { AUDIENCE_ELIGIBILITY, WHO_SLOT } from '@/lib/tiers';
+import type { Grant } from '@/lib/types';
+import { href, money } from '@/lib/utils';
+
+export function getStaticPaths() {
+  return getGrants().map((grant) => ({ params: { id: grant.id }, props: { grant } }));
+}
+
+const { grant } = Astro.props as { grant: Grant };
+const student = AUDIENCE_ELIGIBILITY.student.includes(grant.eligibility);
+const section = student ? 'fellowships' : 'grants';
+const f = grant.funding || {};
+const fundingRows: [string, string][] = [
+  ...(grant.amount ? [['Summary', grant.amount] as [string, string]] : []),
+  ...(f.total_program ? [['Total programme funding', money(f.total_program)] as [string, string]] : []),
+  ...(f.award_ceiling ? [['Maximum per award', money(f.award_ceiling)] as [string, string]] : []),
+  ...(f.award_floor ? [['Minimum per award', money(f.award_floor)] as [string, string]] : []),
+  ...(f.expected_awards ? [['Expected awards', String(f.expected_awards)] as [string, string]] : []),
+];
+const source = grant.deadlines.find((d) => d.confirmed && d.source)?.source;
+---
+
+<Layout title={grant.name} section={section} description={`${grant.name}${grant.funder ? `, funded by ${grant.funder}` : ''}. Deadlines, award size and eligibility.`}>
+  <nav aria-label="Breadcrumb" class="mb-4 text-sm text-muted">
+    <a class="hover:text-fg" href={href(student ? 'fellowships/' : 'grants/')}>{student ? 'Fellowships' : 'Grants'}</a>
+    <span aria-hidden="true">/</span> <span class="text-fg-2">{grant.name}</span>
+  </nav>
+
+  <header class="mb-6 space-y-2">
+    <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">{grant.name}</h1>
+    <div class="flex flex-wrap gap-1.5 pt-1">
+      {grant.funder && <Badge variant="publisher">{grant.funder}</Badge>}
+      {grant.also_funded_by.map((x) => <Badge variant="publisher">{x}</Badge>)}
+      {grant.topics.map((t) => <Badge>{t}</Badge>)}
+      <Badge variant={WHO_SLOT[grant.eligibility] || 'base'}>{grant.eligibility}</Badge>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
+    <div class="flex min-w-0 flex-col gap-8">
+      <DeadlinePanel client:load kind="grant" record={grant} builtAt={BUILT_AT} />
+
+      {grant.typical_window && (
+        <section>
+          <h2 class="mb-2 text-sm font-semibold tracking-wide text-muted uppercase">When to apply</h2>
+          <div class="card space-y-1 p-4">
+            <p>{grant.typical_window}</p>
+            {grant.last_checked && <p class="text-sm text-muted">Programme page last checked {grant.last_checked}. It published no dates.</p>}
+          </div>
+        </section>
+      )}
+
+      {fundingRows.length > 0 && (
+        <section>
+          <h2 class="mb-2 text-sm font-semibold tracking-wide text-muted uppercase">Funding</h2>
+          <dl class="card divide-y divide-border overflow-hidden">
+            {fundingRows.map(([k, v]) => (
+              <div class="flex flex-wrap justify-between gap-2 px-4 py-2.5"><dt class="text-fg-2">{k}</dt><dd class="font-semibold tabular">{v}</dd></div>
+            ))}
+          </dl>
+        </section>
+      )}
+
+      {grant.notes && (
+        <section>
+          <h2 class="mb-2 text-sm font-semibold tracking-wide text-muted uppercase">Notes</h2>
+          <p class="card p-4 text-fg-2">{grant.notes}</p>
+        </section>
+      )}
+    </div>
+
+    <aside class="space-y-4">
+      {grant.url && (
+        <a class="flex h-10 items-center justify-center rounded-xl bg-accent px-4 text-sm font-semibold text-white no-underline hover:brightness-110" href={grant.url} target="_blank" rel="noopener">
+          Programme page ↗
+        </a>
+      )}
+      {grant.ccs && (
+        <section class="card p-4">
+          <h3 class="mb-2 text-xs font-semibold tracking-wide text-muted uppercase">ACM classification</h3>
+          <Badge variant="ccs">{grant.ccs}</Badge>
+          <p class="mt-2 text-xs text-muted">
+            Top-level class from the ACM Computing Classification System (2012),
+            {grant.ccs_auto ? ' assigned automatically from the programme title and awaiting review.' : ' assigned by reading the solicitation.'}
+          </p>
+        </section>
+      )}
+      <section class="card p-4">
+        <h3 class="mb-2 text-xs font-semibold tracking-wide text-muted uppercase">Record</h3>
+        <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-sm">
+          {grant.opportunity_number && <><dt class="text-muted">Opportunity</dt><dd class="break-all">{grant.opportunity_number}</dd></>}
+          <dt class="text-muted">Eligibility</dt><dd>{grant.eligibility}</dd>
+          <dt class="text-muted">Link check</dt><dd>{grant.link_status}</dd>
+          {source && <><dt class="text-muted">Date source</dt><dd><a class="text-accent hover:underline" href={source} target="_blank" rel="noopener">solicitation ↗</a></dd></>}
+        </dl>
+      </section>
+    </aside>
+  </div>
+</Layout>

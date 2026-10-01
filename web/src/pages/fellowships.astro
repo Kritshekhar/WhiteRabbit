@@ -1,0 +1,23 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import GrantList from '@/components/islands/GrantList';
+import { BUILT_AT, getGrants } from '@/lib/db';
+import { AUDIENCE_ELIGIBILITY } from '@/lib/tiers';
+
+const grants = getGrants().filter((g) => AUDIENCE_ELIGIBILITY.student.includes(g.eligibility));
+---
+
+<Layout title="PhD fellowships" section="fellowships" description="PhD fellowships in computer science from industry and government, with deadlines and when each cycle usually opens.">
+  <header class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">PhD fellowships</h1>
+    <p class="mt-1 text-fg-2">Fellowships open to PhD students, from industry labs and government.</p>
+  </header>
+  <GrantList client:load grants={grants} audience="student" builtAt={BUILT_AT} />
+  <Fragment slot="footer">
+    <p>
+      <strong>Why so few countdowns?</strong> Corporate fellowship pages publish dates only while their call is open, so
+      between cycles there is nothing to count down. Each entry says when its cycle usually runs and when its page was last
+      checked, confirmed by rendering every page in a real browser.
+    </p>
+  </Fragment>
+</Layout>

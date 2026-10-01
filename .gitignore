@@ -2,3 +2,7 @@
 __pycache__/
 *.pyc
 .DS_Store
+db/whiterabbit.sqlite
+db/*.tmp
+cache/
+.env
