@@ -31,13 +31,33 @@ from pathlib import Path
 
 from ruamel.yaml import YAML
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from lib_ccs import classify  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "grants.yml"
 API = "https://api.grants.gov/v1/api/search2"
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
 
-# ALN/CFDA code -> funder label. CISE is taken wholesale; the rest are filtered.
+# Two ways in, because neither alone is complete.
+#
+# By agency is the broad net: NSF publishes every programme to grants.gov, and
+# an agency query returns all 140 of them where the ten CFDA codes returned 50.
+# NIH is reached the same way - its own guide index exists but is 17,000 mostly
+# historical notices, while grants.gov carries the open calls with uniform
+# fields and funding figures.
+#
+# By CFDA is the precision net: ALN 47.070 is exactly NSF CISE, so everything
+# under it is computer science by definition and skips the relevance filter.
+AGENCIES = {
+    "NSF": "NSF",
+    "HHS-NIH11": "NIH",
+    "DOD": "DoD",
+    "DOE": "DOE",
+    "NASA": "NASA",
+}
+CISE_CFDA = "47.070"
 FUNDERS = {
     "47.070": ("NSF CISE", False),
     "47.041": ("NSF Engineering", True),
@@ -51,14 +71,7 @@ FUNDERS = {
     "81.049": ("DOE Office of Science", True),
 }
 
-CS_WORDS = re.compile(
-    r"(?i)\b(comput|software|algorithm|cyber|security|privacy|network|robotic|"
-    r"artificial intelligence|machine learning|\bAI\b|data science|informatics|"
-    r"human[- ]computer|systems|semiconductor|quantum information|"
-    r"cyberinfrastructure|information technology)\w*"
-)
-
-# Topic tags, so the page can filter the same way the conference list does.
+# Topic tags, a coarser cut than the ACM class, for the page filters.
 TOPIC_RULES = [
     (re.compile(r"(?i)secur|privacy|cyber|cryptog"), "Security"),
     (re.compile(r"(?i)artificial intelligence|machine learning|\bAI\b|learning"), "AI/ML"),
@@ -70,7 +83,15 @@ TOPIC_RULES = [
     (re.compile(r"(?i)human|social|behavio"), "HCI"),
     (re.compile(r"(?i)system|architect|semiconductor|chip|hardware"), "Systems"),
     (re.compile(r"(?i)infrastructure|facility|instrument"), "Infrastructure"),
+    (re.compile(r"(?i)health|biomed|clinical|medic"), "Health"),
 ]
+
+CS_WORDS = re.compile(
+    r"(?i)\b(comput|software|algorithm|cyber|informatics|data scien|"
+    r"artificial intelligence|machine learning|\bAI\b|robot|network|"
+    r"semiconductor|quantum information|human[- ]computer|visuali[sz]ation|"
+    r"cyberinfrastructure|information technology|digital)\w*"
+)
 
 yaml = YAML()
 yaml.preserve_quotes = True
@@ -106,26 +127,39 @@ def topics_for(title: str) -> list[str]:
     return found[:3] or ["General"]
 
 
+def query(body: dict) -> list[dict]:
+    try:
+        data = post({"rows": 500, "oppStatuses": "forecasted|posted", **body}).get("data") or {}
+    except Exception as exc:
+        print(f"  ! {body}: {exc}", file=sys.stderr)
+        return []
+    return data.get("oppHits") or []
+
+
 def fetch() -> list[dict]:
     out: dict[str, dict] = {}
+
+    def keep(opp: dict, label: str, always: bool = False) -> None:
+        title = opp.get("title") or ""
+        if not always and not CS_WORDS.search(title):
+            return
+        existing = out.get(opp["id"])
+        if existing:
+            existing["_funders"].add(label)
+        else:
+            opp["_funders"] = {label}
+            out[opp["id"]] = opp
+
+    # precise first, so a CISE programme keeps its label even if the agency
+    # sweep sees it too
     for code, (label, needs_filter) in FUNDERS.items():
-        try:
-            data = post({"rows": 200, "cfda": code,
-                         "oppStatuses": "forecasted|posted"}).get("data") or {}
-        except Exception as exc:
-            print(f"  ! {label}: {exc}", file=sys.stderr)
-            continue
-        for opp in data.get("oppHits") or []:
-            title = opp.get("title") or ""
-            if needs_filter and not CS_WORDS.search(title):
-                continue
-            opp.setdefault("_funders", set()).add(label)
-            existing = out.get(opp["id"])
-            if existing:
-                existing["_funders"].add(label)
-            else:
-                opp["_funders"] = {label}
-                out[opp["id"]] = opp
+        for opp in query({"cfda": code}):
+            keep(opp, label, always=(code == CISE_CFDA))
+
+    for code, label in AGENCIES.items():
+        for opp in query({"agencies": code}):
+            keep(opp, label)
+
     return list(out.values())
 
 
@@ -147,6 +181,9 @@ def to_grant(opp: dict) -> dict:
     if len(funders) > 1:
         grant["also_funded_by"] = funders[1:]
     close = iso(opp.get("closeDate") or "")
+    cls, why = classify(title)
+    grant["ccs"] = cls
+    grant["ccs_auto"] = True   # assigned by rule, not by reading the solicitation
     grant["deadlines"] = [{
         "name": "Full proposal",
         "date": close,

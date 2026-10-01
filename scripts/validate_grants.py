@@ -20,9 +20,17 @@ ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "grants.yml"
 
 ELIGIBILITY = {"PhD student", "Postdoc", "Early-career faculty", "Faculty / PI"}
+# ACM CCS 2012 top-level classes, from the published SKOS taxonomy.
+CCS_CLASSES = {
+    "General and reference", "Hardware", "Computer systems organization", "Networks",
+    "Software and its engineering", "Theory of computation", "Mathematics of computing",
+    "Information systems", "Security and privacy", "Human-centered computing",
+    "Computing methodologies", "Applied computing", "Social and professional topics",
+}
 KNOWN_KEYS = {
     "name", "funder", "also_funded_by", "eligibility", "url", "amount",
     "opportunity_number", "topics", "notes", "deadlines", "solicitation", "source",
+    "typical_window", "last_checked", "ccs", "ccs_auto", "funding",
 }
 KNOWN_DEADLINE_KEYS = {"name", "date", "confirmed", "source", "verified_on"}
 
@@ -62,6 +70,10 @@ def main() -> int:
 
         for key in set(g) - KNOWN_KEYS:
             warnings.append(f"WARN   {where}: unknown field {key!r}")
+
+        ccs = str(g.get("ccs") or "").strip()
+        if ccs and ccs not in CCS_CLASSES:
+            errors.append(f"ERROR  {where}: ccs {ccs!r} is not an ACM CCS top-level class")
 
         eligibility = str(g.get("eligibility") or "").strip()
         if eligibility and eligibility not in ELIGIBILITY:

@@ -101,6 +101,11 @@ def normalise(raw: dict) -> dict:
         "opportunity_number": str(raw.get("opportunity_number") or "").strip(),
         "topics": [str(t).strip() for t in (raw.get("topics") or []) if str(t).strip()],
         "notes": str(raw.get("notes") or "").strip(),
+        "ccs": str(raw.get("ccs") or "").strip(),
+        "ccs_auto": bool(raw.get("ccs_auto", False)),
+        "funding": dict(raw.get("funding") or {}),
+        "typical_window": str(raw.get("typical_window") or "").strip(),
+        "last_checked": str(raw.get("last_checked") or "").strip(),
         "deadlines": deadlines,
     }
 

@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=24d1ef71">
+<link rel="stylesheet" href="assets/style.css?v=5a4286e1">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐇</text></svg>">
 </head>
 <body data-audience="student">
@@ -86,13 +86,13 @@
           <div id="funder-list"></div>
         </div>
       </details>
-      <label class="select">
-        <span class="sr-only">Sort by</span>
-        <select id="sort">
-          <option value="deadline">Sort: soonest first</option>
-          <option value="name">Sort: name</option>
-        </select>
-      </label>
+      <details class="dropdown" id="ccs-menu">
+        <summary id="ccs-summary">ACM class: all</summary>
+        <div class="dropdown-panel">
+          <button type="button" class="dropdown-clear" id="ccs-clear">Clear all</button>
+          <div id="ccs-list"></div>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -103,11 +103,16 @@
 
 <footer class="wrap site-foot">
   <p id="verified-note"></p>
+  <p><strong>Why so few countdowns?</strong> Corporate fellowship pages publish dates only while their
+     call is open, so between cycles there is nothing to count down. Each entry says when its cycle
+     usually runs and when its page was last checked. This was confirmed by rendering all 13 pages with
+     a real browser, not just fetching them - the dates are genuinely not published, not merely hidden
+     behind JavaScript.</p>
   <p>Federal programmes come from the <a href="https://www.grants.gov/">grants.gov</a> API; fellowships are maintained by hand
      in <code>grants.yml</code>. Dates marked <span class="badge badge-est">est.</span> have not been checked against the
      funder's own page. <strong>Always confirm on the programme page before you plan around a date.</strong></p>
 </footer>
 
-<script type="module" src="assets/grants.js?v=6ab5fa3f"></script>
+<script type="module" src="assets/grants.js?v=3ad8eeae"></script>
 </body>
 </html>
