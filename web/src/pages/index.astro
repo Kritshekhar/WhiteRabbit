@@ -222,10 +222,10 @@ const growth = first && last && first.count ? Math.round((last.count / first.cou
                 {[...data.trending, ...data.trending].map((t, i) => (
                   <li aria-hidden={i >= data.trending.length ? 'true' : undefined}>
                     <a
-                      href={href('proceedings/')}
+                      href={t.link}
                       tabindex={i >= data.trending.length ? -1 : undefined}
                       class="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-1 px-3 py-1.5 text-sm font-semibold whitespace-nowrap text-fg no-underline transition hover:border-accent hover:text-accent"
-                    ><TrendingUp className="size-3.5 text-good" aria-hidden="true" />{t}</a>
+                    ><TrendingUp className="size-3.5 text-good" aria-hidden="true" />{t.term}</a>
                   </li>
                 ))}
               </ul>

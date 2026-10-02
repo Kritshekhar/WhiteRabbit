@@ -3,10 +3,10 @@
 
 import type { SearchEntry } from '@/components/islands/HomeSearch';
 import type { UpcomingEntry } from '@/components/islands/UpcomingDeadlines';
-import { getGrants, getKeywordTrends, getProceedings, getVenues } from './db';
+import { getGrants, getKeywordTrends, getProceedings, getTrackedTerms, getVenues } from './db';
 import { latestCompleteYear, venuesWithData } from './proceedings';
 import { AUDIENCE_ELIGIBILITY } from './tiers';
-import { grantHref, venueHref } from './utils';
+import { grantHref, href, venueHref } from './utils';
 
 export interface HomeStat {
   value: number;
@@ -91,7 +91,13 @@ export function homeData() {
       };
     }
   }
-  const trending = year !== null ? getKeywordTrends(year).slice(0, 16).map((t) => t.term) : [];
+  /* A chip opens the phrase in the spread explorer when it is tracked there,
+     and the proceedings overview otherwise. */
+  const tracked = new Set(getTrackedTerms().map((t) => t.term));
+  const trending = year !== null ? getKeywordTrends(year).slice(0, 16).map((t) => ({
+    term: t.term,
+    link: tracked.has(t.term) ? href(`proceedings/?term=${encodeURIComponent(t.term)}#spread`) : href('proceedings/'),
+  })) : [];
 
   return {
     entries,
