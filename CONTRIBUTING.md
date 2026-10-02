@@ -88,6 +88,15 @@ CI runs it on every PR and checks that the dump is in canonical form, so a
 hand-edited dump should be passed through `python scripts/db.py build && python
 scripts/db.py dump` first.
 
+If you change code, run the tests too. CI runs all of them:
+
+```bash
+pip install -r requirements-dev.txt
+python -m pytest -q tests                # verifier, database, rollover, phrase filters
+cd web && npm test                       # dates, calendar feeds, watchlist
+npm run build && npm run smoke           # the built site has its pages and feeds
+```
+
 ### Things that will be refused
 
 | Mistake | Fix |
