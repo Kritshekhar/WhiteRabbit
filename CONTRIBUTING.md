@@ -1,16 +1,23 @@
 # Contributing
 
-The data lives in `db/whiterabbit.sql`, a text dump of a SQLite database with
-one row per line. The easy way to change it is `scripts/wr.py`, which needs
-nothing but Python 3:
+The data is kept in a private repository, so the way to correct or add a
+date is an issue: use the **Wrong date** or **Add a venue** form, with the
+venue, the date and the link you read it on. Code changes are welcome as pull
+requests here.
+
+The rest of this guide is for maintainers with access to the data, which is
+checked out at `data/` (`git clone git@github.com:Kritshekhar/WhiteRabbit-data.git data`).
+It is `data/whiterabbit.sql`, a text dump of a SQLite database with one row
+per line. The easy way to change it is `scripts/wr.py`, which needs nothing
+but Python 3:
 
 ```bash
 python scripts/wr.py show eurosys       # what we have now
 ```
 
-Every `wr.py` command rewrites the dump, so your change is an ordinary diff in
-a pull request. If you would rather not run anything, an issue with the venue,
-the date and the link you read it on is just as welcome.
+Every `wr.py` command rewrites the dump, so the change is an ordinary diff in
+the data repository: commit and push it there. The site picks it up at its
+next scheduled build, or at once with `gh workflow run deploy-pages.yml`.
 
 ## The one rule
 

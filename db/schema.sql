@@ -1,6 +1,6 @@
 -- WhiteRabbit database schema.
 --
--- db/whiterabbit.sql (the committed data dump) is the source of truth; the
+-- data/whiterabbit.sql (the data dump, in a private repo) is the source of truth; the
 -- SQLite file is a build artefact rebuilt from schema + dump by
 -- `python scripts/db.py build`. Edit this file to change the shape of the data,
 -- and keep scripts/db.py's TABLES order in step with it.

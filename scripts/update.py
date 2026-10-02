@@ -9,7 +9,7 @@ What it does
   2. Rolls a venue over to next year's site once its cycle is done and the new
      page is actually live (see roll_over_cycle).
   3. Probes the links that plausibly moved, so the dashboard can flag dead URLs.
-  4. Writes the changes back and re-dumps db/whiterabbit.sql; the site is
+  4. Writes the changes back and re-dumps data/whiterabbit.sql; the site is
      built from it (web/).
 
 Usage

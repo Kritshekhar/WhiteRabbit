@@ -2,7 +2,7 @@
 """Edit the WhiteRabbit database by hand - what editing the YAML used to be.
 
 Every command writes through scripts/db.py, so the committed dump
-(db/whiterabbit.sql) is updated and the change shows up in `git diff`.
+(data/whiterabbit.sql) is updated and the change shows up in `git -C data diff`.
 
   python scripts/wr.py show fast                     # a venue or grant, by id
   python scripts/wr.py queue                         # what still needs verifying

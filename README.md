@@ -67,16 +67,17 @@ correct to the second even between builds.
 ## How it works
 
 ```
-db/whiterabbit.sql ──► scripts/db.py build ──► db/whiterabbit.sqlite ──► web/ (Astro) ──► GitHub Pages
-  committed dump          (gitignored)               ▲
+data/whiterabbit.sql ──► scripts/db.py build ──► db/whiterabbit.sqlite ──► web/ (Astro) ──► GitHub Pages
+  private data repo         (gitignored)               ▲
                                                      │
    update.py · verify_deadlines.py · import_*.py · verify_grants.py · proceedings_*.py · wr.py
 ```
 
-- **Data.** A SQLite database (`db/schema.sql`). What is committed is
-  `db/whiterabbit.sql`, a deterministic text dump with one row per line, so
-  every change is an ordinary diff in a pull request. The `.sqlite` file is a
-  build artefact, rebuilt automatically when the dump or schema changes.
+- **Data.** A SQLite database (`db/schema.sql`). The data itself is kept in a
+  separate private repository and checked out at `data/`: a deterministic text
+  dump with one row per line, `data/whiterabbit.sql`, so every change is an
+  ordinary diff. The `.sqlite` file is a build artefact, rebuilt automatically
+  when the dump or schema changes. This repository holds the code and the site.
 - **Site.** [Astro](https://astro.build) with React islands and Tailwind, in
   `web/`. Every venue, grant and proceedings page is pre-rendered from the
   database at build time; filters, charts and countdowns run in the browser.
@@ -171,6 +172,7 @@ supported with `--firecrawl` if you have a key.
 
 ```bash
 git clone https://github.com/Kritshekhar/WhiteRabbit.git && cd WhiteRabbit
+git clone git@github.com:Kritshekhar/WhiteRabbit-data.git data   # the data (private, needs access)
 python3 scripts/db.py build                    # db/whiterabbit.sqlite from the dump
 cd web && npm install && npm run dev           # http://localhost:4321/WhiteRabbit/
 ```
@@ -179,21 +181,26 @@ Only the venue importer needs a package (`pip install -r requirements.txt`).
 
 ## Workflows
 
+In this repository:
+
 | Workflow | When | What it does |
 |---|---|---|
 | `validate.yml` | every PR | `db.py check`, requires a canonical dump, proves an offline build works |
-| `update-deadlines.yml` | nightly, plus a monthly full sweep | verifies dates on official pages, probes links, rolls venues over, commits the dump |
-| `proceedings-stats.yml` | daily | DBLP counts, keywords and authors; OpenAlex topic backfill; commits the dump |
-| `weekly-funding-sweep.yml` | Mondays | imports and verifies federal grant calls, opens a PR for review |
-| `propose-deadlines.yml` | Mondays | sweeps CFP pages for unverified venues and opens an issue; never edits data |
-| `deploy-pages.yml` | push to `main` | builds the database and the Astro site, publishes to GitHub Pages |
+| `deploy-pages.yml` | push to `main`, and twice a day | builds the database and the Astro site, publishes to GitHub Pages |
+
+The jobs that change the data run in the private data repository, so their
+logs, issues and review pull requests stay private: the nightly deadline
+refresh (verification on official pages, link probes, rollovers), the daily
+proceedings statistics, the weekly funding sweep and the weekly CFP sweep.
+They check out this repository's code and commit to the data repository; the
+site picks the changes up at its next scheduled build.
 
 ## Running your own
 
-Fork it, change the venues for your field (`wr.py add-venue`, or edit
-`db/whiterabbit.sql` and run `db.py check`), then enable **Settings → Pages →
-Source: GitHub Actions** and **Settings → Actions → Workflow permissions: Read
-and write** (the scheduled jobs commit the refreshed dump back).
+Fork it, create a private data repository with your own dump at
+`whiterabbit.sql` (start from `wr.py add-venue`), give this repository a read
+deploy key to it as the `DATA_DEPLOY_KEY` secret, change the repository names
+in the workflows, and enable **Settings → Pages → Source: GitHub Actions**.
 
 ## Data sources
 

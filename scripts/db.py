@@ -2,7 +2,7 @@
 """The WhiteRabbit database: one SQLite file, rebuilt from a committed text dump.
 
   db/schema.sql         table definitions
-  db/whiterabbit.sql    the data, one row per line - the source of truth in git
+  data/whiterabbit.sql  the data, one row per line - the source of truth (private repo)
   db/whiterabbit.sqlite build artefact, gitignored
 
 Why a dump and not the .sqlite file itself: a binary file in git cannot be read
@@ -37,7 +37,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DB_DIR = ROOT / "db"
 SCHEMA = DB_DIR / "schema.sql"
-DUMP = DB_DIR / "whiterabbit.sql"
+# The data is kept in a private repository, Kritshekhar/WhiteRabbit-data,
+# checked out at data/ (gitignored here). The workflows check it out with a
+# deploy key; locally, clone it once:
+#   git clone git@github.com:Kritshekhar/WhiteRabbit-data.git data
+DATA_DIR = ROOT / "data"
+DUMP = DATA_DIR / "whiterabbit.sql"
 DB_FILE = DB_DIR / "whiterabbit.sqlite"
 
 # Dump order. Parents before children, so the dump loads with foreign keys on.
@@ -105,13 +110,17 @@ def _open(path: Path) -> sqlite3.Connection:
 
 def build(path: Path = DB_FILE) -> None:
     """Create the .sqlite from schema + dump, replacing whatever was there."""
+    if not DUMP.exists():
+        # never build an empty database: a later dump would wipe the data
+        raise SystemExit(f"No data at {DUMP.relative_to(ROOT)}. The database lives in the private "
+                         "Kritshekhar/WhiteRabbit-data repository; clone it there:\n"
+                         "  git clone git@github.com:Kritshekhar/WhiteRabbit-data.git data")
     tmp = path.with_suffix(".tmp")
     tmp.unlink(missing_ok=True)
     conn = _open(tmp)
     try:
         conn.executescript(SCHEMA.read_text(encoding="utf-8"))
-        if DUMP.exists():
-            conn.executescript("BEGIN;\n" + DUMP.read_text(encoding="utf-8") + "\nCOMMIT;")
+        conn.executescript("BEGIN;\n" + DUMP.read_text(encoding="utf-8") + "\nCOMMIT;")
         # Not part of the schema, so it never reaches the dump.
         conn.execute("CREATE TABLE _build (digest TEXT NOT NULL)")
         conn.execute("INSERT INTO _build VALUES (?)", (_dump_digest(),))

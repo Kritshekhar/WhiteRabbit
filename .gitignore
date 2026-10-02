@@ -6,3 +6,4 @@ db/whiterabbit.sqlite
 db/*.tmp
 cache/
 .env
+data/

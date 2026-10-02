@@ -5,7 +5,8 @@ name: White Rabbit - deploy to Pages
 # Pages fails here, and that should not look like a broken build).
 #
 # The site is built by Astro (web/) from the database, which is rebuilt from
-# the committed dump first. Every page is static; countdowns run in the browser.
+# the dump in the private data repository first. Every page is static;
+# countdowns run in the browser.
 #
 # Requires, one time:
 #   Settings -> Pages -> Source: GitHub Actions
@@ -13,6 +14,12 @@ name: White Rabbit - deploy to Pages
 on:
   push:
     branches: [main]
+  # The data is refreshed in the private data repository (deadlines 07:00 UTC,
+  # proceedings 05:00 UTC), which cannot start a run here, so the site is
+  # rebuilt on a schedule after those jobs.
+  schedule:
+    - cron: "30 9 * * *"
+    - cron: "0 15 * * *"
   workflow_dispatch:
 
 permissions:
@@ -29,6 +36,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # the database is private (Kritshekhar/WhiteRabbit-data), read with a read-only deploy key
+      - name: Check out the data
+        uses: actions/checkout@v4
+        with:
+          repository: Kritshekhar/WhiteRabbit-data
+          path: data
+          ssh-key: ${{ secrets.DATA_DEPLOY_KEY }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
