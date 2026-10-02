@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-10-01T22:52:07+00:00",
+  "generated_at": "2026-10-02T05:40:01+00:00",
   "counts": {
-    "total": 117,
+    "total": 116,
     "PhD student": 13,
     "Postdoc": 0,
     "Early-career faculty": 2,
-    "Faculty / PI": 102
+    "Faculty / PI": 101
   },
   "grants": [
     {
@@ -29,9 +29,9 @@
       "deadlines": [
         {
           "name": "Application",
-          "date": null,
-          "confirmed": false,
-          "source": ""
+          "date": "2026-10-20T20:00:00-04:00",
+          "confirmed": true,
+          "source": "https://www.nsfgrfp.org/"
         }
       ],
       "link_status": "ok"
@@ -146,9 +146,9 @@
       "deadlines": [
         {
           "name": "Application",
-          "date": null,
-          "confirmed": false,
-          "source": ""
+          "date": "2026-10-30T23:59:00-12:00",
+          "confirmed": true,
+          "source": "https://www.nvidia.com/en-us/research/graduate-fellowships/"
         }
       ],
       "link_status": "ok"
@@ -724,38 +724,6 @@
           "date": "2027-02-08T23:59:00-05:00",
           "confirmed": true,
           "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf24527"
-        }
-      ],
-      "link_status": "ok"
-    },
-    {
-      "id": "pathways-to-enable-secure-open-source-ecosystems",
-      "name": "Pathways to Enable Secure Open-Source Ecosystems",
-      "funder": "NSF CISE",
-      "also_funded_by": [],
-      "eligibility": "Faculty / PI",
-      "url": "https://www.grants.gov/search-results-detail/361333",
-      "amount": "$40M total \u00b7 60 awards",
-      "opportunity_number": "26-506",
-      "topics": [
-        "Security",
-        "Systems"
-      ],
-      "notes": "Federal proposals are due 5 p.m. submitter's local time on the closing date.",
-      "ccs": "Software and its engineering",
-      "ccs_auto": false,
-      "funding": {
-        "total_program": 40000000,
-        "expected_awards": 60
-      },
-      "typical_window": "",
-      "last_checked": "",
-      "deadlines": [
-        {
-          "name": "Full proposal",
-          "date": "2027-03-02T23:59:00-05:00",
-          "confirmed": true,
-          "source": "http://www.nsf.gov/publications/pub_summ.jsp?ods_key=nsf26506"
         }
       ],
       "link_status": "ok"
