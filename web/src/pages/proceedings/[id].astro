@@ -5,7 +5,7 @@ import { whoPublishes } from '@/lib/who';
 import ProceedingsVenue, { type YearRow } from '@/components/islands/ProceedingsVenue';
 import VenuePicker, { type PickerVenue } from '@/components/islands/VenuePicker';
 import { Badge } from '@/components/ui/badge';
-import { latestCompleteYear, proceedingsFor, topicsFor, venueSummary, venuesWithData, yearStatus } from '@/lib/proceedings';
+import { latestCompleteYear, parseLinks, proceedingsFor, topicsFor, venueSummary, venuesWithData, yearStatus } from '@/lib/proceedings';
 import { RANK_SLOT, TIERS } from '@/lib/tiers';
 import type { Venue } from '@/lib/types';
 import { href, venueHref } from '@/lib/utils';
@@ -22,7 +22,7 @@ const rows: YearRow[] = all.map((p) => ({
   year: p.year, count: p.accepted_count, rate: p.acceptance_rate, status: yearStatus(p), source: p.source,
   submitted: p.submitted_count, acceptedOfficial: p.accepted_official, rateSource: p.acceptance_source,
   rateKind: p.acceptance_kind,
-  links: JSON.parse(p.links || '[]'),
+  links: parseLinks(p.links),
 }));
 const counted = all.filter((p) => p.accepted_count !== null);
 const defaultYear = latestCompleteYear(counted);

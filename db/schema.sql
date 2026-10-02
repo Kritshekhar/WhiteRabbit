@@ -182,7 +182,7 @@ CREATE TABLE keyword_trends (
 -- Phrase counts per venue per year, for a curated set of phrases: the rising
 -- ones in keyword_trends plus the ones that peaked and faded. Sums over venues
 -- give the field-wide history; per venue it shows where an idea spread.
--- `count` is titles containing the phrase. Only years since 2000, no zeros.
+-- `count` is titles containing the phrase. Every year since 1975, no zeros.
 CREATE TABLE term_venue_year (
   term     TEXT NOT NULL,
   venue_id TEXT NOT NULL REFERENCES venues(id) ON DELETE CASCADE,
