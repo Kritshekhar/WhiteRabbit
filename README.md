@@ -187,11 +187,13 @@ In this repository:
 |---|---|---|
 | `validate.yml` | every PR | `db.py check`, requires a canonical dump, proves an offline build works |
 | `deploy-pages.yml` | push to `main`, and twice a day | builds the database and the Astro site, publishes to GitHub Pages |
+| `notify-failure.yml` | after each deploy | opens an issue when the deploy fails, closes it when it next succeeds |
 
 The jobs that change the data run in the private data repository, so their
 logs, issues and review pull requests stay private: the nightly deadline
 refresh (verification on official pages, link probes, rollovers), the daily
-proceedings statistics, the weekly funding sweep and the weekly CFP sweep.
+proceedings statistics, the weekly funding sweep and the weekly CFP sweep,
+with the same failure alerts as the deploy.
 They check out this repository's code and commit to the data repository; the
 site picks the changes up at its next scheduled build.
 
