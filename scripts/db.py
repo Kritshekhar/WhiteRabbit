@@ -437,6 +437,11 @@ def check(conn: sqlite3.Connection) -> tuple[list[str], list[str]]:
         if not isinstance(jload(g["funding"], None), dict):
             errors.append(f"ERROR  {where}: funding must be a JSON object")
 
+    # one funding opportunity listed twice under different names
+    for row in conn.execute("SELECT opportunity_number, group_concat(name, ' | ') AS names FROM grants "
+                            "WHERE opportunity_number <> '' GROUP BY opportunity_number HAVING count(*) > 1"):
+        errors.append(f"ERROR  opportunity {row['opportunity_number']} is listed twice: {row['names']}")
+
     for d in conn.execute("SELECT * FROM grant_deadlines"):
         # a deadline decades out is a grants.gov placeholder, not a date
         _check_date(f"{d['grant_id']} deadline {d['name']!r}", d["date"], errors, max_grant_year)
