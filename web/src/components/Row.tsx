@@ -35,19 +35,19 @@ export function Row({ href, title, subtitle, tags, deadline, days, band, statusT
   return (
     <div
       className={`group relative grid cursor-pointer grid-cols-[1fr_auto] items-center gap-x-4 gap-y-2 rounded-xl border border-border bg-surface-1 py-3 pr-3 pl-5 shadow-sm transition hover:-translate-y-px hover:border-border-strong hover:shadow-card ${
-        tags ? 'md:grid-cols-[minmax(0,2.2fr)_minmax(0,1.6fr)_minmax(0,1.9fr)_minmax(3.5rem,auto)_auto]' : 'md:grid-cols-[minmax(0,2.6fr)_minmax(0,2fr)_minmax(3.5rem,auto)_auto]'
+        tags ? 'lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1.6fr)_minmax(0,1.9fr)_minmax(3.5rem,auto)_auto]' : 'lg:grid-cols-[minmax(0,2.6fr)_minmax(0,2fr)_minmax(3.5rem,auto)_auto]'
       }`}
       style={{ ['--status' as string]: band ? band.color : 'var(--border-strong)' }}
       onClick={go}
     >
       <span aria-hidden className="absolute inset-y-2 left-1.5 w-1 rounded-full bg-[var(--status)]" />
-      <span className="col-span-2 min-w-0 md:col-span-1">
-        <a className="block truncate font-bold text-fg no-underline hover:text-accent" href={href}>
+      <span className="col-span-2 min-w-0 lg:col-span-1">
+        <a className="line-clamp-3 font-bold break-words text-fg no-underline hover:text-accent" href={href} title={title}>
           {title}
         </a>
-        {subtitle && <span className="block truncate text-[0.8rem] text-muted">{subtitle}</span>}
+        {subtitle && <span className="block text-[0.8rem] break-words text-muted">{subtitle}</span>}
       </span>
-      {tags && <span className="col-span-2 flex min-w-0 flex-wrap gap-1.5 md:col-span-1">{tags}</span>}
+      {tags && <span className="col-span-2 flex min-w-0 flex-wrap gap-1.5 lg:col-span-1">{tags}</span>}
       <span className="min-w-0 text-[0.85rem]">
         {deadline && deadline.ts ? (
           <span className="text-fg-2">
@@ -61,12 +61,12 @@ export function Row({ href, title, subtitle, tags, deadline, days, band, statusT
           <span className="text-muted">{statusText || 'No date announced'}</span>
         )}
       </span>
-      <span className="hidden text-right md:block">
+      <span className="hidden text-right lg:block">
         {days !== null && <DaysLeft ts={deadline?.ts} days={days} band={band} />}
       </span>
       <span className="flex items-center justify-end gap-0.5">
         {days !== null && (
-          <span className="mr-2 md:hidden">
+          <span className="mr-2 lg:hidden">
             <DaysLeft ts={deadline?.ts} days={days} band={band} size="base" />
           </span>
         )}

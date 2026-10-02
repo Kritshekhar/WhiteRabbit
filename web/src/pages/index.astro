@@ -6,7 +6,7 @@ import YourDeadlines from '@/components/islands/YourDeadlines';
 import NextCountdown from '@/components/home/NextCountdown';
 import { ArrowRight, BadgeCheck, BookOpen, CalendarDays, CalendarPlus, GraduationCap, HandCoins, RefreshCw, TrendingUp } from 'lucide-react';
 import { BUILT_AT, getVenues } from '@/lib/db';
-import { heatmap, MONTH_NAMES, MONTHS } from '@/lib/heatmap';
+import YearPlanner from '@/components/home/YearPlanner.astro';
 import EraTimeline from '@/components/insights/EraTimeline.astro';
 import { eras } from '@/lib/insights';
 import { websiteLd } from '@/lib/seo';
@@ -14,11 +14,6 @@ import { compact, homeData } from '@/lib/home';
 import { href, venueHref } from '@/lib/utils';
 
 const researchEras = eras();
-/* busiest months for the planning strip */
-const heat = heatmap(getVenues());
-const heatMax = Math.max(1, ...heat.totals);
-const thisMonth = new Date().getMonth();
-const busiest = heat.rows.map((r) => ({ ...r, top: r.counts.indexOf(Math.max(...r.counts)) })).sort((a, b) => b.total - a.total).slice(0, 4);
 
 const data = homeData();
 const { counts, teaser } = data;
@@ -137,73 +132,11 @@ const growth = first && last && first.count ? Math.round((last.count / first.cou
         <div class="max-w-2xl">
           <p class="wr-eyebrow">Plan your year</p>
           <h2 id="year-h" class="text-2xl font-bold tracking-tight sm:text-3xl">When the deadlines land.</h2>
-          <p class="mt-2 text-fg-2">Each venue's main submission deadline by month. Click a month to see its venues.</p>
+          <p class="mt-2 text-fg-2">Each venue's main submission deadline by month, by area. Point at a month to see its venues.</p>
         </div>
         <a class="text-sm font-semibold text-accent hover:underline" href={href('conferences/')}>Full calendar by area <ArrowRight className="inline size-4" aria-hidden="true" /></a>
       </div>
-      <div class="card mt-6 p-5" data-reveal>
-        <ol class="grid grid-cols-6 gap-2 sm:grid-cols-12">
-          {heat.totals.map((n, i) => (
-            <li>
-              <a href={href(`conferences/?month=${i + 1}`)} class="group flex flex-col items-center gap-1.5 no-underline"
-                title={`${MONTH_NAMES[i]}: ${n} venues`}>
-                <span class="flex h-28 w-full items-end justify-center rounded-lg bg-surface-2 p-1">
-                  <span class:list={['w-full rounded-md transition group-hover:brightness-110', i === thisMonth ? 'bg-accent' : 'bg-rank-mid/70']}
-                    style={`height:${Math.max(6, (n / heatMax) * 100)}%`}></span>
-                </span>
-                <span class="font-mono text-sm font-bold text-fg tabular">{n}</span>
-                <span class:list={['text-xs font-semibold', i === thisMonth ? 'text-accent' : 'text-muted']}>{MONTHS[i]}</span>
-              </a>
-            </li>
-          ))}
-        </ol>
-        <p class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
-          {busiest.map((r) => (
-            <a class="hover:text-accent" href={href(`conferences/?area=${r.slug}&month=${r.top + 1}`)}>
-              <strong class="text-fg-2">{r.label}</strong> peaks in {MONTH_NAMES[r.top]}
-            </a>
-          ))}
-        </p>
-      </div>
-    </section>
-
-    <!-- ===================== features ===================== -->
-    <section class="mt-16" aria-labelledby="why-h">
-      <div class="max-w-2xl" data-reveal>
-        <p class="wr-eyebrow">Why White Rabbit</p>
-        <h2 id="why-h" class="text-2xl font-bold tracking-tight sm:text-3xl">A deadline tracker that tells you how much to trust each date.</h2>
-      </div>
-      <div class="mt-6 grid grid-cols-1 gap-3 md:grid-cols-3">
-        {features.map((f, i) => (
-          <div class="card wr-lift wr-glow-card p-6" data-reveal style={`--i:${i}`}>
-            <span class="wr-icon-chip"><f.Icon className="size-5" aria-hidden="true" /></span>
-            <h3 class="mt-4 text-lg font-bold">{f.title}</h3>
-            <p class="mt-1.5 text-sm text-fg-2">{f.body}</p>
-            {f.link && <a class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline" href={href(f.link.path)}>{f.link.text} <ArrowRight className="size-4" aria-hidden="true" /></a>}
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- ===================== sections ===================== -->
-    <section class="mt-16" aria-labelledby="explore-h">
-      <div data-reveal>
-        <p class="wr-eyebrow">Explore</p>
-        <h2 id="explore-h" class="text-2xl font-bold tracking-tight sm:text-3xl">Everything on one site</h2>
-      </div>
-      <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {sections.map((s, i) => (
-          <a href={href(s.path)} class="card wr-lift wr-glow-card group flex flex-col gap-2 p-5 no-underline" data-reveal style={`--i:${i}`}>
-            <span class="wr-icon-chip"><s.Icon className="size-5" aria-hidden="true" /></span>
-            <span class="mt-2 flex items-center gap-1.5 text-lg font-bold text-fg group-hover:text-accent">
-              {s.title}
-              <ArrowRight className="size-4 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100" aria-hidden="true" />
-            </span>
-            <span class="text-sm text-fg-2">{s.blurb}</span>
-            <span class="mt-auto pt-3 font-mono text-sm text-muted"><strong class="text-fg">{s.count}</strong> {s.unit}</span>
-          </a>
-        ))}
-      </div>
+      <YearPlanner venues={getVenues()} />
     </section>
 
     <!-- ===================== research eras ===================== -->
@@ -220,7 +153,7 @@ const growth = first && last && first.count ? Math.round((last.count / first.cou
           <a class="text-sm font-semibold text-accent hover:underline" href={href('proceedings/')}>Explore proceedings <ArrowRight className="inline size-4" aria-hidden="true" /></a>
         </div>
         <div class="card mt-6 p-4 sm:p-5" data-reveal>
-          <EraTimeline eras={researchEras} termHref={(t) => href(`proceedings/?term=${encodeURIComponent(t)}#spread`)} />
+          <EraTimeline autoplay eras={researchEras} termHref={(t) => href(`proceedings/?term=${encodeURIComponent(t)}#spread`)} />
         </div>
       </section>
     )}
@@ -301,6 +234,45 @@ const growth = first && last && first.count ? Math.round((last.count / first.cou
         )}
       </section>
     )}
+
+    <!-- ===================== features ===================== -->
+    <section class="mt-16" aria-labelledby="why-h">
+      <div class="max-w-2xl" data-reveal>
+        <p class="wr-eyebrow">Why White Rabbit</p>
+        <h2 id="why-h" class="text-2xl font-bold tracking-tight sm:text-3xl">A deadline tracker that tells you how much to trust each date.</h2>
+      </div>
+      <div class="mt-6 grid grid-cols-1 gap-3 md:grid-cols-3">
+        {features.map((f, i) => (
+          <div class="card wr-lift wr-glow-card p-6" data-reveal style={`--i:${i}`}>
+            <span class="wr-icon-chip"><f.Icon className="size-5" aria-hidden="true" /></span>
+            <h3 class="mt-4 text-lg font-bold">{f.title}</h3>
+            <p class="mt-1.5 text-sm text-fg-2">{f.body}</p>
+            {f.link && <a class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline" href={href(f.link.path)}>{f.link.text} <ArrowRight className="size-4" aria-hidden="true" /></a>}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ===================== sections ===================== -->
+    <section class="mt-16" aria-labelledby="explore-h">
+      <div data-reveal>
+        <p class="wr-eyebrow">Explore</p>
+        <h2 id="explore-h" class="text-2xl font-bold tracking-tight sm:text-3xl">Everything on one site</h2>
+      </div>
+      <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {sections.map((s, i) => (
+          <a href={href(s.path)} class="card wr-lift wr-glow-card group flex flex-col gap-2 p-5 no-underline" data-reveal style={`--i:${i}`}>
+            <span class="wr-icon-chip"><s.Icon className="size-5" aria-hidden="true" /></span>
+            <span class="mt-2 flex items-center gap-1.5 text-lg font-bold text-fg group-hover:text-accent">
+              {s.title}
+              <ArrowRight className="size-4 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100" aria-hidden="true" />
+            </span>
+            <span class="text-sm text-fg-2">{s.blurb}</span>
+            <span class="mt-auto pt-3 font-mono text-sm text-muted"><strong class="text-fg">{s.count}</strong> {s.unit}</span>
+          </a>
+        ))}
+      </div>
+    </section>
 
     <!-- ===================== final CTA ===================== -->
     <section class="wr-cta mt-16 overflow-hidden rounded-3xl border border-border p-8 text-center sm:p-12" data-reveal>
