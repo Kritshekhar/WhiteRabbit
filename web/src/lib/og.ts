@@ -10,6 +10,7 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
+import { markSvg } from './brand';
 
 const require = createRequire(import.meta.url);
 const font = (weight: number) =>
@@ -35,6 +36,9 @@ export interface OgCard {
   footer?: string;            // e.g. "kritshekhar.github.io/WhiteRabbit"
 }
 
+// the logo, in its dark palette, as an image satori can place
+const MARK = `data:image/svg+xml;base64,${Buffer.from(markSvg('dark')).toString('base64')}`;
+
 const C = { bg: '#0f1115', panel: '#171a21', fg: '#ffffff', fg2: '#c3c2b7', muted: '#8f8e86', accent: '#5b9cec',
   good: '#2bbf8a', warn: '#fab219' };
 
@@ -52,8 +56,8 @@ export async function renderOg(card: OgCard): Promise<Buffer> {
       padding: '64px 72px', background: `linear-gradient(135deg, ${C.bg} 0%, #18233a 100%)`, color: C.fg, fontFamily: 'Inter' },
     h('div', { alignItems: 'center', justifyContent: 'space-between' },
       h('div', { alignItems: 'center', gap: 16 },
-        h('div', { width: 18, height: 18, borderRadius: 999, background: C.accent }),
-        h('div', { fontSize: 30, fontWeight: 700, color: C.fg2 }, 'White Rabbit'),
+        { type: 'img', props: { src: MARK, width: 34, height: 46 } },
+        h('div', { fontSize: 32, color: C.fg }, h('span', { fontWeight: 400 }, 'White'), h('span', { fontWeight: 800 }, 'Rabbit')),
         h('div', { fontSize: 28, color: C.muted, marginLeft: 8 }, `· ${card.eyebrow}`)),
       h('div', { fontSize: 22, color: C.muted }, card.footer ?? 'kritshekhar.github.io/WhiteRabbit')),
     h('div', { flexDirection: 'column', gap: 18 },

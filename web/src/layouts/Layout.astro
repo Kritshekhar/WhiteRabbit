@@ -51,11 +51,14 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <link rel="alternate" type="application/rss+xml" title="White Rabbit: what changed" href={new URL('changes.xml', root)} />
     {ld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
     <meta name="color-scheme" content="light dark" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐇</text></svg>" />
+    <link rel="icon" href={new URL('favicon.svg', root)} type="image/svg+xml" />
+    <link rel="icon" href={new URL('favicon-32.png', root)} sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href={new URL('apple-touch-icon.png', root)} />
+    <meta name="theme-color" content="#16151f" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
       rel="stylesheet"
     />
     <!-- Apply a pinned theme before first paint, so there is no flash. -->
