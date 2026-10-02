@@ -79,8 +79,7 @@ python scripts/db.py check               # catches what the schema cannot
 
 CI runs it on every PR and checks that the dump is in canonical form, so a
 hand-edited dump should be passed through `python scripts/db.py build && python
-scripts/db.py dump` first. **Do not hand-edit `data/*.json`** - they are
-generated.
+scripts/db.py dump` first.
 
 ### Things that will be refused
 

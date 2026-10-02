@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Probe every funding link, store the results, and rebuild data/grants.json.
+"""Probe every funding link and store the results.
 
 Mirrors scripts/update.py. Countdowns are computed in the browser from the ISO
 dates, so this never stores day counts.
 
   python scripts/update_grants.py               # probe links
-  python scripts/update_grants.py --no-network  # rebuild JSON only
+  python scripts/update_grants.py --no-network  # offline: no link probes
 """
 
 from __future__ import annotations
@@ -19,7 +19,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import db  # noqa: E402
-import export_json  # noqa: E402
 
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
@@ -67,8 +66,6 @@ def main() -> int:
             print(f"  ! dead links ({len(dead)}): {', '.join(dead[:6])}", file=sys.stderr)
         conn.commit()
         db.dump(conn)
-
-    export_json.export(conn)
     return 0
 
 

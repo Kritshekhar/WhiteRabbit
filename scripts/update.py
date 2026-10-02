@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Refresh the conference data in the database and rebuild the dashboard JSON.
+"""Refresh the conference data in the database.
 
 Run nightly by .github/workflows/update-deadlines.yml, and on every push that
 touches the data.
@@ -9,12 +9,12 @@ What it does
   2. Rolls a venue over to next year's site once its cycle is done and the new
      page is actually live (see roll_over_cycle).
   3. Probes the links that plausibly moved, so the dashboard can flag dead URLs.
-  4. Writes the changes back, re-dumps db/whiterabbit.sql, and writes
-     data/deadlines.json for the front-end.
+  4. Writes the changes back and re-dumps db/whiterabbit.sql; the site is
+     built from it (web/).
 
 Usage
   python scripts/update.py                 # full run (network probes on)
-  python scripts/update.py --no-network    # offline: rebuild JSON only
+  python scripts/update.py --no-network    # offline: no link probes
   python scripts/update.py --dry-run       # print what would change
 """
 
@@ -22,7 +22,6 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures
-import hashlib
 import json
 import re
 import sys
@@ -33,7 +32,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import db  # noqa: E402
-import export_json  # noqa: E402
 
 ROOT = db.ROOT
 
@@ -45,7 +43,7 @@ UA = (
 )
 TIMEOUT = 15
 MAX_PROBE_WORKERS = 8
-# A venue's stage on a project's path - see journey.html.
+# A venue's stage on a project's path.
 VALID_TIERS = {"rabbit-hole", "royal-flush", "full-house", "looking-glass"}
 # Older names still parse so an in-flight branch does not break.
 LEGACY_TIERS = {
@@ -306,64 +304,6 @@ def undo_rollover(conn, venue_id: str, before: tuple) -> None:
 
 
 # --------------------------------------------------------------------------
-# asset cache-busting
-# --------------------------------------------------------------------------
-PAGES = ("index.html", "journey.html", "fellowships.html", "grants.html", "venue.html")
-ASSETS = ("assets/style.css", "assets/app.js", "assets/grants.js", "assets/venue.js")
-MODULES = ("assets/lib/dates.js", "assets/lib/card.js", "assets/lib/ui.js",
-           "assets/lib/row.js", "assets/lib/calendar.js")
-
-
-def stamp_assets() -> bool:
-    """Rewrite ?v= on each asset link to its content hash.
-
-    Without this a returning visitor keeps the CSS and JS their browser cached
-    and sees the previous design against the new data - which is exactly how a
-    shipped change looks broken to the person who asked for it.
-    """
-    changed = False
-    stamps = {}
-    for asset in ASSETS:
-        path = ROOT / asset
-        if path.exists():
-            stamps[asset] = hashlib.sha1(path.read_bytes()).hexdigest()[:8]
-
-    # A module's own imports are not in the HTML, so stamping only the entry
-    # point would leave browsers on a cached copy of a changed lib file.
-    for entry in ASSETS:
-        path = ROOT / entry
-        if not path.suffix == ".js" or not path.exists():
-            continue
-        text = original = path.read_text(encoding="utf-8")
-        for module in MODULES:
-            name = Path(module).name
-            digest = hashlib.sha1((ROOT / module).read_bytes()).hexdigest()[:8]
-            text = re.sub(rf"(\./lib/{re.escape(name)})(\?v=[0-9a-f]+)?", rf"\g<1>?v={digest}", text)
-        if text != original:
-            path.write_text(text, encoding="utf-8")
-            changed = True
-
-    stamps = {a: hashlib.sha1((ROOT / a).read_bytes()).hexdigest()[:8]
-              for a in ASSETS if (ROOT / a).exists()}
-
-    for page in PAGES:
-        path = ROOT / page
-        if not path.exists():
-            continue
-        text = original = path.read_text(encoding="utf-8")
-        for asset, digest in stamps.items():
-            text = re.sub(
-                rf'({re.escape(asset)})(\?v=[0-9a-f]+)?"',
-                rf'\g<1>?v={digest}"',
-                text,
-            )
-        if text != original:
-            path.write_text(text, encoding="utf-8")
-            changed = True
-    return changed
-
-
-# --------------------------------------------------------------------------
 # main
 # --------------------------------------------------------------------------
 def main() -> int:
@@ -443,9 +383,6 @@ def main() -> int:
     if rolled:
         print(f"Rolled over: {', '.join(sorted(rolled))}")
 
-    if stamp_assets():
-        print("Re-stamped asset cache-busting hashes")
-    export_json.export(conn)
     return 0
 
 

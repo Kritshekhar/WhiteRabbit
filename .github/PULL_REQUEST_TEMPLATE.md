@@ -16,4 +16,3 @@
 - [ ] `python scripts/db.py check` passes
 - [ ] Dates carry a timezone offset (`-12:00` for AoE)
 - [ ] Verified dates were set with `scripts/wr.py verify --source <url>`
-- [ ] I did not hand-edit `data/deadlines.json`

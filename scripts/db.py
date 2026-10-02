@@ -299,7 +299,7 @@ def insert_grant(conn: sqlite3.Connection, g: dict) -> str:
 
 
 # --------------------------------------------------------------------------
-# records in the shape the front end reads (data/*.json)
+# venue and grant records as plain dicts, for the scripts that read them
 # --------------------------------------------------------------------------
 def venue_records(conn: sqlite3.Connection) -> list[dict]:
     """Every venue with its current cycle's deadlines."""

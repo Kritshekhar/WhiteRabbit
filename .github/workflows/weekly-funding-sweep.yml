@@ -55,7 +55,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
-          git add db/whiterabbit.sql data/grants.json
+          git add db/whiterabbit.sql
           git commit -m "chore: weekly funding sweep ($(date -u +%Y-%m-%d))"
           git push -u origin "$BRANCH"
           {
