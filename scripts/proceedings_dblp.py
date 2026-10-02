@@ -187,6 +187,57 @@ SHORT_WORDS = {"ad", "ai", "ml", "3d", "2d", "5g", "4g", "6g", "ar", "vr", "xr",
 NOISE_TOKEN = re.compile(r"^(\d+|[a-z]+\d{2,4})$")
 TRENDS_YEARS = 10           # trend lists for this many recent complete years
 TOP_TRENDS = 30
+
+# Words that are common in titles in some period without naming an idea:
+# venue furniture (keynote, panel), and the fashion in how titles are written
+# (advancing, unveiling, towards). Both trend lists and research eras skip them.
+ERA_VOCABULARY = set("""
+government test user users work note named reviewers presentation reception retrospective policy labelling
+blind competitive images image virtual document documents machine code japanese chinese german french
+introduction panel session invited keynote tutorial preface editorial comments reply letter ieee acm
+""".split())
+TITLE_FILLER = set("""
+advancing unveiling bridging evaluating benchmarking benchmark benchmarks dataset datasets towards rethinking
+revisiting anything scaling editing tuning offline implicit masked generation language vision medical fields
+generalization augmentation instruction integrating harnessing mitigating empowering exploring enhancing
+leveraging improving boosting insights across comprehensive reprint real-world foundation guidance unlocking
+aligning high-quality
+""".split())
+ACRONYMS = {"www": "world wide web", "p2p": "peer-to-peer", "llm": "large language", "llms": "large language",
+            "gnn": "graph neural", "rag": "retrieval-augmented generation"}
+
+
+def generic(term: str, uses: dict, totals: Counter, years: list, vocabulary: set) -> bool:
+    """Vocabulary, not an idea: a listed word, an "X-based" variant of another
+    term, or a single word that is common in titles in any period (more than
+    1.2% of a year's titles)."""
+    if term in vocabulary or term.endswith("-based"):
+        return True
+    if " " in term or term in NOTABLE:
+        return False
+    return max(uses[y][term] / totals[y] for y in years if totals[y]) > 0.012
+
+
+def related(a: str, b: str) -> bool:
+    """The same idea under two names: plural, hyphenated, abbreviated, or a
+    phrase that shares a distinctive word."""
+    a, b = ACRONYMS.get(a, a), ACRONYMS.get(b, b)
+    a, b = a.replace("-", ""), b.replace("-", "")   # multi-core is multicore
+    if a in b or b in a or a + "s" == b or b + "s" == a:
+        return True
+    stem = lambda w: re.sub(r"(ing|ed|s)$", "", w)   # pre-training and pre-trained
+    if " " not in a and " " not in b and stem(a) == stem(b):
+        return True
+    # "generative adversarial" and "adversarial networks" share the distinctive word
+    shared = set(a.split()) & set(b.split())
+    return any(w not in ("networks", "network", "learning", "neural", "graph", "deep", "models") for w in shared)
+
+
+def inside_phrase(term: str, n: int, candidates, uses_year: Counter) -> bool:
+    """A word gives way to a phrase that carries most of it: "splatting" to
+    "gaussian splatting", "radiance" to "neural radiance fields"."""
+    return " " not in term and any(p != term and term in p.split() and uses_year[p] >= 0.5 * n for p in candidates)
+
 WORD = re.compile(r"[a-z][a-z0-9\-]+")
 
 
@@ -544,6 +595,8 @@ def keyword_trends(conn, per_venue_year: dict) -> int:
 
     conn.execute("DELETE FROM keyword_trends")
     last = date.today().year - 1
+    all_years = [y for y in totals if totals[y]]
+    vocabulary = ERA_VOCABULARY | TITLE_FILLER
     rows = []
     for year in range(last - TRENDS_YEARS + 1, last + 1):
         prior = [y for y in (year - 3, year - 2, year - 1) if totals[y]]
@@ -552,7 +605,7 @@ def keyword_trends(conn, per_venue_year: dict) -> int:
         prior_total = sum(totals[y] for y in prior)
         scored = []
         for gram, n in uses[year].items():
-            if n < 20 or len(where[year][gram]) < 2:
+            if n < 20 or len(where[year][gram]) < 2 or generic(gram, uses, totals, all_years, vocabulary):
                 continue
             before = sum(uses[y][gram] for y in prior)
             # shares, so a field that simply published more papers is not "trending"
@@ -561,9 +614,15 @@ def keyword_trends(conn, per_venue_year: dict) -> int:
                 continue
             scored.append((n * math.log(lift), gram, n, before / len(prior), len(where[year][gram]), lift))
         scored.sort(reverse=True)
+        candidates = [item[1] for item in scored]
         picked: list[tuple] = []
         for item in scored:
-            if any(item[1] in p[1] for p in picked):
+            gram = item[1]
+            if inside_phrase(gram, item[2], candidates, uses[year]):
+                continue
+            # one name per idea: the better-scoring of "transformer" and
+            # "transformers", of "neural radiance" and "neural radiance fields"
+            if any(related(gram, p[1]) for p in picked):
                 continue
             picked.append(item)
             if len(picked) == TOP_TRENDS:
@@ -596,11 +655,6 @@ NOTABLE = [
 NEWCOMER_WARMUP = 3       # a venue's first years have no history to be new to
 ERAS_MIN_TITLES = 2000    # eras start at the first year with this many titles across tracked venues
 # words that rise in some year without being an idea (publishing vocabulary)
-ERA_VOCABULARY = set("""
-government test user users work note named reviewers presentation reception retrospective policy labelling
-blind competitive images image virtual document documents machine code japanese chinese german french
-introduction panel session invited keynote tutorial preface editorial comments reply letter ieee acm
-""".split())
 ERAS_PER_YEAR = 3
 
 
@@ -618,25 +672,6 @@ def research_eras(conn, grams_of: dict, uses: dict, totals: Counter, years: list
 
     all_years = [y for y in range(SINCE, last + 1) if totals[y]]
 
-    def generic(term):
-        # a single word common in titles in any period is vocabulary, not an
-        # idea; early years have few titles, so the bar is lower there
-        if " " in term or term in NOTABLE:
-            return term in ERA_VOCABULARY
-        return term in ERA_VOCABULARY or max(share(term, y) for y in all_years) > 0.012
-
-    ACRONYMS = {"www": "world wide web", "p2p": "peer-to-peer", "llm": "large language", "gnn": "graph neural"}
-
-    def related(a, b):
-        a, b = ACRONYMS.get(a, a), ACRONYMS.get(b, b)
-        a, b = a.replace("-", ""), b.replace("-", "")   # multi-core is multicore
-        if a in b or b in a or a + "s" == b or b + "s" == a:
-            return True
-        # the same idea named from the other end: "generative adversarial" and
-        # "adversarial networks" share the distinctive word
-        shared = set(a.split()) & set(b.split())
-        return any(w not in ("networks", "network", "learning", "neural", "graph", "deep", "models") for w in shared)
-
     featured: list[str] = []
     rows = []
     # Start where there is enough to measure: before the early 1980s the
@@ -653,7 +688,7 @@ def research_eras(conn, grams_of: dict, uses: dict, totals: Counter, years: list
         prior_total = sum(totals[y] for y in prior)
         scored = []
         for term, n in uses[year].items():
-            if n < min_uses or venues_using[year][term] < min_venues or generic(term):
+            if n < min_uses or venues_using[year][term] < min_venues or generic(term, uses, totals, all_years, ERA_VOCABULARY | TITLE_FILLER):
                 continue
             before = sum(uses[y][term] for y in prior)
             lift = (n / totals[year]) / ((before + 1) / prior_total)
@@ -668,7 +703,7 @@ def research_eras(conn, grams_of: dict, uses: dict, totals: Counter, years: list
         picked = []
         for item in scored:
             term, n = item[1], item[2]
-            if " " not in term and any(term in p.split() and uses[year][p] >= 0.5 * n for p in terms if p != term):
+            if inside_phrase(term, n, terms, uses[year]):
                 continue
             if any(related(term, f) for f in featured) or any(related(term, p[1]) for p in picked):
                 continue
