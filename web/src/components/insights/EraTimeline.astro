@@ -10,8 +10,10 @@ interface Props {
   /* Where a phrase links to. Without it, phrases are .wr-term buttons that
      select it in the spread explorer on the same page. */
   termHref?: (term: string) => string;
+  /* Glide through every year from the first, so the whole history passes by. */
+  autoplay?: boolean;
 }
-const { eras, termHref } = Astro.props;
+const { eras, termHref, autoplay = false } = Astro.props;
 const Tag: any = termHref ? 'a' : 'button';
 const termProps = (term: string): Record<string, string> =>
   termHref ? { href: termHref(term) } : { type: 'button', 'data-term': term };
@@ -33,7 +35,7 @@ function trend(points: { year: number; share: number }[], year: number) {
   return { w, h, line, area, mx: x(at), my: y(points[at]?.share ?? 0), first: points[0]?.year, last: points.at(-1)?.year };
 }
 ---
-<div class="wr-eras">
+<div class="wr-eras" data-autoplay={autoplay ? '' : undefined}>
   <div class="relative">
   <ol class="wr-eras-track flex snap-x snap-mandatory gap-3 overflow-x-auto pt-7 pb-3" aria-label="Breakout ideas by year">
     {eras.map((era, idx) => {
@@ -83,9 +85,12 @@ function trend(points: { year: number; share: number }[], year: number) {
   </div>
   <div class="mt-1 flex items-center justify-between gap-3 text-xs text-muted">
     <span>×N is growth in share of all papers against the three years before; "new" means it barely existed before. The line is its share every year since {eras[0]?.ideas[0]?.points[0]?.year}, with the breakout year marked.</span>
-    <span class="hidden shrink-0 gap-1 sm:flex">
-      <button type="button" class="wr-eras-nav cursor-pointer rounded-full border border-border px-2.5 py-1 font-semibold text-fg-2 hover:border-border-strong" data-dir="-1" aria-label="Earlier years">←</button>
-      <button type="button" class="wr-eras-nav cursor-pointer rounded-full border border-border px-2.5 py-1 font-semibold text-fg-2 hover:border-border-strong" data-dir="1" aria-label="Later years">→</button>
+    <span class="flex shrink-0 gap-1">
+      {autoplay && (
+        <button type="button" class="wr-eras-play cursor-pointer rounded-full border border-border px-2.5 py-1 font-semibold text-fg-2 hover:border-border-strong" aria-label="Pause the timeline" hidden>❚❚</button>
+      )}
+      <button type="button" class="wr-eras-nav cursor-pointer hidden rounded-full border border-border px-2.5 py-1 font-semibold text-fg-2 hover:border-border-strong sm:inline-block" data-dir="-1" aria-label="Earlier years">←</button>
+      <button type="button" class="wr-eras-nav cursor-pointer hidden rounded-full border border-border px-2.5 py-1 font-semibold text-fg-2 hover:border-border-strong sm:inline-block" data-dir="1" aria-label="Later years">→</button>
     </span>
   </div>
 </div>
@@ -93,6 +98,7 @@ function trend(points: { year: number; share: number }[], year: number) {
 <style>
   /* the timeline rule and a dot per year above each card */
   .wr-eras-track { position: relative; scrollbar-width: thin; }
+  .wr-eras-track.is-gliding { scroll-snap-type: none; }
   .wr-era::before {
     content: '';
     position: absolute;
@@ -115,12 +121,83 @@ function trend(points: { year: number; share: number }[], year: number) {
 </style>
 
 <script>
-  /* Start at the newest years, and let the arrows page through. */
+  /* Start at the newest years, and let the arrows page through. With autoplay,
+     the track instead glides from the first year to the last once it is on
+     screen, rests, and rewinds. It stops for good the moment someone takes
+     over (arrows, wheel, touch, keyboard), pauses while hovered, and never
+     moves for people who ask for reduced motion. */
+  const SPEED = 45;          // px per second
+  const REST = 3500;         // ms at either end
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   for (const root of document.querySelectorAll<HTMLElement>('.wr-eras')) {
     const track = root.querySelector<HTMLElement>('.wr-eras-track');
     if (!track) continue;
-    track.scrollLeft = track.scrollWidth;
+    const play = root.querySelector<HTMLButtonElement>('.wr-eras-play');
+    const auto = root.hasAttribute('data-autoplay') && !still;
+    track.scrollLeft = auto ? 0 : track.scrollWidth;
+
+    let running = false;     // the user has not stopped it
+    let hovered = false;
+    let visible = false;
+    let restUntil = 0;
+    let pos = 0;
+    let last = 0;
+    let frame = 0;
+
+    const tick = (now: number) => {
+      frame = 0;
+      if (!running || hovered || !visible) return;
+      const dt = last ? Math.min(now - last, 100) : 0;
+      last = now;
+      const end = track.scrollWidth - track.clientWidth;
+      if (now >= restUntil) {
+        if (pos >= end - 1) {
+          pos = 0;
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+          restUntil = now + REST;
+        } else {
+          pos = Math.min(end, pos + (SPEED * dt) / 1000);
+          track.scrollLeft = pos;
+          if (pos >= end - 1) restUntil = now + REST;
+        }
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    const wake = () => {
+      last = 0;
+      pos = track.scrollLeft;
+      if (!frame) frame = requestAnimationFrame(tick);
+    };
+    const setRunning = (on: boolean) => {
+      running = on;
+      track.classList.toggle('is-gliding', on);
+      if (play) {
+        play.textContent = on ? '❚❚' : '▶';
+        play.setAttribute('aria-label', on ? 'Pause the timeline' : 'Play the timeline');
+      }
+      if (on) wake();
+    };
+
+    if (auto) {
+      if (play) play.hidden = false;
+      setRunning(true);
+      restUntil = performance.now() + 1200;
+      new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) wake(); }, { threshold: 0.3 }).observe(track);
+      root.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hovered = true; });
+      root.addEventListener('pointerleave', () => { hovered = false; wake(); });
+      const takeOver = () => setRunning(false);
+      for (const ev of ['wheel', 'touchstart', 'keydown'] as const) track.addEventListener(ev, takeOver, { passive: true });
+      track.addEventListener('focusin', takeOver);
+      play?.addEventListener('click', () => {
+        if (!running && track.scrollLeft >= track.scrollWidth - track.clientWidth - 1) track.scrollLeft = 0;
+        setRunning(!running);
+      });
+    }
     root.querySelectorAll<HTMLButtonElement>('.wr-eras-nav').forEach((b) =>
-      b.addEventListener('click', () => track.scrollBy({ left: Number(b.dataset.dir) * track.clientWidth * 0.8, behavior: 'smooth' })));
+      b.addEventListener('click', () => {
+        setRunning(false);
+        track.scrollBy({ left: Number(b.dataset.dir) * track.clientWidth * 0.8, behavior: 'smooth' });
+      }));
   }
 </script>

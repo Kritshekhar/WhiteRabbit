@@ -112,7 +112,9 @@ export function Tile({ label, value, note, hero }: { label: string; value: React
   return (
     <article className={cn('card min-w-0 p-4', hero && 'sm:col-span-2 lg:col-span-1 bg-linear-to-br from-accent-soft to-surface-1')}>
       <p className="text-[0.72rem] font-semibold tracking-wide text-muted uppercase">{label}</p>
-      <p className="mt-1 truncate text-2xl font-bold tracking-tight tabular">{value}</p>
+      {/* a long programme name wraps onto two lines in a smaller size instead of being cut */}
+      <p className={`mt-1 font-bold tracking-tight tabular ${typeof value === 'string' && value.length > 24 ? 'line-clamp-2 text-lg leading-snug' : 'truncate text-2xl'}`}
+        title={typeof value === 'string' ? value : undefined}>{value}</p>
       <p className="mt-0.5 text-[0.8rem] text-fg-2">{note}</p>
     </article>
   );

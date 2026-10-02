@@ -47,7 +47,7 @@ export interface Era { year: number; ideas: EraIdea[] }
 
 /* Each year's breakout ideas, each idea once, with its share of all titles
    over time so the timeline can show what happened next. */
-export function eras(from = 2005): Era[] {
+export function eras(): Era[] {
   const { totals, latest } = base();
   if (latest === null) return [];
   const counts = new Map<string, Map<number, number>>();
@@ -57,7 +57,10 @@ export function eras(from = 2005): Era[] {
     m.set(r.year, (m.get(r.year) || 0) + r.count);
   }
   const byYear = new Map<number, EraIdea[]>();
-  for (const r of getResearchEras()) {
+  const rows = getResearchEras();
+  // trend lines run from a few years before the first era to now
+  const from = rows.length ? Math.min(...rows.map((r) => r.year)) - 3 : latest;
+  for (const r of rows) {
     if (r.year > latest) continue;
     const points = [];
     for (let y = from; y <= latest; y += 1) {
