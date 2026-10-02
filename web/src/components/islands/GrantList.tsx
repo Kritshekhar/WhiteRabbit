@@ -146,7 +146,7 @@ export default function GrantList({ grants, audience, builtAt }: { grants: Grant
             subtitle={
               g.status === 'tba' && g.typical_window
                 ? g.typical_window
-                : [g.amount, g.opportunity_number ? `Opportunity ${g.opportunity_number}` : ''].filter(Boolean).join(' · ')
+                : [g.amount, g.opportunity_number ? `Opportunity ${g.opportunity_number.replace(/-/g, '\u2011')}` : ''].filter(Boolean).join(' · ')
             }
             tags={
               <>

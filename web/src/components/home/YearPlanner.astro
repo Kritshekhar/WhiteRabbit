@@ -1,0 +1,194 @@
+---
+/* "Plan your year": each venue's main deadline by month, stacked by research
+   area, with the current month marked and the next three months shaded.
+   Hovering, focusing or tapping a month shows its venues in the side panel;
+   the panel starts on the current month. Static HTML plus a few lines of
+   script, so it reads fine without JavaScript (the panel stays on this month). */
+import { areaOf } from '@/lib/areas';
+import { deadlineMonth, heatmap, MONTH_NAMES, MONTHS } from '@/lib/heatmap';
+import type { Venue } from '@/lib/types';
+import { href, venueHref } from '@/lib/utils';
+
+interface Props { venues: Venue[] }
+const { venues } = Astro.props;
+
+const heat = heatmap(venues);
+const now = new Date().getMonth();
+const ahead = [0, 1, 2].map((k) => (now + k) % 12);
+
+/* Thirteen areas are too many colours for one bar, so they fold into seven
+   broader groups; a group of one area links to that area's list. */
+const GROUPS: { label: string; slugs: string[] }[] = [
+  { label: 'AI, ML, vision and language', slugs: ['ml', 'ai', 'vision', 'nlp'] },
+  { label: 'Systems and networking', slugs: ['systems', 'networking'] },
+  { label: 'Security', slugs: ['security'] },
+  { label: 'Data and databases', slugs: ['data'] },
+  { label: 'Software engineering and PL', slugs: ['software'] },
+  { label: 'HCI and graphics', slugs: ['hci', 'graphics'] },
+  { label: 'Theory and other', slugs: ['theory', 'other'] },
+];
+const groups = GROUPS.map((g, i) => {
+  const rows = heat.rows.filter((r) => g.slugs.includes(r.slug));
+  return {
+    ...g,
+    link: g.slugs.length === 1 ? href(`conferences/?area=${g.slugs[0]}`) : '',
+    tone: `var(--plan-${i === GROUPS.length - 1 ? 0 : i + 1})`,
+    counts: MONTHS.map((_, m) => rows.reduce((n, r) => n + r.counts[m], 0)),
+  };
+}).filter((g) => g.counts.some(Boolean));
+const totals = heat.totals;
+const max = Math.max(1, ...totals);
+const busiest = totals.indexOf(Math.max(...totals));
+const quietest = totals.indexOf(Math.min(...totals));
+const nextThree = ahead.reduce((n, m) => n + totals[m], 0);
+
+/* Venues per month, best-known first, for the side panel. */
+const TIER = ['A*', 'A', 'B', 'C'];
+const rank = (v: Venue) => (TIER.includes(v.tier) ? TIER.indexOf(v.tier) : TIER.length);
+const byMonth: Venue[][] = MONTHS.map(() => []);
+for (const v of venues) {
+  const m = deadlineMonth(v);
+  if (m !== null) byMonth[m].push(v);
+}
+byMonth.forEach((list) => list.sort((a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name)));
+const SHOWN = 14;
+const toneOf = (v: Venue) => groups.find((g) => g.slugs.includes(areaOf(v)))?.tone ?? 'var(--plan-0)';
+---
+<div class="wr-planner card mt-6 overflow-hidden p-0" data-reveal>
+  <!-- headline numbers -->
+  <dl class="grid grid-cols-3 border-b border-border text-sm">
+    <div class="px-5 py-3">
+      <dt class="text-xs text-muted">Next 3 months</dt>
+      <dd class="mt-0.5"><span class="font-mono text-xl font-bold text-fg tabular">{nextThree}</span> <span class="text-fg-2">deadlines</span></dd>
+    </div>
+    <div class="border-l border-border px-5 py-3">
+      <dt class="text-xs text-muted">Busiest month</dt>
+      <dd class="mt-0.5"><span class="text-xl font-bold text-fg">{MONTH_NAMES[busiest]}</span> <span class="font-mono text-fg-2 tabular">{totals[busiest]}</span></dd>
+    </div>
+    <div class="border-l border-border px-5 py-3">
+      <dt class="text-xs text-muted">Quietest month</dt>
+      <dd class="mt-0.5"><span class="text-xl font-bold text-fg">{MONTH_NAMES[quietest]}</span> <span class="font-mono text-fg-2 tabular">{totals[quietest]}</span></dd>
+    </div>
+  </dl>
+
+  <div class="grid lg:grid-cols-[minmax(0,1fr)_19rem]">
+    <!-- the year -->
+    <div class="p-5">
+      <ol class="wr-plan-months grid grid-cols-12 gap-1 sm:gap-2" aria-label="Venues with their main deadline in each month">
+        {totals.map((n, m) => (
+          <li class="relative">
+            <a href={href(`conferences/?month=${m + 1}`)} data-month={m}
+              class:list={['wr-plan-month group flex flex-col items-center gap-1.5 rounded-lg pt-6 pb-1 no-underline outline-offset-2', ahead.includes(m) && 'is-ahead', m === now && 'is-now']}
+              aria-label={`${MONTH_NAMES[m]}: ${n} venues`} style={`--i:${m}`}>
+              {m === now && <span class="absolute top-0 rounded-full bg-accent px-1.5 py-px text-[0.6rem] font-bold tracking-wide text-white uppercase">Now</span>}
+              <span class="flex h-36 w-full items-end px-0.5 sm:px-1.5">
+                <span class="wr-plan-bar flex w-full flex-col-reverse overflow-hidden rounded-md" style={`height:${Math.max(4, (n / max) * 100)}%`}>
+                  {groups.map((g) => g.counts[m] > 0 && (
+                    <span class="block w-full" style={`flex:${g.counts[m]} 0 0;background:${g.tone}`} title={`${g.label}: ${g.counts[m]}`}></span>
+                  ))}
+                </span>
+              </span>
+              <span class="font-mono text-xs font-bold text-fg tabular sm:text-sm">{n}</span>
+              <span class:list={['text-[0.68rem] font-semibold sm:text-xs', m === now ? 'text-accent' : 'text-muted']}>{MONTHS[m]}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+      <ul class="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-fg-2">
+        {groups.map((g) => (
+          <li class="flex items-center gap-1.5">
+            <span class="size-2.5 rounded-sm" style={`background:${g.tone}`} aria-hidden="true"></span>
+            {g.link ? <a class="hover:text-accent" href={g.link}>{g.label}</a> : <span>{g.label}</span>}
+          </li>
+        ))}
+        <li class="flex items-center gap-1.5 text-muted">
+          <span class="h-2.5 w-4 rounded-sm bg-accent-soft" aria-hidden="true"></span>next 3 months
+        </li>
+      </ul>
+    </div>
+
+    <!-- the month in focus -->
+    <div class="border-t border-border bg-surface-2/40 p-5 lg:border-t-0 lg:border-l">
+      {byMonth.map((list, m) => {
+        const parts = groups.map((g) => ({ ...g, n: g.counts[m] })).filter((g) => g.n > 0).sort((a, b) => b.n - a.n);
+        return (
+          <section class="wr-plan-panel" data-panel={m} hidden={m !== now} aria-live="polite">
+            <p class="text-xs font-semibold tracking-wide text-muted uppercase">{m === now ? 'This month' : ahead.includes(m) ? 'Coming up' : 'Month'}</p>
+            <h3 class="mt-0.5 text-xl font-bold tracking-tight">{MONTH_NAMES[m]} <span class="font-mono text-base font-semibold text-fg-2 tabular">· {totals[m]} venues</span></h3>
+            <div class="mt-3 flex h-2 overflow-hidden rounded-full bg-surface-2" aria-hidden="true">
+              {parts.map((p) => <span style={`flex:${p.n} 0 0;background:${p.tone}`}></span>)}
+            </div>
+            <p class="mt-1.5 text-xs text-muted">
+              {parts.slice(0, 3).map((p, i) => <>{i > 0 && ' · '}<span class="text-fg-2">{p.label}</span> {p.n}</>)}
+            </p>
+            <ul class="mt-3 flex flex-wrap gap-1.5">
+              {list.slice(0, SHOWN).map((v) => (
+                <li>
+                  <a href={venueHref(v.id)} title={v.full_name}
+                    class="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-1 px-2 py-0.5 text-xs font-semibold text-fg-2 no-underline hover:border-border-strong hover:text-fg">
+                    <span class="size-1.5 rounded-full" style={`background:${toneOf(v)}`} aria-hidden="true"></span>{v.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a class="mt-3 inline-block text-sm font-semibold text-accent hover:underline" href={href(`conferences/?month=${m + 1}`)}>
+              {list.length > SHOWN ? `All ${list.length} in ${MONTH_NAMES[m]} →` : `See them in the list →`}
+            </a>
+          </section>
+        );
+      })}
+    </div>
+  </div>
+</div>
+
+<style>
+  .wr-planner {
+    --plan-1: #7c5cd6; --plan-2: #2a78d6; --plan-3: #d6457a; --plan-4: #13875e; --plan-5: #d9822b; --plan-6: #18a3b5; --plan-0: #b9b8b1;
+  }
+  :global(:root[data-theme='dark']) .wr-planner {
+    --plan-1: #a08cf2; --plan-2: #5b9cec; --plan-3: #f07aa6; --plan-4: #2bbf8a; --plan-5: #f0a457; --plan-6: #4fd0de; --plan-0: #6f6e68;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .wr-planner {
+      --plan-1: #a08cf2; --plan-2: #5b9cec; --plan-3: #f07aa6; --plan-4: #2bbf8a; --plan-5: #f0a457; --plan-6: #4fd0de; --plan-0: #6f6e68;
+    }
+  }
+  .wr-plan-month { transition: background-color 0.2s ease; }
+  .wr-plan-month.is-ahead { background: var(--accent-soft); }
+  .wr-plan-month.is-active { background: var(--surface-2); }
+  .wr-plan-month.is-ahead.is-active { background: color-mix(in srgb, var(--accent-soft), var(--accent) 12%); }
+  .wr-plan-month.is-now .wr-plan-bar { box-shadow: 0 0 0 2px var(--surface-1), 0 0 0 4px var(--accent); }
+  .wr-plan-months:hover .wr-plan-bar { opacity: 0.55; }
+  .wr-plan-months .wr-plan-month:hover .wr-plan-bar,
+  .wr-plan-months .wr-plan-month.is-active .wr-plan-bar { opacity: 1; }
+  .wr-plan-bar {
+    transform-origin: 50% 100%;
+    transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.2s ease;
+    transition-delay: calc(var(--i, 0) * 45ms + 150ms), 0s;
+  }
+  :global(.wr-js) .wr-planner:not(:global(.is-in)) .wr-plan-bar { transform: scaleY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.wr-js) .wr-planner:not(:global(.is-in)) .wr-plan-bar { transform: none; }
+  }
+</style>
+
+<script>
+  /* Hover or focus a month to show its venues. A tap on a touch screen shows
+     them first; a second tap follows the link. */
+  for (const root of document.querySelectorAll<HTMLElement>('.wr-planner')) {
+    const months = [...root.querySelectorAll<HTMLAnchorElement>('.wr-plan-month')];
+    const panels = [...root.querySelectorAll<HTMLElement>('.wr-plan-panel')];
+    const show = (m: string) => {
+      panels.forEach((p) => (p.hidden = p.dataset.panel !== m));
+      months.forEach((a) => a.classList.toggle('is-active', a.dataset.month === m));
+    };
+    let touch = false;
+    for (const a of months) {
+      a.addEventListener('pointerenter', (e) => { touch = e.pointerType !== 'mouse'; if (!touch) show(a.dataset.month!); });
+      a.addEventListener('focus', () => show(a.dataset.month!));
+      a.addEventListener('click', (e) => {
+        if (touch && !a.classList.contains('is-active')) { e.preventDefault(); show(a.dataset.month!); }
+      });
+    }
+  }
+</script>

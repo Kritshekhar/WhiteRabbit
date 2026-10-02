@@ -181,6 +181,8 @@ report proceedings workshop session special issue track tutorial panel poster
 posters demo demos extended abstract abstracts invited talk keynote overview
 enhancing enhanced enhance enabling enable leveraging exploring rethinking revisiting understanding unified
 """.split())
+# two-letter words that carry meaning in CS titles
+SHORT_WORDS = {"ad", "ai", "ml", "3d", "2d", "5g", "4g", "6g", "ar", "vr", "xr", "io", "os", "qa", "rl", "gp"}
 # venue-and-year tokens such as "sc25" or "2024" say nothing about the research
 NOISE_TOKEN = re.compile(r"^(\d+|[a-z]+\d{2,4})$")
 TRENDS_YEARS = 10           # trend lists for this many recent complete years
@@ -416,7 +418,7 @@ def main_tocs(rows: list[tuple], stream: str) -> dict[int, list[str]]:
 
 def ngrams(title: str) -> set[str]:
     words = [w.strip("-") for w in WORD.findall(title.lower())]
-    words = [w for w in words if len(w) > 2 and not NOISE_TOKEN.match(w)]
+    words = [w for w in words if (len(w) > 2 or w in SHORT_WORDS) and not NOISE_TOKEN.match(w)]
     grams = set()
     for n in (1, 2, 3):
         for i in range(len(words) - n + 1):
@@ -576,7 +578,7 @@ def keyword_trends(conn, per_venue_year: dict) -> int:
 # --------------------------------------------------------------------------
 # 5. insights: rise and fall, spread, similar venues, authors
 # --------------------------------------------------------------------------
-SINCE = 2000              # term_venue_year starts here
+SINCE = 1975              # phrase counts (term_venue_year, research eras) start here
 RISING_PER_YEAR = 6       # top rising phrases kept from each recent year
 FADING = 40               # phrases that peaked and faded
 SIMILAR = 5               # matches kept per venue
@@ -592,7 +594,13 @@ NOTABLE = [
     "neural radiance", "gaussian splatting", "autonomous driving", "big data", "crowdsourcing",
 ]
 NEWCOMER_WARMUP = 3       # a venue's first years have no history to be new to
-ERAS_FROM = 2008          # first year on the research eras timeline
+ERAS_MIN_TITLES = 2000    # eras start at the first year with this many titles across tracked venues
+# words that rise in some year without being an idea (publishing vocabulary)
+ERA_VOCABULARY = set("""
+government test user users work note named reviewers presentation reception retrospective policy labelling
+blind competitive images image virtual document documents machine code japanese chinese german french
+introduction panel session invited keynote tutorial preface editorial comments reply letter ieee acm
+""".split())
 ERAS_PER_YEAR = 3
 
 
@@ -608,11 +616,19 @@ def research_eras(conn, grams_of: dict, uses: dict, totals: Counter, years: list
     def share(term, y):
         return uses[y][term] / totals[y] if totals[y] else 0.0
 
+    all_years = [y for y in range(SINCE, last + 1) if totals[y]]
+
     def generic(term):
-        # a single word in more than 2% of all titles is vocabulary, not an idea
-        return " " not in term and term not in NOTABLE and max(share(term, y) for y in years) > 0.02
+        # a single word common in titles in any period is vocabulary, not an
+        # idea; early years have few titles, so the bar is lower there
+        if " " in term or term in NOTABLE:
+            return term in ERA_VOCABULARY
+        return term in ERA_VOCABULARY or max(share(term, y) for y in all_years) > 0.012
+
+    ACRONYMS = {"www": "world wide web", "p2p": "peer-to-peer", "llm": "large language", "gnn": "graph neural"}
 
     def related(a, b):
+        a, b = ACRONYMS.get(a, a), ACRONYMS.get(b, b)
         a, b = a.replace("-", ""), b.replace("-", "")   # multi-core is multicore
         if a in b or b in a or a + "s" == b or b + "s" == a:
             return True
@@ -623,14 +639,21 @@ def research_eras(conn, grams_of: dict, uses: dict, totals: Counter, years: list
 
     featured: list[str] = []
     rows = []
-    for year in range(ERAS_FROM, last + 1):
+    # Start where there is enough to measure: before the early 1980s the
+    # tracked venues publish too few papers a year for a "breakout" to mean
+    # anything. Thresholds scale with each year's volume, so a quiet early
+    # year and a huge recent one are judged alike.
+    start = next((y for y in range(SINCE + 3, last + 1) if totals[y] >= ERAS_MIN_TITLES), last)
+    for year in range(start, last + 1):
+        min_uses = max(8, min(30, round(totals[year] * 0.0015)))
+        min_venues = 2 if totals[year] < 15000 else 3
         prior = [y for y in (year - 3, year - 2, year - 1) if totals[y]]
         if not totals[year] or not prior:
             continue
         prior_total = sum(totals[y] for y in prior)
         scored = []
         for term, n in uses[year].items():
-            if n < 30 or venues_using[year][term] < 3 or generic(term):
+            if n < min_uses or venues_using[year][term] < min_venues or generic(term):
                 continue
             before = sum(uses[y][term] for y in prior)
             lift = (n / totals[year]) / ((before + 1) / prior_total)
