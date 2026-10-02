@@ -6,7 +6,7 @@ import {
   getAuthorYears, getResearchEras, getProceedings, getSimilarity, getTermVenueYears, getTopAuthors,
   getTrackedTerms, getVenues, type AuthorYear, type TopAuthor, type TrackedTerm,
 } from './db';
-import { keywordFile, latestCompleteYear, proceedingsFor, topicsFor } from './proceedings';
+import { keywordFile, latestCompleteYear, parseLinks, proceedingsFor, topicsFor } from './proceedings';
 import type { Venue } from './types';
 
 let cache: {
@@ -45,17 +45,23 @@ export interface EraIdea {
 }
 export interface Era { year: number; ideas: EraIdea[] }
 
-/* Each year's breakout ideas, each idea once, with its share of all titles
-   over time so the timeline can show what happened next. */
-export function eras(): Era[] {
-  const { totals, latest } = base();
-  if (latest === null) return [];
+/* A tracked phrase's titles per year across all venues. */
+function termCounts(): Map<string, Map<number, number>> {
   const counts = new Map<string, Map<number, number>>();
   for (const r of getTermVenueYears()) {
     if (!counts.has(r.term)) counts.set(r.term, new Map());
     const m = counts.get(r.term)!;
     m.set(r.year, (m.get(r.year) || 0) + r.count);
   }
+  return counts;
+}
+
+/* Each year's breakout ideas, each idea once, with its share of all titles
+   over time so the timeline can show what happened next. */
+export function eras(): Era[] {
+  const { totals, latest } = base();
+  if (latest === null) return [];
+  const counts = termCounts();
   const byYear = new Map<number, EraIdea[]>();
   const rows = getResearchEras();
   // trend lines run from a few years before the first era to now
@@ -81,12 +87,7 @@ export interface TermLine extends TrackedTerm { points: { year: number; share: n
 export function termLines(from = 2005): { rising: TermLine[]; fading: TermLine[] } {
   const { totals, latest } = base();
   if (latest === null) return { rising: [], fading: [] };
-  const counts = new Map<string, Map<number, number>>();
-  for (const r of getTermVenueYears()) {
-    if (!counts.has(r.term)) counts.set(r.term, new Map());
-    const m = counts.get(r.term)!;
-    m.set(r.year, (m.get(r.year) || 0) + r.count);
-  }
+  const counts = termCounts();
   const line = (t: TrackedTerm): TermLine => {
     const points = [];
     for (let y = from; y <= latest; y += 1) {
@@ -297,7 +298,7 @@ export function venueDigest(id: string): VenueDigest | null {
     topics: yearTopics.sort((a, b) => b.count - a.count).slice(0, 5).map((t) => ({ term: t.term, share: t.count / topicTotal })),
     similar: similarTo(id, 4),
     topAuthors: getTopAuthors(id).slice(0, 5),
-    links: JSON.parse(latest.links || '[]'),
+    links: parseLinks(latest.links),
     acceptance: (() => {
       const r = [...proceedingsFor(id)].reverse().find((p) => p.acceptance_rate !== null);
       return r ? { year: r.year, rate: r.acceptance_rate as number, submitted: r.submitted_count,

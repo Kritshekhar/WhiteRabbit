@@ -137,3 +137,17 @@ export function keywordFile(id: string) {
 export function topicsFor(id: string): TermCount[] {
   return load().topics.filter((t) => t.venue_id === id);
 }
+
+/* A proceedings row's volume links. DBLP and DOI links are stored without
+   their fixed prefix to keep the data small (proceedings_dblp.py,
+   compact_links); this puts it back. */
+export interface VolumeLink { title: string; publisher: string; dblp: string }
+const PREFIXES = { dblp: 'https://dblp.org/', publisher: 'https://doi.org/' } as const;
+export function parseLinks(json: string | null | undefined): VolumeLink[] {
+  const full = (url: string, prefix: string) => (url && !/^https?:\/\//.test(url) ? prefix + url : url);
+  return (JSON.parse(json || '[]') as VolumeLink[]).map((l) => ({
+    title: l.title || '',
+    publisher: full(l.publisher || '', PREFIXES.publisher),
+    dblp: full(l.dblp || '', PREFIXES.dblp),
+  }));
+}

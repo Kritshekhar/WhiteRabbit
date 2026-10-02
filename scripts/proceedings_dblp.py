@@ -34,6 +34,7 @@ from __future__ import annotations
 
 import argparse
 import gzip
+import json
 import math
 import re
 import sqlite3
@@ -56,7 +57,7 @@ DUMP_URL = "https://dblp.org/xml/dblp.xml.gz"
 DTD_URL = "https://dblp.org/xml/dblp.dtd"
 UA = "WhiteRabbit-stats/1.0 (+https://github.com/Kritshekhar/WhiteRabbit)"
 MAX_AGE_DAYS = 30           # DBLP publishes a new dump continuously; monthly is plenty
-TOP_KEYWORDS = 30           # per venue per year, to keep the committed dump small
+TOP_KEYWORDS = 20           # per venue per year, to keep the dump small
 
 # Venues whose DBLP stream is not simply conf/<name>: DBLP's long-standing names
 # for them (NeurIPS is still conf/nips, USENIX Security is conf/uss).
@@ -514,11 +515,11 @@ def aggregate(conn) -> None:
                 doc_freq.update(ngrams(t))
             total_docs += len(titles)
 
-            links = db.jdump([{
+            links = compact_links(db.jdump([{
                 "title": by_toc.get(toc, ("", ""))[0],
                 "publisher": by_toc.get(toc, ("", ""))[1],
                 "dblp": f"https://dblp.org/{toc}",
-            } for toc in sorted(keep)])
+            } for toc in sorted(keep)]))
             existing = conn.execute("SELECT status, links FROM proceedings WHERE venue_id = ? AND year = ?",
                                     (v["id"], year)).fetchone()
             if existing and existing["status"] == "verified":
@@ -570,15 +571,46 @@ def aggregate(conn) -> None:
             picked.append((score, gram, n))
             if len(picked) == TOP_KEYWORDS:
                 break
-        rows += [(venue_id, year, gram, n, round(score, 3)) for score, gram, n in picked]
+        # two decimals are enough to rank by, and keep a slightly different
+        # corpus from rewriting most scores in the dump each day
+        rows += [(venue_id, year, gram, n, round(score, 2)) for score, gram, n in picked]
     conn.executemany("INSERT INTO proceedings_keywords (venue_id, year, term, count, score) "
                      "VALUES (?, ?, ?, ?, ?)", rows)
     papers.close()
 
+    compact_stored_links(conn)
     trends = keyword_trends(conn, per_venue_year)
     insights(conn, per_venue_year, authors_of)
     print(f"proceedings: {counted} venue-years written, {frozen} verified and left alone; "
           f"{len(rows):,} keywords, {trends} trend rows")
+
+
+LINK_PREFIXES = {"dblp": "https://dblp.org/", "publisher": "https://doi.org/"}
+
+
+def compact_links(links: str) -> str:
+    """Only the first volume keeps its title: the site shows that one, and a
+    many-part venue (ECCV has dozens) repeats the same long title in each.
+    DBLP and DOI links are stored without their fixed prefix, which the site
+    adds back (web/src/lib/proceedings.ts, parseLinks)."""
+    vols = json.loads(links or "[]")
+    for i, v in enumerate(vols):
+        if i:
+            v["title"] = ""
+        for key, prefix in LINK_PREFIXES.items():
+            if v.get(key, "").startswith(prefix):
+                v[key] = v[key][len(prefix):]
+    return db.jdump(vols)
+
+
+def compact_stored_links(conn) -> None:
+    """Apply compact_links to rows written before it existed, verified ones
+    included: links are where to read a volume, not the verified count."""
+    for r in conn.execute("SELECT venue_id, year, links FROM proceedings").fetchall():
+        new = compact_links(r["links"])
+        if new != r["links"]:
+            conn.execute("UPDATE proceedings SET links = ? WHERE venue_id = ? AND year = ?",
+                         (new, r["venue_id"], r["year"]))
 
 
 def keyword_trends(conn, per_venue_year: dict) -> int:
@@ -815,7 +847,7 @@ def insights(conn, per_venue_year: dict, authors_of: dict) -> None:
     conn.executemany("INSERT INTO tracked_terms (term, kind, peak_year, peak_share, now_share) VALUES (?, ?, ?, ?, ?)",
                      [(t, k, py, round(ps, 5), round(ns, 5)) for t, (k, py, ps, ns) in tracked.items()])
 
-    # --- where each tracked phrase appears
+    # --- where each tracked phrase appears, per venue, every year since SINCE
     conn.execute("DELETE FROM term_venue_year")
     rows = []
     for (venue_id, year), sets in grams_of.items():

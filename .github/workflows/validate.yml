@@ -41,6 +41,14 @@ jobs:
       - name: Validate the database
         run: python scripts/db.py check
 
+      # the dump is rebuilt on every run and diffed on every change; keep it small
+      - name: Database size
+        run: |
+          MB=$(( $(stat -c %s data/whiterabbit.sql) / 1000000 ))
+          echo "data/whiterabbit.sql: ${MB} MB"
+          if [ "$MB" -gt 40 ]; then echo "::error::the dump is ${MB} MB, over the 40 MB limit"; exit 1; fi
+          if [ "$MB" -gt 25 ]; then echo "::warning::the dump is ${MB} MB, over 25 MB"; fi
+
       - name: The dump must be canonical (as scripts/db.py dump writes it)
         run: |
           python scripts/db.py build
