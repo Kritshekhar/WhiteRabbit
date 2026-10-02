@@ -1,0 +1,78 @@
+name: Alert and post updates when a job finishes
+
+# Opens an issue when one of these jobs fails, comments on it while it keeps
+# failing, and closes it the next time the job succeeds. The issue carries the
+# job's name and a link to the run, nothing from the data. Failures,
+# recoveries and finished deploys are also posted to the team's Google Chat
+# space (GOOGLE_CHAT_WEBHOOK; skipped when the secret is not set).
+
+on:
+  workflow_run:
+    workflows:
+      - "White Rabbit - deploy to Pages"
+      - "Validate data"
+    types: [completed]
+
+permissions:
+  issues: write
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    # cancelled and skipped runs say nothing about whether the job works
+    if: contains(fromJSON('["success", "failure", "timed_out", "startup_failure"]'), github.event.workflow_run.conclusion)
+    steps:
+      - name: Open, update or close the alert
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          JOB: ${{ github.event.workflow_run.name }}
+          CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          EVENT: ${{ github.event.workflow_run.event }}
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
+          GOOGLE_CHAT_WEBHOOK: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
+        run: |
+          # a Chat card with the site's logo; the text uses the card's HTML subset
+          SITE="https://kritshekhar.github.io/WhiteRabbit/"
+          chat() {
+            [ -n "$GOOGLE_CHAT_WEBHOOK" ] || return 0
+            jq -n --arg t "$1" --arg s "$JOB" --arg i "${SITE}apple-touch-icon.png" \
+              '{cardsV2: [{cardId: "whiterabbit", card: {
+                 header: {title: "White Rabbit", subtitle: $s, imageUrl: $i, imageType: "SQUARE"},
+                 sections: [{widgets: [{textParagraph: {text: $t}}]}]}}]}' \
+              | curl -sS -m 20 -o /dev/null -X POST \
+              -H 'Content-Type: application/json; charset=UTF-8' --data @- "$GOOGLE_CHAT_WEBHOOK" || true
+          }
+          if [ "$BRANCH" != "main" ]; then
+            # checks on a pull request branch: say so only when they fail
+            if [ "$CONCLUSION" != "success" ]; then chat "❌ <b>Failed</b> on branch $BRANCH ($CONCLUSION). <a href=\"$RUN_URL\">Open the run</a>"; fi
+            exit 0
+          fi
+          # checks on main that pass need no message; a failing one gets an issue like a job
+          if [ "$JOB" = "Validate data" ] && [ "$CONCLUSION" = "success" ] && [ -z "$(gh issue list --state open --search "\"Scheduled job failing: $JOB\" in:title" --json number --jq '.[0].number // empty')" ]; then exit 0; fi
+          TITLE="Scheduled job failing: $JOB"
+          OPEN=$(gh issue list --state open --search "\"$TITLE\" in:title" --json number,title \
+                   --jq "map(select(.title == \"$TITLE\")) | .[0].number // empty")
+          WHEN=$(date -u +"%Y-%m-%d %H:%M UTC")
+          if [ "$CONCLUSION" = "success" ]; then
+            if [ -n "$OPEN" ]; then
+              gh issue close "$OPEN" --comment "Recovered: the $EVENT run at $WHEN succeeded ($RUN_URL)."
+              echo "closed #$OPEN"
+              chat "✅ <b>Recovered</b>: the $EVENT run succeeded. <a href=\"$RUN_URL\">Open the run</a>"
+            elif [ "$JOB" = "White Rabbit - deploy to Pages" ]; then
+              chat "🚀 <b>Site published</b> ($EVENT): <a href=\"$SITE\">kritshekhar.github.io/WhiteRabbit</a> · <a href=\"$RUN_URL\">run</a>"
+            fi
+            exit 0
+          fi
+          chat "❌ <b>Failed</b> ($CONCLUSION) on the $EVENT run at $WHEN. <a href=\"$RUN_URL\">Open the run</a>"
+          BODY="The $EVENT run at $WHEN ended with **$CONCLUSION**: $RUN_URL"
+          if [ -n "$OPEN" ]; then
+            gh issue comment "$OPEN" --body "Still failing. $BODY"
+            echo "commented on #$OPEN"
+          else
+            gh label create alert --color B60205 --description "A scheduled job is failing" 2>/dev/null || true
+            gh issue create --title "$TITLE" --label alert --body "$BODY
+
+          This issue closes itself when the job next succeeds."
+          fi
