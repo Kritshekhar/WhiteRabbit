@@ -1,5 +1,6 @@
 ---
 import { href } from '@/lib/utils';
+import BrandMark from './BrandMark.astro';
 import type { Section } from '@/layouts/Layout.astro';
 
 interface Props { section: Section }
@@ -18,8 +19,8 @@ const links: { key: Section; label: string; path: string }[] = [
 <header class="sticky top-0 z-30 border-b border-border bg-[color-mix(in_srgb,var(--surface-0)_82%,transparent)] backdrop-blur-md backdrop-saturate-150">
   <div class="wrap flex items-center gap-3 py-3">
     <a href={href()} class="flex shrink-0 items-center gap-2.5 no-underline" aria-label="White Rabbit home">
-      <span class="grid size-9 place-items-center rounded-xl border border-border bg-accent-soft text-lg" aria-hidden="true">🐇</span>
-      <span class="hidden text-[1.02rem] font-bold tracking-tight sm:inline">White Rabbit</span>
+      <BrandMark class="h-9 w-auto" />
+      <span class="hidden text-[1.12rem] tracking-tight sm:inline"><span class="font-light">White</span><span class="font-extrabold">Rabbit</span></span>
     </a>
 
     <nav aria-label="Main" class="ml-auto hidden md:block">
