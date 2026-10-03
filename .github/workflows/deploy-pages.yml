@@ -57,10 +57,25 @@ jobs:
 
       - name: Build the site
         working-directory: web
+        env:
+          # the chat assistant's address (chat/); without it the chat button is left out
+          PUBLIC_CHAT_URL: ${{ vars.CHAT_URL }}
+          PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
         run: |
           npm ci
           npm run build
           npm run smoke
+
+      # what the chat assistant knows, refreshed with every build; it goes to
+      # the Worker's private store, never into the published site
+      - name: Refresh the chat assistant's knowledge
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "no CLOUDFLARE_API_TOKEN, skipped"; exit 0; fi
+          python scripts/chat_knowledge.py > chat/knowledge.json
+          cd chat && npx --yes wrangler@4 kv key put knowledge --path knowledge.json --binding KNOWLEDGE --remote
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

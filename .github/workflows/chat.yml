@@ -1,0 +1,40 @@
+name: White Rabbit - chat assistant
+
+# Deploys the chat Worker (chat/) to Cloudflare when it changes, and applies
+# its question-log schema, which only ever adds tables or indexes.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - chat/**
+      - .github/workflows/chat.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: chat
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: chat
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+    # nothing to do until the Cloudflare token is configured
+    if: ${{ vars.CLOUDFLARE_ACCOUNT_ID != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Apply the question-log schema
+        run: npx --yes wrangler@4 d1 execute whiterabbit-chat --remote --file schema.sql
+      - name: Deploy the Worker
+        run: npx --yes wrangler@4 deploy

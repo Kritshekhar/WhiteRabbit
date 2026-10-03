@@ -1,13 +1,72 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import BrandMark from '@/components/site/BrandMark.astro';
 import { href } from '@/lib/utils';
 ---
 
 <Layout title="Page not found" section="none">
   <div class="mx-auto flex max-w-lg flex-col items-center gap-3 py-16 text-center">
-    <span class="text-5xl" aria-hidden="true">🐇</span>
+    <!-- the rabbit hops, dives into its hole, peeks out and comes back up -->
+    <div class="wr-hole" aria-hidden="true">
+      <span class="wr-hole-back"></span>
+      <span class="wr-hole-clip"><span class="wr-hole-rabbit"><BrandMark class="h-24 w-auto" /></span></span>
+      <span class="wr-hole-front"></span>
+    </div>
     <h1 class="text-2xl font-bold">Down the wrong rabbit hole</h1>
     <p class="text-fg-2">That page does not exist, or it moved when the site was rebuilt.</p>
     <a class="mt-2 inline-flex h-10 items-center rounded-xl bg-accent px-4 text-sm font-semibold text-white no-underline" href={href()}>Back to the home page</a>
   </div>
 </Layout>
+
+<style>
+  .wr-hole {
+    position: relative;
+    width: 10rem;
+    height: 9rem;
+  }
+  /* the opening, and its lit front rim drawn over the rabbit */
+  .wr-hole-back,
+  .wr-hole-front {
+    position: absolute;
+    left: 50%;
+    bottom: 0.25rem;
+    width: 7.5rem;
+    height: 2.1rem;
+    translate: -50% 0;
+    border-radius: 50%;
+  }
+  .wr-hole-back {
+    /* dark in both themes: it is a hole */
+    background: radial-gradient(ellipse at 50% 35%, #040406 40%, #2c2a36 100%);
+    box-shadow: 0 0.35rem 0.9rem -0.2rem rgb(0 0 0 / 0.3);
+  }
+  .wr-hole-front {
+    clip-path: inset(50% 0 0 0);       /* only the near half of the rim */
+    border: 0.22rem solid color-mix(in srgb, var(--text-primary) 22%, var(--surface-0));
+    background: transparent;
+  }
+  /* everything below the hole's middle line is underground */
+  .wr-hole-clip {
+    position: absolute;
+    inset: 0 0 1.3rem 0;
+    overflow: hidden;
+  }
+  .wr-hole-rabbit {
+    position: absolute;
+    left: 50%;
+    bottom: -0.4rem;
+    translate: -50% 0;
+    display: block;
+    animation: wr-into-hole 5.5s cubic-bezier(0.45, 0, 0.3, 1) infinite;
+  }
+  @keyframes wr-into-hole {
+    0%, 10% { transform: translateY(0); }
+    16% { transform: translateY(-0.9rem); }                 /* a little hop */
+    30%, 54% { transform: translateY(110%); }               /* gone, down the hole */
+    62%, 72% { transform: translateY(58%); }                /* ears peek out */
+    84%, 100% { transform: translateY(0); }                 /* and back up */
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wr-hole-rabbit { animation: none; }
+  }
+</style>

@@ -179,6 +179,17 @@ cd web && npm install && npm run dev           # http://localhost:4321/WhiteRabb
 
 Only the venue importer needs a package (`pip install -r requirements.txt`).
 
+## Chat assistant
+
+"Ask White Rabbit" (the rabbit button on every page, and Ask AI in the home
+search) answers questions about deadlines, grants, fellowships and proceedings.
+It is a Cloudflare Worker in `chat/`: each question is matched against a
+snapshot of what the site's pages show (`scripts/chat_knowledge.py`, refreshed
+by every deploy) and answered by an open model on Workers AI from those records
+only, with links to the pages. Questions are logged anonymously in Cloudflare
+D1 (no IP or account; email addresses and numbers removed; kept a year), and a
+weekly summary goes to the team's Google Chat.
+
 ## Workflows
 
 In this repository:
@@ -187,6 +198,7 @@ In this repository:
 |---|---|---|
 | `validate.yml` | every PR | `db.py check`, requires a canonical dump, proves an offline build works |
 | `deploy-pages.yml` | push to `main`, and twice a day | builds the database and the Astro site, publishes to GitHub Pages |
+| `chat.yml` | changes to `chat/` | deploys the chat Worker to Cloudflare |
 | `notify-failure.yml` | after each deploy and check | opens an issue when the deploy fails, closes it when it next succeeds, and posts to Google Chat |
 
 The jobs that change the data run in the private data repository, so their

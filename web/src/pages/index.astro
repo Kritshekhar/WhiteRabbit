@@ -73,7 +73,8 @@ const growth = first && last && first.count ? Math.round((last.count / first.cou
           Conference deadlines, research grants and PhD fellowships in computer science, in one place. Every date says whether it
           was checked on the official page, and the countdowns run in your browser, so they are always current.
         </p>
-        <div class="wr-rise w-full" style="--d:3">
+        <!-- above the buttons below it, so its results list is not covered -->
+        <div class="wr-rise relative z-30 w-full" style="--d:3">
           <HomeSearch client:load entries={data.entries} />
         </div>
         <div class="wr-rise flex flex-wrap items-center gap-3" style="--d:4">

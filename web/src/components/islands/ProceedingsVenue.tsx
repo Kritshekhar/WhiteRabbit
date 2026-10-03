@@ -116,7 +116,7 @@ export default function ProceedingsVenue({ rows, topics, keywordsUrl, defaultYea
       </Panel>
 
       {rates.length > 0 && (
-        <Panel title="Acceptance rate" note="Accepted papers as a share of submissions. Unmarked figures come from the venue itself (the program chairs\u2019 message); figures marked \u2020 are reported figures. Hover a year in the table for the counts; click for the source.">
+        <Panel title="Acceptance rate" note="Accepted papers as a share of submissions. Unmarked figures come from the venue itself (the program chairs’ message); figures marked † are reported figures. Hover a year in the table for the counts; click for the source.">
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={rates} margin={{ left: -12, right: 8 }}>
               <CartesianGrid stroke="var(--border)" vertical={false} />
@@ -237,19 +237,58 @@ export default function ProceedingsVenue({ rows, topics, keywordsUrl, defaultYea
   );
 }
 
-/* The chosen year: its count, status and where to read it. */
+/* The chosen year: its count, status and where to read it. One volume sits
+   beside the heading; several go underneath, as a grid. */
 function SelectedYear({ row }: { row: YearRow }) {
+  const many = row.links.length > 1;
   return (
-    <div className="mt-4 flex flex-col gap-3 rounded-xl border border-border bg-surface-0 p-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className={`mt-4 flex flex-col gap-3 rounded-xl border border-border bg-surface-0 p-4 ${many ? '' : 'sm:flex-row sm:items-center sm:justify-between'}`}>
       <div className="min-w-0">
-        <p className="flex items-center gap-2 text-sm">
+        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
           <span className="text-lg font-bold tabular">{row.year}</span>
-          <span className="font-mono text-fg-2 tabular">{row.count?.toLocaleString() ?? 'n/a'} papers</span>
+          <span className="font-mono whitespace-nowrap text-fg-2 tabular">{row.count?.toLocaleString() ?? 'n/a'} papers</span>
           <YearBadge row={row} />
+          {many && <span className="text-xs text-muted">· {row.links.length} volumes</span>}
         </p>
         {row.links[0]?.title && <p className="mt-1 line-clamp-2 text-xs text-muted">{row.links[0].title}</p>}
       </div>
-      <VolumeLinks links={row.links} />
+      {many ? <VolumeGrid links={row.links} /> : <VolumeLinks links={row.links} />}
+    </div>
+  );
+}
+
+/* Several volumes: a numbered chip per volume (the publisher's page) with its
+   DBLP contents beside it; long series fold after the first dozen. */
+const FOLD = 12;
+function VolumeGrid({ links }: { links: VolumeLink[] }) {
+  const [all, setAll] = useState(false);
+  const shown = all ? links : links.slice(0, FOLD);
+  return (
+    <div>
+      <ul className="grid grid-cols-[repeat(auto-fill,minmax(9.5rem,1fr))] gap-1.5">
+        {shown.map((l, i) => (
+          <li key={l.dblp} className="flex items-center overflow-hidden rounded-lg border border-border bg-surface-1 text-sm">
+            {l.publisher ? (
+              <a href={l.publisher} target="_blank" rel="noopener" title={l.title || `Volume ${i + 1} on the publisher site`}
+                className="flex-1 px-2.5 py-1.5 font-semibold text-accent no-underline hover:bg-accent-soft">
+                Volume {i + 1} ↗
+              </a>
+            ) : (
+              <span className="flex-1 px-2.5 py-1.5 font-semibold text-fg-2">Volume {i + 1}</span>
+            )}
+            <a href={l.dblp} target="_blank" rel="noopener" title={`Volume ${i + 1}: table of contents on DBLP`}
+              className="border-l border-border px-2 py-1.5 text-xs font-semibold text-fg-2 no-underline hover:bg-surface-2 hover:text-fg">
+              DBLP
+            </a>
+          </li>
+        ))}
+      </ul>
+      {links.length > FOLD && (
+        <button type="button" onClick={() => setAll((a) => !a)}
+          className="mt-2 cursor-pointer text-xs font-semibold text-accent hover:underline">
+          {all ? 'Show fewer' : `Show all ${links.length} volumes`}
+        </button>
+      )}
     </div>
   );
 }
@@ -258,9 +297,14 @@ function SelectedYear({ row }: { row: YearRow }) {
 function VolumeLinks({ links, compact = false }: { links: VolumeLink[]; compact?: boolean }) {
   if (!links.length) return <span className="text-xs text-muted">n/a</span>;
   const many = links.length > 1;
+  // in the table, a long series shows its first two volumes and a count
+  const shown = compact && links.length > 3 ? links.slice(0, 2) : links;
   return (
     <span className={compact ? 'flex flex-wrap gap-x-3 gap-y-1' : 'flex shrink-0 flex-wrap gap-2'}>
-      {links.map((l, i) => (
+      {shown.length < links.length && (
+        <span className="order-last text-xs text-muted">+{links.length - shown.length} more</span>
+      )}
+      {shown.map((l, i) => (
         <span key={l.dblp} className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
           {l.publisher && (
             <a

@@ -2,6 +2,7 @@
 import '@/styles/global.css';
 import Header from '@/components/site/Header.astro';
 import Footer from '@/components/site/Footer.astro';
+import ChatWidget from '@/components/islands/ChatWidget';
 
 export type Section = 'home' | 'conferences' | 'grants' | 'fellowships' | 'proceedings' | 'about' | 'none';
 
@@ -79,5 +80,6 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
       <slot />
     </main>
     <Footer><slot name="footer" /></Footer>
+    <ChatWidget client:load />
   </body>
 </html>

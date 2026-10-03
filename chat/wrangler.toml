@@ -1,0 +1,35 @@
+# The White Rabbit chat assistant: a Cloudflare Worker that answers questions
+# from a snapshot of the site's public data with an open model on Workers AI,
+# and keeps an anonymous log of the questions. Nothing here is secret: the IDs
+# below only work with the account's own credentials.
+name = "whiterabbit-chat"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+
+[ai]
+binding = "AI"
+
+# the knowledge snapshot (scripts/chat_knowledge.py), uploaded by the deploy job
+[[kv_namespaces]]
+binding = "KNOWLEDGE"
+id = "07368e71c57747b5b5b4f47a7aa1af23"
+
+# the anonymous question log (schema.sql)
+[[d1_databases]]
+binding = "DB"
+database_name = "whiterabbit-chat"
+database_id = "89a94705-331a-4f16-985f-e15698aba562"
+
+# per-visitor limit; the address is only counted, never stored
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "1001"
+simple = { limit = 8, period = 60 }
+
+[triggers]
+crons = ["17 3 * * *"]   # daily: delete questions older than a year
+
+[vars]
+MODEL = "@cf/google/gemma-4-26b-a4b-it"
+FALLBACK_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8"
+ALLOWED_ORIGINS = "https://whiterabbitai.org,https://www.whiterabbitai.org,https://kritshekhar.github.io,http://localhost:4321,http://127.0.0.1:4321"
