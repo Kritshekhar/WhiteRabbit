@@ -561,7 +561,12 @@
 
 /* the chat button: the rabbit bobs and tilts its head, twitches its ears, a
    light sweeps across its facets, and a soft ring pulses to invite a question */
-.wr-chat-fab .wr-chat-mark { animation: wr-bob 3.2s ease-in-out infinite; overflow: visible; transform-origin: 50% 90%; }
+.wr-chat-fab .wr-chat-mark {
+  animation: wr-bob 3.2s ease-in-out infinite;
+  overflow: visible;
+  transform-origin: 50% 90%;
+  filter: drop-shadow(0 6px 10px color-mix(in srgb, var(--mark-4) 35%, transparent));
+}
 .wr-chat-fab .wr-ear-l { transform-box: fill-box; transform-origin: 70% 100%; animation: wr-ear-l 3.5s ease-in-out infinite; }
 .wr-chat-fab .wr-ear-r { transform-box: fill-box; transform-origin: 30% 100%; animation: wr-ear-r 3.5s ease-in-out infinite 0.15s; }
 .wr-chat-fab .wr-facet:not(.wr-ear-l):not(.wr-ear-r) { animation: wr-shimmer 4.2s ease-in-out infinite; }
@@ -572,11 +577,17 @@
 .wr-chat-fab .wr-facet-6 { animation-delay: 0.6s; }
 .wr-chat-fab:hover .wr-ear-l, .wr-chat-fab:hover .wr-ear-r { animation-duration: 1.2s; }
 .wr-chat-halo {
+  /* a soft glow under the rabbit instead of a ring */
   position: absolute;
-  inset: -1px;
-  border-radius: 999px;
+  left: 50%;
+  bottom: 0.6rem;
+  width: 3.6rem;
+  height: 0.9rem;
+  translate: -50% 0;
+  border-radius: 50%;
   pointer-events: none;
-  animation: wr-halo 3.2s ease-out infinite;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--mark-3) 45%, transparent), transparent);
+  animation: wr-glow 3.2s ease-in-out infinite;
 }
 .wr-chat-fab.is-open .wr-chat-halo,
 .wr-chat-fab.is-open .wr-chat-mark,
@@ -590,10 +601,7 @@
 @keyframes wr-ear-l { 0%, 70%, 100% { transform: rotate(0); } 76% { transform: rotate(-22deg); } 82% { transform: rotate(8deg); } 88% { transform: rotate(-10deg); } 94% { transform: rotate(0); } }
 @keyframes wr-ear-r { 0%, 70%, 100% { transform: rotate(0); } 76% { transform: rotate(22deg); } 82% { transform: rotate(-8deg); } 88% { transform: rotate(10deg); } 94% { transform: rotate(0); } }
 @keyframes wr-shimmer { 0%, 60%, 100% { opacity: 1; } 75% { opacity: 0.55; } }
-@keyframes wr-halo {
-  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--mark-2) 50%, transparent); }
-  70%, 100% { box-shadow: 0 0 0 16px color-mix(in srgb, var(--mark-2) 0%, transparent); }
-}
+@keyframes wr-glow { 0%, 100% { opacity: 0.9; scale: 1; } 50% { opacity: 0.45; scale: 0.8; } }
 @media (prefers-reduced-motion: reduce) {
   .wr-chat-fab .wr-chat-mark, .wr-chat-fab .wr-facet, .wr-chat-halo { animation: none; }
 }
