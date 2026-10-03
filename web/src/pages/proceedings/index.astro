@@ -4,6 +4,7 @@ import VenuePicker, { type PickerVenue } from '@/components/islands/VenuePicker'
 import { StatsEmpty } from '@/components/StatsEmpty';
 import { latestCompleteYear, overview, proceedingsFor, venuesWithData } from '@/lib/proceedings';
 import { href } from '@/lib/utils';
+import { areaLabel, areaOf } from '@/lib/areas';
 import WhoOverview from '@/components/islands/WhoOverview';
 import { whoOverall } from '@/lib/who';
 import FieldShare from '@/components/islands/FieldShare';
@@ -17,7 +18,7 @@ const venues = venuesWithData();
 const picker: PickerVenue[] = venues.map((v) => {
   const rows = proceedingsFor(v.id).filter((p) => p.accepted_count !== null);
   const y = latestCompleteYear(rows);
-  return { id: v.id, name: v.name, full_name: v.full_name, tier: v.tier, latest: rows.find((p) => p.year === y)?.accepted_count ?? null };
+  return { id: v.id, name: v.name, full_name: v.full_name, area: areaLabel(areaOf(v)), latest: rows.find((p) => p.year === y)?.accepted_count ?? null };
 });
 const o = overview();
 const max = Math.max(1, ...o.largest.map((x) => x.count));

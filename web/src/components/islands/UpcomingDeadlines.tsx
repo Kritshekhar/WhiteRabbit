@@ -1,5 +1,5 @@
 import { decorate, fmtDate } from '@/lib/dates';
-import { GRANT_BANDS, VENUE_BANDS } from '@/lib/tiers';
+import { GRANT_BANDS, VENUE_BANDS } from '@/lib/labels';
 import type { Deadline } from '@/lib/types';
 import { Provenance } from '../Provenance';
 import { useNow } from '../useNow';

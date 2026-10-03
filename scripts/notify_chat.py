@@ -28,7 +28,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import db  # noqa: E402
 
-HOME = "https://kritshekhar.github.io/WhiteRabbit/"
+HOME = "https://whiterabbitai.org/"
 ICON = HOME + "apple-touch-icon.png"     # the site's logo, shown on every message
 LIMIT = 3800        # Chat allows more, but a long message is not read
 SHOWN = 12          # items listed per section before "and N more"

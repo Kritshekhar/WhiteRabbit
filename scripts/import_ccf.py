@@ -38,12 +38,6 @@ RAW = "https://raw.githubusercontent.com/ccfddl/ccf-deadlines/main/conference/"
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
 
-# CORE is the externally sourced opinion we lean on for venues we have no view
-# on. A* is the top of the full-paper stage; everything else is the strong-but-
-# specialised band. It is deliberately NOT applied to venues already in the file.
-CORE_TO_TIER = {"A*": "royal-flush"}
-DEFAULT_TIER = "full-house"
-
 # Finer topics than ccf's single "AI" bucket, for the subject filter.
 TOPICS = {
     "CVPR": ["CV"], "ICCV": ["CV"], "ECCV": ["CV"], "ACCV": ["CV"], "BMVC": ["CV"],
@@ -172,7 +166,6 @@ def fetch_category(cat: str) -> list[dict]:
 
 
 def to_venue(v: dict) -> dict:
-    tier = CORE_TO_TIER.get(v["core"], DEFAULT_TIER)
     source = f"https://github.com/ccfddl/ccf-deadlines/blob/main/conference/{v['file']}"
     deadlines = []
     if abstract := to_iso(v["abstract"], v["timezone"]):
@@ -187,7 +180,6 @@ def to_venue(v: dict) -> dict:
     venue = {"name": v["title"]}
     if v["full_name"]:
         venue["full_name"] = v["full_name"]
-    venue["tier"] = tier
     venue["url"] = v["link"]
     if template := template_for(v["link"], v["year"]):
         venue["url_template"] = template
@@ -238,11 +230,6 @@ def main() -> int:
 
     print(f"\n{len(candidates)} found · {dupes} already tracked · "
           f"{len(dropped)} skipped for a bad link · {len(keep)} to add")
-    tiers = {}
-    for v, _ in keep:
-        t = CORE_TO_TIER.get(v["core"], DEFAULT_TIER)
-        tiers[t] = tiers.get(t, 0) + 1
-    print("stages:", tiers)
 
     if not args.write:
         print("\n(dry run - pass --write to apply)")

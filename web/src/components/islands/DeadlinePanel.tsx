@@ -1,6 +1,6 @@
 import { decorate, fmtDate, isAoE } from '@/lib/dates';
 import { grantEvent, venueEvent, type CalendarEvent } from '@/lib/calendar';
-import { GRANT_BANDS, VENUE_BANDS } from '@/lib/tiers';
+import { GRANT_BANDS, VENUE_BANDS } from '@/lib/labels';
 import type { Grant, Venue } from '@/lib/types';
 import { CalendarLink } from '../CalendarLink';
 import { SubscribeMenu } from '../SubscribeMenu';

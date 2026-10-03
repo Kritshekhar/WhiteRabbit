@@ -2,7 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import GrantList from '@/components/islands/GrantList';
 import { BUILT_AT, getGrants } from '@/lib/db';
-import { AUDIENCE_ELIGIBILITY } from '@/lib/tiers';
+import { AUDIENCE_ELIGIBILITY } from '@/lib/labels';
 
 const grants = getGrants().filter((g) => AUDIENCE_ELIGIBILITY.student.includes(g.eligibility));
 ---

@@ -6,7 +6,7 @@ Every command writes through scripts/db.py, so the committed dump
 
   python scripts/wr.py show fast                     # a venue or grant, by id
   python scripts/wr.py queue                         # what still needs verifying
-  python scripts/wr.py add-venue "HotStorage" --tier rabbit-hole \\
+  python scripts/wr.py add-venue "HotStorage" \\
       --url https://www.hotstorage.org/2027/ --year 2027 --topic Storage
   python scripts/wr.py add-deadline fast "Abstract" 2026-09-08T23:59:00-12:00
   python scripts/wr.py verify fast --source https://www.usenix.org/conference/fast27
@@ -140,7 +140,7 @@ def cmd_reject(conn, args) -> None:
 
 
 def cmd_add_venue(conn, args) -> None:
-    raw = {"name": args.name, "full_name": args.full_name, "tier": args.tier, "url": args.url,
+    raw = {"name": args.name, "full_name": args.full_name, "url": args.url,
            "url_template": args.url_template, "year": args.year, "month": args.month,
            "topics": args.topic, "publisher": args.publisher, "notes": args.notes}
     venue = update.normalise(raw)
@@ -214,7 +214,6 @@ def main() -> int:
     p = sub.add_parser("add-venue")
     p.add_argument("name")
     p.add_argument("--full-name", default="")
-    p.add_argument("--tier", default="full-house", choices=db.VALID_TIERS)
     p.add_argument("--url", default="")
     p.add_argument("--url-template", default="")
     p.add_argument("--year", type=int)

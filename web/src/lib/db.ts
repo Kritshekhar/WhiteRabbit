@@ -7,13 +7,6 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Grant, ProceedingsYear, TermCount, Venue } from './types';
 
-const STAGES: Record<string, [number, string]> = {
-  'rabbit-hole': [1, 'Rabbit Hole'],
-  'royal-flush': [2, 'Wonderland'],
-  'full-house': [2, 'Wonderland'],
-  'looking-glass': [3, 'Looking Glass'],
-};
-
 /* Walk up from this file to the repo root (the directory holding db/), so the
    path holds both in `astro dev` (src/lib) and in the bundled build (dist/...). */
 function findDb(): string {
@@ -51,18 +44,14 @@ export function getVenues(): Venue[] {
     'SELECT * FROM deadlines WHERE venue_id = ? AND cycle_year IS ? ORDER BY position',
   );
   return (conn.prepare('SELECT * FROM venues ORDER BY position').all() as Row[]).map((v) => {
-    const stage = STAGES[v.tier] ?? [2, ''];
     return {
       id: v.id,
       name: v.name,
       full_name: v.full_name,
-      tier: v.tier,
       url: v.url,
       url_template: v.url_template,
       year: v.year,
       month: v.month,
-      stage: stage[0],
-      stage_name: stage[1],
       rolling: Boolean(v.rolling),
       cycle_years: v.cycle_years,
       formats: list(v.formats),

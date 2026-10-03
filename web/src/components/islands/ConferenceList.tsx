@@ -2,7 +2,7 @@ import { CalendarSync } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { decorate, fmtDate } from '@/lib/dates';
 import { venueEvent } from '@/lib/calendar';
-import { VENUE_BANDS, venueStatus } from '@/lib/tiers';
+import { VENUE_BANDS, venueStatus } from '@/lib/labels';
 import type { Venue } from '@/lib/types';
 import { href, venueHref } from '@/lib/utils';
 import { Row } from '../Row';
@@ -76,7 +76,6 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
 
   const upcoming = all.filter((v) => v.status === 'upcoming').sort((a, b) => (a.days ?? 0) - (b.days ?? 0));
   const head = upcoming[0];
-  const count = (t: string) => venues.filter((v) => v.tier === t).length;
   const verified = upcoming.filter((v) => v.next?.confirmed).length;
 
   return (
@@ -90,12 +89,12 @@ export default function ConferenceList({ venues, builtAt }: { venues: Venue[]; b
             note={head?.next?.ts ? `${head.next.name} · ${fmtDate(head.next.ts, head.next.off)} AoE${head.next.confirmed ? '' : ' (est.)'}` : 'no upcoming deadline'}
           />
         </div>
-        <Tile label="Due within 30 days" value={upcoming.filter((v) => (v.days ?? 0) <= 30).length} note="across all stages" />
+        <Tile label="Due within 30 days" value={upcoming.filter((v) => (v.days ?? 0) <= 30).length} note="across all venues" />
         <Tile label="Due within 90 days" value={upcoming.filter((v) => (v.days ?? 0) <= 90).length} note="plan the quarter" />
         <Tile
           label="Venues tracked"
           value={venues.length}
-          note={`${count('rabbit-hole')} workshop · ${count('royal-flush') + count('full-house')} full paper · ${count('looking-glass')} journal`}
+          note={`${new Set(venues.map((v) => areaOf(v))).size} research areas`}
         />
       </section>
 

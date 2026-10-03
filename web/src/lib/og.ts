@@ -33,7 +33,7 @@ export interface OgCard {
   subtitle?: string;          // e.g. the full name
   line?: string;              // e.g. "Paper submission · Dec 8, 2026 AoE"
   status?: 'verified' | 'est.' | null;
-  footer?: string;            // e.g. "kritshekhar.github.io/WhiteRabbit"
+  footer?: string;            // e.g. "whiterabbitai.org"
 }
 
 // the logo, in its dark palette, as an image satori can place
@@ -59,7 +59,7 @@ export async function renderOg(card: OgCard): Promise<Buffer> {
         { type: 'img', props: { src: MARK, width: 34, height: 46 } },
         h('div', { fontSize: 32, color: C.fg }, h('span', { fontWeight: 400 }, 'White'), h('span', { fontWeight: 800 }, 'Rabbit')),
         h('div', { fontSize: 28, color: C.muted, marginLeft: 8 }, `· ${card.eyebrow}`)),
-      h('div', { fontSize: 22, color: C.muted }, card.footer ?? 'kritshekhar.github.io/WhiteRabbit')),
+      h('div', { fontSize: 22, color: C.muted }, card.footer ?? 'whiterabbitai.org')),
     h('div', { flexDirection: 'column', gap: 18 },
       h('div', { fontSize: card.title.length > 28 ? 64 : 88, fontWeight: 800, lineHeight: 1.05, letterSpacing: -2 }, card.title),
       card.subtitle ? h('div', { fontSize: 34, color: C.fg2, lineHeight: 1.25 },

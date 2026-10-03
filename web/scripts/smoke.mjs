@@ -65,8 +65,6 @@ for (const path of ['og/venue/osdi.png', 'og/page/home.png', 'favicon.svg', 'fav
   if (!existsSync(file) || statSync(file).size < 200) failures.push(`${path}: missing or empty`);
 }
 
-// old links still lead somewhere
-for (const path of ['journey.html', 'venue.html', 'grants.html', 'fellowships.html']) expect(path, 'http-equiv="refresh"');
 
 if (failures.length) {
   console.error(`smoke: ${failures.length} problem(s)\n  ${failures.join('\n  ')}`);

@@ -17,7 +17,7 @@ python scripts/wr.py show eurosys       # what we have now
 
 Every `wr.py` command rewrites the dump, so the change is an ordinary diff in
 the data repository: commit and push it there. The site picks it up at its
-next scheduled build, or at once with `gh workflow run deploy-pages.yml`.
+next scheduled build, or at once with `gh workflow run deploy.yml`.
 
 ## The one rule
 
@@ -111,7 +111,7 @@ npm run build && npm run smoke           # the built site has its pages and feed
 ## Stages
 
 Venues are placed by stage - `rabbit-hole`, `royal-flush`, `full-house`,
-`looking-glass` - not "tier 1/2" - **[About](https://kritshekhar.github.io/WhiteRabbit/about/)** explains
+`looking-glass` - not "tier 1/2" - **[About](https://whiterabbitai.org/about/)** explains
 what each means.
 
 Placement is a judgement call about how a venue *behaves* (selectivity,

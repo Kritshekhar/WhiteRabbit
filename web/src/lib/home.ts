@@ -5,7 +5,7 @@ import type { SearchEntry } from '@/components/islands/HomeSearch';
 import type { UpcomingEntry } from '@/components/islands/UpcomingDeadlines';
 import { getGrants, getKeywordTrends, getProceedings, getTrackedTerms, getVenues } from './db';
 import { latestCompleteYear, venuesWithData } from './proceedings';
-import { AUDIENCE_ELIGIBILITY } from './tiers';
+import { AUDIENCE_ELIGIBILITY } from './labels';
 import { grantHref, href, venueHref } from './utils';
 
 export interface HomeStat {

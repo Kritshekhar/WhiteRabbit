@@ -163,9 +163,9 @@ def main() -> int:
         all_years = venue_years(papers, conn)
         # Round-robin: every venue's most recent year first, then each venue's
         # next most recent, so all venues show something within days rather
-        # than one venue getting its whole history first. Top tiers lead.
-        tier = {r["id"]: {"royal-flush": 0, "full-house": 1}.get(r["tier"], 2)
-                for r in conn.execute("SELECT id, tier FROM venues")}
+        # than one venue getting its whole history first. Larger venues lead.
+        size = {r[0]: r[1] or 0 for r in conn.execute(
+            "SELECT venue_id, max(accepted_count) FROM proceedings GROUP BY venue_id")}
         depth: dict[tuple, int] = {}
         for venue_id in {v for v, _, _ in all_years}:
             years = sorted((y for v, y, _ in all_years if v == venue_id), reverse=True)
@@ -180,7 +180,7 @@ def main() -> int:
                 # still filling in, is refreshed on the first of each month
                 if (venue_id, year) in have and (year < this_year or date.today().day != 1):
                     continue
-                queue.append((0 if name != "topics" else 1, depth[(venue_id, year)], tier.get(venue_id, 2),
+                queue.append((0 if name != "topics" else 1, depth[(venue_id, year)], -size.get(venue_id, 0),
                               name, field, table, keep, venue_id, year, dois))
         queue.sort(key=lambda q: q[:3])
         need = sum(-(-len(q[-1]) // BATCH) for q in queue)

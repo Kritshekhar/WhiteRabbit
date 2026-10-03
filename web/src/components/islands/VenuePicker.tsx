@@ -1,21 +1,19 @@
 import { useMemo, useState } from 'react';
-import { RANK_SLOT, TIERS } from '@/lib/tiers';
+import { AREAS } from '@/lib/areas';
 import { href } from '@/lib/utils';
 import { SearchIcon } from '../Icons';
-import { Badge } from '../ui/badge';
 
 export interface PickerVenue {
   id: string;
   name: string;
   full_name: string;
-  tier: string;
+  area: string;      // the area's label, as in AREAS
   latest: number | null;
 }
 
-const ORDER = ['royal-flush', 'full-house', 'rabbit-hole', 'looking-glass'];
 const proceedingsHref = (id: string) => href(`proceedings/${encodeURIComponent(id)}/`);
 
-/* Only venues that have proceedings data, grouped by tier. `compact` is the
+/* Only venues that have proceedings data, grouped by research area. `compact` is the
    search-as-you-type box used on a venue's own page. */
 export default function VenuePicker({ venues, current, compact = false }: { venues: PickerVenue[]; current?: string; compact?: boolean }) {
   const [q, setQ] = useState('');
@@ -66,13 +64,13 @@ export default function VenuePicker({ venues, current, compact = false }: { venu
     <div className="space-y-4">
       {box}
       {shown.length === 0 && <p className="text-sm text-muted">No venue with data matches.</p>}
-      {ORDER.map((tier) => {
-        const group = shown.filter((v) => v.tier === tier);
+      {AREAS.map(({ label }) => {
+        const group = shown.filter((v) => v.area === label).sort((a, b) => a.name.localeCompare(b.name));
         if (!group.length) return null;
         return (
-          <section key={tier}>
+          <section key={label}>
             <h3 className="mb-2 flex items-center gap-2 text-xs font-semibold tracking-wide text-muted uppercase">
-              <Badge variant={RANK_SLOT[tier] || 'off'}>{TIERS[tier]}</Badge> {group.length}
+              {label} <span className="font-mono font-normal">{group.length}</span>
             </h3>
             <ul className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 lg:grid-cols-5">
               {group.map((v) => (

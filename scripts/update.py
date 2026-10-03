@@ -43,24 +43,6 @@ UA = (
 )
 TIMEOUT = 15
 MAX_PROBE_WORKERS = 8
-# A venue's stage on a project's path.
-VALID_TIERS = {"rabbit-hole", "royal-flush", "full-house", "looking-glass"}
-# Older names still parse so an in-flight branch does not break.
-LEGACY_TIERS = {
-    "tier1": "royal-flush", "companion": "full-house", "workshop": "rabbit-hole",
-    "queens-court": "royal-flush", "tea-party": "full-house",
-    "caucus-race": "rabbit-hole", "high-card": "rabbit-hole",
-    "wild-card": "looking-glass",
-}
-
-# A venue's place on a project's path, not a ranking: every project wants a
-# stage 1, then a stage 2, then a stage 3. Stage 2 is the only one with grades.
-STAGES = {
-    "rabbit-hole":   (1, "Rabbit Hole"),
-    "royal-flush":   (2, "Wonderland"),
-    "full-house":    (2, "Wonderland"),
-    "looking-glass": (3, "Looking Glass"),
-}
 
 # --------------------------------------------------------------------------
 # probe policy
@@ -199,12 +181,6 @@ def normalise(raw: dict) -> dict:
     if not name:
         raise ValueError(f"venue entry is missing `name`: {raw!r}")
 
-    tier = str(raw.get("tier") or "full-house").strip().lower()
-    tier = LEGACY_TIERS.get(tier, tier)
-    if tier not in VALID_TIERS:
-        print(f"  ! {name}: unknown tier {tier!r}, treating as full-house", file=sys.stderr)
-        tier = "full-house"
-
     deadlines = []
     for entry in raw.get("deadlines") or []:
         if isinstance(entry, (str, datetime)):  # shorthand: a bare date
@@ -227,13 +203,10 @@ def normalise(raw: dict) -> dict:
         "id": slugify(name),
         "name": name,
         "full_name": str(raw.get("full_name") or "").strip(),
-        "tier": tier,
         "url": str(raw.get("url") or "").strip(),
         "url_template": str(raw.get("url_template") or "").strip(),
         "year": raw.get("year"),
         "month": raw.get("month"),
-        "stage": STAGES.get(tier, (2, ""))[0],
-        "stage_name": STAGES.get(tier, (2, ""))[1],
         "rolling": bool(raw.get("rolling", False)),
         "cycle_years": max(1, int(raw.get("cycle_years", 1) or 1)),
         "formats": [str(f).strip() for f in (raw.get("formats") or []) if str(f).strip()],
@@ -372,8 +345,7 @@ def main() -> int:
             print(f"  ! dead links: {', '.join(dead)}", file=sys.stderr)
 
     if args.dry_run:
-        tiers = {t: sum(v["tier"] == t for v in venues) for t in sorted(VALID_TIERS)}
-        print(json.dumps({"total": len(venues), **tiers}, indent=2))
+        print(json.dumps({"total": len(venues)}, indent=2))
         print(f"(dry run) rolled over: {sorted(rolled) or 'none'}")
         conn.rollback()
         return 0

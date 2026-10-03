@@ -29,9 +29,7 @@ def test_a_verified_deadline_needs_a_source(conn):
                      (venue["id"], venue["year"]))
 
 
-def test_unknown_tiers_and_statuses_are_refused(conn):
-    with pytest.raises(sqlite3.IntegrityError):
-        conn.execute("UPDATE venues SET tier = 'legendary' WHERE rowid = (SELECT min(rowid) FROM venues)")
+def test_unknown_statuses_are_refused(conn):
     with pytest.raises(sqlite3.IntegrityError):
         conn.execute("UPDATE deadlines SET status = 'probably' WHERE rowid = (SELECT min(rowid) FROM deadlines)")
 

@@ -1,135 +1,201 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { Badge } from '@/components/ui/badge';
-import { getVenues } from '@/lib/db';
+import BrandMark from '@/components/site/BrandMark.astro';
+import { ArrowRight, BookOpen, CalendarDays, HandCoins, MessageCircle } from 'lucide-react';
+import { compact, homeData } from '@/lib/home';
+import { getGrants, getProceedings, getVenues } from '@/lib/db';
+import { href } from '@/lib/utils';
 
-/* Counts and examples come from the database at build time: typing them in
-   guarantees they go stale the next time a venue is added. */
-const venues = getVenues();
-const count = (tier: string) => venues.filter((v) => v.tier === tier).length;
-const examples = (tier: string, n = 10) => venues.filter((v) => v.tier === tier).slice(0, n).map((v) => v.name).join(' · ');
+/* Figures come from the database at build time, so they never go stale. */
+const { counts, verified } = homeData();
+const years = getProceedings().map((p) => p.year);
+const since = years.length ? Math.min(...years) : null;
+const deadlines = [...getVenues(), ...getGrants()].flatMap((r) => r.deadlines).filter((d) => d.date).length;
+
+/* The clock in the header: the next verified deadlines circle the rabbit like
+   the hours on its pocket watch, with a few facts in between. */
+const now = Date.now();
+const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const day = (iso: string) => {
+  const m = /([+-])(\d{2}):(\d{2})$/.exec(iso);
+  const off = m ? (m[1] === '-' ? -1 : 1) * (Number(m[2]) * 60 + Number(m[3])) : 0;
+  const d = new Date(Date.parse(iso) + off * 60000);
+  return `${MON[d.getUTCMonth()]} ${d.getUTCDate()}`;
+};
+const soon = getVenues()
+  .map((v) => ({ v, d: v.deadlines.find((d) => d.confirmed && d.date && Date.parse(d.date) > now) }))
+  .filter((x) => x.d)
+  .sort((a, b) => Date.parse(a.d!.date!) - Date.parse(b.d!.date!))
+  .filter((x, i, all) => all.findIndex((y) => y.v.id === x.v.id) === i)
+  .slice(0, 5)
+  .map(({ v, d }) => ({ text: `${v.name} · ${day(d!.date!)}`, kind: 'date' }));
+const chips = [
+  soon[0], { text: '✓ verified', kind: 'ok' }, soon[1], { text: `${compact(counts.papers)} papers`, kind: 'fact' },
+  soon[2], { text: 'AoE', kind: 'fact' },
+].filter(Boolean) as { text: string; kind: string }[];
+
+const inside = [
+  { Icon: CalendarDays, title: 'Conference deadlines', path: 'conferences/',
+    body: `${counts.venues} venues across every area of computer science, with live countdowns and calendar feeds.` },
+  { Icon: HandCoins, title: 'Grants and fellowships', path: 'grants/',
+    body: `${counts.faculty + counts.fellowships} funding programmes for faculty and PhD students, with deadlines checked against the official call.` },
+  { Icon: BookOpen, title: 'Proceedings statistics', path: 'proceedings/',
+    body: `${compact(counts.papers)} papers since ${since ?? 'the start'}: venue sizes, acceptance rates, institutions, countries and rising ideas.` },
+  { Icon: MessageCircle, title: 'Ask White Rabbit', path: '',
+    body: 'An assistant that answers questions from this data, and links every answer to its page.' },
+];
+
+const steps = [
+  { title: 'Read at the source', body: 'Each date is read on the venue’s or funder’s own page.' },
+  { title: 'Labelled honestly', body: 'Verified dates link to that page. Anything not yet confirmed is marked est.' },
+  { title: 'Checked every night', body: 'Estimated dates are re-read nightly. Verified dates are final.' },
+];
+
+const sources = [
+  { name: 'Venue and funder websites', note: 'every verified date', url: '' },
+  { name: 'DBLP', note: 'papers, volumes and authors (CC0)', url: 'https://dblp.org' },
+  { name: 'OpenAlex', note: 'topics, institutions and countries (CC0)', url: 'https://openalex.org' },
+  { name: 'Grants.gov', note: 'US federal funding calls', url: 'https://www.grants.gov' },
+  { name: 'Conference-Acceptance-Rate', note: 'reported acceptance rates (MIT)', url: 'https://github.com/lixin4ever/Conference-Acceptance-Rate' },
+];
 ---
 
-<Layout title="About the stages" section="about" description="Why White Rabbit groups venues by a project's stage: workshop, full paper, journal.">
-  <article class="mx-auto max-w-3xl">
-    <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">A project's path, not a ranking</h1>
-    <p class="mt-4 text-[1.02rem] text-fg-2">
-      This is not a ranking of venues. It is the path one project takes to finish: an idea gets aired at a
-      <strong class="text-fg">workshop</strong>, the real result lands as a <strong class="text-fg">full paper with a poster</strong>,
-      and the mature version is archived in a <strong class="text-fg">journal</strong>. Most work wants all three. The only
-      place grades apply is the middle stage, where the same finished paper could go to two different calibres of venue.
-    </p>
-
-    <figure class="card my-8 p-4">
-      <div class="overflow-x-auto">
-        <svg viewBox="0 0 860 300" class="pyramid block h-auto w-full min-w-[620px]" role="img"
-             aria-label="A project's three stages, left to right: Rabbit Hole, a workshop paper; Wonderland, a full paper with poster, which is either a Royal Flush or a Full House venue; and Looking Glass, the archival journal version.">
-          <defs>
-            <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor" />
-            </marker>
-          </defs>
-          <text x="104" y="70" class="p-stage" text-anchor="middle">STAGE 1</text>
-          <rect x="24" y="118" width="160" height="84" rx="12" fill="var(--rank-base)" fill-opacity=".16" stroke="var(--rank-base)" stroke-width="1.5" />
-          <text x="104" y="150" class="p-label" text-anchor="middle" fill="var(--rank-base)">Rabbit Hole</text>
-          <text x="104" y="170" class="p-axis" text-anchor="middle">workshop paper</text>
-          <text x="104" y="190" class="p-count" text-anchor="middle">{count('rabbit-hole')}</text>
-
-          <line x1="192" y1="160" x2="246" y2="160" stroke="currentColor" stroke-width="1.5" opacity=".5" marker-end="url(#arw)" />
-          <text x="219" y="150" class="p-axis" text-anchor="middle">grows into</text>
-
-          <text x="404" y="70" class="p-stage" text-anchor="middle">STAGE 2</text>
-          <rect x="256" y="82" width="296" height="180" rx="14" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-width="1.5" stroke-dasharray="5 5" />
-          <text x="404" y="102" class="p-axis" text-anchor="middle">full paper + poster, pick your table</text>
-          <rect x="274" y="114" width="260" height="60" rx="10" fill="var(--rank-top)" fill-opacity=".16" stroke="var(--rank-top)" stroke-width="1.5" />
-          <text x="298" y="140" class="p-label" fill="var(--rank-top)">Royal Flush</text>
-          <text x="516" y="140" class="p-count" text-anchor="end">{count('royal-flush')}</text>
-          <text x="298" y="159" class="p-axis">the strongest venues</text>
-          <rect x="274" y="186" width="260" height="60" rx="10" fill="var(--rank-mid)" fill-opacity=".16" stroke="var(--rank-mid)" stroke-width="1.5" />
-          <text x="298" y="212" class="p-label" fill="var(--rank-mid)">Full House</text>
-          <text x="516" y="212" class="p-count" text-anchor="end">{count('full-house')}</text>
-          <text x="298" y="231" class="p-axis">strong and specialised</text>
-
-          <line x1="560" y1="160" x2="614" y2="160" stroke="currentColor" stroke-width="1.5" opacity=".5" marker-end="url(#arw)" />
-          <text x="587" y="150" class="p-axis" text-anchor="middle">extends into</text>
-
-          <text x="716" y="70" class="p-stage" text-anchor="middle">STAGE 3</text>
-          <rect x="624" y="118" width="184" height="84" rx="12" fill="var(--surface-2)" stroke="currentColor" stroke-opacity=".35" stroke-width="1.5" />
-          <text x="716" y="150" class="p-label" text-anchor="middle">Looking Glass</text>
-          <text x="716" y="170" class="p-axis" text-anchor="middle">journal · no deadline</text>
-          <text x="716" y="190" class="p-count" text-anchor="middle">{count('looking-glass')}</text>
-        </svg>
+<Layout title="About" section="about" description="White Rabbit tracks computer science deadlines, grants, fellowships and proceedings statistics, with every date checked against its official source.">
+  <article class="mx-auto max-w-4xl space-y-12">
+    <header class="wr-about-hero card relative grid items-center gap-6 overflow-hidden p-6 sm:grid-cols-[1fr_19rem] sm:p-8">
+      <div class="relative z-10">
+        <p class="wr-eyebrow">About</p>
+        <h1 class="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">About White Rabbit</h1>
+        <p class="mt-3 text-[1.05rem] text-fg-2">
+          Every deadline, grant and proceedings statistic a computer science researcher needs, in one place, with
+          each date checked against its official source.
+        </p>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <a href={href('conferences/')} class="wr-btn-primary">Browse deadlines <ArrowRight className="size-4" aria-hidden="true" /></a>
+          <a href={href('proceedings/')} class="wr-btn-ghost">Explore proceedings</a>
+        </div>
       </div>
-      <figcaption class="mx-auto mt-2 max-w-[46ch] text-center text-xs text-muted">
-        One project, three stages. Only the middle one is graded: a finished paper is the same paper whichever table you take
-        it to, so that is the single place a venue's calibre changes the decision.
-      </figcaption>
-    </figure>
 
-    <div class="space-y-8 text-fg-2">
-      <section class="border-t border-border pt-5">
-        <h2 class="mb-2 flex flex-wrap items-center gap-2 font-bold text-fg">
-          <span class="text-[0.66rem] font-bold tracking-widest text-muted uppercase">Stage 1</span>
-          <Badge variant="base">Rabbit Hole</Badge>
-        </h2>
-        <p>
-          Where you jump in with a half-formed idea. Workshops: five pages, a position, and an argument you are not sure of
-          yet. Low stakes by design, fast turnaround, and the room that tells you whether the idea survives contact with
-          people. Skipping this stage is how a project discovers its flaw eighteen months late.
-        </p>
-        <p class="mt-2 font-mono text-xs leading-relaxed text-muted">{examples('rabbit-hole')}</p>
-      </section>
+      <!-- the pocket watch: a dial with a sweeping hand, upcoming deadlines
+           orbiting like its hours, and the rabbit at the centre -->
+      <div class="wr-watch relative mx-auto aspect-square w-[15rem] max-w-full" aria-hidden="true">
+        <svg class="absolute inset-0 size-full" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="96" class="wr-watch-rim" />
+          <circle cx="100" cy="100" r="88" class="wr-watch-face" />
+          {Array.from({ length: 60 }, (_, i) => (
+            <line x1="100" y1={i % 5 ? 16 : 13} x2="100" y2="19" transform={`rotate(${i * 6} 100 100)`}
+              class={i % 5 ? 'wr-tick' : 'wr-tick wr-tick-hour'} />
+          ))}
+          <g class="wr-hand-sweep"><line x1="100" y1="104" x2="100" y2="22" class="wr-hand" /><circle cx="100" cy="100" r="3" class="wr-hand-hub" /></g>
+        </svg>
+        <div class="wr-orbit absolute inset-0">
+          {chips.map((c, i) => (
+            <span class="wr-orbit-slot" style={`--a:${(360 / chips.length) * i}deg`}>
+              <span class:list={['wr-orbit-chip', `is-${c.kind}`]}>{c.text}</span>
+            </span>
+          ))}
+        </div>
+        <div class="wr-watch-rabbit absolute inset-0 grid place-items-center"><BrandMark class="h-[4.4rem] w-auto" /></div>
+      </div>
+    </header>
 
-      <section class="border-t border-border pt-5">
-        <h2 class="mb-2 flex flex-wrap items-center gap-2 font-bold text-fg">
-          <span class="text-[0.66rem] font-bold tracking-widest text-muted uppercase">Stage 2</span>
-          <Badge variant="top">Royal Flush</Badge>
-          <Badge variant="mid">Full House</Badge>
-        </h2>
-        <p>
-          The full paper, and the poster that goes with it: the result the project is actually for. This is the only stage
-          with grades, because it is the only one where the same finished paper has a choice of table:
-        </p>
-        <p class="mt-2"><strong class="text-fg">Royal Flush</strong>: the best hand in the deck and the rarest. Single-digit-to-twenty percent acceptance, recognised by acronym alone.</p>
-        <p class="mt-2"><strong class="text-fg">Full House</strong>: a strong hand that wins most tables. Specialised venues with real review and a more focused audience, often where the more interesting arguments happen.</p>
-        <p class="mt-2 font-mono text-xs leading-relaxed text-muted">Royal Flush: {examples('royal-flush')}</p>
-        <p class="font-mono text-xs leading-relaxed text-muted">Full House: {examples('full-house')}</p>
-      </section>
+    <dl class="card grid grid-cols-2 gap-px overflow-hidden bg-border p-0 sm:grid-cols-4">
+      <div class="bg-surface-1 p-4"><dt class="text-xs text-muted">Venues</dt><dd class="mt-1 font-mono text-2xl font-bold tabular">{counts.venues}</dd></div>
+      <div class="bg-surface-1 p-4"><dt class="text-xs text-muted">Funding programmes</dt><dd class="mt-1 font-mono text-2xl font-bold tabular">{counts.faculty + counts.fellowships}</dd></div>
+      <div class="bg-surface-1 p-4"><dt class="text-xs text-muted">Verified deadlines</dt><dd class="mt-1 font-mono text-2xl font-bold tabular">{verified}<span class="text-sm font-normal text-muted"> / {deadlines}</span></dd></div>
+      <div class="bg-surface-1 p-4"><dt class="text-xs text-muted">Papers indexed</dt><dd class="mt-1 font-mono text-2xl font-bold tabular">{compact(counts.papers)}</dd></div>
+    </dl>
 
-      <section class="border-t border-border pt-5">
-        <h2 class="mb-2 flex flex-wrap items-center gap-2 font-bold text-fg">
-          <span class="text-[0.66rem] font-bold tracking-widest text-muted uppercase">Stage 3</span>
-          <Badge variant="off">Looking Glass</Badge>
-        </h2>
-        <p>
-          The reflected version: longer, fuller, archival. Journals have no deadline, no cycle and no countdown. You submit
-          when the work is ready and the clock never applies, which is why White Rabbit shows them as <em>rolling submission</em>
-          and never counts them down. It is the last stage precisely because it is the one the calendar cannot rush.
-        </p>
-        <p class="mt-2 font-mono text-xs leading-relaxed text-muted">{examples('looking-glass')}</p>
-      </section>
+    <section aria-labelledby="inside-h">
+      <h2 id="inside-h" class="text-xl font-bold tracking-tight">What’s inside</h2>
+      <ul class="mt-4 grid gap-3 sm:grid-cols-2">
+        {inside.map(({ Icon, title, body, path }) => (
+          <li>
+            <a href={href(path)} class="card group flex h-full gap-3 p-4 no-underline transition hover:-translate-y-0.5 hover:border-border-strong">
+              <span class="grid size-9 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent"><Icon className="size-4.5" aria-hidden="true" /></span>
+              <span>
+                <span class="block font-semibold text-fg group-hover:text-accent">{title}</span>
+                <span class="mt-0.5 block text-sm text-fg-2">{body}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
 
-      <section class="rounded-2xl bg-surface-2 p-5">
-        <h2 class="mb-2 font-bold text-fg">What this is not</h2>
-        <p>
-          A ranking of research quality, and not a rule. Plenty of good work skips a stage, and plenty of the best ideas in
-          systems appeared first as a Rabbit Hole workshop paper and never went further. Read it as the route most projects
-          benefit from, not a ladder you owe anyone.
-        </p>
-        <p class="mt-2">
-          Stage 2's two grades track how a venue <em>behaves</em> (selectivity, breadth of audience), not how good any
-          particular paper in it is. It is one judgement call recorded in one field of the database; if a venue looks
-          misplaced, that is a one-line change and a reasonable pull request.
-        </p>
-      </section>
-    </div>
+    <section aria-labelledby="checked-h">
+      <h2 id="checked-h" class="text-xl font-bold tracking-tight">How dates are checked</h2>
+      <ol class="mt-4 grid gap-3 sm:grid-cols-3">
+        {steps.map((st, i) => (
+          <li class="card p-4">
+            <span class="font-mono text-xs font-bold text-accent">0{i + 1}</span>
+            <p class="mt-1 font-semibold">{st.title}</p>
+            <p class="mt-1 text-sm text-fg-2">{st.body}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section aria-labelledby="sources-h">
+      <h2 id="sources-h" class="text-xl font-bold tracking-tight">Sources</h2>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {sources.map((src) => (
+          <li>
+            {src.url
+              ? <a href={src.url} target="_blank" rel="noopener" title={src.note} class="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-1 px-3 py-1.5 text-sm font-semibold text-fg no-underline hover:border-accent hover:text-accent">{src.name} <span class="font-normal text-muted">· {src.note}</span></a>
+              : <span class="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-1 px-3 py-1.5 text-sm font-semibold">{src.name} <span class="font-normal text-muted">· {src.note}</span></span>}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <p class="border-t border-border pt-6 text-sm text-fg-2">
+      Spotted a wrong date?{' '}
+      <a class="font-semibold text-accent hover:underline" href="https://github.com/Kritshekhar/WhiteRabbit/issues/new?template=wrong-date.yml" target="_blank" rel="noopener">Report it</a>{' '}
+      with a link to the right one. Always confirm a date on its official page before you plan around it.
+    </p>
   </article>
 </Layout>
 
 <style>
-  .pyramid { color: var(--text-secondary); }
-  .pyramid :global(.p-label) { font: 700 14px Inter, sans-serif; }
-  .pyramid :global(.p-count) { font: 700 13px 'JetBrains Mono', monospace; fill: var(--text-secondary); }
-  .pyramid :global(.p-axis) { font: 500 11px Inter, sans-serif; fill: var(--text-muted); }
-  .pyramid :global(.p-stage) { font: 700 10px Inter, sans-serif; fill: var(--text-muted); letter-spacing: 0.12em; }
+  .wr-about-hero {
+    background:
+      radial-gradient(60% 90% at 100% 0%, color-mix(in srgb, var(--mark-2) 16%, transparent), transparent 70%),
+      radial-gradient(50% 80% at 0% 100%, color-mix(in srgb, var(--mark-1) 12%, transparent), transparent 70%),
+      var(--surface-1);
+  }
+  .wr-watch-rim { fill: none; stroke: color-mix(in srgb, var(--mark-2) 35%, var(--border)); stroke-width: 3; }
+  .wr-watch-face { fill: color-mix(in srgb, var(--surface-0) 70%, transparent); stroke: var(--border); stroke-width: 1; }
+  .wr-tick { stroke: var(--border-strong); stroke-width: 1; }
+  .wr-tick-hour { stroke: var(--text-muted); stroke-width: 2; }
+  .wr-hand { stroke: var(--mark-3); stroke-width: 1.6; stroke-linecap: round; }
+  .wr-hand-hub { fill: var(--mark-3); }
+  .wr-hand-sweep { transform-origin: 100px 100px; animation: wr-sweep 12s linear infinite; }
+
+  /* each chip sits on the ring; the ring turns, the chip turns back to stay upright */
+  .wr-orbit { animation: wr-turn 60s linear infinite; }
+  .wr-orbit-slot { position: absolute; left: 50%; top: 50%; transform: rotate(var(--a)) translateY(-6.1rem) rotate(calc(-1 * var(--a))); }
+  .wr-orbit-chip {
+    display: block;
+    translate: -50% -50%;
+    white-space: nowrap;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface-1);
+    padding: 0.15rem 0.55rem;
+    font: 600 0.62rem/1.4 Inter, system-ui, sans-serif;
+    color: var(--text-secondary);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.06);
+    animation: wr-unturn 60s linear infinite;
+  }
+  .wr-orbit-chip.is-ok { color: var(--good); border-color: color-mix(in srgb, var(--good) 40%, var(--border)); }
+  .wr-orbit-chip.is-date { color: var(--text-primary); }
+  .wr-watch-rabbit :global(svg) { animation: wr-bob 3.2s ease-in-out infinite; transform-origin: 50% 90%; filter: drop-shadow(0 6px 10px rgb(91 42 143 / 0.25)); }
+
+  @keyframes wr-sweep { to { transform: rotate(360deg); } }
+  @keyframes wr-turn { to { transform: rotate(360deg); } }
+  @keyframes wr-unturn { to { transform: rotate(-360deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .wr-hand-sweep, .wr-orbit, .wr-orbit-chip, .wr-watch-rabbit :global(svg) { animation: none; }
+  }
 </style>

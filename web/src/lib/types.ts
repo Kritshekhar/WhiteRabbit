@@ -15,13 +15,10 @@ export interface Venue {
   id: string;
   name: string;
   full_name: string;
-  tier: string;
   url: string;
   url_template: string;
   year: number | null;
   month: number | null;
-  stage: number;
-  stage_name: string;
   rolling: boolean;
   cycle_years: number;
   formats: string[];

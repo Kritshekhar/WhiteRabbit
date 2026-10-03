@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { AREAS, areaOf } from '@/lib/areas';
 import { getGrants, getVenues } from '@/lib/db';
 import { buildCalendar, grantIcsEvents, icsResponse, venueIcsEvents, type IcsEvent } from '@/lib/ics';
-import { AUDIENCE_ELIGIBILITY } from '@/lib/tiers';
+import { AUDIENCE_ELIGIBILITY } from '@/lib/labels';
 
 /* Subscribable feeds: every conference, one per research area, and funding
    by audience. Static files, regenerated on every build, so a subscribed

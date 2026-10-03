@@ -6,7 +6,7 @@ import ProceedingsVenue, { type YearRow } from '@/components/islands/Proceedings
 import VenuePicker, { type PickerVenue } from '@/components/islands/VenuePicker';
 import { Badge } from '@/components/ui/badge';
 import { latestCompleteYear, parseLinks, proceedingsFor, topicsFor, venueSummary, venuesWithData, yearStatus } from '@/lib/proceedings';
-import { RANK_SLOT, TIERS } from '@/lib/tiers';
+import { areaLabel, areaOf } from '@/lib/areas';
 import type { Venue } from '@/lib/types';
 import { href, venueHref } from '@/lib/utils';
 import SvgLine from '@/components/insights/SvgLine.astro';
@@ -36,7 +36,7 @@ const newcomers = authorStats.years.filter((y) => y.newcomer_share !== null);
    full form stays in the tooltip. */
 const displayName = (n: string) => n.replace(/ \d{4}$/, '');
 const procLink = (id: string) => href(`proceedings/${encodeURIComponent(id)}/`);
-const picker: PickerVenue[] = venuesWithData().map((v) => ({ id: v.id, name: v.name, full_name: v.full_name, tier: v.tier, latest: null }));
+const picker: PickerVenue[] = venuesWithData().map((v) => ({ id: v.id, name: v.name, full_name: v.full_name, area: areaLabel(areaOf(v)), latest: null }));
 ---
 
 <Layout title={`${venue.name} proceedings`} section="proceedings" image={`og/venue/${venue.id}.png`} description={`${venue.name} proceedings: papers per year since ${first}, keywords and topic trends.`}>
@@ -50,7 +50,6 @@ const picker: PickerVenue[] = venuesWithData().map((v) => ({ id: v.id, name: v.n
       {venue.full_name && <p class="text-lg text-fg-2">{venue.full_name}</p>}
       <div class="flex flex-wrap items-center gap-1.5">
         {venue.publisher && <Badge variant="publisher">{venue.publisher}</Badge>}
-        <Badge variant={RANK_SLOT[venue.tier] || 'off'}>{TIERS[venue.tier] || venue.tier}</Badge>
         <a class="ml-1 text-sm font-semibold text-accent hover:underline" href={venueHref(venue.id)}>Deadlines for {venue.name}</a>
       </div>
     </div>

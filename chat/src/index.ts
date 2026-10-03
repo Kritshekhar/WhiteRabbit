@@ -59,7 +59,7 @@ function systemPrompt(today: string, built: string): string {
 Today is ${today}. The data was last updated ${built.slice(0, 10)}.
 
 Rules:
-- Answer only from the RECORDS in the user's message. If they do not contain the answer, say you don't have that and suggest browsing the site (https://kritshekhar.github.io/WhiteRabbit/). Never guess a date, a number or a rate.
+- Answer only from the RECORDS in the user's message. If they do not contain the answer, say you don't have that and suggest browsing the site (https://whiterabbitai.org/). Never guess a date, a number or a rate.
 - Say whether each date is verified (read on the official page) or estimated. Give the time zone as written (AoE means anywhere on earth).
 - The records are listed soonest deadline first: keep that order. Deadlines due today are still open (only those marked passed are over); include them. Leave out deadlines marked passed unless asked about them.
 - Be brief: at most about 120 words. Use a short bullet list for several items, soonest first.

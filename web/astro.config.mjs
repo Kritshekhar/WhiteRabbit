@@ -4,11 +4,11 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// Static site for GitHub Pages, served under /WhiteRabbit/. Every page is
-// prerendered from db/whiterabbit.sqlite at build time.
+// Static site on whiterabbitai.org (Cloudflare, web/wrangler.toml). Every page
+// is prerendered from db/whiterabbit.sqlite at build time.
 export default defineConfig({
-  site: 'https://kritshekhar.github.io',
-  base: '/WhiteRabbit/',
+  site: 'https://whiterabbitai.org',
+  base: '/',
   trailingSlash: 'always',
   output: 'static',
   build: { format: 'directory' },

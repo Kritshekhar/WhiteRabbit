@@ -32,4 +32,4 @@ crons = ["17 3 * * *"]   # daily: delete questions older than a year
 [vars]
 MODEL = "@cf/google/gemma-4-26b-a4b-it"
 FALLBACK_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8"
-ALLOWED_ORIGINS = "https://whiterabbitai.org,https://www.whiterabbitai.org,https://kritshekhar.github.io,http://localhost:4321,http://127.0.0.1:4321"
+ALLOWED_ORIGINS = "https://whiterabbitai.org,https://www.whiterabbitai.org,http://localhost:4321,http://127.0.0.1:4321"
