@@ -11,6 +11,7 @@ on:
     workflows:
       - "White Rabbit - deploy to Pages"
       - "Validate data"
+      - "White Rabbit - chat assistant"
     types: [completed]
 
 permissions:
