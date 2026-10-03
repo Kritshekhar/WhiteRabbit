@@ -114,7 +114,7 @@ const who = whoOverall();
             {rated.map((r) => (
               <li class="flex flex-wrap items-center justify-between gap-2 py-2 text-sm">
                 <a class="font-semibold text-fg no-underline hover:text-accent" href={href(`proceedings/${r.id}/`)}>{r.name} <span class="font-normal text-muted">{r.year}</span>{r.kind === 'reported' && <span class="ml-2 rounded-md border border-border px-1.5 text-[0.65rem] font-semibold text-muted">reported</span>}</a>
-                <span class="flex items-center gap-3 font-mono text-xs tabular">
+                <span class="ml-auto flex items-center gap-3 font-mono text-xs tabular">
                   {r.submitted && <span class="text-muted">{r.accepted ? `${r.accepted} of ${r.submitted}` : `${r.submitted} submitted`}</span>}
                   <a class="text-base font-bold text-fg no-underline hover:text-accent" href={r.source} target="_blank" rel="noopener" title={r.kind === 'reported' ? 'Reported figure' : "Source: the program chairs' message"}>{(r.rate * 100).toFixed(1)}%</a>
                 </span>

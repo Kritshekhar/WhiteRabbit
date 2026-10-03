@@ -55,17 +55,17 @@ const toneOf = (v: Venue) => groups.find((g) => g.slugs.includes(areaOf(v)))?.to
 <div class="wr-planner card mt-6 overflow-hidden p-0" data-reveal>
   <!-- headline numbers -->
   <dl class="grid grid-cols-3 border-b border-border text-sm">
-    <div class="px-5 py-3">
+    <div class="px-3 py-3 sm:px-5">
       <dt class="text-xs text-muted">Next 3 months</dt>
       <dd class="mt-0.5"><span class="font-mono text-xl font-bold text-fg tabular">{nextThree}</span> <span class="text-fg-2">deadlines</span></dd>
     </div>
-    <div class="border-l border-border px-5 py-3">
+    <div class="border-l border-border px-3 py-3 sm:px-5">
       <dt class="text-xs text-muted">Busiest month</dt>
-      <dd class="mt-0.5"><span class="text-xl font-bold text-fg">{MONTH_NAMES[busiest]}</span> <span class="font-mono text-fg-2 tabular">{totals[busiest]}</span></dd>
+      <dd class="mt-0.5"><span class="text-xl font-bold text-fg"><span class="sm:hidden">{MONTHS[busiest]}</span><span class="hidden sm:inline">{MONTH_NAMES[busiest]}</span></span> <span class="font-mono text-fg-2 tabular">{totals[busiest]}</span></dd>
     </div>
-    <div class="border-l border-border px-5 py-3">
+    <div class="border-l border-border px-3 py-3 sm:px-5">
       <dt class="text-xs text-muted">Quietest month</dt>
-      <dd class="mt-0.5"><span class="text-xl font-bold text-fg">{MONTH_NAMES[quietest]}</span> <span class="font-mono text-fg-2 tabular">{totals[quietest]}</span></dd>
+      <dd class="mt-0.5"><span class="text-xl font-bold text-fg"><span class="sm:hidden">{MONTHS[quietest]}</span><span class="hidden sm:inline">{MONTH_NAMES[quietest]}</span></span> <span class="font-mono text-fg-2 tabular">{totals[quietest]}</span></dd>
     </div>
   </dl>
 

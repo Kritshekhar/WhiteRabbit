@@ -48,7 +48,8 @@ export function Row({ href, title, subtitle, tags, deadline, days, band, statusT
         {subtitle && <span className="block text-[0.8rem] break-words text-muted">{subtitle}</span>}
       </span>
       {tags && <span className="col-span-2 flex min-w-0 flex-wrap gap-1.5 lg:col-span-1">{tags}</span>}
-      <span className="min-w-0 text-[0.85rem]">
+      {/* with a countdown, phones give the date and the actions a line each */}
+      <span className={`min-w-0 text-[0.85rem] ${days !== null ? 'col-span-2 sm:col-span-1' : ''}`}>
         {deadline && deadline.ts ? (
           <span className="text-fg-2">
             <strong className="text-fg">{deadline.name}</strong>
@@ -64,9 +65,9 @@ export function Row({ href, title, subtitle, tags, deadline, days, band, statusT
       <span className="hidden text-right lg:block">
         {days !== null && <DaysLeft ts={deadline?.ts} days={days} band={band} />}
       </span>
-      <span className="flex items-center justify-end gap-0.5">
+      <span className={`flex items-center justify-end gap-0.5 ${days !== null ? 'col-span-2 sm:col-span-1' : ''}`}>
         {days !== null && (
-          <span className="mr-2 lg:hidden">
+          <span className="mr-auto sm:mr-2 lg:hidden">
             <DaysLeft ts={deadline?.ts} days={days} band={band} size="base" />
           </span>
         )}

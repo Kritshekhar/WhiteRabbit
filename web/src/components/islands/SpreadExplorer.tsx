@@ -88,9 +88,9 @@ export default function SpreadExplorer({ url }: { url: string }) {
           ))}
         </div>
         <label className="flex items-center gap-2 text-sm">
-          <span className="font-semibold text-fg-2">Any phrase</span>
+          <span className="shrink-0 font-semibold text-fg-2">Any phrase</span>
           <select value={term} onChange={(e) => setTerm(e.target.value)}
-            className="h-8 max-w-[14rem] cursor-pointer rounded-full border border-border bg-surface-1 px-3 text-[0.8rem] font-semibold">
+            className="h-8 max-w-[14rem] min-w-0 cursor-pointer rounded-full border border-border bg-surface-1 px-3 text-[0.8rem] font-semibold">
             {allTerms.map((t) => <option key={t} value={t}>{t}</option>)}
           </select>
         </label>
