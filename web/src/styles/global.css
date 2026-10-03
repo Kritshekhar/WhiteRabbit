@@ -128,11 +128,16 @@
   html {
     -webkit-text-size-adjust: 100%;
   }
+  /* Large displays: everything is sized in rem, so a slightly larger root
+     scales text, spacing and cards together instead of leaving wide margins. */
+  @media (min-width: 1680px) { html { font-size: 17px; } }
+  @media (min-width: 1920px) { html { font-size: 18px; } }
+  @media (min-width: 2400px) { html { font-size: 20px; } }
   body {
     background: var(--surface-0);
     color: var(--text-primary);
     font-family: var(--font-sans);
-    font-size: 15px;
+    font-size: 0.9375rem;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
@@ -154,9 +159,10 @@
 
 @layer components {
   .wrap {
-    width: min(1200px, 100% - 2rem);
+    width: min(75rem, 100% - 2rem);
     margin-inline: auto;
   }
+  @media (min-width: 1680px) { .wrap { width: min(84rem, 100% - 4rem); } }
   /* ambient wash behind the header, purely decorative */
   .glow {
     position: fixed;
