@@ -42,8 +42,11 @@ jobs:
               '{cardsV2: [{cardId: "whiterabbit", card: {
                  header: {title: "White Rabbit", subtitle: $s, imageUrl: $i, imageType: "SQUARE"},
                  sections: [{widgets: [{textParagraph: {text: $t}}]}]}}]}' \
-              | curl -sS -m 20 -o /dev/null -X POST \
-              -H 'Content-Type: application/json; charset=UTF-8' --data @- "$GOOGLE_CHAT_WEBHOOK" || true
+              | curl -sS -m 20 -o /tmp/chat.json -w '%{http_code}' -X POST \
+              -H 'Content-Type: application/json; charset=UTF-8' --data @- "$GOOGLE_CHAT_WEBHOOK" > /tmp/chat.code || true
+            # say what Google Chat answered, so a rejected message is visible in the log
+            echo "Google Chat: HTTP $(cat /tmp/chat.code)"
+            [ "$(cat /tmp/chat.code)" = 200 ] || head -c 600 /tmp/chat.json
           }
           if [ "$BRANCH" != "main" ]; then
             # checks on a pull request branch: say so only when they fail
