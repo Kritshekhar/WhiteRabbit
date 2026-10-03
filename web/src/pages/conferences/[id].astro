@@ -8,7 +8,6 @@ import { whoPublishes } from '@/lib/who';
 import { Badge } from '@/components/ui/badge';
 import { BUILT_AT, getVenues } from '@/lib/db';
 import { venueDigest } from '@/lib/insights';
-import { RANK_SLOT, TIERS } from '@/lib/tiers';
 import type { Venue } from '@/lib/types';
 import { href } from '@/lib/utils';
 import { venueLd } from '@/lib/seo';
@@ -34,7 +33,6 @@ const checked = venue.link_checked_on ? new Date(venue.link_checked_on).toISOStr
     <div class="flex flex-wrap gap-1.5 pt-1">
       {venue.publisher && <Badge variant="publisher">{venue.publisher}</Badge>}
       {venue.topics.map((t) => <Badge>{t}</Badge>)}
-      <Badge variant={RANK_SLOT[venue.tier] || 'off'}>{TIERS[venue.tier] || venue.tier}</Badge>
     </div>
   </header>
 
@@ -75,7 +73,6 @@ const checked = venue.link_checked_on ? new Date(venue.link_checked_on).toISOStr
         <h3 class="mb-2 text-xs font-semibold tracking-wide text-muted uppercase">Record</h3>
         <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-sm">
           {venue.year && <><dt class="text-muted">Edition</dt><dd>{venue.year}</dd></>}
-          <dt class="text-muted">Stage</dt><dd>{venue.stage}: {venue.stage_name}</dd>
           {venue.month && <><dt class="text-muted">Usually held</dt><dd>{new Date(Date.UTC(2000, venue.month - 1, 1)).toLocaleString('en', { month: 'long', timeZone: 'UTC' })}</dd></>}
           {venue.cycle_years > 1 && <><dt class="text-muted">Cycle</dt><dd>every {venue.cycle_years} years</dd></>}
           <dt class="text-muted">Link</dt><dd>{LINK[venue.link_status] ?? venue.link_status}{checked && ` (${checked})`}</dd>

@@ -8,14 +8,14 @@
 </p>
 
 <p align="center">
-  <a href="https://kritshekhar.github.io/WhiteRabbit/"><b>Open the site</b></a> ·
+  <a href="https://whiterabbitai.org/"><b>Open the site</b></a> ·
   <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
 <p align="center">
   <a href="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/update-deadlines.yml"><img alt="refresh" src="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/update-deadlines.yml/badge.svg"></a>
   <a href="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/validate.yml"><img alt="validate" src="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/validate.yml/badge.svg"></a>
-  <a href="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/deploy-pages.yml"><img alt="deploy" src="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/deploy-pages.yml/badge.svg"></a>
+  <a href="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/deploy.yml"><img alt="deploy" src="https://github.com/Kritshekhar/WhiteRabbit/actions/workflows/deploy.yml/badge.svg"></a>
 </p>
 
 ![The White Rabbit home page](docs/screenshot.png)
@@ -35,7 +35,7 @@ actually publish*.
 | **Grants** | federal and industry calls for faculty and PIs, filterable by funder and ACM classification |
 | **Fellowships** | PhD fellowships, with when each cycle usually opens |
 | **Proceedings** | papers per year over each venue's full history, its distinctive keywords and topics, rising and fading research phrases, where an idea spreads across venues, similar venues, author trends, and a link to every year's proceedings |
-| **About** | the stages a project moves through: workshop, full paper, journal |
+| **About** | what the site is, how dates are checked, and where the data comes from |
 
 Every conference page also summarises that venue's past proceedings: papers per
 year, growth, keywords, team size, how many papers come from entirely new
@@ -67,7 +67,7 @@ correct to the second even between builds.
 ## How it works
 
 ```
-data/whiterabbit.sql ──► scripts/db.py build ──► db/whiterabbit.sqlite ──► web/ (Astro) ──► GitHub Pages
+data/whiterabbit.sql ──► scripts/db.py build ──► db/whiterabbit.sqlite ──► web/ (Astro) ──► Cloudflare (whiterabbitai.org)
   private data repo         (gitignored)               ▲
                                                      │
    update.py · verify_deadlines.py · import_*.py · verify_grants.py · proceedings_*.py · wr.py
@@ -174,7 +174,7 @@ supported with `--firecrawl` if you have a key.
 git clone https://github.com/Kritshekhar/WhiteRabbit.git && cd WhiteRabbit
 git clone git@github.com:Kritshekhar/WhiteRabbit-data.git data   # the data (private, needs access)
 python3 scripts/db.py build                    # db/whiterabbit.sqlite from the dump
-cd web && npm install && npm run dev           # http://localhost:4321/WhiteRabbit/
+cd web && npm install && npm run dev           # http://localhost:4321/
 ```
 
 Only the venue importer needs a package (`pip install -r requirements.txt`).
@@ -197,7 +197,7 @@ In this repository:
 | Workflow | When | What it does |
 |---|---|---|
 | `validate.yml` | every PR | `db.py check`, requires a canonical dump, proves an offline build works |
-| `deploy-pages.yml` | push to `main`, and twice a day | builds the database and the Astro site, publishes to GitHub Pages |
+| `deploy.yml` | push to `main`, and twice a day | builds the database and the Astro site, publishes to whiterabbitai.org on Cloudflare |
 | `chat.yml` | changes to `chat/` | deploys the chat Worker to Cloudflare |
 | `notify-failure.yml` | after each deploy and check | opens an issue when the deploy fails, closes it when it next succeeds, and posts to Google Chat |
 
@@ -219,7 +219,8 @@ site picks the changes up at its next scheduled build.
 Fork it, create a private data repository with your own dump at
 `whiterabbit.sql` (start from `wr.py add-venue`), give this repository a read
 deploy key to it as the `DATA_DEPLOY_KEY` secret, change the repository names
-in the workflows, and enable **Settings → Pages → Source: GitHub Actions**.
+in the workflows and in `web/wrangler.toml`, and add a Cloudflare API token as the
+`CLOUDFLARE_API_TOKEN` secret.
 
 ## Data sources
 

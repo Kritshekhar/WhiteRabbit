@@ -199,7 +199,7 @@ export default function ChatWidget() {
     <>
       {open && (
         <section role="dialog" aria-label="Ask White Rabbit"
-          className="fixed right-3 bottom-24 z-50 flex max-h-[min(36rem,calc(100dvh-7rem))] w-[min(24rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-2xl border border-border bg-surface-1 shadow-card sm:right-5">
+          className="fixed right-3 bottom-32 z-50 flex max-h-[min(36rem,calc(100dvh-7rem))] w-[min(24rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-2xl border border-border bg-surface-1 shadow-card sm:right-5">
           <header className="flex items-center gap-2.5 border-b border-border px-4 py-3">
             <span className="grid size-9 place-items-center rounded-xl bg-surface-2"><Mark className="size-6" /></span>
             <div className="min-w-0 flex-1">
@@ -272,10 +272,10 @@ export default function ChatWidget() {
 
       <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open}
         aria-label={open ? 'Close the White Rabbit assistant' : 'Ask White Rabbit'} title={open ? 'Close' : 'Ask White Rabbit'}
-        className={`wr-chat-fab group fixed right-3 bottom-3 z-50 grid size-[4.5rem] cursor-pointer place-items-center rounded-full border border-border bg-surface-1 shadow-card transition hover:scale-105 hover:border-accent sm:right-5 sm:bottom-5 ${open ? 'is-open' : ''}`}>
+        className={`wr-chat-fab group fixed right-2 bottom-2 z-50 grid h-28 w-24 cursor-pointer place-items-center bg-transparent transition hover:scale-110 sm:right-4 sm:bottom-4 ${open ? 'is-open' : ''}`}>
         <span className="wr-chat-halo" aria-hidden="true" />
-        <Mark className="wr-chat-mark h-[3.6rem] w-auto" />
-        {open && <span aria-hidden="true" className="absolute -top-1 -right-1 grid size-5 place-items-center rounded-full bg-fg text-[0.7rem] leading-none text-surface-1">×</span>}
+        <Mark className="wr-chat-mark h-[5.75rem] w-auto" />
+        {open && <span aria-hidden="true" className="absolute top-1 right-1 grid size-6 place-items-center rounded-full bg-fg text-[0.7rem] leading-none text-surface-1">×</span>}
         {!open && (
           <span className="pointer-events-none absolute right-[calc(100%+0.6rem)] rounded-lg bg-fg px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-surface-1 opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100">
             Ask White Rabbit

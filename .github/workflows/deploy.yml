@@ -1,15 +1,9 @@
-name: White Rabbit - deploy to Pages
+name: White Rabbit - deploy
 
-# Split from the refresh workflow on purpose: the data rebuild must stay green
-# and visible even when publishing is blocked (a private repo on a plan without
-# Pages fails here, and that should not look like a broken build).
-#
-# The site is built by Astro (web/) from the database, which is rebuilt from
-# the dump in the private data repository first. Every page is static;
-# countdowns run in the browser.
-#
-# Requires, one time:
-#   Settings -> Pages -> Source: GitHub Actions
+# Builds the site with Astro (web/) from the database, which is rebuilt from
+# the dump in the private data repository first, and publishes it to
+# whiterabbitai.org on Cloudflare (web/wrangler.toml), with www redirected
+# (edge/). Every page is static; countdowns run in the browser.
 
 on:
   push:
@@ -24,11 +18,9 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: deploy
   cancel-in-progress: false
 
 jobs:
@@ -77,17 +69,10 @@ jobs:
           python scripts/chat_knowledge.py > chat/knowledge.json
           cd chat && npx --yes wrangler@4 kv key put knowledge --path knowledge.json --binding KNOWLEDGE --remote
 
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: web/dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Publish to whiterabbitai.org
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          (cd web && npx --yes wrangler@4 deploy)
+          (cd edge && npx --yes wrangler@4 deploy)

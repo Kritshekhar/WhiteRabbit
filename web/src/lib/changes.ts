@@ -3,7 +3,7 @@
 import { areaOf } from './areas';
 import { getChanges, type ChangeRow } from './db';
 import { fmtDate, isAoE, offsetMinutes } from './dates';
-import { AUDIENCE_ELIGIBILITY } from './tiers';
+import { AUDIENCE_ELIGIBILITY } from './labels';
 import { grantHref, venueHref } from './utils';
 
 export interface ChangeItem {

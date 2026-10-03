@@ -8,7 +8,7 @@
 import type { Grant, Venue } from './types';
 import type { Round } from './dates';
 
-export const HOME = 'https://kritshekhar.github.io/WhiteRabbit/';
+export const HOME = 'https://whiterabbitai.org/';
 export const REPO = 'https://github.com/Kritshekhar/WhiteRabbit';
 
 /* Every event carries where it came from. A calendar entry outlives the tab it

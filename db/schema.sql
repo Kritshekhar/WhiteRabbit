@@ -28,8 +28,6 @@ CREATE TABLE venues (
   position        INTEGER NOT NULL,               -- display order, as curated
   name            TEXT NOT NULL UNIQUE,
   full_name       TEXT NOT NULL DEFAULT '',
-  tier            TEXT NOT NULL DEFAULT 'full-house'
-                  CHECK (tier IN ('rabbit-hole', 'royal-flush', 'full-house', 'looking-glass')),
   url             TEXT NOT NULL DEFAULT '' CHECK (url = '' OR url LIKE 'http%'),
   url_template    TEXT NOT NULL DEFAULT '',
   year            INTEGER,                        -- the cycle `url` points at

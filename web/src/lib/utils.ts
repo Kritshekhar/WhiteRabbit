@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-/* Every internal link goes through here so it carries the /WhiteRabbit/ base. */
+/* Every internal link goes through here, so it carries the site's base path. */
 const BASE = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 
 export function href(path = ''): string {

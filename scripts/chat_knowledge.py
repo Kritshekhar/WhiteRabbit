@@ -21,7 +21,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import db  # noqa: E402
 
-HOME = "https://kritshekhar.github.io/WhiteRabbit/"
+HOME = "https://whiterabbitai.org/"
 
 # the same grouping as the site's areas (web/src/lib/areas.ts)
 AREAS = {

@@ -11,6 +11,8 @@ import { eventDetails, grantEvent, HOME, venueEvent, type CalendarEvent } from '
 import { isAoE, offsetMinutes, type Round } from './dates';
 import type { Deadline, Grant, Venue } from './types';
 
+// part of each event's UID; unchanged since the first feeds, so a re-subscribed
+// calendar recognises its events instead of duplicating them
 const DOMAIN = 'whiterabbit.kritshekhar.github.io';
 const KEEP_PAST_DAYS = 30;
 

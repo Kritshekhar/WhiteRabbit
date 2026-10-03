@@ -2,7 +2,7 @@ import { CalendarSync } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { decorate, fmtDate } from '@/lib/dates';
 import { grantEvent } from '@/lib/calendar';
-import { AUDIENCE_ELIGIBILITY, GOVERNMENT, GRANT_BANDS, WHO_SLOT, grantStatus, type Audience } from '@/lib/tiers';
+import { AUDIENCE_ELIGIBILITY, GOVERNMENT, GRANT_BANDS, WHO_SLOT, grantStatus, type Audience } from '@/lib/labels';
 import type { Grant } from '@/lib/types';
 import { grantHref, href } from '@/lib/utils';
 import { Badge } from '../ui/badge';

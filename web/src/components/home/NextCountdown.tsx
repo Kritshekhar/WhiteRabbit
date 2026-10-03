@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { decorate, fmtDate, isAoE } from '@/lib/dates';
 import { eventDetails, googleCalendarUrl } from '@/lib/calendar';
-import { GRANT_BANDS, VENUE_BANDS } from '@/lib/tiers';
+import { GRANT_BANDS, VENUE_BANDS } from '@/lib/labels';
 import type { UpcomingEntry } from '../islands/UpcomingDeadlines';
 import { Provenance } from '../Provenance';
 import { ArrowIcon, CalendarIcon } from '../Icons';

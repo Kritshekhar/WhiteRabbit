@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { getGrants } from '@/lib/db';
 import { pngResponse, renderOg } from '@/lib/og';
 import { grantCard } from '@/lib/ogcards';
-import { AUDIENCE_ELIGIBILITY } from '@/lib/tiers';
+import { AUDIENCE_ELIGIBILITY } from '@/lib/labels';
 import type { Grant } from '@/lib/types';
 
 export function getStaticPaths() {

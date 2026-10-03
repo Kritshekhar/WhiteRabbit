@@ -1,0 +1,6 @@
+# Sends www.whiterabbitai.org to whiterabbitai.org with a permanent redirect.
+name = "whiterabbit-www"
+main = "www.js"
+compatibility_date = "2026-09-01"
+
+routes = [{ pattern = "www.whiterabbitai.org", custom_domain = true }]

@@ -9,7 +9,7 @@ name: Alert and post updates when a job finishes
 on:
   workflow_run:
     workflows:
-      - "White Rabbit - deploy to Pages"
+      - "White Rabbit - deploy"
       - "Validate data"
       - "White Rabbit - chat assistant"
     types: [completed]
@@ -35,7 +35,7 @@ jobs:
           GOOGLE_CHAT_WEBHOOK: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
         run: |
           # a Chat card with the site's logo; the text uses the card's HTML subset
-          SITE="https://kritshekhar.github.io/WhiteRabbit/"
+          SITE="https://whiterabbitai.org/"
           chat() {
             [ -n "$GOOGLE_CHAT_WEBHOOK" ] || return 0
             jq -n --arg t "$1" --arg s "$JOB" --arg i "${SITE}apple-touch-icon.png" \
@@ -61,8 +61,8 @@ jobs:
               gh issue close "$OPEN" --comment "Recovered: the $EVENT run at $WHEN succeeded ($RUN_URL)."
               echo "closed #$OPEN"
               chat "✅ <b>Recovered</b>: the $EVENT run succeeded. <a href=\"$RUN_URL\">Open the run</a>"
-            elif [ "$JOB" = "White Rabbit - deploy to Pages" ]; then
-              chat "🚀 <b>Site published</b> ($EVENT): <a href=\"$SITE\">kritshekhar.github.io/WhiteRabbit</a> · <a href=\"$RUN_URL\">run</a>"
+            elif [ "$JOB" = "White Rabbit - deploy" ]; then
+              chat "🚀 <b>Site published</b> ($EVENT): <a href=\"$SITE\">whiterabbitai.org</a> · <a href=\"$RUN_URL\">run</a>"
             fi
             exit 0
           fi

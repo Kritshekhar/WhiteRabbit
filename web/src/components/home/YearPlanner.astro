@@ -42,15 +42,13 @@ const busiest = totals.indexOf(Math.max(...totals));
 const quietest = totals.indexOf(Math.min(...totals));
 const nextThree = ahead.reduce((n, m) => n + totals[m], 0);
 
-/* Venues per month, best-known first, for the side panel. */
-const TIER = ['A*', 'A', 'B', 'C'];
-const rank = (v: Venue) => (TIER.includes(v.tier) ? TIER.indexOf(v.tier) : TIER.length);
+/* Venues per month, alphabetically, for the side panel. */
 const byMonth: Venue[][] = MONTHS.map(() => []);
 for (const v of venues) {
   const m = deadlineMonth(v);
   if (m !== null) byMonth[m].push(v);
 }
-byMonth.forEach((list) => list.sort((a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name)));
+byMonth.forEach((list) => list.sort((a, b) => a.name.localeCompare(b.name)));
 const SHOWN = 14;
 const toneOf = (v: Venue) => groups.find((g) => g.slugs.includes(areaOf(v)))?.tone ?? 'var(--plan-0)';
 ---

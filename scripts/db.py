@@ -74,15 +74,7 @@ TABLES = {
 # SQLite caps a multi-row VALUES list at 500 rows.
 CHUNK = 400
 
-VALID_TIERS = ("rabbit-hole", "royal-flush", "full-house", "looking-glass")
 ELIGIBILITY = ("PhD student", "Postdoc", "Early-career faculty", "Faculty / PI")
-# A venue's place on a project's path - see the About page.
-STAGES = {
-    "rabbit-hole":   (1, "Rabbit Hole"),
-    "royal-flush":   (2, "Wonderland"),
-    "full-house":    (2, "Wonderland"),
-    "looking-glass": (3, "Looking Glass"),
-}
 
 
 def slugify(text: str) -> str:
@@ -264,10 +256,10 @@ def insert_venue(conn: sqlite3.Connection, v: dict) -> str:
     """Add a venue (as update.normalise() shapes it) at the end of the list."""
     position = conn.execute("SELECT coalesce(max(position), 0) + 1 FROM venues").fetchone()[0]
     conn.execute(
-        "INSERT INTO venues (id, position, name, full_name, tier, url, url_template, year, month, "
+        "INSERT INTO venues (id, position, name, full_name, url, url_template, year, month, "
         "rolling, cycle_years, formats, tracks, topics, publisher, notes) "
-        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        (v["id"], position, v["name"], v["full_name"], v["tier"], v["url"], v["url_template"],
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        (v["id"], position, v["name"], v["full_name"], v["url"], v["url_template"],
          v["year"], v["month"], int(v["rolling"]), v["cycle_years"], jdump(v["formats"]),
          jdump(v["tracks"]), jdump(v["topics"]), v["publisher"], v["notes"]))
     for i, d in enumerate(v["deadlines"]):
@@ -317,18 +309,14 @@ def venue_records(conn: sqlite3.Connection) -> list[dict]:
         rows = conn.execute(
             "SELECT * FROM deadlines WHERE venue_id = ? AND cycle_year IS ? ORDER BY position",
             (v["id"], v["year"])).fetchall()
-        stage = STAGES.get(v["tier"], (2, ""))
         out.append({
             "id": v["id"],
             "name": v["name"],
             "full_name": v["full_name"],
-            "tier": v["tier"],
             "url": v["url"],
             "url_template": v["url_template"],
             "year": v["year"],
             "month": v["month"],
-            "stage": stage[0],
-            "stage_name": stage[1],
             "rolling": bool(v["rolling"]),
             "cycle_years": v["cycle_years"],
             "formats": jload(v["formats"], []),

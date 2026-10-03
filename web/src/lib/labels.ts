@@ -1,24 +1,6 @@
-/* Vocabulary shared by every page, defined once. Previously copied between
-   assets/app.js, venue.js and grants.js. */
+/* Labels and urgency bands shared by every page, defined once. */
 
 import type { Band } from './dates';
-
-/* Not a ranking - a project's path: workshop, then full paper, then journal.
-   Stage 2 is the only one with grades. The About page explains it. */
-export const TIERS: Record<string, string> = {
-  'rabbit-hole': 'Rabbit Hole',
-  'royal-flush': 'Royal Flush',
-  'full-house': 'Full House',
-  'looking-glass': 'Looking Glass',
-};
-
-/* Maps a rank to a colour slot, so styling never knows the names. */
-export const RANK_SLOT: Record<string, 'top' | 'mid' | 'base' | 'off'> = {
-  'rabbit-hole': 'base',
-  'royal-flush': 'top',
-  'full-house': 'mid',
-  'looking-glass': 'off',
-};
 
 /* Urgency bands. `color` is a status token; `label` always ships beside it,
    so the state never depends on colour alone. */
