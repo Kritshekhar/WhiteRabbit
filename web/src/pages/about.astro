@@ -62,7 +62,7 @@ const sources = [
 
 <Layout title="About" section="about" description="White Rabbit tracks computer science deadlines, grants, fellowships and proceedings statistics, with every date checked against its official source.">
   <article class="mx-auto max-w-4xl space-y-12">
-    <header class="wr-about-hero card relative grid items-center gap-6 overflow-hidden p-6 sm:grid-cols-[1fr_19rem] sm:p-8">
+    <header class="wr-about-hero card relative grid items-center gap-6 overflow-hidden p-6 lg:grid-cols-[1fr_24rem] sm:p-8">
       <div class="relative z-10">
         <p class="wr-eyebrow">About</p>
         <h1 class="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">About White Rabbit</h1>
@@ -78,7 +78,7 @@ const sources = [
 
       <!-- the pocket watch: a dial with a sweeping hand, upcoming deadlines
            orbiting like its hours, and the rabbit at the centre -->
-      <div class="wr-watch relative mx-auto aspect-square w-[15rem] max-w-full" aria-hidden="true">
+      <div class="wr-watch relative mx-auto aspect-square w-[22rem] max-w-full" aria-hidden="true">
         <svg class="absolute inset-0 size-full" viewBox="0 0 200 200">
           <circle cx="100" cy="100" r="96" class="wr-watch-rim" />
           <circle cx="100" cy="100" r="88" class="wr-watch-face" />
@@ -95,7 +95,7 @@ const sources = [
             </span>
           ))}
         </div>
-        <div class="wr-watch-rabbit absolute inset-0 grid place-items-center"><BrandMark class="h-[4.4rem] w-auto" /></div>
+        <div class="wr-watch-rabbit absolute inset-0 grid place-items-center"><BrandMark class="h-[6.5rem] w-auto" /></div>
       </div>
     </header>
 
@@ -138,12 +138,13 @@ const sources = [
 
     <section aria-labelledby="sources-h">
       <h2 id="sources-h" class="text-xl font-bold tracking-tight">Sources</h2>
-      <ul class="mt-4 flex flex-wrap gap-2">
+      <ul class="card mt-4 divide-y divide-border p-0">
         {sources.map((src) => (
-          <li>
+          <li class="flex flex-col gap-0.5 px-4 py-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
             {src.url
-              ? <a href={src.url} target="_blank" rel="noopener" title={src.note} class="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-1 px-3 py-1.5 text-sm font-semibold text-fg no-underline hover:border-accent hover:text-accent">{src.name} <span class="font-normal text-muted">· {src.note}</span></a>
-              : <span class="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-1 px-3 py-1.5 text-sm font-semibold">{src.name} <span class="font-normal text-muted">· {src.note}</span></span>}
+              ? <a href={src.url} target="_blank" rel="noopener" class="font-semibold text-fg no-underline hover:text-accent">{src.name} ↗</a>
+              : <span class="font-semibold">{src.name}</span>}
+            <span class="text-sm text-muted sm:text-right">{src.note}</span>
           </li>
         ))}
       </ul>
@@ -164,6 +165,8 @@ const sources = [
       radial-gradient(50% 80% at 0% 100%, color-mix(in srgb, var(--mark-1) 12%, transparent), transparent 70%),
       var(--surface-1);
   }
+  /* the orbit scales with the watch, so it fits a phone as well */
+  .wr-watch { container-type: inline-size; }
   .wr-watch-rim { fill: none; stroke: color-mix(in srgb, var(--mark-2) 35%, var(--border)); stroke-width: 3; }
   .wr-watch-face { fill: color-mix(in srgb, var(--surface-0) 70%, transparent); stroke: var(--border); stroke-width: 1; }
   .wr-tick { stroke: var(--border-strong); stroke-width: 1; }
@@ -174,7 +177,7 @@ const sources = [
 
   /* each chip sits on the ring; the ring turns, the chip turns back to stay upright */
   .wr-orbit { animation: wr-turn 60s linear infinite; }
-  .wr-orbit-slot { position: absolute; left: 50%; top: 50%; transform: rotate(var(--a)) translateY(-6.1rem) rotate(calc(-1 * var(--a))); }
+  .wr-orbit-slot { position: absolute; left: 50%; top: 50%; transform: rotate(var(--a)) translateY(-41cqi) rotate(calc(-1 * var(--a))); }
   .wr-orbit-chip {
     display: block;
     translate: -50% -50%;
@@ -182,8 +185,8 @@ const sources = [
     border-radius: 999px;
     border: 1px solid var(--border);
     background: var(--surface-1);
-    padding: 0.15rem 0.55rem;
-    font: 600 0.62rem/1.4 Inter, system-ui, sans-serif;
+    padding: 0.22rem 0.7rem;
+    font: 600 clamp(0.6rem, 3.3cqi, 0.74rem)/1.4 Inter, system-ui, sans-serif;
     color: var(--text-secondary);
     box-shadow: 0 2px 8px rgb(0 0 0 / 0.06);
     animation: wr-unturn 60s linear infinite;
