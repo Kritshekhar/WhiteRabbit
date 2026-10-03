@@ -203,7 +203,7 @@ export default function ProceedingsVenue({ rows, topics, keywordsUrl, defaultYea
 
       <Panel title="Year by year">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[420px] text-sm">
+          <table className="w-full min-w-[560px] text-sm">
             <thead className="text-left text-xs text-muted uppercase">
               <tr><th className="py-1.5 pr-4">Year</th><th className="py-1.5 pr-4 text-right">Papers (DBLP)</th>{rates.length > 0 && <th className="py-1.5 pr-4 text-right">Acceptance</th>}<th className="py-1.5 pr-4">Status</th><th className="py-1.5">Read the proceedings</th></tr>
             </thead>
@@ -225,7 +225,7 @@ export default function ProceedingsVenue({ rows, topics, keywordsUrl, defaultYea
                       )}
                     </td>
                   )}
-                  <td className="py-1.5 pr-4"><YearBadge row={r} /></td>
+                  <td className="py-1.5 pr-4 whitespace-nowrap"><YearBadge row={r} /></td>
                   <td className="py-1.5"><VolumeLinks links={r.links} compact /></td>
                 </tr>
               ))}

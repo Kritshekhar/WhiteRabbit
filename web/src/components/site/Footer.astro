@@ -3,7 +3,8 @@ import { href } from '@/lib/utils';
 ---
 
 <footer class="mt-10 border-t border-border">
-  <div class="wrap space-y-3 py-8 text-sm text-fg-2">
+  <!-- extra bottom room on phones, so the chat button does not cover the last line -->
+  <div class="wrap space-y-3 pt-8 pb-24 text-sm text-fg-2 sm:pb-8">
     <slot />
     <p>
       Dates marked <span class="rounded-md border border-warning/50 bg-warning/12 px-1.5 text-[0.7rem] font-semibold">est.</span>

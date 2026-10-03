@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { href } from '@/lib/utils';
 import { SearchIcon } from '../Icons';
 
@@ -25,6 +25,15 @@ const askAI = (q: string) => window.dispatchEvent(new CustomEvent('wr:ask', { de
 export default function HomeSearch({ entries }: { entries: SearchEntry[] }) {
   const [q, setQ] = useState('');
   const [active, setActive] = useState(-1);   // keyboard selection; -1 = none, 0 = the AI row when shown
+  // a phone-width box has room for only a few words of placeholder
+  const [narrow, setNarrow] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 639px)');
+    const update = () => setNarrow(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
   const query = q.trim();
   const question = AI && QUESTION.test(query);
 
@@ -78,7 +87,7 @@ export default function HomeSearch({ entries }: { entries: SearchEntry[] }) {
           if (e.key === 'ArrowUp') { e.preventDefault(); setActive((a) => Math.max(-1, a - 1)); }
           if (e.key === 'Escape') { setQ(''); setActive(-1); }
         }}
-        placeholder={AI ? 'Search a venue or grant, or ask a question…' : 'Search OSDI, NeurIPS, NSF CAREER, fellowships...'}
+        placeholder={narrow ? (AI ? 'Search a venue, or ask…' : 'Search OSDI, NSF CAREER…') : AI ? 'Search a venue or grant, or ask a question…' : 'Search OSDI, NeurIPS, NSF CAREER, fellowships...'}
         className={`h-[3.1rem] w-full rounded-2xl border border-border bg-surface-1 pl-12 text-base text-fg shadow-card placeholder:text-muted ${AI ? 'pr-36 sm:pr-44' : 'pr-24'}`}
         aria-controls="home-hits"
         aria-activedescendant={active >= 0 ? `home-hit-${active}` : undefined}
@@ -99,9 +108,9 @@ export default function HomeSearch({ entries }: { entries: SearchEntry[] }) {
           {rows.map((h, i) => h === null ? (
             <li key="ai" id={`home-hit-${i}`} role="option" aria-selected={active === i}>
               <button type="button" onClick={() => askAI(query)}
-                className={`flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-left hover:bg-surface-2 ${active === i ? 'bg-surface-2' : ''}`}>
-                <span className="w-20 shrink-0 text-[0.7rem] font-semibold tracking-wide text-accent uppercase">✨ Ask AI</span>
-                <span className="min-w-0">
+                className={`flex w-full cursor-pointer flex-col items-start rounded-lg px-3 py-2 text-left hover:bg-surface-2 sm:flex-row sm:items-center sm:gap-3 ${active === i ? 'bg-surface-2' : ''}`}>
+                <span className="shrink-0 text-[0.7rem] font-semibold tracking-wide text-accent uppercase sm:w-20">✨ Ask AI</span>
+                <span className="w-full min-w-0 sm:w-auto">
                   <span className="block truncate font-semibold text-fg">“{query}”</span>
                   <span className="block truncate text-xs text-muted">White Rabbit answers from its deadlines, grants and proceedings data</span>
                 </span>
@@ -109,9 +118,9 @@ export default function HomeSearch({ entries }: { entries: SearchEntry[] }) {
             </li>
           ) : (
             <li key={h.href} id={`home-hit-${i}`} role="option" aria-selected={active === i}>
-              <a href={h.href} className={`flex items-center gap-3 rounded-lg px-3 py-2 no-underline hover:bg-surface-2 ${active === i ? 'bg-surface-2' : ''}`}>
-                <span className="w-20 shrink-0 text-[0.7rem] font-semibold tracking-wide text-muted uppercase">{h.kind}</span>
-                <span className="min-w-0">
+              <a href={h.href} className={`flex flex-col rounded-lg px-3 py-2 no-underline sm:flex-row sm:items-center sm:gap-3 hover:bg-surface-2 ${active === i ? 'bg-surface-2' : ''}`}>
+                <span className="shrink-0 text-[0.7rem] font-semibold tracking-wide text-muted uppercase sm:w-20">{h.kind}</span>
+                <span className="w-full min-w-0 sm:w-auto">
                   <span className="block truncate font-semibold text-fg">{h.name}</span>
                   {h.sub && <span className="block truncate text-xs text-muted">{h.sub}</span>}
                 </span>
